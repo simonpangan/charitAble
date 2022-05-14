@@ -180,7 +180,7 @@
                            <div class="status-indicator bg-success"></div>
                         </div>
                         <div class="fw-bold">
-                           <div class="text-truncate">Gurdeep Osahan</div>
+                           <div class="text-truncate">"AAAH FUCK!!"</div>
                            <div class="small text-gray-500">UI/UX Designer</div>
                         </div>
                      </div>
@@ -611,6 +611,6 @@
 
 <script>
 export default {
-	
+
 }
 </script>
