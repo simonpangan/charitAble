@@ -2,6 +2,10 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ {
+    LoginController,
+    RegisterController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Index');
-});
+Route::get('/', fn() => Inertia::render('Index'));
+Route::get('/home', fn() => Inertia::render('Home'));
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm']);
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/login', [LoginController::class, 'showLoginForm']);
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return Inertia::render('Home');
-});
