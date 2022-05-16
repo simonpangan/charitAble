@@ -44,6 +44,11 @@ class RegisterController extends Controller
         return Inertia::render('Auth/Register');
     }
 
+    public function showRegistrationStep2Form()
+    {
+        return Inertia::render('Auth/Register-Step2');
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -63,7 +68,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'firstName' => ['required', 'string', 'max:55'],
+            'lastName' => ['required', 'string', 'max:55'],
             /*
                 email validation
                 https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
@@ -76,6 +82,7 @@ class RegisterController extends Controller
                             ->numbers()
                             ->symbols()
                         ],
+
         ]);
     }
 
@@ -88,9 +95,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'lastName' => $data['lastName'],
+            'firstName' => $data['firstName'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'isSetupCompleted' => $data['isSetupCompleted']
         ]);
     }
 }

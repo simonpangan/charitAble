@@ -138,6 +138,10 @@ img {
   vertical-align: middle;
 }
 
+label {
+  display: inline-block;
+}
+
 button {
   border-radius: 0;
 }
@@ -164,11 +168,13 @@ button {
 }
 
 button,
-[type=button] {
+[type=button],
+[type=submit] {
   -webkit-appearance: button;
 }
 button:not(:disabled),
-[type=button]:not(:disabled) {
+[type=button]:not(:disabled),
+[type=submit]:not(:disabled) {
   cursor: pointer;
 }
 
@@ -272,6 +278,11 @@ progress {
   }
 }
 @media (min-width: 768px) {
+
+  .col-md-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
 
   .col-md-6 {
     flex: 0 0 auto;
@@ -1140,6 +1151,14 @@ textarea.form-control {
   box-shadow: none !important;
 }
 
+.position-relative {
+  position: relative !important;
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
 .border {
   border: 1px solid #dee2e6 !important;
 }
@@ -1164,8 +1183,16 @@ textarea.form-control {
   max-width: 100% !important;
 }
 
+.vh-100 {
+  height: 100vh !important;
+}
+
 .flex-shrink-1 {
   flex-shrink: 1 !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
 }
 
 .align-items-center {
@@ -1179,6 +1206,11 @@ textarea.form-control {
 .mx-1 {
   margin-right: 0.25rem !important;
   margin-left: 0.25rem !important;
+}
+
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
 
 .my-2 {
@@ -1210,6 +1242,10 @@ textarea.form-control {
   margin-right: 1rem !important;
 }
 
+.me-5 {
+  margin-right: 3rem !important;
+}
+
 .me-auto {
   margin-right: auto !important;
 }
@@ -1226,8 +1262,16 @@ textarea.form-control {
   margin-bottom: 1rem !important;
 }
 
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
 .ms-1 {
   margin-left: 0.25rem !important;
+}
+
+.ms-2 {
+  margin-left: 0.5rem !important;
 }
 
 .ms-auto {
@@ -1252,6 +1296,16 @@ textarea.form-control {
   padding-left: 1rem !important;
 }
 
+.px-5 {
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+}
+
+.py-3 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
 .py-4 {
   padding-top: 1.5rem !important;
   padding-bottom: 1.5rem !important;
@@ -1265,6 +1319,10 @@ textarea.form-control {
   padding-right: 1.5rem !important;
 }
 
+.pb-3 {
+  padding-bottom: 1rem !important;
+}
+
 .ps-4 {
   padding-left: 1.5rem !important;
 }
@@ -1275,6 +1333,10 @@ textarea.form-control {
 
 .text-center {
   text-align: center !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
 }
 
 /* rtl:begin:remove */

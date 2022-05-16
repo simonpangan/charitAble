@@ -23,6 +23,8 @@ Route::get('/home', fn() => Inertia::render('Home'));
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm']);
 Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/register-Step2', [RegisterController::class, 'showRegistrationStep2Form']);
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm']);
 
