@@ -1,6 +1,7 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ {
     LoginController,
@@ -18,15 +19,16 @@ use App\Http\Controllers\Auth\ {
 |
 */
 
-Route::get('/', fn() => Inertia::render('Index'));
-Route::get('/home', fn() => Inertia::render('Home'));
+Route::get('/', fn() => Inertia::render('Index'))->name('index');
+Route::get('/home', fn() => Inertia::render('Home'))->name('home');
 
-Route::get('/register', [RegisterController::class, 'showRegistrationForm']);
-Route::post('/register', [RegisterController::class, 'register']);
-Route::get('/register-Step2', [RegisterController::class, 'showRegistrationStep2Form']);
+Route::post('/register', [RegisterController::class, 'register'])->name('register.store');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.index');
+Route::get('/register-Step2', [RegisterController::class, 'showRegistrationStep2Form'])->name('register.index2');
 
-
-Route::get('/login', [LoginController::class, 'showLoginForm']);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.index');
 
 Auth::routes();
+
 
