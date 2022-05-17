@@ -34,22 +34,6 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\View\View
-     */
-
-    public function showRegistrationForm()
-    {
-        return Inertia::render('Auth/Register');
-    }
-
-    public function showRegistrationStep2Form()
-    {
-        return Inertia::render('Auth/Register-Step2');
-    }
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -101,5 +85,20 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'isSetupCompleted' => $data['isSetupCompleted']
         ]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        return Inertia::render('Auth/Register');
+    }
+
+    public function showRegistrationStep2Form()
+    {
+        return Inertia::render('Auth/Register-Step2');
     }
 }
