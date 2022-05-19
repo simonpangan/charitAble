@@ -4,7 +4,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ {
     LoginController,
-    RegisterController
+    RegisterController,
+    GoogleLoginController,
 };
 
 /*
@@ -20,13 +21,25 @@ use App\Http\Controllers\Auth\ {
 
 Route::get('/', fn() => Inertia::render('Index'))->name('index');
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register.store');
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.index');
-Route::get('/register-Step2', [RegisterController::class, 'showRegistrationStep2Form'])->name('register.index2');
+Route::name('register.')->group(function () {
+    Route::post('/register', [RegisterController::class, 'register'])->name('store');
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('index');
+    Route::get('/register-Step2', [RegisterController::class, 'showRegistrationStep2Form'])->name('index2');
+});
 
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.index');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+Route::name('auth.')->group(function () {
+    Route::get('/logout', [LoginController::class, 'logout'])
+        ->name('logout')
+        ->middleware('auth');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('index');
+
+    Route::name('google.')->group(function () {
+        Route::get('/login-google-callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+        Route::get('/login-google', [GoogleLoginController::class, 'redirectToGoogle'])->name('index');
+    });
+});
+
 
 Auth::routes();
 
