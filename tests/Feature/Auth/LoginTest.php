@@ -4,13 +4,15 @@ use App\Models\User;
 use function Pest\Laravel\post;
 use Illuminate\Support\Facades\Hash;
 use \App\Providers\RouteServiceProvider;
+use Inertia\Testing\AssertableInertia as Assert;
 use function Pest\Laravel\withoutExceptionHandling;
-
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('shows the login page')
     ->get('/login')
-    ->assertOk();
+    ->assertOk()
+    ->assertInertia(fn (Assert $page) => $page
+        ->component('Auth/Login')
+    );
 
 it('redirects authenticated user', function () {
     expect(User::factory()->create())->toBeRedirectedFor(url: '/login', to: RouteServiceProvider::HOME);
@@ -29,9 +31,21 @@ it('logs the user in')
         post('/login', [
             'email' => $user->email,
             'password' => 'simonpangan11'
-        ])->assertRedirect(RouteServiceProvider::HOME);
+        ]);
     })
     ->assertAuthenticated();
+
+it('redirects to correct route when the user logs in')
+    ->tap(function () {
+        $user = User::factory()->create([
+            'password' => Hash::make('simonpangan11')
+        ]);
+
+        post('/login', [
+            'email' => $user->email,
+            'password' => 'simonpangan11'
+        ])->assertRedirect(RouteServiceProvider::HOME);
+    });
 
 it('shows error when tries to login 5 times per minute')
     ->tap(function () {
@@ -52,7 +66,4 @@ it('shows error when tries to login 5 times per minute')
     })
     ->assertAuthenticated();
 
-it('uses correct hash algorithm', function () {
-    dump(Hash::make('simonpangan11'));
-});
 
