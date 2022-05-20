@@ -60,7 +60,7 @@ import { useForm } from "@inertiajs/inertia-vue3"
 
 let routes = {
     google: route('auth.google.index'),
-    login: route('login')
+    login: route('auth.login')
 }
 
 let form = useForm({
