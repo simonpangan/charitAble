@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,6 @@ Route::middleware('guest')
 Route::middleware('auth')
     ->group(base_path('routes/auth.php'));
 
-
 // Routes that can be access both by authenticated and unauthenticated users
 
-Route::get('/', fn() => Inertia::render('Index'))->name('index');
+Route::inertiaView('/', component: 'Index')->name('index');
