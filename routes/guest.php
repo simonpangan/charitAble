@@ -1,11 +1,11 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ {
     LoginController,
     RegisterController,
     GoogleLoginController,
+    ResetPasswordController,
     ForgotPasswordController,
 };
 
@@ -32,8 +32,11 @@ Route::name('auth.')->group(function () {
     });
 
     Route::name('password.')->group(function () {
-        Route::get('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('email');
+        Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('email');
         Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('request');
+
+        Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('update');
+        Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('reset');
     });
 });
 
