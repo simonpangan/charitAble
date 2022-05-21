@@ -39,10 +39,6 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
-
-        Route::macro('inertiaView', function (string $uri, string $component, $props = []) {
-            return $this->get($uri, fn() => Inertia::render($component, $props));
-        });
     }
 
     /**

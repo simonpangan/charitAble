@@ -20,4 +20,4 @@ Route::middleware('auth')
 
 // Routes that can be access both by authenticated and unauthenticated users
 
-Route::inertiaView('/', component: 'Index')->name('index');
+Route::inertia('/', 'Index')->name('index');
