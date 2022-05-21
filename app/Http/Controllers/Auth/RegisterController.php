@@ -49,13 +49,8 @@ class RegisterController extends Controller
                 https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
             */
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'confirmed',
-                        Password::min(8)
-                            ->letters()
-                            ->mixedCase()
-                            ->numbers()
-                            ->symbols()
-                        ],
+            //Password default validations is in the AppServiceProvider
+            'password' => ['required', 'string', 'confirmed', Password::defaults()],
 
         ]);
     }
