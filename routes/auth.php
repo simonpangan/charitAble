@@ -1,6 +1,5 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,4 +11,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', fn() => Inertia::render('Home'))->name('home');
+Route::middleware('role:ADMIN')->group(function () {
+    Route::inertia('/admin', 'Benefactor/Index')->name('admin.index');
+});
+
+Route::middleware('role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN')->group(function () {
+    Route::inertia('/charity', 'Charity/Index')->name('charity.index');
+});
+
+Route::middleware('role:BENEFACTOR')->group(function () {
+    Route::inertia('/benefactor', 'Benefactor/Index')->name('benefactor.index');
+});

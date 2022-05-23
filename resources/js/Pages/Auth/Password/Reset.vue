@@ -34,9 +34,6 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 
-const routes = {
-    passwordUpdate: route('auth.password.update'),
-}
 
 let props = defineProps({
     token: String,
@@ -51,6 +48,6 @@ let form = useForm({
 });
 
 let submit = () => {
-    form.post('/users');
+    form.post(route('auth.password.update'));
 }
 </script>

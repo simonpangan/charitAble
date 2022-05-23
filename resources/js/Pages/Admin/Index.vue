@@ -1,5 +1,5 @@
 <template>
-	Landing Page
+	 ADMIN Index
 </template>
 
 <script>

@@ -39,7 +39,7 @@
                         <div class="text-center mt-3 border-bottom pb-3">
                             <p class="small text-muted">Or login with</p>
                             <div class="text-center">
-                                <a :href="routes.google" class="btn btn-sm b   tn-outline-instagram btn-block px-5">
+                                  <a :href="$route('auth.google.index')" class="btn btn-sm b   tn-outline-instagram btn-block px-5">
                                     <i class="feather-instagram"></i> Sign Up Using Google
                                 </a>
                             </div>
@@ -58,17 +58,12 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3"
 
-let routes = {
-    google: route('auth.google.index'),
-    login: route('auth.login')
-}
-
 let form = useForm({
     email: '',
     password: '',
 })
 
 let submit = () => {
-    form.post(routes.login);
+    form.post(route('auth.login'));
 }
 </script>
