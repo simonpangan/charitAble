@@ -19,8 +19,11 @@ require('laravel-mix-purgecss');
 	.sass('resources/sass/bootstrap.scss', 'public/css')
      .purgeCss({
          enabled: true,
-         content: ['resources/js/Pages/**/*.vue'],
-         css: ['public/css/bootstrap.css']
+         content: [
+             'resources/js/Pages/**/*.vue',
+             'resources/views/**/*.blade.php',
+         ],
+         css: ['public/css/bootstrap.css'],
      })
 	.sourceMaps()
 	.version();
