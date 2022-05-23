@@ -14,8 +14,3 @@ createInertiaApp({
       return VueApp;
   },
 })
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b9b856d93d5a7d894d4a9f01bd063ebaaf24f806
