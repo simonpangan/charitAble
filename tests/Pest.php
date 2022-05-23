@@ -59,3 +59,9 @@ function expectGuest()
 {
     return test()->expect(null);
 }
+
+
+function checkRoleMiddleware($request, $next, ...$roles)
+{
+    return  (new \App\Http\Middleware\RoleChecker())->handle($request, $next, ...$roles);
+}
