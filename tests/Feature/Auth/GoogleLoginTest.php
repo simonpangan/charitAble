@@ -17,11 +17,32 @@ it('login using google', function () {
 
     Socialite::shouldReceive('driver->user')->andReturn($abstractUser);
 
-    get('login-google-callback')
-        ->assertRedirect(RouteServiceProvider::HOME);
+    $routeName = RouteServiceProvider::HOME['BENEFACTOR'];
 
-    get(RouteServiceProvider::HOME)
+    get('login-google-callback')
+        ->assertRedirect(route($routeName));
+
+    get(route($routeName))
         ->assertInertia(fn (Assert $page) => $page
-            ->component('Home')
+            ->component('Benefactor/Index')
+        );
+});
+
+
+it('renders the correct component', function () {
+    $abstractUser = mock('Laravel\Socialite\Two\User');
+    $abstractUser->email = 'simon_pangan@yahoo.com';
+    $abstractUser->user['given_name'] = 'simon';
+    $abstractUser->user['family_name'] = 'pangan';
+
+    Socialite::shouldReceive('driver->user')->andReturn($abstractUser);
+
+    $routeName = RouteServiceProvider::HOME['BENEFACTOR'];
+
+    get('login-google-callback');
+
+    get(route($routeName))
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Benefactor/Index')
         );
 });
