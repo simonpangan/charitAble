@@ -1,5 +1,5 @@
 <template>
-	Landing Page
+	 Benefactor Index
 </template>
 
 <script>

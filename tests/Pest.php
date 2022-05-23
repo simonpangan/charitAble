@@ -10,8 +10,10 @@
 | need to change it using the "uses()" function to bind a different classes or traits.
 |
 */
+use Illuminate\Contracts\Auth\Authenticatable;
 
 uses(Tests\TestCase::class)->in('Feature', 'Unit');
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class)->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +26,19 @@ uses(Tests\TestCase::class)->in('Feature', 'Unit');
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeRedirectedFor', function (String $url, String $to, String $method = 'get') {
+    $response = null;
 
+    if (! $this->value) {
+        $response = test()->{$method}($url);
+    } else {
+        $response = actingAs($this->value)->{$method}($url);
+    }
+
+    $response->assertRedirect($to);
+
+    return  $response->assertStatus(302);
+});
 /*
 |--------------------------------------------------------------------------
 | Functions
@@ -39,7 +50,18 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function actingAs(Authenticatable $user)
 {
-    // ..
+    return test()->actingAs($user);
+}
+
+function expectGuest()
+{
+    return test()->expect(null);
+}
+
+
+function checkRoleMiddleware($request, $next, ...$roles)
+{
+    return  (new \App\Http\Middleware\RoleChecker())->handle($request, $next, ...$roles);
 }

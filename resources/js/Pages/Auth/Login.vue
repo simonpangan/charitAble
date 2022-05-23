@@ -39,14 +39,14 @@
                         <div class="text-center mt-3 border-bottom pb-3">
                             <p class="small text-muted">Or login with</p>
                             <div class="text-center">
-                                <button type="button" class="btn btn-sm btn-outline-instagram btn-block px-5"><i
-                                    class="feather-instagram"></i> Sign Up Using Google
-                                </button>
+                                  <a :href="$route('auth.google.index')" class="btn btn-sm b   tn-outline-instagram btn-block px-5">
+                                    <i class="feather-instagram"></i> Sign Up Using Google
+                                </a>
                             </div>
                         </div>
                         <div class="py-3 d-flex align-item-center">
                             <a href="forgot-password.html">Forgot password?</a>
-                            <span class="ml-auto"> New to Osahanin? <a class="font-weight-bold" href="sign-up.html">Join now</a></span>
+                            <span class="ml-auto"> New to Osahanin? <a class="font-weight-bold">Join now</a></span>
                         </div>
                     </form>
                 </div>
@@ -64,6 +64,6 @@ let form = useForm({
 })
 
 let submit = () => {
-    form.post(route('login'));
+    form.post(route('auth.login'));
 }
 </script>

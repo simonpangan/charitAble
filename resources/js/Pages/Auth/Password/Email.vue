@@ -1,5 +1,5 @@
 <template>
-	Landing Page
+    <h1>Change Password</h1>
 </template>
 
 <script>
@@ -7,5 +7,3 @@ export default {
 
 }
 </script>
-
-TEll me about yourself

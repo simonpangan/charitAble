@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Traits\RedirectTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -31,17 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    use RedirectTo;
 
     /**
      * Get a validator for an incoming registration request.
@@ -59,13 +49,8 @@ class RegisterController extends Controller
                 https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
             */
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'confirmed',
-                        Password::min(8)
-                            ->letters()
-                            ->mixedCase()
-                            ->numbers()
-                            ->symbols()
-                        ],
+            //Password default validations is in the AppServiceProvider
+            'password' => ['required', 'string', 'confirmed', Password::defaults()],
 
         ]);
     }

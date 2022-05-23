@@ -90,8 +90,8 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
+            'expire' => 30, // Allows token will expire in 30 mins
+            'throttle' => 60, // Allows a user to request 1 token per 60 seconds
         ],
     ],
 

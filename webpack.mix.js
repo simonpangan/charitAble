@@ -27,3 +27,4 @@ require('laravel-mix-purgecss');
      })
 	.sourceMaps()
 	.version();
+

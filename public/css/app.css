@@ -38,120 +38,12 @@ p {
 
 /* End Slider */
 /* Top Nav */
-.navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.osahan-nav-top .container {
-  padding: 0 16px;
-}
-.osahan-nav-top .img-profile {
-  width: 30px;
-  height: 30px;
-}
-.osahan-nav-top .navbar-brand img {
-  height: 31px;
-  margin: -4px 0 0 0;
-}
-.osahan-nav-top .osahan-list-dropdown .nav-link i {
-  font-size: 16px;
-}
-.osahan-nav-top .osahan-list-dropdown .nav-link .badge {
-  position: absolute;
-  border-radius: 50px;
-  min-width: 15px;
-  height: 15px;
-  font-size: 9px;
-  padding: 0px;
-  right: 1px;
-  line-height: 15px;
-  top: 11px;
-}
-.osahan-nav-top .nav-link {
-  position: relative;
-  height: 55px;
-  display: flex;
-  align-items: center;
-}
-.osahan-nav-top .navbar-search .form-control {
-  background: #132028;
-}
-.osahan-nav-top .navbar-search .btn {
-  background: #132028 !important;
-  color: #74828e;
-}
-
-.dropdown-list {
-  padding: 0;
-  border: none;
-  overflow: hidden;
-  width: 20rem !important;
-}
-.dropdown-list .dropdown-item {
-  white-space: normal;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-left: 1px solid #e3e6f0;
-  border-right: 1px solid #e3e6f0;
-  border-bottom: 1px solid #e3e6f0;
-  line-height: 1.3rem;
-}
-.dropdown-list .dropdown-header {
-  background-color: #1d2f38;
-  border: 1px solid #1d2f38;
-  color: #fff;
-  font-weight: 800;
-  font-size: 14px;
-  padding: 0.8rem 1rem;
-}
-.dropdown-list .icon-circle {
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 /* End Top Nav */
 /* Card Design */
-.box.border {
-  border: 1px solid #ffffff !important;
-}
-
-.shadow-sm {
-  box-shadow: 0 6px 22px 0 rgba(0, 0, 0, 0.08) !important;
-}
 
 /* End Card Design */
 /* Tab Design */
-.osahan-line-tab .nav-link {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 1rem !important;
-  color: #888da8;
-  position: relative;
-}
-.osahan-line-tab .nav-link.active {
-  color: #007bff;
-}
-.osahan-line-tab .nav-link.active:after {
-  content: "";
-  /* ff3.6+ */
-  /* safari4+,chrome */
-  /* safari5.1+,chrome10+ */
-  /* opera 11.10+ */
-  /* ie10+ */
-  background: linear-gradient(256deg, #00c9e4 0%, #007bff 100%);
-  /* w3c */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#007bff", endColorstr="#00c9e4",GradientType=1 );
-  /* ie6-9 */
-  height: 3px;
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-}
 
 /* End Tab */
 /* Login Page Designs */
@@ -190,39 +82,12 @@ label {
 
 /* End Login Page Designs */
 /* People List */
-.people-list .fw-bold {
-  font-weight: 500 !important;
-  word-break: break-all;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.people-list .btn-sm {
-  font-size: 0.8rem;
-}
-.people-list .fw-bold div {
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
 
 /* End People List */
 /* Job List */
-.job-item-header .img-fluid {
-  width: 40px;
-  height: 40px;
-}
 
 /* End Job List */
 /* Network Item */
-.overlap-rounded-circle {
-  margin-right: 9px;
-  padding-left: 9px;
-}
-.overlap-rounded-circle .rounded-circle {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #fff;
-  margin: 0 0 0 -9px;
-}
 
 /* End Network Item */
 /* FAQ */
@@ -236,28 +101,6 @@ label {
 /* End Blog */
 /* Gallery / Review */
 
-.gallery-box-main {
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.gallery-box {
-  align-items: center;
-  display: flex;
-  margin-bottom: 2px;
-  justify-content: space-between;
-}
-.gallery-box:last-child {
-  margin-bottom: 0px;
-}
-.gallery-box img {
-  width: 34%;
-  border-right: 2px solid transparent;
-}
-.gallery-box img:last-child {
-  margin-right: 0px;
-}
-
 /* End Gallery / Review */
 /* Extra */
 a {
@@ -268,7 +111,7 @@ div, a {
   outline: none !important;
 }
 
-.col, .col-12, .col-6, .col-lg-12, .col-lg-6, .col-md-12, .col-md-4, .col-md-6, .col-md-8, .col-sm-12, .col-sm-6, .col-xl-3, .col-xl-6 {
+.col, .col-md-4, .col-md-6, .col-md-8 {
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -278,65 +121,16 @@ div, a {
   margin-left: -8px;
 }
 
-.osahan-share-post textarea {
-  resize: none;
-}
-
-.text-success {
-  color: #00c9a7 !important;
-}
-
 .text-danger {
   color: #de4437 !important;
 }
 
-.text-info {
-  color: #00dffc !important;
-}
-
-.bg-success {
-  background-color: #00c9a7 !important;
-}
-
-.bg-warning {
-  background-color: #ffc107 !important;
-}
-
-.badge-danger {
-  color: #fff;
-  background-color: #de4437;
-}
-
-.badge-info {
-  color: #1e2022;
-  background-color: #00dffc;
-}
-
-.border, .card {
+ .card {
   border: 1px solid #eaebec !important;
-}
-
-.border-top {
-  border-top: 1px solid #eaebec !important;
 }
 
 .border-bottom {
   border-bottom: 1px solid #eaebec !important;
-}
-
-.border-right {
-  border-right: 1px solid #eaebec !important;
-}
-
-.btn-light {
-  color: #007bff;
-  background-color: #ebf2ff;
-  border-color: #ebf2ff;
-}
-.btn-light:hover {
-  color: #007bff;
-  background-color: #ffffff;
-  border-color: #007bff;
 }
 
 .btn-primary {
@@ -352,174 +146,14 @@ div, a {
   border-color: #007bff;
 }
 
-.text-gold {
-  color: #d3ac2b;
-}
-
-.btn-outline-gold {
-  color: #d3ac2b;
-  border-color: #d3ac2b;
-}
-.btn-outline-gold:hover {
-  color: #ffffff;
-  background-color: #d3ac2b;
-  border-color: #d3ac2b;
-}
-
-.dropdown-menu {
-  border-color: #eaebec;
-}
-
-.dropdown-item {
-  padding: 6px 1rem;
-}
-
-.btn-outline-secondary {
-  color: #b7b9cc;
-  border-color: #b7b9cc;
-}
-.btn-outline-secondary:hover, .btn-outline-secondary:focus {
-  color: #ffffff;
-  border-color: #b7b9cc;
-  background-color: #b7b9cc;
-}
-
-.bg-dark {
-  background: #1d2f38 !important;
-}
-
 .form-control, .btn {
   font-size: 13px;
-}
-
-.text-dark {
-  color: #1d2f38 !important;
 }
 
 .small, small {
   font-size: 12px;
 }
 
-.no-arrow .dropdown-toggle::after {
-  display: none;
-}
-
-.text-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.dropdown .dropdown-menu, .dropdown-item {
-  font-size: 0.85rem;
-}
-
-.text-gray-500 {
-  color: #b7b9cc !important;
-}
-
-.dropdown-list-image {
-  position: relative;
-  height: 2.5rem;
-  width: 2.5rem;
-}
-.dropdown-list-image img {
-  height: 2.5rem;
-  width: 2.5rem;
-}
-.dropdown-list-image .status-indicator {
-  background-color: #eaecf4;
-  height: 0.75rem;
-  width: 0.75rem;
-  border-radius: 100%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border: 0.125rem solid #fff;
-}
-
 /* Extra End */
 /* Mobile Media */
-@media (max-width: 768px) {
-  .osahan-nav-top .dropdown-menu {
-    width: 100% !important;
-  }
-  .osahan-nav-top .nav-item.dropdown {
-    position: unset;
-  }
-
-  .osahan-line-tab .nav-link {
-    font-size: 13px;
-  }
-}
 /* End Mobile Media */
-ul.ks-cboxtags {
-  list-style: none;
-  padding: 20px;
-}
-
-ul.ks-cboxtags li {
-  display: inline;
-}
-
-ul.ks-cboxtags li label {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(139, 139, 139, 0.3);
-  color: #adadad;
-  border-radius: 25px;
-  white-space: nowrap;
-  margin: 3px 0px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: all 0.2s;
-}
-
-ul.ks-cboxtags li label {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-ul.ks-cboxtags li label::before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 12px;
-  padding: 2px 6px 2px 2px;
-  content: "\f067";
-  transition: transform 0.3s ease-in-out;
-}
-
-ul.ks-cboxtags li input[type=checkbox]:checked + label::before {
-  content: "\f00c";
-  transform: rotate(-360deg);
-  transition: transform 0.3s ease-in-out;
-}
-
-ul.ks-cboxtags li input[type=checkbox]:checked + label {
-  border: 2px solid #1bdbf8;
-  background-color: #12bbd4;
-  color: #fff;
-  transition: all 0.2s;
-}
-
-ul.ks-cboxtags li input[type=checkbox] {
-  display: absolute;
-}
-
-ul.ks-cboxtags li input[type=checkbox] {
-  position: absolute;
-  opacity: 0;
-}
-
-ul.ks-cboxtags li input[type=checkbox]:focus + label {
-  border: 2px solid #e9a1ff;
-}
