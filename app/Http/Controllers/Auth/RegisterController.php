@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Traits\RedirectTo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    use RedirectTo;
 
     /**
      * Get a validator for an incoming registration request.

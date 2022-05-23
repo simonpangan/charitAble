@@ -20,7 +20,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = [
+        'ADMIN' => 'admin.index',
+        'CHARITY_SUPER_ADMIN'  => 'charity.index',
+        'CHARITY_ADMIN'  => 'charity.index',
+        'BENEFACTOR'  => 'benefactor.index',
+    ];
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
