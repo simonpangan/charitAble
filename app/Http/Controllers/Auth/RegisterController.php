@@ -77,13 +77,13 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
+    public function showCharityRegistrationForm()
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/CharityRegister');
     }
 
-    public function showRegistrationStep2Form()
+    public function showBenefactorRegistrationForm()
     {
-        return Inertia::render('Auth/Register-Step2');
+        return Inertia::render('Auth/BenefactorRegister');
     }
 }
