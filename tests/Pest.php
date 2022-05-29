@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
+
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -10,7 +15,6 @@
 | need to change it using the "uses()" function to bind a different classes or traits.
 |
 */
-use Illuminate\Contracts\Auth\Authenticatable;
 
 uses(Tests\TestCase::class)->in('Feature', 'Unit');
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class)->in('Feature', 'Unit');
@@ -26,7 +30,7 @@ uses(\Illuminate\Foundation\Testing\RefreshDatabase::class)->in('Feature', 'Unit
 |
 */
 
-expect()->extend('toBeRedirectedFor', function (String $url, String $to, String $method = 'get') {
+expect()->extend('toBeRedirectedForUrl', function (String $url, String $to = null, String $method = 'get') {
     $response = null;
 
     if (! $this->value) {
@@ -39,6 +43,33 @@ expect()->extend('toBeRedirectedFor', function (String $url, String $to, String 
 
     return  $response->assertStatus(302);
 });
+
+expect()->extend('toBeRedirectedForRoute', function (String $route, String $to = null, String $method = 'get') {
+    $response = null;
+
+    if (! $this->value) {
+        $response = test()->{$method}(route($route));
+    } else {
+        $response = actingAs($this->value)->{$method}(route($route));
+    }
+
+    if (! is_null($to)) {
+        $response->assertRedirect(route($to));
+    }
+
+    return  $response->assertStatus(302);
+});
+
+expect()->extend('canAccessUrl', function (String $url, String $to = null, String $method = 'get') {
+    if (! $this->value) {
+        $response = test()->{$method}($url);
+    } else {
+        $response = actingAs($this->value)->{$method}($url);
+    }
+
+    return  $response->assertOk();
+});
+
 /*
 |--------------------------------------------------------------------------
 | Functions
@@ -50,18 +81,77 @@ expect()->extend('toBeRedirectedFor', function (String $url, String $to, String 
 |
 */
 
-function actingAs(Authenticatable $user)
-{
-    return test()->actingAs($user);
-}
+//Expects
 
 function expectGuest()
 {
     return test()->expect(null);
 }
 
-
-function checkRoleMiddleware($request, $next, ...$roles)
-{
-    return  (new \App\Http\Middleware\RoleChecker())->handle($request, $next, ...$roles);
+function expectAuthUser() {
+    return test()->expect(createUser());
 }
+
+function expectAuthVerifiedUser() {
+    return test()->expect(createUser());
+}
+
+function expectAuthUserWithRole(String $role) {
+    return test()->expect(createUserWithRole($role));
+}
+
+function expectUnverifiedUser() {
+    return test()->expect(createUnverifiedUser());
+}
+
+//Create
+function createAuthUserWithRole(String $role) {
+    return actingAs(createUserWithRole($role));
+}
+
+function createAuthUnverifiedUser() {
+    return actingAs(createUnverifiedUser());
+}
+
+function createAuthUser() {
+    return actingAs(createUser());
+}
+
+function createUser() {
+    return User::factory()->create();
+}
+
+function createUserWithRole($role) {
+    return User::factory()->create([
+        'role_id' => Role::USERS[$role]
+    ]);
+}
+
+function createUnverifiedUser() {
+    return User::factory()->unverified()->create();
+}
+
+//----
+
+function actingAs(Authenticatable $user)
+{
+    return test()->actingAs($user);
+}
+
+function getRoute(String $routename, Array $parameters = [])
+{
+    return test()->get(route($routename, $parameters));
+}
+
+function postRoute(String $routeName, Array $parameters = [])
+{
+    return test()->post(route($routeName), $parameters);
+}
+
+function withoutMiddleware()
+{
+    return test()->withoutMiddleware();
+}
+
+
+

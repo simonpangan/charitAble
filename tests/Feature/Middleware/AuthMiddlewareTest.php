@@ -1,9 +1,6 @@
 <?php
 
 
-use App\Providers\RouteServiceProvider;
-
-
 beforeEach(function () {
     Route::get('/middleware-auth-test', function () {
         return 'nice';
@@ -21,6 +18,7 @@ it('does not allow unauthenticated user to access the route')
 test('only authenticated user can access the routes')
     ->with([
         'Logout' => ['auth.logout'],
+        'Email Verification Resent' => ['auth.verification.send'],
     ])
     ->tap(function ($route) {
         $this->assertRouteUsesMiddleware($route, ['auth']);

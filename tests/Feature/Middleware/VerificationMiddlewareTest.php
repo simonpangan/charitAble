@@ -1,9 +1,5 @@
 <?php
 
-use App\Providers\RouteServiceProvider;
-use function Pest\Laravel\get;
-use \Symfony\Component\HttpFoundation\Response;
-
 
 beforeEach(function () {
     Route::get('/middleware-test', function () {
@@ -11,7 +7,7 @@ beforeEach(function () {
     })->middleware('verified:auth.verification.notice');
 });
 
-it('does not allow unverified user to access the route')
+it('redirects unverified user')
     ->tap(function () {
         expectUnverifiedUser()
             ->toBeRedirectedForUrl('/middleware-test', to: route('auth.verification.notice'));

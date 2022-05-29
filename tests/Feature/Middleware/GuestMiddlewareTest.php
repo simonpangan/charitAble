@@ -2,7 +2,6 @@
 
 use App\Providers\RouteServiceProvider;
 
-
 beforeEach(function () {
     Route::get('/middleware-test', function () {
         return 'nice';
