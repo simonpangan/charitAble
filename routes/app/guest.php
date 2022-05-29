@@ -19,10 +19,6 @@ use App\Http\Controllers\Auth\ {
 */
 
 Route::name('auth.')->group(function () {
-//    Route::get('/logout', [LoginController::class, 'logout'])
-//        ->name('logout')
-//        ->middleware('auth');
-
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('index');
 
@@ -42,8 +38,6 @@ Route::name('auth.')->group(function () {
 
 Route::name('register.')->group(function () {
     Route::post('/register', [RegisterController::class, 'register'])->name('store');
-    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('index');
-    Route::get('/register-Step2', [RegisterController::class, 'showRegistrationStep2Form'])->name('index2');
+    Route::get('/register/benefactor', [RegisterController::class, 'showBenefactorRegistrationForm'])->name('benefactor');
+    Route::get('/register/charity', [RegisterController::class, 'showCharityRegistrationForm'])->name('charity');
 });
-
-//Auth::routes();

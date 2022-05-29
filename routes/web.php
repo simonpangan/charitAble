@@ -13,10 +13,10 @@
 */
 
 Route::middleware('guest')
-    ->group(base_path('routes/guest.php'));
+    ->group(base_path('routes/app/guest.php'));
 
 Route::middleware('auth')
-    ->group(base_path('routes/auth.php'));
+    ->group(base_path('routes/app/auth.php'));
 
 // Routes that can be access both by authenticated and unauthenticated users
 
