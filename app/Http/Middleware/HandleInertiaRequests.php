@@ -36,8 +36,22 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            //
-        ]);
+        $sharedProps = [
+            'flash' => [
+                'message' => fn () => $request->session()->get('message')
+            ],
+        ];
+
+
+        if ($request->getPathInfo() === "/email/verify") {
+            $sharedProps = array_merge($sharedProps, [
+                'flash' => [
+                    'resent' => fn () => $request->session()->get('resent'),
+                ],
+            ]);
+        }
+
+
+        return array_merge(parent::share($request), $sharedProps);
     }
 }

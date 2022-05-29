@@ -1,11 +1,16 @@
 <?php
 
+
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+
+use Inertia\Inertia;
 use App\Traits\RedirectTo;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+
 
 class VerificationController extends Controller
 {
@@ -29,15 +34,11 @@ class VerificationController extends Controller
      */
     use RedirectTo;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+
+    public function show(Request $request)
     {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : Inertia::render('Auth/Verify');
     }
 }
