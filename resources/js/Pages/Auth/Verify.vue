@@ -1,7 +1,7 @@
 <template>
     <h2>EMAIL VERIFICATION</h2>
     <div class="card-body">
-        <div v-if="$page.props.flash.message" class="alert alert-success" role="alert">
+        <div v-if="$page.props.flash.resent" class="alert alert-success" role="alert">
             A fresh verification link has been sent to your email address.
         </div>
 

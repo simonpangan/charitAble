@@ -16,13 +16,14 @@
         <div class="row mb-3">
             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirm Password</label>
             <div class="col-md-6">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" v-model="form.password_confirmation" required autocomplete="new-password">
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                       v-model="form.password_confirmation" required autocomplete="new-password">
             </div>
         </div>
         <div>
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" :disabled="form.processing" class="btn btn-primary">
                         Reset Password
                     </button>
                 </div>
@@ -33,7 +34,6 @@
 
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
-
 
 let props = defineProps({
     token: String,
