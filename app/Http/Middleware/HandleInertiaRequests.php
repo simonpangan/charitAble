@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -42,15 +43,17 @@ class HandleInertiaRequests extends Middleware
             ],
         ];
 
-
         if ($request->getPathInfo() === "/email/verify") {
-            $sharedProps = array_merge($sharedProps, [
-                'flash' => [
-                    'resent' => fn () => $request->session()->get('resent'),
-                ],
-            ]);
+            $sharedProps = Arr::add(
+                $sharedProps, 'flash.resent', fn () => $request->session()->get('resent')
+            );
         }
 
+        if ($request->getPathInfo() === "/password/reset") {
+            $sharedProps = Arr::add(
+                $sharedProps, 'flash.status', fn () => $request->session()->get('status')
+            );
+        }
 
         return array_merge(parent::share($request), $sharedProps);
     }
