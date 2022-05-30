@@ -56,6 +56,6 @@ class RoleChecker
 
     private function abortForbiddenUser()
     {
-        abort(Response::HTTP_UNAUTHORIZED);
+        abort(Response::HTTP_FORBIDDEN);
     }
 }
