@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 
 use App\Models\User;
@@ -7,6 +7,8 @@ use \Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Testing\AssertableInertia as Assert;
 
+
+const ROUTE_LOGIN_POST  = 'auth.login';
 
 //Route Test
 it('shows the login page')
@@ -71,7 +73,7 @@ it('shows error when tries to login 6 times per minute')
 
         $response->assertSessionHasErrors([
             'email' => 'Too many login attempts. Please try again in 60 seconds.'
-        ]);
+        ]); 
     });
 
 
@@ -89,7 +91,7 @@ it('logs the user in')
         ]);
     })
     ->assertAuthenticated();
-
+    
 it('redirects to correct route when the verified user logs in')
     ->tap(function () {
         $user = User::factory()->create([
@@ -103,3 +105,11 @@ it('redirects to correct route when the verified user logs in')
     });
 
 
+//Manual Test
+it('requires user to login again after 1 min', function () {
+    // Working
+})->skip();
+    
+it('destroy session when the user close the browser', function () {
+    // Working
+})->skip();
