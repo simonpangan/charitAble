@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <input type="checkbox" v-model="form.remember" class="custom-control-input" name="remember">
                             <label class="custom-control-label" for="customCheck1">Remember password</label>
                         </div>
                         <div class="text-center">
@@ -70,6 +70,7 @@ import { useForm } from "@inertiajs/inertia-vue3"
 let form = useForm({
     email: '',
     password: '',
+    remember: '',
 })
 
 
