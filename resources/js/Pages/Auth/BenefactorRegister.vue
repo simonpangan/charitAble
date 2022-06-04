@@ -1,5 +1,4 @@
 <template>
-    <div class="section">
         <div class="container">
             <div class="row justify-content-center align-items-center d-flex vh-100">
                 <form @submit.prevent="submit">
@@ -76,7 +75,7 @@
                                                     <small>{{ v$.email.$errors[0].$message }}</small>
                                                 </p>
                                             </div>
-                                            <div v-if="errors.email">{{ errors.email }}</div>
+                                            <div class="text-danger" v-if="errors.email">{{ errors.email }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -96,6 +95,7 @@
                                                 <small
                                                 ><p
                                                     style="color: green"
+                                                    class="nmb-1"
                                                     v-if="!v$.password.containsSpecial.$invalid"
                                                 >
                                                     &check; Passwords requires an special character.
@@ -104,6 +104,7 @@
                                                 <small
                                                 ><p
                                                     style="color: orange"
+                                                    class="nmb-1"
                                                     v-if="v$.password.containsSpecial.$invalid"
                                                 >
                                                     &#10006; Passwords requires an special character.
@@ -112,6 +113,7 @@
                                                 <small
                                                 ><p
                                                     style="color: green"
+                                                    class="nmb-1"
                                                     v-if="!v$.password.containsNumber.$invalid"
                                                 >
                                                     &check; Passwords requires an numerical character.
@@ -120,6 +122,7 @@
                                                 <small
                                                 ><p
                                                     style="color: orange"
+                                                    class="nmb-1"
                                                     v-if="v$.password.containsNumber.$invalid"
                                                 >
                                                     &#10006; Passwords requires an numerical character.
@@ -128,6 +131,7 @@
                                                 <small
                                                 ><p
                                                     style="color: green"
+                                                    class="nmb-1"
                                                     v-if="!v$.password.containsLowercase.$invalid"
                                                 >
                                                     &check; Passwords requires an lower case character.
@@ -136,6 +140,7 @@
                                                 <small
                                                 ><p
                                                     style="color: orange"
+                                                    class="nmb-1"
                                                     v-if="v$.password.containsLowercase.$invalid"
                                                 >
                                                     &#10006; Passwords requires an lower case character.
@@ -144,6 +149,7 @@
                                                 <small
                                                 ><p
                                                     style="color: green"
+                                                    class="nmb-1"
                                                     v-if="!v$.password.containsUppercase.$invalid"
                                                 >
                                                     &check; Passwords requires an upper case character.
@@ -152,6 +158,7 @@
                                                 <small
                                                 ><p
                                                     style="color: orange"
+                                                    class="nmb-1"
                                                     v-if="v$.password.containsUppercase.$invalid"
                                                 >
                                                     &#10006; Passwords requires an upper case character.
@@ -160,15 +167,19 @@
                                                 <small
                                                 ><p
                                                     style="color: orange"
+                                                    class="nmb-1"
                                                     v-if="
                               v$.password.minLength.$invalid ||
-                              v$.password.maxLength.$invalid
+                              v$.password.maxLength.$invalid ||
+                              form.password == ''
                             "
                                                 >
                                                     &#10006; Passwords needs to be in between 8 to 19
                                                     characters.
                                                 </p>
-                                                    <p style="color: green" v-else>
+                                                    <p style="color: green" 
+                                                    class="nmb-1"
+                                                    v-else>
                                                         &check; Passwords needs to be in between 8 to 19
                                                         characters.
                                                     </p></small
@@ -214,7 +225,7 @@
                                 <div class="text-center">
                                     <button
                                         class="btn btn-primary text-uppercase mt-3 px-5"
-                                        @click.prevent="nextStep"
+                                        @click.prevent="nextStep" 
                                     >
                                         Agree & Join
                                     </button>
@@ -234,7 +245,7 @@
                                     <a href="forgot-password.html">Forgot password?</a>
                                 </div>
                                 <div class="py-3 d-flex align-item-center">
-                  <span class="me-5">
+                  <span class="me-5 ">
                     Charities or NGO?
                     <a class="fw-bold ms-2" href="sign-in.html"
                     >Let's Work Together</a
@@ -345,6 +356,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row mt-2">
                                     <small class="text-muted"
                                     >For users that are under corporate organization and
@@ -381,15 +393,7 @@
                             <ul class="ks-cboxtags">
                                 <li>
                                     <input
-                                        v-model="preferences"
-                                        type="checkbox"
-                                        id="checkboxEight"
-                                        value="Animal Conservation"
-                                    /><label for="checkboxOne">Animal Conservation</label>
-                                </li>
-                                <li>
-                                    <input
-                                        v-model="preferences"
+                                        v-model="form.references"
                                         type="checkbox"
                                         id="checkboxOne"
                                         value="Agriculture"
@@ -398,7 +402,7 @@
                                 <li>
                                     <input
                                         type="checkbox"
-                                        v-model="preferences"
+                                        v-model="form.preferences"
                                         id="checkboxTwo"
                                         value="Children and Youth"
                                         checked
@@ -406,7 +410,7 @@
                                 </li>
                                 <li>
                                     <input
-                                        v-model="preferences"
+                                        v-model="form.preferences"
                                         type="checkbox"
                                         id="checkboxThree"
                                         value="Community Development"
@@ -415,7 +419,7 @@
                                 </li>
                                 <li>
                                     <input
-                                        v-model="preferences"
+                                        v-model="form.preferences"
                                         type="checkbox"
                                         id="checkboxFour"
                                         value="Education"
@@ -423,7 +427,7 @@
                                 </li>
                                 <li>
                                     <input
-                                        v-model="preferences"
+                                        v-model="form.preferences"
                                         type="checkbox"
                                         id="checkboxFive"
                                         value="Environment"
@@ -431,7 +435,7 @@
                                 </li>
                                 <li>
                                     <input
-                                        v-model="preferences"
+                                        v-model="form.preferences"
                                         type="checkbox"
                                         id="checkboxSix"
                                         value="Wildlife Protection"
@@ -440,12 +444,20 @@
                                 </li>
                                 <li>
                                     <input
-                                        v-model="preferences"
+                                        v-model="form.preferences"
                                         type="checkbox"
                                         id="checkboxSeven"
                                         value="Women's Empowerment"
                                     /><label for="checkboxSeven">Women's Empowerment</label>
                                 </li>
+                                <li>
+                                    <input
+                                        v-model="form.preferences"
+                                        type="checkbox"
+                                        id="checkboxEight"
+                                        value="Animal Conservation"
+                                    /><label for="checkboxEight">Animal Conservation</label>
+                                </li>                                
                             </ul>
                             <div class="d-flex justify-content-end">
                                 <button
@@ -456,17 +468,20 @@
                                 </button>
                                 <button
                                     class="btn btn-primary text-uppercase mt-3 mx-auto"
-                                    @click.prevent="thirdNextStep"
+                                    @click.prevent="submit"
                                 >
                                     Next Step
                                 </button>
                             </div>
                         </div>
                     </section>
+
+                    <section v-if="step == 4">
+                    
+                    </section>
                 </form>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -484,6 +499,7 @@ import {
     minValue,
     maxValue,
 } from "@vuelidate/validators";
+import axios from 'axios'
 
 export default {
     setup() {
@@ -498,7 +514,7 @@ export default {
             gender: null,
             accountType: null,
             city: null,
-            preferences: null,
+            preferences: [],
         });
 
         const rules = computed(() => ({
@@ -573,7 +589,7 @@ export default {
         const v$ = useVuelidate(rules, form);
 
         function submit() {
-            Inertia.post("/register", form);
+             Inertia.post("/register", form);
         }
 
         return { form, v$, submit };
@@ -587,6 +603,7 @@ export default {
             preferences: [],
             step: 1,
             totalSteps: 3,
+            checkIfEmailExistsData: ''
         };
     },
     methods: {
@@ -606,18 +623,25 @@ export default {
         prevStep: function () {
             this.step--;
         },
+        checkIfEmailExists: function(){
+
+        //code here
+
+        },
 
         nextStep: function (e) {
             this.validateFirstStepFields();
+            this.checkIfEmailExists();
             //If field is correct
             if (
                 !this.v$.firstName.$error &&
                 !this.v$.lastName.$error &&
                 !this.v$.password.$error &&
-                !this.v$.password_confirmation.$error
+                !this.v$.password_confirmation.$error &&
+                !this.v$.email.$error 
             ) {
                 alert("Form ok");
-                this.step++;
+                
             } else alert("not okay");
         },
         secondNextStep: function (e) {
@@ -637,7 +661,9 @@ export default {
             this.v$.preferences.$validate();
             if (!this.v$.preferences.$error) {
                 console.log(this.form.preferences);
-            } else alert("not okay"); console.log(this.form.preferences);
+                this.step++;
+            } else alert("not okay"); console.log(this.form.preferences); this.step++;
+
         },
     },
 };

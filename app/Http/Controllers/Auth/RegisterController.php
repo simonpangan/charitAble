@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Role;
 use Inertia\Inertia;
 use App\Traits\RedirectTo;
 use App\Http\Controllers\Controller;
@@ -10,7 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 class RegisterController extends Controller
 {
     /*
@@ -68,7 +70,10 @@ class RegisterController extends Controller
             'firstName' => $data['firstName'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'isSetupCompleted' => $data['isSetupCompleted']
+            'accountType' => $data['accountType'],
+            'age' => $data['age'],
+            'preferences' => implode(",",$data['preferences']),
+            'role_id' => Role::USERS['BENEFACTOR'],
         ]);
     }
 
@@ -81,6 +86,13 @@ class RegisterController extends Controller
     {
         return Inertia::render('Auth/CharityRegister');
     }
+
+    public function uploadPhoto(Request $request){
+         $file = $request->file('file');
+         $filename = $file->getClientOriginalName();
+         $file->storeAs('/public', $filename);
+    }
+    
 
     public function showBenefactorRegistrationForm()
     {

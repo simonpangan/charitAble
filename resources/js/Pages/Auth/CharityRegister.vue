@@ -1,8 +1,8 @@
 <template>
-	<div class="container">
-        <div class="row justify-content-center align-items-center d-flex vh-100">
-
-            <div class="col-md-4">
+  <div class="container">
+    <section v-if="step == 2">
+      <div class="row justify-content-center align-items-center d-flex vh-100">
+        <div class="col-md-4">
           <i class="feather-arrow-left me-2"></i
           ><a class="fw-bold" href="sign-in.html">Return to Login</a>
           <div class="osahan-login py-4">
@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col">
                 <div class="form-group">
-                  <label class="mb-1">Organization Name</label>
+                  <label class="mb-1">Organization Description</label>
                   <div class="position-relative icon-form-control">
                     <i class="feather-user position-absolute"></i>
                     <input
@@ -252,37 +252,227 @@
               >
                 Agree & Join
               </button>
-
             </div>
-          </div>
-            </div>
-            <div class="col-md-4 h-100">
-            <div class="card card-custom bg-white border-white border-0">
-          <div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
-
-          <div class="card-body" style="overflow-y: auto">
-            <div class="wrapper">
-            <ul class="StepProgress">
-            <li class="StepProgress-item  current"><strong>Step One - Organization Information</strong>
-                            Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button
-</li>
-            <li class="StepProgress-item"><strong>Step Two - Additional Organization Information</strong>
-                Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button
-            </li>
-            <li class="StepProgress-item"><strong>Step Three - Documents</strong></li>
-            <li class="StepProgress-item"><strong>Step Four - Email Verification</strong></li>
-            </ul>
-                        <p class="card-text">Please input the organization details properly & correctly. Any further corrections, please contact charitable@gmail.com</p>
-
-            </div>
-          </div>
-          <div class="card-footer" style="background: inherit; border-color: inherit;">
-
           </div>
         </div>
+        <div class="col-md-4 h-100">
+          <div class="card card-custom bg-white border-white border-0">
+            <div
+              class="card-custom-img"
+              style="
+                background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);
+              "
+            ></div>
+
+            <div class="card-body" style="overflow-y: auto">
+              <div class="wrapper">
+                <ul class="StepProgress">
+                  <li class="StepProgress-item current">
+                    <strong>Step One - Organization Information</strong>
+                    Got more entries that you love? Buy more entries anytime!
+                    Just hover on your favorite entry and click the Buy button
+                  </li>
+                  <li class="StepProgress-item">
+                    <strong
+                      >Step Two - Additional Organization Information</strong
+                    >
+                    Got more entries that you love? Buy more entries anytime!
+                    Just hover on your favorite entry and click the Buy button
+                  </li>
+                  <li class="StepProgress-item">
+                    <strong>Step Three - Documents</strong>
+                  </li>
+                  <li class="StepProgress-item">
+                    <strong>Step Four - Email Verification</strong>
+                  </li>
+                </ul>
+                <p class="card-text">
+                  Please input the organization details properly & correctly.
+                  Any further corrections, please contact charitable@gmail.com
+                </p>
+              </div>
             </div>
+            <div
+              class="card-footer"
+              style="background: inherit; border-color: inherit"
+            ></div>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
+
+    <section v-if="step == 1">
+      <div class="row justify-content-center align-items-center d-flex vh-100">
+        <div class="col-md-4">
+          <i class="feather-arrow-left me-2"></i
+          ><a class="fw-bold" href="sign-in.html">Return to Login</a>
+          <div class="osahan-login py-4">
+            <div class="text-center mb-4">
+              <a href="index.html"><img src="img/logo.svg" alt="" /></a>
+              <h5 class="fw-bold mt-3">Charity Creation Setup</h5>
+              <p class="text-muted">Step 1 - NGO Information</p>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-1">Organization Description</label>
+                  <div class="position-relative icon-form-control">
+                    <i class="feather-user position-absolute"></i>
+                    <textarea 
+                      v-model.trim="form.charityName"
+                      type="text"
+                      class="form-control"
+                      rows="4">
+                    </textarea>
+                    <p class="text-danger" v-if="v$.charityName.$error">
+                      <small>{{ v$.charityName.$errors[0].$message }}</small>
+                    </p>
+                    <div v-if="errors.charityName" class="text-danger">
+                      {{ errors.charityName }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label class="mb-1">Facebook Link</label>
+                <div class="position-relative icon-form-control">
+                  <i class="feather-at-sign position-absolute"></i>
+                  <input
+                    v-model.trim="form.email"
+                    type="email"
+                    class="form-control"
+                  />
+                  <p class="text-danger" v-if="v$.charityEmail.$error">
+                    <small>{{ v$.charityEmail.$errors[0].$message }}</small>
+                  </p>
+
+                  <div v-if="errors.charityEmail">
+                    {{ errors.charityEmail }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label class="mb-1">Twitter Link</label>
+                <div class="position-relative icon-form-control">
+                  <i class="feather-at-sign position-absolute"></i>
+                  <input
+                    v-model.trim="form.email"
+                    type="email"
+                    class="form-control"
+                  />
+                  <p class="text-danger" v-if="v$.charityEmail.$error">
+                    <small>{{ v$.charityEmail.$errors[0].$message }}</small>
+                  </p>
+
+                  <div v-if="errors.charityEmail">
+                    {{ errors.charityEmail }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label class="mb-1">Instagram Link</label>
+                <div class="position-relative icon-form-control">
+                  <i class="feather-at-sign position-absolute"></i>
+                  <input
+                    v-model.trim="form.email"
+                    type="email"
+                    class="form-control"
+                  />
+                  <p class="text-danger" v-if="v$.charityEmail.$error">
+                    <small>{{ v$.charityEmail.$errors[0].$message }}</small>
+                  </p>
+
+                  <div v-if="errors.charityEmail">
+                    {{ errors.charityEmail }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label class="mb-1">Website Link</label>
+                <div class="position-relative icon-form-control">
+                  <i class="feather-at-sign position-absolute"></i>
+                  <input
+                    v-model.trim="form.email"
+                    type="email"
+                    class="form-control"
+                  />
+                  <p class="text-danger" v-if="v$.charityEmail.$error">
+                    <small>{{ v$.charityEmail.$errors[0].$message }}</small>
+                  </p>
+
+                  <div v-if="errors.charityEmail">
+                    {{ errors.charityEmail }}
+                  </div>
+                </div>
+              </div>
+            </div>
+ 
+
+            <div class="row">
+              <label class="mb-1 mt-2"
+                >You agree to the Osahanin <a href="#">User Agreement</a>,
+                <a href="#">Privacy Policy</a>, and
+                <a href="#">Cookie Policy</a>.</label
+              >
+            </div>
+            <div class="d-flex justify-content-end">
+              <button
+                class="btn btn-primary text-uppercase mt-3 mx-auto"
+                @click.prevent="prevStep"
+              >
+                Previous Step
+              </button>
+              <button
+                class="btn btn-primary text-uppercase mt-3 mx-auto"
+                @click.prevent=""
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 h-100">
+
+            <form @submit.prevent="submit">
+
+            
+            <div class="row" style="margin-bottom:150px;">
+                <file-pond
+                v-model="file"
+                name="file"
+                ref="file"
+                v-bind:server="{
+            process: {
+                url: '/register/charity/upload',
+                method: 'POST',
+                headers: {
+                'X-CSRF-TOKEN': csrfToken
+                },
+                withCredentials: false
+            }
+        }"
+                />
+            </div>
+
+                          <button
+                class="btn btn-primary text-uppercase mt-3 mx-auto"
+                type="submit"
+              >
+                Next Step
+              </button>
+            </form>
+      </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 
@@ -297,15 +487,10 @@ import {
   maxLength,
   email,
   sameAs,
-  numeric,
-  minValue,
-  maxValue,
 } from "@vuelidate/validators";
 import { useForm } from "@inertiajs/inertia-vue3";
 // Import Vue FilePond
 import vueFilePond from "vue-filepond";
-
-
 
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
@@ -326,10 +511,9 @@ const FilePond = vueFilePond(
   FilePondPluginImagePreview
 );
 
-
 export default {
-      components: {
-          FilePond
+  components: {
+    FilePond,
   },
   setup() {
     let form = useForm({
@@ -341,6 +525,10 @@ export default {
       password: null,
       password_confirmation: null,
     });
+
+    let photo = useForm({
+        file: []
+    })
 
     const rules = computed(() => ({
       charityName: {
@@ -399,7 +587,7 @@ export default {
     const v$ = useVuelidate(rules, form);
 
     function submit() {
-      Inertia.post("/register", form);
+      Inertia.post("/register/charity/upload", photo);
     }
 
     return { form, v$, submit };
@@ -410,13 +598,14 @@ export default {
 
   data() {
     return {
+    csrfToken: document.querySelector('meta[name="csrf-token"]').content,
       preferences: [],
       step: 1,
       totalSteps: 3,
     };
   },
   methods: {
-          handleFilePondInit: function () {
+    handleFilePondInit: function () {
       console.log("FilePond has initialized");
 
       // FilePond instance methods are available on `this.$refs.pond`
@@ -435,6 +624,8 @@ export default {
     },
 
     nextStep: function (e) {
+      this.step++;
+      /*
       this.validateFirstStepFields();
       //If field is correct
       if (
@@ -447,8 +638,11 @@ export default {
         alert("Form ok");
         this.step++;
       } else alert("not okay");
+      */
     },
-    secondNextStep: function (e) {},
+    secondNextStep: function (e) {
+        this.stepp++;
+    },
 
     thirdNextStep: function (e) {
       this.v$.preferences.$validate();

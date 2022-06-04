@@ -1,10 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap);
+
 /*
 Template Name: Osahanin - Job Portal & Social Network HTML Template
 Author: Askbootstrap
 Author URI: https://themeforest.net/user/askbootstrap
 Version: 1.0
 */
+
+
 /*
     -- body
     -- Slider
@@ -22,218 +25,277 @@ Version: 1.0
     -- Extra
     -- Mobile Media
 */
+
+
 /* body */
+
 body {
-  background: #edf2f6;
-  font-size: 14px;
-  font-family: "Ubuntu", sans-serif;
+    background: #edf2f6;
+    font-size: 14px;
+    font-family: "Ubuntu", sans-serif;
 }
 
 p {
-  color: #888da8;
+    color: #888da8;
 }
 
+
 /* End body */
+
+
 /* Slider */
 
+
 /* End Slider */
+
+
 /* Top Nav */
 
+
 /* End Top Nav */
+
+
 /* Card Design */
 
+
 /* End Card Design */
+
+
 /* Tab Design */
 
+
 /* End Tab */
+
+
 /* Login Page Designs */
+
 .osahan-login .form-control {
-  background: #f8fafc;
-  border-color: #eaebec;
+    background: #f8fafc;
+    border-color: #eaebec;
 }
 
 .icon-form-control i {
-  display: flex;
-  top: 0;
-  bottom: 0;
-  align-items: center;
-  font-size: 16px;
-  justify-content: center;
-  width: 40px;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    font-size: 16px;
+    justify-content: center;
+    width: 40px;
 }
+
 .icon-form-control .form-control {
-  padding-left: 40px;
+    padding-left: 40px;
 }
 
 label {
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .custom-control label {
-  line-height: 22px;
-  font-weight: 400;
+    line-height: 22px;
+    font-weight: 400;
 }
 
 .btn-outline-instagram {
-  border-color: #2a5b83;
-  background-color: #2a5b83;
-  color: #fff;
+    border-color: #2a5b83;
+    background-color: #2a5b83;
+    color: #fff;
 }
+
 
 /* End Login Page Designs */
+
+
 /* People List */
 
+
 /* End People List */
+
+
 /* Job List */
 
+
 /* End Job List */
+
+
 /* Network Item */
 
+
 /* End Network Item */
+
+
 /* FAQ */
 
+
 /* End FAQ */
+
+
 /* Chat */
 
+
 /* End Chat */
+
+
 /* Blog */
 
+
 /* End Blog */
+
+
 /* Gallery / Review */
 
+
 /* End Gallery / Review */
+
+
 /* Extra */
+
 a {
-  text-decoration: none !important;
+    text-decoration: none !important;
 }
 
-div, a {
-  outline: none !important;
+div,
+a {
+    outline: none !important;
 }
 
-.col, .col-12, .col-md-4, .col-md-5, .col-md-6, .col-md-8 {
-  padding-right: 8px;
-  padding-left: 8px;
+.col,
+.col-12,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8 {
+    padding-right: 8px;
+    padding-left: 8px;
 }
 
 .row {
-  margin-right: -8px;
-  margin-left: -8px;
+    margin-right: -8px;
+    margin-left: -8px;
 }
 
 .text-danger {
-  color: #de4437 !important;
+    color: #de4437 !important;
 }
 
- .card {
-  border: 1px solid #eaebec !important;
+.card {
+    border: 1px solid #eaebec !important;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #eaebec !important;
+    border-bottom: 1px solid #eaebec !important;
 }
 
 .btn-primary {
-  /* ff3.6+ */
-  /* safari4+,chrome */
-  /* safari5.1+,chrome10+ */
-  /* opera 11.10+ */
-  /* ie10+ */
-  background: linear-gradient(256deg, #00c9e4 0%, #007bff 100%);
-  /* w3c */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#007bff", endColorstr="#00c9e4",GradientType=1 );
-  /* ie6-9 */
-  border-color: #007bff;
+    /* ff3.6+ */
+    /* safari4+,chrome */
+    /* safari5.1+,chrome10+ */
+    /* opera 11.10+ */
+    /* ie10+ */
+    background: linear-gradient(256deg, #00c9e4 0%, #007bff 100%);
+    /* w3c */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#007bff", endColorstr="#00c9e4", GradientType=1);
+    /* ie6-9 */
+    border-color: #007bff;
 }
 
-.form-control, .btn {
-  font-size: 13px;
+.form-control,
+.btn {
+    font-size: 13px;
 }
 
-.small, small {
-  font-size: 12px;
+.small,
+small {
+    font-size: 12px;
 }
+
 
 /* Extra End */
+
+
 /* Mobile Media */
+
+
 /* End Mobile Media */
+
 ul.ks-cboxtags {
-  list-style: none;
-  padding: 20px;
+    list-style: none;
+    padding: 20px;
 }
+
 ul.ks-cboxtags li {
-  display: inline;
+    display: inline;
 }
+
 ul.ks-cboxtags li label {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(139, 139, 139, 0.3);
-  color: #adadad;
-  border-radius: 25px;
-  white-space: nowrap;
-  margin: 3px 0px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: all 0.2s;
-  padding: 8px 12px;
-  cursor: pointer;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(139, 139, 139, 0.3);
+    color: #adadad;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s;
+    padding: 8px 12px;
+    cursor: pointer;
 }
+
 ul.ks-cboxtags li label::before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 12px;
-  padding: 2px 6px 2px 2px;
-  content: "\f067";
-  transition: transform 0.3s ease-in-out;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    transition: transform 0.3s ease-in-out;
 }
+
 ul.ks-cboxtags li input[type=checkbox] {
-  display: absolute;
-  position: absolute;
-  opacity: 0;
+    display: absolute;
+    position: absolute;
+    opacity: 0;
 }
-ul.ks-cboxtags li input[type=checkbox]:checked + label {
-  border: 2px solid #1bdbf8;
-  background-color: #12bbd4;
-  color: #fff;
-  transition: all 0.2s;
+
+ul.ks-cboxtags li input[type=checkbox]:checked+label {
+    border: 2px solid #1bdbf8;
+    background-color: #12bbd4;
+    color: #fff;
+    transition: all 0.2s;
 }
-ul.ks-cboxtags li input[type=checkbox]:checked + label::before {
-  content: "\f00c";
-  transform: rotate(-360deg);
-  transition: transform 0.3s ease-in-out;
-}
-ul.ks-cboxtags li input[type=checkbox]:focus + label {
-  border: 2px solid #e9a1ff;
+
+ul.ks-cboxtags li input[type=checkbox]:focus+label {
+    border: 2px solid #e9a1ff;
 }
 
 .card-custom {
     overflow: hidden;
     min-height: 450px;
-  }
+}
 
-  .card-custom-img {
+.card-custom-img {
     height: 100px;
     min-height: 100px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-  }
-
+}
 
 .StepProgress {
     position: relative;
     padding-left: 45px;
     list-style: none;
 }
+
 .StepProgress::before {
     display: inline-block;
     content: "";
@@ -244,13 +306,16 @@ ul.ks-cboxtags li input[type=checkbox]:focus + label {
     height: 100%;
     border-left: 2px solid #ccc;
 }
+
 .StepProgress-item {
     position: relative;
     counter-increment: list;
 }
+
 .StepProgress-item:not(:last-child) {
     padding-bottom: 20px;
 }
+
 .StepProgress-item::before {
     display: inline-block;
     content: "";
@@ -259,6 +324,7 @@ ul.ks-cboxtags li input[type=checkbox]:focus + label {
     height: 100%;
     width: 10px;
 }
+
 .StepProgress-item::after {
     content: "";
     display: inline-block;
@@ -271,9 +337,11 @@ ul.ks-cboxtags li input[type=checkbox]:focus + label {
     border-radius: 50%;
     background-color: #fff;
 }
+
 .StepProgress-item.is-done::before {
     border-left: 2px solid green;
 }
+
 .StepProgress-item.is-done::after {
     content: "✔";
     font-size: 10px;
@@ -282,10 +350,11 @@ ul.ks-cboxtags li input[type=checkbox]:focus + label {
     border: 2px solid green;
     background-color: green;
 }
-.StepProgress-item.current::before {
 
+.StepProgress-item.current::before {
     border-left: 2px solid green;
 }
+
 .StepProgress-item.current::after {
     padding-top: 1px;
     width: 19px;
@@ -298,7 +367,11 @@ ul.ks-cboxtags li input[type=checkbox]:focus + label {
     border: 2px solid green;
     background-color: white;
 }
+
 .StepProgress strong {
     display: block;
 }
 
+.nmb-1 {
+    margin-bottom: -3.5px !important;
+}

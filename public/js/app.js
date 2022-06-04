@@ -23,10 +23,9 @@ eval("//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvc2Fzcy9hcHAuc2Nzcy5qcyIsIm1hcHBpbmdzIjoiO0FBQUEiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9hcHAuc2Nzcz9jN2U0Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIGV4dHJhY3RlZCBieSBtaW5pLWNzcy1leHRyYWN0LXBsdWdpblxuZXhwb3J0IHt9OyJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/sass/app.scss\n");
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: expected \"(\".\n    ╷\n194 │             filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#007bff', endColorstr='#00c9e4', GradientType=1);\n    │                            ^\n    ╵\n  resources\\sass\\app.scss 194:28  root stylesheet\n    at processResult (C:\\laragon\\www\\charitAble\\node_modules\\webpack\\lib\\NormalModule.js:758:19)\n    at C:\\laragon\\www\\charitAble\\node_modules\\webpack\\lib\\NormalModule.js:860:5\n    at C:\\laragon\\www\\charitAble\\node_modules\\loader-runner\\lib\\LoaderRunner.js:400:11\n    at C:\\laragon\\www\\charitAble\\node_modules\\loader-runner\\lib\\LoaderRunner.js:252:18\n    at context.callback (C:\\laragon\\www\\charitAble\\node_modules\\loader-runner\\lib\\LoaderRunner.js:124:13)\n    at C:\\laragon\\www\\charitAble\\node_modules\\sass-loader\\dist\\index.js:54:7\n    at Function.call$2 (C:\\laragon\\www\\charitAble\\node_modules\\sass\\sass.dart.js:99807:16)\n    at render_closure1.call$2 (C:\\laragon\\www\\charitAble\\node_modules\\sass\\sass.dart.js:85345:12)\n    at _RootZone.runBinary$3$3 (C:\\laragon\\www\\charitAble\\node_modules\\sass\\sass.dart.js:29712:18)\n    at _FutureListener.handleError$1 (C:\\laragon\\www\\charitAble\\node_modules\\sass\\sass.dart.js:28226:21)");
 
 /***/ }),
 
@@ -128,7 +127,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
-/******/ 			"css/app": 0,
 /******/ 			"css/bootstrap": 0
 /******/ 		};
 /******/ 		
@@ -179,9 +177,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/bootstrap"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/bootstrap"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/bootstrap"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/bootstrap"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

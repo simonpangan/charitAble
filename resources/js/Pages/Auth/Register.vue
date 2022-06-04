@@ -494,7 +494,6 @@ export default {
             email: null,
             password: null,
             password_confirmation: null,
-            isSetupCompleted: 0,
             age: null,
             gender: null,
             accountType: null,

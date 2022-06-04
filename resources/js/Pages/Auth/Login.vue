@@ -72,7 +72,10 @@ let form = useForm({
     password: '',
 })
 
+
 let submit = () => {
     form.post(route('auth.login'));
 }
+
+
 </script>

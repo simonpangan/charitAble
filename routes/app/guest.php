@@ -40,4 +40,8 @@ Route::name('register.')->group(function () {
     Route::post('/register', [RegisterController::class, 'register'])->name('store');
     Route::get('/register/benefactor', [RegisterController::class, 'showBenefactorRegistrationForm'])->name('benefactor');
     Route::get('/register/charity', [RegisterController::class, 'showCharityRegistrationForm'])->name('charity');
+    Route::post('/register/charity/upload', [RegisterController::class, 'uploadPhoto']);
+    
+    Route::post('/checkIfEmailExists', [RegisterController::class, 'checkIfEmailExists'])->name('checkIfEmailExists');
+
 });
