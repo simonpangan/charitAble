@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Carbon\Carbon;
 use App\Models\Role;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,14 +23,40 @@ class UserFactory extends Factory
         $userRoles = collect(Role::USERS);
 
         return [
-            'firstName' => $this->faker->firstName,
-            'lastName' => $this->faker->lastName,
             'email' => $this->faker->unique()->email,
             'role_id' => $this->faker->numberBetween($userRoles->first(), $userRoles->last()),
             'email_verified_at' => Carbon::now(config('app.timezone'))->toDateString(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'remember_token' => null,
         ];
+    }
+
+     /**
+     * Indicate that the model's email address should be unverified.
+     *
+     * @return static
+     */
+    public function password()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'password' => Hash::make($this->faker->password(8)),
+            ];
+        });
+    }
+
+     /**
+     * Indicate that the model's email address should be unverified.
+     *
+     * @return static
+     */
+    public function remember()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'remember_token' => Str::random(10),
+            ];
+        });
     }
 
     /**
