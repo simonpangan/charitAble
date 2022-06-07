@@ -13,13 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name');
         });
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('role_id')->references('id')->on('roles');
+        Schema::create('charity_categories', function (Blueprint $table) {
+            $table->unsignedTinyInteger('category_id');
+          
+            $table->foreignId('charity_id')->constrained();
+            $table->foreign('category_id')->references('id')->on('categories');
+     
+            $table->primary(['category_id', 'charity_id']);
         });
     }
 
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('charity_categories');
     }
 };

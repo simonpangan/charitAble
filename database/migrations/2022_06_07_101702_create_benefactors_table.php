@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('benefactors', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('id')->constrained('users');
+            $table->primary('id');
+
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('gender')->nullable();
