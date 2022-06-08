@@ -1,12 +1,14 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ {
     LoginController,
-    RegisterController,
     GoogleLoginController,
     ResetPasswordController,
     ForgotPasswordController,
+    Register\BenefactorRegisterController,
+    Register\CharityRegisterController
 };
 
 /*
@@ -27,7 +29,7 @@ Route::name('auth.')->group(function () {
         Route::get('/login-google', [GoogleLoginController::class, 'redirectToGoogle'])->name('index');
     });
 
-    Route::name('password.')->group(function () {
+    Route::name('password.')->group(function () {   
         Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('email');
         Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('request');
 
@@ -36,12 +38,13 @@ Route::name('auth.')->group(function () {
     });
 });
 
+//route
 Route::name('register.')->group(function () {
-    Route::post('/register', [RegisterController::class, 'register'])->name('store');
-    Route::get('/register/benefactor', [RegisterController::class, 'showBenefactorRegistrationForm'])->name('benefactor');
-    Route::get('/register/charity', [RegisterController::class, 'showCharityRegistrationForm'])->name('charity');
-    Route::post('/register/charity/upload', [RegisterController::class, 'uploadPhoto']);
+    Route::post('/register', [BenefactorRegisterController::class, 'store'])->name('benefactor.store');
+    Route::get('/register/benefactor', [BenefactorRegisterController::class, 'index'])->name('benefactor.index');
     
-    Route::post('/checkIfEmailExists', [RegisterController::class, 'checkIfEmailExists'])->name('checkIfEmailExists');
 
+    Route::get('/register/charity', [CharityRegisterController::class, 'index'])->name('charity.index');
+
+    // Route::post('/register/charity/upload', [BenefactorRegisterController::class, 'uploadPhoto']);
 });
