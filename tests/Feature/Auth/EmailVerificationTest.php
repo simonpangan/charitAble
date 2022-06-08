@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Benefactor;
+use App\Models\Log;
 use App\Models\User;
 use function Pest\Laravel\get;
 use Illuminate\Support\Carbon;
@@ -8,7 +10,6 @@ use Illuminate\Support\Facades\Config;
 use App\Notifications\CustomVerifyEmail;
 use \Symfony\Component\HttpFoundation\Response;
 use Inertia\Testing\AssertableInertia as Assert;
-
 
 const ROUTE_VERIFICATION_NOTICE  = 'auth.verification.notice';
 
@@ -25,7 +26,7 @@ it('renders the correct component')
     ->createAuthUnverifiedUser()
     ->getRoute(ROUTE_VERIFICATION_NOTICE)
     ->assertInertia(fn (Assert $page) => $page
-        ->component('Auth/Email')
+        ->component('Auth/Verify')
     );
 
 
@@ -98,8 +99,9 @@ it('sends email verification notice when requested')
         );
     });
 
-it('sends email verification notice after registration')
-    ->tap(function () {
+it('sends email verification notice after registration of benefactor', 
+    function () {
+    
         Notification::fake();
 
         $user = User::factory()->unverified()->makeOne([
@@ -107,15 +109,18 @@ it('sends email verification notice after registration')
             'password_confirmation' => 'Oklahoma#12'
         ]);
 
-        postRoute('register.store', $user->getAttributes())
-            ->assertSessionHasNoErrors();
+        $benefactor = Benefactor::factory()->makeOne();
+
+        postRoute('register.benefactor.store', 
+            array_merge($user->getAttributes(), $benefactor->getAttributes() )
+        )->assertSessionHasNoErrors();
 
         //https://github.com/laravel/framework/issues/17778
         Notification::assertSentTo(
             User::latest()->first(),
             CustomVerifyEmail::class
         );
-    });
+});
 
 it('verifies user', function () {
     $user = createUnverifiedUser();
