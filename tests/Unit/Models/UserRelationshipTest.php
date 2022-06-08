@@ -1,10 +1,10 @@
+
 <?php
 
-use App\Models\Benefactor;
-use App\Models\Log;
 use App\Models\User;
-
-
+use App\Models\Benefactor;
+use App\Models\Charity\Charity;
+use App\Models\Charity\CharityOfficers;
 
 it('user model can create logs', function () {
     $user = createUser();
@@ -52,3 +52,23 @@ it('creates benefactor user', function () {
 
     expect(Benefactor::latest()->first()->id)->toBe(10);
 });
+
+it('creates charity user', function () {
+    $user = User::factory()->create([
+        'id' => 10
+    ]);
+
+    $user->charity()->create([
+        'name' => 'Accenture'
+    ]);
+
+    $this->assertDatabaseCount('charities', 1);
+
+    $this->assertDatabaseHas('charities', [
+        'id' => $user->id,
+        'name' => 'Accenture'
+    ]);
+
+    expect(Charity::latest()->first()->id)->toBe(10);
+});
+
