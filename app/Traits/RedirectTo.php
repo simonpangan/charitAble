@@ -16,6 +16,7 @@ trait RedirectTo
             Then get the role name of the authenticated user using its role id
          */
         $systemRoles = collect(Role::USERS)->flip();
+
         $userRole = $systemRoles->get(auth()->user()->role_id);
 
         //Get the homepage route name of the user role

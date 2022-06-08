@@ -94,12 +94,12 @@ it('allows another request after 1 minute')
         ])->assertSessionHasNoErrors();
     });
 
-it('send actual notification in user\'s email ', function () {
+it('send actual notification in user email ', function () {
     $user = createUser();
 
     $this->expectsNotification($user, ResetPassword::class);
 
-    post(route(ROUTE_PASSWORD_EMAIL), [
+    postRoute(ROUTE_PASSWORD_EMAIL, [
         'email' => $user->email,
     ]);
 });
