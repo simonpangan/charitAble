@@ -4,78 +4,76 @@ namespace App\Http\Controllers\Auth\Register;
 
 use App\Models\Role;
 use App\Models\User;
-use Inertia\Inertia;
-use App\Traits\RedirectTo;
-use App\Enums\CharityCategory;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Requests\BenefactorRegisterRequest;
+    use Inertia\Inertia;
+    use App\Traits\RedirectTo;
+    use App\Enums\CharityCategory;
+    use App\Http\Controllers\Controller;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Auth\Events\Registered;
+    use Illuminate\Foundation\Auth\RegistersUsers;
+    use App\Http\Requests\BenefactorRegisterRequest;
 
-class BenefactorRegisterController extends Controller
-{
-    use RedirectTo, RegistersUsers;
-
-
-    public function index()
+    class BenefactorRegisterController extends Controller
     {
-        // dump(CharityCategory::cases());
-        // dd(CharityCategory::getCategories());
-        // dd(json_encode(CharityCategory::cases()));
-        return Inertia::render('Auth/BenefactorRegister', [ 
-            'charityCategories'=> CharityCategory::getCategories()
-        ]);
-    }
+        use RedirectTo, RegistersUsers;
 
-    public function store(BenefactorRegisterRequest $request)
-    {
-        if ($request->get('step') == 1) 
+
+        public function index()
         {
-            return to_route('register.benefactor.index');
-        }
-        else if ($request->get('step') == 2)         
-        {
-            return to_route('register.benefactor.index');
+            // dump(CharityCategory::cases());
+            // dd(CharityCategory::getCategories());
+            // dd(json_encode(CharityCategory::cases()));
+            return Inertia::render('Auth/BenefactorRegister', [
+                'charityCategories'=> CharityCategory::getCategories()
+            ]);
         }
 
-        //if last step
-        $user = $this->createUser(
-            $request->only(['email', 'password'])
-        );
+        public function store(BenefactorRegisterRequest $request)
+        {
+            if ($request->get('step') == 1) {
+                return to_route('register.benefactor.index');
+            } elseif ($request->get('step') == 2) {
+                return to_route('register.benefactor.index');
+            }
 
-        $user->createLog('You have registered to our system');
+            //if last step
+            $user = $this->createUser(
+                $request->only(['email', 'password'])
+            );
 
-        $this->createBenefactor(
-            $user, $request->except(['email', 'password'])
-        );
+            $user->createLog('You have registered to our system');
 
-        event(new Registered($user));
+            $this->createBenefactor(
+                $user,
+                $request->except(['email', 'password'])
+            );
 
-        $this->guard()->login($user);
+            event(new Registered($user));
 
-        return redirect($this->redirectPath());
+            $this->guard()->login($user);
+
+            return redirect($this->redirectPath());
+        }
+
+        private function createUser(array $data)
+        {
+            return User::create([
+                'email' => $data['email'],
+                'role_id' => Role::USERS['BENEFACTOR'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+
+        private function createBenefactor(User $user, array $data): void
+        {
+            $user->benefactor()->create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'gender' => $data['gender'],
+                'city' => $data['city'],
+                'age' => $data['age'],
+                'preferences' => implode(",", $data['preferences']),
+                'account_type' => $data['account_type'],
+            ]);
+        }
     }
-
-    private function createUser(array $data)
-    {
-        return User::create([
-            'email' => $data['email'],
-            'role_id' => Role::USERS['BENEFACTOR'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
-
-    private function createBenefactor(User $user, array $data): void
-    {
-        $user->benefactor()->create([
-            'first_name' => $data['firstName'],
-            'last_name' => $data['lastName'],
-            'gender' => $data['gender'],
-            'city' => $data['city'],
-            'age' => $data['age'],
-            'preferences' => implode(",", $data['preferences']),
-            'account_type' => $data['accountType'],
-        ]);
-    }
-}

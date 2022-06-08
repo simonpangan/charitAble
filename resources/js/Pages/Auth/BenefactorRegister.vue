@@ -20,13 +20,13 @@
                     <label class="mb-1">First name</label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-user position-absolute"></i>
-                      <input v-model.trim="form.firstName" type="text" class="form-control" />
-                      <div v-if="form.errors.firstName" class="text-danger">
-                        {{ form.errors.firstName }}
+                      <input v-model.trim="form.first_name" type="text" class="form-control" />
+                      <div v-if="form.errors.first_name" class="text-danger">
+                        {{ form.errors.first_name }}
                       </div>
-                      <div v-if="v$.firstName.$error">
+                      <div v-if="v$.first_name.$error">
                         <p class="text-danger">
-                          <small>{{ v$.firstName.$errors[0].$message }}</small>
+                          <small>{{ v$.first_name.$errors[0].$message }}</small>
                         </p>
                       </div>
                     </div>
@@ -37,13 +37,13 @@
                     <label class="mb-1">Last name</label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-user position-absolute"></i>
-                      <input v-model.trim="form.lastName" type="text" class="form-control" />
-                      <div v-if="form.errors.lastName" class="text-danger">
-                        {{ form.errors.lastName }}
+                      <input v-model.trim="form.last_name" type="text" class="form-control" />
+                      <div v-if="form.errors.last_name" class="text-danger">
+                        {{ form.errors.last_name }}
                       </div>
-                      <div v-if="v$.firstName.$error">
+                      <div v-if="v$.first_name.$error">
                         <p class="text-danger">
-                          <small>{{ v$.lastName.$errors[0].$message }}</small>
+                          <small>{{ v$.last_name.$errors[0].$message }}</small>
                         </p>
                       </div>
                     </div>
@@ -252,16 +252,16 @@
                   <label class="mb-1">Account Type</label>
                   <div class="position-relative icon-form-control">
                     <i class="feather-at-sign position-absolute"></i>
-                    <select class="form-select" v-model="form.accountType">
+                    <select class="form-select" v-model="form.account_type">
                       <option value="Personal">Personal Account</option>
                       <option value="Business">Business Account</option>
                     </select>
-                    <div v-if="form.errors.accountType" class="text-danger">
-                      {{ form.errors.accountType }}
+                    <div v-if="form.errors.account_type" class="text-danger">
+                      {{ form.errors.account_type }}
                     </div>
-                    <div class="text-danger" v-if="v$.accountType.$error">
+                    <div class="text-danger" v-if="v$.account_type.$error">
                       <p class="text-danger">
-                        <small>{{ v$.accountType.$errors[0].$message }}</small>
+                        <small>{{ v$.account_type.$errors[0].$message }}</small>
                       </p>
                     </div>
                   </div>
@@ -349,25 +349,25 @@
   export default {
     setup() {
       const form = useForm({
-        firstName: null,
-        lastName: null,
+        first_name: null,
+        last_name: null,
         email: null,
         password: null,
         password_confirmation: null,
         age: null,
         gender: null,
-        accountType: null,
+        account_type: null,
         city: null,
         preferences: [],
       });
 
       const rules = computed(() => ({
         //2 letter minimum
-        firstName: {
+        first_name: {
           required: helpers.withMessage("First name cannot be empty", required),
         },
         //2 letter minimum
-        lastName: {
+        last_name: {
           required: helpers.withMessage("Last name cannot be empty", required),
         },
         email: {
@@ -401,7 +401,7 @@
           minValue: helpers.withMessage("Sorry! User needs to be 18 above to join our platform", minValue(18)),
           maxValue: helpers.withMessage("Age is invalid", maxValue(120)),
         },
-        accountType: {
+        account_type: {
           required: helpers.withMessage("Account Type cannot be empty", required),
         },
         gender: {
@@ -437,15 +437,15 @@
     },
     methods: {
       validateFirstStepFields: function() {
-        this.v$.firstName.$validate();
-        this.v$.lastName.$validate();
+        this.v$.first_name.$validate();
+        this.v$.last_name.$validate();
         this.v$.email.$validate();
         this.v$.password.$validate();
         this.v$.password_confirmation.$validate();
       },
       validateSecondStepFields: function() {
         this.v$.age.$validate();
-        this.v$.accountType.$validate();
+        this.v$.account_type.$validate();
         this.v$.city.$validate();
         this.v$.gender.$validate();
       },
@@ -455,8 +455,8 @@
       nextStep: function(e) {
         // this.validateFirstStepFields();
 
-        if (! this.v$.firstName.$error && 
-            ! this.v$.lastName.$error && 
+        if (! this.v$.first_name.$error && 
+            ! this.v$.last_name.$error && 
             ! this.v$.password.$error && 
             ! this.v$.password_confirmation.$error && 
             ! this.v$.email.$error
@@ -472,7 +472,7 @@
         // this.validateSecondStepFields();
 
         if (! this.v$.age.$error && 
-            ! this.v$.accountType.$error && 
+            ! this.v$.account_type.$error && 
             ! this.v$.city.$error && 
             ! this.v$.gender.$error
         ) {

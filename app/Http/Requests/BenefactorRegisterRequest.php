@@ -44,8 +44,8 @@ class BenefactorRegisterRequest extends FormRequest
     private function stepOneRules() : array
     {
         return [
-            'firstName' => ['required', 'string', 'min:2', new MaxWordsRule(50)],
-            'lastName' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
+            'first_name' => ['required', 'string', 'min:2', new MaxWordsRule(50)],
+            'last_name' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
             /*
                 email validation
                 https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
@@ -62,7 +62,7 @@ class BenefactorRegisterRequest extends FormRequest
             'age' => ['required', 'numeric', 'min:18', 'max:100'],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
             'city' => ['required', 'string'],
-            'accountType' => ['required', 'string', Rule::in(['Personal', 'Business'])],
+            'account_type' => ['required', 'string', Rule::in(['Personal', 'Business'])],
         ]);
     }
 

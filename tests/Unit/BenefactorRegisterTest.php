@@ -24,8 +24,8 @@ it('should have exact validation', function (int $step, $rules) {
     $this->assertExactValidationRules($rules, $request->rules());
 })->with(function () {
     $stepOneRules = [
-        'firstName' => ['required', 'string', 'min:2', new MaxWordsRule(50)],
-        'lastName' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
+        'first_name' => ['required', 'string', 'min:2', new MaxWordsRule(50)],
+        'last_name' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
         'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
         'password' => ['required', 'string', 'confirmed', 
             Password::min(8)->letters()->mixedCase()->numbers()->symbols()
@@ -36,7 +36,7 @@ it('should have exact validation', function (int $step, $rules) {
         'age' => ['required', 'numeric', 'min:18', 'max:100'],
         'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
         'city' => ['required', 'string'],
-        'accountType' => ['required', 'string', Rule::in(['Personal', 'Business'])],
+        'account_type' => ['required', 'string', Rule::in(['Personal', 'Business'])],
     ]);
 
     $stepThreeRules = array_merge($stepTwoRules, [
@@ -44,7 +44,7 @@ it('should have exact validation', function (int $step, $rules) {
             'array', 'required', 
         ],
         'preferences.*' => [
-            'required', Rule::in(CharityCategory::getCategoriesName())
+            'required', 'distinct', Rule::in(CharityCategory::getCategoriesName())
         ],
     ]);
 
