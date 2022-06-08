@@ -15,11 +15,13 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $userRoles = collect(Role::USERS)
-                        ->map(function ($item, $key) {
-                            return ['id' => $item, 'name' => $key];
-                        })->values();
+        if (! Role::count()) {
+            $userRoles = collect(Role::USERS)
+                ->map(function ($item, $key) {
+                    return ['id' => $item, 'name' => $key];
+                })->values();
 
-        Role::insert($userRoles->toArray());
+            Role::insert($userRoles->toArray());
+        }
     }
 }
