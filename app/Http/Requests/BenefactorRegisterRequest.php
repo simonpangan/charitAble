@@ -74,7 +74,7 @@ class BenefactorRegisterRequest extends FormRequest
                 'array', 'required', 
             ],
             'preferences.*' => [
-                'required', Rule::in(CharityCategory::getCategoriesName())
+                'required', 'distinct', Rule::in(CharityCategory::getCategoriesName())
             ],
         ]);
     }   

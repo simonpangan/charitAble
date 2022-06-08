@@ -6,14 +6,12 @@ use App\Models\Role;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Traits\RedirectTo;
-use Illuminate\Http\Request;
 use App\Enums\CharityCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\BenefactorRegisterRequest;
-use App\Models\Benefactor;
 
 class BenefactorRegisterController extends Controller
 {
@@ -43,8 +41,8 @@ class BenefactorRegisterController extends Controller
 
         //if last step
         $user = $this->createUser(
-            $request->only(['email', 'password']
-        ));
+            $request->only(['email', 'password'])
+        );
 
         $user->createLog('You have registered to our system');
 
@@ -76,14 +74,8 @@ class BenefactorRegisterController extends Controller
             'gender' => $data['gender'],
             'city' => $data['city'],
             'age' => $data['age'],
-            'preferences' => implode(",",$data['preferences']),
+            'preferences' => implode(",", $data['preferences']),
             'account_type' => $data['accountType'],
         ]);
     }
-
-    // public function uploadPhoto(Request $request){
-    //      $file = $request->file('file');
-    //      $filename = $file->getClientOriginalName();
-    //      $file->storeAs('/public', $filename);
-    // }
 }
