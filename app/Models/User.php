@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Log;
 use App\Models\Benefactor;
+use App\Models\Charity\Charity;
 use App\Notifications\CustomVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomResetPassword;
@@ -58,5 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function benefactor()
     {
         return $this->hasOne(Benefactor::class, 'id');
+    }
+
+    public function charity()
+    {
+        return $this->hasOne(Charity::class, 'id');
     }
 }

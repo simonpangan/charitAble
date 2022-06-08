@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Charity;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Benefactor extends Model
+class CharityDocuments extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
-
+    const UPDATED_AT = null;
     protected $guarded = ['id'];
 }
