@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Support\Arr;
+use App\Enums\CharityCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +26,19 @@ class BenefactorFactory extends Factory
             'city' => $this->faker->city,  //to be fix
             'account_type' => Arr::random(['Personal', 'Business']),
             'age' =>$this->faker->numberBetween(18, 100),
-            'preferences' => $this->faker->lastName, //to be fix
+            'preferences' => [
+                Arr::random(CharityCategory::getCategoriesName())
+            ], 
         ];
     }
+
+    public function addUser()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'id' => User::factory()->create()->id,
+            ];
+        });
+    }
+  
 }

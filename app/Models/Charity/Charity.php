@@ -2,8 +2,9 @@
 
 namespace App\Models\Charity;
 
-use App\Models\Charity\CharityOfficers;
+use App\Models\Charity\CharityPosts;
 use Database\Factories\CharityFactory;
+use App\Models\Charity\CharityOfficers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,5 +28,10 @@ class Charity extends Model
     public function documents()
     {
         return $this->hasMany(CharityDocuments::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(CharityPosts::class);
     }
 }
