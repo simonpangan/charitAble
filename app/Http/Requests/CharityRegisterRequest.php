@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
+use App\Rules\MaxWordsRule;
 
 class CharityRegisterRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class CharityRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +27,16 @@ class CharityRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'charityName' => ['required', 'string', 'min:2', new MaxWordsRule(10)],
+            /*
+                email validation
+                https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
+            */
+            'charityEmail' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
+            'headAdminEmail' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
+            //Password default validations is in the AppServiceProvider
+            'password' => ['required', 'string', 'confirmed', Password::defaults()],
+
         ];
     }
 }
