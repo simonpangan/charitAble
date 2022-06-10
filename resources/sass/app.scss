@@ -191,7 +191,7 @@ p {
             /* ie10+ */
             background: linear-gradient(256deg, #00c9e4 0%, #007bff 100%);
             /* w3c */
-            filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#007bff', endColorstr='#00c9e4', GradientType=1);
+            // filter: progid: clear( startColorstr='#007bff', endColorstr='#00c9e4', GradientType=1);
             /* ie6-9 */
             height: 3px;
             position: absolute;
@@ -711,7 +711,7 @@ a {
     /* ie10+ */
     background: linear-gradient(256deg, #00c9e4 0%, #007bff 100%);
     /* w3c */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#007bff', endColorstr='#00c9e4', GradientType=1);
+    // filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#007bff', endColorstr='#00c9e4', GradientType=1);
     /* ie6-9 */
     border-color: #007bff;
 }

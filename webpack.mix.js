@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-require('laravel-mix-purgecss');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,20 +10,10 @@ require('laravel-mix-purgecss');
  |
  */
 
- mix.vue(3)
-	.js('resources/js/app.js', 'public/js')
-	.js('resources/js/inertia-vue.js', 'public/js')
-	.js('resources/js/bootstrap.js', 'public/js')
+ mix.js('resources/js/app.js', 'public/js')
+    .vue(3)
+    .js('resources/js/vendor.js', 'public/js')
 	.sass('resources/sass/app.scss', 'public/css')
-	.sass('resources/sass/bootstrap.scss', 'public/css')
-     .purgeCss({
-         enabled: true,
-         content: [
-             'resources/js/Pages/**/*.vue',
-             'resources/views/**/*.blade.php',
-         ],
-         css: ['public/css/bootstrap.css'],
-     })
+	.sass('resources/sass/vendor.scss', 'public/css')
 	.sourceMaps()
 	.version();
-

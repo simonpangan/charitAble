@@ -7,19 +7,17 @@
       rel="stylesheet"
       href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
     />
-    <link href="{{ mix('/css/bootstrap.css') }}" rel="stylesheet" />
+    
+    <link href="{{ mix('/css/vendor.css') }}" rel="stylesheet" />
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-
-    <script src="{{ mix('/js/bootstrap.js') }}" defer></script>
-    <script src="{{ mix('/js/inertia-vue.js') }}" defer></script>
-    <script src="{{ mix('/js/app.js') }}" defer></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
+    
     @inertiaHead
   </head>
   <body>
     @routes
     @inertia
+    
+    <script src="{{ mix('/js/vendor.js') }}" defer></script>
+    <script src="{{ mix('/js/app.js') }}" defer></script>
   </body>
 </html>
