@@ -4,57 +4,68 @@
             <div class="col-md-4 mx-auto">
                 <div class="py-4" :class="{ 'osahan-login': ! form.hasErrors }">
                     <div class="text-center mb-4">
-                        <a href="index.html"><img src="img/logo.svg" alt=""></a>
-                        <h5 class="font-weight-bold mt-3">Welcome Back</h5>
-                        <p class="text-muted">Don't miss your next opportunity. Sign in to stay updated on your
-                            professional world.</p>
+                        <Link href="index.html">
+                            <img src="img/logo.svg" alt="chariAble Logo">
+                        </Link>
+                        <h5 class="fw-bold mt-3">Welco  me Back</h5>
+                        <p class="text-muted">
+                            Don't miss your next opportunity. 
+                            Sign in to stay updated on your professional world.
+                        </p>
                     </div>
                     <form @submit.prevent="submit">
-                        <div class="form-group">
-                            <label for="email" class="mb-1">Email or Phone</label>
-                            <div class="position-relative icon-form-control">
+                        <div class="mb-3">
+                            <label for="email" class="mb-1">Email</label>
+                            <div class="icon-form-control position-relative">
                                 <i class="feather-user position-absolute"></i>
                                 <input  v-model="form.email" type="text"
-                                        class="form-control" id="email"
-                                       :class="{ 'is-invalid': form.errors.email }">
-                                <span v-if="form.errors.email" v-text="form.errors.email"
-                                      class="invalid-feedback" role="alert">
-                                </span>
+                                    class="form-control" id="email"
+                                    :class="{ 'is-invalid': form.errors.email }"
+                                />
                             </div>
+                            <span v-if="form.errors.email" v-text="form.errors.email"
+                                class="invalid-feedback d-block" role="alert">
+                            </span>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label class="mb-1">Password</label>
-                            <div class="position-relative icon-form-control">
-                                <i class="feather-unlock position-absolute"></i>
+                            <div class="icon-form-control position-relative">
+                                <i class="position-absolute feather-unlock"></i>
                                 <input v-model="form.password" type="password"
-                                       :class="{ 'is-invalid': form.errors.password }"
-                                       class="form-control">
-                                <span v-if="form.errors.password" v-text="form.errors.password"
-                                      class="invalid-feedback" role="alert">
-                                </span>
+                                    class="form-control" :class="{ 'is-invalid': form.errors.password }">
                             </div>
+                            <span v-if="form.errors.password" v-text="form.errors.password"
+                                class="invalid-feedback d-block" role="alert">
+                            </span>
                         </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" v-model="form.remember" class="custom-control-input" name="remember">
-                            <label class="custom-control-label" for="customCheck1">Remember password</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" v-model="form.remember" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Remember Me
+                            </label>
                         </div>
-                        <div class="text-center">
-                            <button :disabled="form.processing" class="btn btn-primary text-uppercase mt-3 px-5" type="submit">
-                                Agree & Jin
-                            </button>
-                        </div>
+                        <br />
+                        <button :disabled="form.processing" type="submit" 
+                                class="btn btn-primary btn-block text-uppercase w-100"> 
+                            Sign in 
+                        </button>
                         <div class="text-center mt-3 border-bottom pb-3">
-                            <p class="small text-muted">Or login with</p>
+                            <p class="small text-muted">Or</p>
                             <div class="text-center">
-                                  <a :href="$route('auth.google.index')" class="btn btn-sm b   tn-outline-instagram btn-block px-5">
-                                    <i class="feather-instagram"></i> Sign Up Using Google
+                                <a :href="$route('auth.google.index')" 
+                                    class="btn btn-light text-uppercase w-100">
+                                    Sign in with google
                                 </a>
                             </div>
                         </div>
                         <div class="py-3 d-flex align-item-center">
-                            <a href="forgot-password.html">Forgot password?</a>
-                            <span class="ml-auto"> New to Osahanin?
-                                <a class="font-weight-bold">Join now</a>
+                            <Link :href="$route('auth.password.request')">
+                                Forgot password?
+                            </Link>
+                            <span class="ms-auto"> New to charitAble?
+                                <Link href="$route('users.create')" class="fw-bold">
+                                    Join now
+                                </Link>
                             </span>
                         </div>
                     </form>
@@ -65,7 +76,7 @@
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/inertia-vue3"
+import { useForm, Link } from "@inertiajs/inertia-vue3"
 
 let form = useForm({
     email: '',
@@ -73,10 +84,7 @@ let form = useForm({
     remember: '',
 })
 
-
 let submit = () => {
     form.post(route('auth.login'));
 }
-
-
 </script>
