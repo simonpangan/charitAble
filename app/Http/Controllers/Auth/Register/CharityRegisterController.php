@@ -21,7 +21,9 @@ class CharityRegisterController extends Controller
 
     public function index()
     {
-        return Inertia::render('Auth/CharityRegister');
+        return Inertia::render('Auth/CharityRegister', [
+            'csrf' => csrf_token()
+        ]);
     }
 
     public function store(CharityRegisterRequest $request)
