@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <form @submit.prevent="submit">
+
       <section v-if="step == 1">
         <div class="row justify-content-center align-items-center d-flex vh-100">
           <div class="col-md-4">
@@ -51,9 +52,8 @@
                   <div class="form-group">
                     <label class="mb-1">Our Organization deals with</label>
                     <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <select class="form-select" aria-label="Default select example">
-                        <option selected>Please select at least one.</option>
+                        <option disabled selected>Please select one</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -94,11 +94,13 @@
                   <div class="col-12">
                     <label class="mb-1">Password (8 or more characters)</label>
                     <div class="position-relative icon-form-control">
-                      <i class="feather-unlock position-absolute"></i>
                       <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
                       <div class="mt-2">
                         <small>
-                          <p style="color: green" v-if="!v$.password.containsSpecial.$invalid"> &check; Passwords requires an special character. </p>
+                          <p class="text-danger nmb-1" v-if="v$.password.containsSpecial.$invalid"> &check; Passwords requires an special character. </p>
+                        </small>
+                        <small>
+                          <p style="color: green" class="nmb-1" v-if="!v$.password.containsSpecial.$invalid"> &check; Passwords requires an special character. </p>
                         </small>
                         <small>
                           <p style="color: orange" class="nmb-1" v-if="v$.password.containsSpecial.$invalid"> &#10006; Passwords requires an special character. </p>
@@ -197,7 +199,6 @@
       <section v-if="step == 2">
         <div class="row justify-content-center align-items-center d-flex vh-100">
           <div class="col-md-4">
-            <i class="feather-arrow-left me-2"></i>
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
                 <a href="index.html">
@@ -212,7 +213,7 @@
                     <label class="mb-1">Organization Description</label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-user position-absolute"></i>
-                      <textarea v-model="form.description" type="text" class="form-control" rows="4"></textarea>
+                      <textarea v-model="form.description" type="text" class="form-control" rows="6"></textarea>
                       <p class="text-danger" v-if="v$.charityName.$error">
                         <small>{{ v$.charityName.$errors[0].$message }}</small>
                       </p>
@@ -283,22 +284,33 @@
                   </div>
                 </div>
               </div>
-              <file-pond name="file" v-model="file" ref="file" v-bind:files="file" v-bind:server="{
+                    <label class="pb-5">Organization Logo</label>
+                    <file-pond name="file"
+                     class="h-50 mb-5"
+                      v-model="file"
+                       ref="file"
+                        v-bind:files="file"
+                         v-bind:server="{
                         timeout: 7000,
                         url: '/register/charity/upload',
                         process: {
                         headers: {
                             url: '/register/charity/upload',
                             method: 'POST',
-                            'X-CSRF-TOKEN': csrfToken,
+                            'X-CSRF-TOKEN': crsfToken,
                         },
                         withCredentials: false,
                         },
-                    }" allow-multiple="false" accepted-file-types="image/jpeg, image/png" max-files="1" allowDrop="true" dropOnPage="true" v-on:init="handleFilePondInit" v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
-              <div class="d-flex justify-content-end">
-                <button class="btn btn-primary text-uppercase mt-5 mx-auto" @click.prevent="prevStep"> Previous Step </button>
-                <button class="btn btn-primary text-uppercase mt-5 mx-auto" @click.prevent="secondNextStep"> Next Step </button>
-              </div>
+                    }"
+                    allow-multiple="false" 
+                    accepted-file-types="image/jpeg, image/png"
+                    max-files="1"
+                    allowDrop="true"
+                    dropOnPage="true"
+                    v-on:init="handleFilePondInit"
+                    v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
+              
+         
             </div>
           </div>
           <div class="
@@ -332,7 +344,12 @@
                   <p class="card-text"> Please input the organization details properly & correctly. Any further corrections, please contact charitable@gmail.com </p>
                 </div>
               </div>
-              <div class="card-footer" style="background: inherit; border-color: inherit"></div>
+              <div class="card-footer" >
+                <div class="d-flex justify-content-end">
+                <button class="btn btn-primary text-uppercase  mx-auto" @click.prevent="prevStep"> Previous Step </button>
+                <button class="btn btn-primary text-uppercase  mx-auto" @click.prevent="secondNextStep"> Next Step </button>
+              </div>
+              </div>
             </div>
           </div>
         </div>
@@ -340,7 +357,6 @@
       <section v-if="step == 3">
         <div class="row justify-content-center align-items-center d-flex vh-100">
           <div class="col-md-4">
-            <i class="feather-arrow-left me-2"></i>
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
                 <a href="index.html">
@@ -349,7 +365,35 @@
                 <h5 class="fw-bold mt-3">Charity Creation Setup</h5>
                 <p class="text-muted">Step 3 - Upload Documents</p>
               </div>
-              <div class="row"></div>
+              <div class="row">
+                    <label class="pb-5">Organization Logo</label>
+                    <file-pond name="documentFile"
+                     class="h-50 mb-5"
+                      v-model="documentFile"
+                       ref="documentFile"
+                        v-bind:files="documentFile"
+                         v-bind:server="{
+                        timeout: 7000,
+                        url: '/register/charity/uploadDocuments',
+                        process: {
+                        headers: {
+                            url: '/register/charity/uploadDocuments',
+                            method: 'POST',
+                            'X-CSRF-TOKEN': crsfToken,
+                        },
+                        withCredentials: false,
+                        },
+                    }"
+                    allow-multiple="false" 
+                    accepted-file-types="image/jpeg, image/png"
+                    max-files="7"
+                    allowDrop="true"
+                    dropOnPage="true"
+                    v-on:init="handleFilePondInit"
+                    v-on:updatefiles="handleFilePondUpdateDocumentFiles"></file-pond>
+                
+
+              </div>
               <div class="d-flex justify-content-end">
                 <button class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="prevStep"> Previous Step </button>
                 <button :disabled="form.processing" class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="submit">
@@ -424,8 +468,10 @@
   import "filepond/dist/filepond.min.css";
   // Import image preview and file type validation plugins
   import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+  import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
   // Create component
-  const FilePond = vueFilePond(FilePondPluginFileValidateType, );
+  const FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview);
   export default {
     components: {
       FilePond,
@@ -444,7 +490,7 @@
         ig_link: null,
         website_link: null,
         file: [],
-        charity_logo: null,
+        documentFile: null,
       });
       const rules = computed(() => ({
         charityName: {
@@ -513,6 +559,9 @@
         console.log("FilePond has initialized");
         // FilePond instance methods are available on `this.$refs.pond`
       },
+      handleFilePondUpdateDocumentFiles:function(documentFile){
+        this.form.documentFile = documentFile.map(documentFile => documentFile.file);
+      },
       handleFilePondUpdateFiles: function(file) {
         this.form.file = file[0].file;
       },
@@ -552,4 +601,14 @@
 </script>
 <style>
   @import "filepond/dist/filepond.css";
+
+  .filepond--drop-label{
+    background-color:white;
+    border-radius: 25px;
+    border: 2px solid #007bff;
+    padding: 20px;
+  }
+
+  @import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+
 </style>
