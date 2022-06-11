@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Requests\CharityVolunteerPostRequest;
+use App\Http\Requests\Charity\CharityVolunteerPostRequest;
 use App\Http\Controllers\Charity\CharityVolunteerPostController;
 
 

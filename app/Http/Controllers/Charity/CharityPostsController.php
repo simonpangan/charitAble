@@ -20,7 +20,7 @@ class CharityPostsController
         return Inertia::render('Charity/Post/Create');
     }
 
-    public function store(CharityPostStoreRequest $request): RedirectResponse
+    public function store(CharityPostStoreRequest $request, ): RedirectResponse
     {
         CharityPosts::create($request->validated());
 
