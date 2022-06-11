@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Charity;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityVolunteerPost;
 use App\Http\Requests\CharityVolunteerPostRequest;
+use Inertia\Response as InertiaResponse;
 
 class CharityVolunteerPostController
 {
@@ -17,12 +17,36 @@ class CharityVolunteerPostController
         return to_route('');
     }
 
-    public function destroy($id): RedirectResponse
+    public function show(int $id): InertiaResponse
+    {
+        return Inertia::render(
+            '',  
+            CharityVolunteerPost::findOrFail($id)->toArray()
+        );
+    }
+    public function edit(int $id): InertiaResponse
+    {
+        return Inertia::render(
+            '',  
+            CharityVolunteerPost::findOrFail($id)->toArray()
+        );
+    }
+
+    public function update(CharityVolunteerPostRequest $request, int $id): RedirectResponse
+    {
+        CharityVolunteerPost::query()
+            ->findOrFail($id)
+            ->update($request->validated());
+
+        return to_route('');
+    }
+
+    public function destroy(int $id): RedirectResponse
     {
         CharityVolunteerPost::query()
             ->findOrFail($id)
             ->delete();
             
-        return to_route('');
+        return to_route('index');
     }
 }
