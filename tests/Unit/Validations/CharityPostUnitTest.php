@@ -1,7 +1,6 @@
 <?php
 
-
-use App\Http\Requests\CharityPostStoreRequest;
+use App\Http\Requests\Charity\CharityPostStoreRequest;
 use App\Http\Controllers\Charity\CharityPostsController;
 
 

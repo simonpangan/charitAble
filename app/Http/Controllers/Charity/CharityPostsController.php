@@ -6,7 +6,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Charity\CharityPosts;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\CharityPostStoreRequest;
+use App\Http\Requests\Charity\CharityPostStoreRequest;
 
 class CharityPostsController
 {
