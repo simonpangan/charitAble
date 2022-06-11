@@ -38,8 +38,8 @@ class UsersSeeder extends Seeder
 
         User::Create(
             [
-                'firstName' => 'simonpangan',
-                'lastName' => 'simonpangan',
+                // 'firstName' => 'simonpangan',
+                // 'lastName' => 'simonpangan',
                 'email' => 'simonpangan@yahoo.com',
                 'role_id' => Role::USERS['BENEFACTOR'],
 //                'email_verified_at' => Carbon::now(config('app.timezone')),
