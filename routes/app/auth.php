@@ -1,11 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Auth\ {
     LoginController,
     VerificationController
 };
-use App\Http\Controllers\Charity\CharityVolunteerPostController;
+
+use App\Http\Controllers\Charity\{
+    CharityProgramController,
+    CharityVolunteerPostController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +26,23 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::inertia('/admin', 'Benefactor/Index')->name('admin.index');
     });
 
+    Route::inertia('/charity', 'Charity/Index')->name('charity.index');
+
     Route::group([
             'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN', 
             'as' => 'charity.', 
             'prefix' => 'charity',
         ], function () {
-            
-        // Route::inertia('', 'Charity/Index')->name('charity.index');
+     
+        Route::controller(CharityProgramController::class)->group(function () {
+            Route::get('program', 'index')->name('program.index');
+            Route::get('program', 'create')->name('program.create');
+            Route::post('program', 'store')->name('program.store');
+            Route::get('program/{id}', 'show')->name('program.show');
+            Route::get('program/{id}/edit', 'edit')->name('program.edit');
+            Route::put('program/{id}', 'update')->name('program.update');
+            Route::delete('program/{id}', 'destroy')->name('program.destroy');
+        });
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
