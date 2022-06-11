@@ -74,6 +74,12 @@ expect()->extend('canAccessUrl', function (String $url, String $to = null, Strin
     return  $response->assertOk();
 });
 
+expect()->extend('toBeRedirectedTo', function (String $routeName) {
+    $this->value->assertStatus(302);
+
+    return  $this->value->assertRedirect(route($routeName));
+});
+
 /*
 |--------------------------------------------------------------------------
 | Functions
@@ -161,7 +167,7 @@ function actingAs(Authenticatable $user)
     return test()->actingAs($user);
 }
 
-function getRoute(String $routename, Array $parameters = [])
+function getRoute(String $routename, Array|int $parameters = [])
 {
     return test()->get(route($routename, $parameters));
 }
