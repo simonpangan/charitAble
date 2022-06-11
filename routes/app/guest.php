@@ -29,7 +29,7 @@ Route::name('auth.')->group(function () {
         Route::get('/login-google', [GoogleLoginController::class, 'redirectToGoogle'])->name('index');
     });
 
-    Route::name('password.')->group(function () {   
+    Route::name('password.')->group(function () {
         Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('email');
         Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('request');
 
@@ -42,11 +42,13 @@ Route::name('auth.')->group(function () {
 Route::name('register.')->group(function () {
     Route::post('/register', [BenefactorRegisterController::class, 'store'])->name('benefactor.store');
     Route::get('/register/benefactor', [BenefactorRegisterController::class, 'index'])->name('benefactor.index');
-    
+
 
     Route::get('/register/charity', [CharityRegisterController::class, 'index'])->name('charity.index');
 
     Route::get('/register/charity', [CharityRegisterController::class, 'index'])->name('charity.index');
     Route::post('/register',[CharityRegisterController::class,'store'])->name('charity.store');
     Route::post('/register/charity/upload', [CharityRegisterController::class, 'uploadPhoto']);
+    Route::post('/register/charity/uploadDocuments', [CharityRegisterController::class, 'uploadDocumentsPhoto']);
+
 });
