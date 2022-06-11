@@ -167,6 +167,12 @@ function postRoute(String $routeName, Array $parameters = [])
 {
     return test()->post(route($routeName), $parameters);
 }
+function deleteRoute(String $routeName, int $id)
+{
+    return test()->delete(route($routeName, [
+        'id' => $id
+    ]));
+}
 
 
 function withoutMiddleware()
