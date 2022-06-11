@@ -24,15 +24,18 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
     Route::group([
             'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN', 
             'as' => 'charity.', 
-            'prefix' => 'charity'
+            'prefix' => 'charity',
         ], function () {
             
         // Route::inertia('', 'Charity/Index')->name('charity.index');
-        Route::post('volunteer-posts', [CharityVolunteerPostController::class, 'store'])->name('volunteer.store');
-        Route::get('volunteer-posts/{id}', [CharityVolunteerPostController::class, 'show'])->name('volunteer.show');
-        Route::get('volunteer-posts/{id}/edit', [CharityVolunteerPostController::class, 'edit'])->name('volunteer.edit');
-        Route::put('volunteer-posts/{id}', [CharityVolunteerPostController::class, 'update'])->name('volunteer.update');
-        Route::delete('volunteer-posts/{id}', [CharityVolunteerPostController::class, 'destroy'])->name('volunteer.destroy');
+
+        Route::controller(CharityVolunteerPostController::class)->group(function () {
+            Route::post('volunteer-posts', 'store')->name('volunteer.store');
+            Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');
+            Route::get('volunteer-posts/{id}/edit', 'edit')->name('volunteer.edit');
+            Route::put('volunteer-posts/{id}', 'update')->name('volunteer.update');
+            Route::delete('volunteer-posts/{id}', 'destroy')->name('volunteer.destroy');
+        });
     });
 
     Route::middleware('role:BENEFACTOR')->group(function () {
