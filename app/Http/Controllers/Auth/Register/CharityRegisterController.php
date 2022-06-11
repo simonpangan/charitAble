@@ -21,20 +21,15 @@ class CharityRegisterController extends Controller
 
     public function index()
     {
-        return Inertia::render('Auth/CharityRegister', [
-            'csrf' => csrf_token()
+        return Inertia::render('Auth/CharityRegister',[
+            'csrfToken' => csrf_token()
         ]);
     }
 
     public function store(CharityRegisterRequest $request)
     {
         
-        //dd($request->all());
-       
-        // $this->uploadPhoto(
-        //     $request->input('file')
-        //  );
-        // //if last step
+  
         $link = '';
         $user = $this->createUser(
             $request->only(['headAdminEmail', 'password'])
@@ -43,33 +38,45 @@ class CharityRegisterController extends Controller
         $user->createLog('You have registered to our system');
 
 
+        //
         if($request->hasFile('file')){
         //logo file path
         $logo_file_path = 'tmp/documents/';
 
-        //charity legit logo path
         $charity_logo_file_path = 'charity/logo/';
+        $charity_document_file_path = 'charity/document/';
         $file = $request->file('file');
         $filename = $file->getClientOriginalName();
 
         $temporaryFile = TemporaryFile::where('filename',$filename)->first()->getRawOriginal();
         
-        Storage::move($logo_file_path.$temporaryFile['folder'].'/'.$temporaryFile['filename'], $charity_logo_file_path.$filename);
-        //copy temporary 
-
+        Storage::move('tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], $charity_logo_file_path.$filename);
+        
+        //this doesn't work
         Storage::deleteDirectory($logo_file_path.$temporaryFile['folder']);
         //delete temporary
         $link = $charity_logo_file_path.$filename;
-
         }
+
+        // if($request->hasFile('documentFile')){
+        //     //this code works, nacacalll lahat ng file array, up to u pannno mo siya kukunin file name
+        //     $documentFile = $request->only('documentFile');
+
+        // for($i = 1; $i < count($documentFile); $i++){
+        //     // $temporaryDocumentFile = TemporaryFile::where('filename',$documentFile['documentFile'][$i]->getClientOriginalName())->first()->getRawOriginal();
+        //     // Storage::move($logo_file_path.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], $charity_document_file_path.$documentFile['documentFile'][$i]->getClientOriginalName());
+        
+        // return (dd($documentFile[$i]));
+
+        // }
+
+        // }
+
         $this->createCharity($user, $request->except(['headAdminEmail', 'password']), $link );
         event(new Registered($user));
 
         $this->guard()->login($user);
         // dd($request->all());
-        return redirect($this->redirectPath());
-
-
     }
 
 
@@ -82,6 +89,8 @@ class CharityRegisterController extends Controller
         ]);
     }
 
+    
+
     private function createCharity(User $user, array $data, $link): void
     {
         $user->charity()->create([
@@ -93,28 +102,47 @@ class CharityRegisterController extends Controller
             'facebook_link' => $data['fb_link'],
             'twitter_link' => $data['twitter_link'],
             'instagram_link' => $data['ig_link'],
-
         ]);
     }
 
     public function uploadPhoto(Request $request){
 
-           if($request->hasFile('file')){
-            $file = $request->file('file');
-            $filename = $file->getClientOriginalName();
-            $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('tmp/documents/'. $folder ,$filename);
-
-            TemporaryFile::create([
-                'folder' => $folder,
-                'filename' => $filename
-            ]);
-
-            return $folder;
-        }
-
-        return '';
+            if($request->hasFile('file')){
+                $file = $request->file('file');
+                $filename = $file->getClientOriginalName();
+                $folder = uniqid() . '-' . now()->timestamp;
+                $file->storeAs('tmp/logo/'. $folder ,$filename);
+    
+                TemporaryFile::create([
+                    'folder' => $folder,
+                    'filename' => $filename,
+                    'file_type' => 'logo'
+                ]);
+    
+                return '200';
+            }
+            return '500';
     }
+
+    public function uploadDocumentsPhoto(Request $request){
+        
+            if($request->hasFile('documentFile')){
+                $file = $request->file('documentFile');
+                $filename = $file->getClientOriginalName();
+                $folder = uniqid() . '-' . now()->timestamp;
+
+                
+                $file->storeAs('tmp/documents/'. $folder ,$filename);
+       
+                TemporaryFile::create([
+                    'folder' => $folder,
+                    'filename' => $filename,
+                    'file_type' => 'document'
+                ]);
+                return $request->hasFile('documentFile');
+            }
+            return $request->hasFile('documentFile');     
+ }
 
 
 }
