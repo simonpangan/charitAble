@@ -297,20 +297,20 @@
                         headers: {
                             url: '/register/charity/upload',
                             method: 'POST',
-                            'X-CSRF-TOKEN': crsfToken,
+                            'X-CSRF-TOKEN': this.$page.props.csrfToken,
                         },
                         withCredentials: false,
                         },
                     }"
-                    allow-multiple="false" 
+                    allow-multiple="false"
                     accepted-file-types="image/jpeg, image/png"
                     max-files="1"
                     allowDrop="true"
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
                     v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
-              
-         
+
+
             </div>
           </div>
           <div class="
@@ -379,19 +379,19 @@
                         headers: {
                             url: '/register/charity/uploadDocuments',
                             method: 'POST',
-                            'X-CSRF-TOKEN': crsfToken,
+                            'X-CSRF-TOKEN': this.$page.props.csrfToken,
                         },
                         withCredentials: false,
                         },
                     }"
-                    allow-multiple="false" 
+                    allow-multiple="false"
                     accepted-file-types="image/jpeg, image/png"
                     max-files="7"
                     allowDrop="true"
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
                     v-on:updatefiles="handleFilePondUpdateDocumentFiles"></file-pond>
-                
+
 
               </div>
               <div class="d-flex justify-content-end">
