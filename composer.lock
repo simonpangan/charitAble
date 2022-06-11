@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33a333cc03e0963568e27d3394457a6c",
+    "content-hash": "97bd4b86bf4f66a7a530d752834f2c98",
     "packages": [
         {
             "name": "brick/math",
@@ -6390,48 +6390,36 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
-            "name": "laravel/browser-kit-testing",
-            "version": "v6.3.1",
+            "name": "jasonmccreary/laravel-test-assertions",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/browser-kit-testing.git",
-                "reference": "7447ad7d1b19c6205d8fb648d01992222b0ec89c"
+                "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
+                "reference": "2547c0366f1ee9a2d58b031468b26edc63faef4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/browser-kit-testing/zipball/7447ad7d1b19c6205d8fb648d01992222b0ec89c",
-                "reference": "7447ad7d1b19c6205d8fb648d01992222b0ec89c",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/2547c0366f1ee9a2d58b031468b26edc63faef4e",
+                "reference": "2547c0366f1ee9a2d58b031468b26edc63faef4e",
                 "shasum": ""
             },
             "require": {
-                "ext-dom": "*",
-                "ext-json": "*",
-                "illuminate/contracts": "^7.0|^8.0|^9.0",
-                "illuminate/database": "^7.0|^8.0|^9.0",
-                "illuminate/http": "^7.0|^8.0|^9.0",
-                "illuminate/support": "^7.0|^8.0|^9.0",
-                "illuminate/testing": "^7.0|^8.0|^9.0",
-                "mockery/mockery": "^1.0",
-                "php": "^7.2|^8.0",
-                "phpunit/phpunit": "^8.5|^9.0",
-                "symfony/console": "^5.0|^6.0",
-                "symfony/css-selector": "^5.0|^6.0",
-                "symfony/dom-crawler": "^5.0|^6.0",
-                "symfony/http-foundation": "^5.0|^6.0",
-                "symfony/http-kernel": "^5.0|^6.0"
-            },
-            "require-dev": {
-                "laravel/framework": "^7.0|^8.0|^9.0"
+                "illuminate/testing": "^8.0|^9.0",
+                "mockery/mockery": "^1.4.2",
+                "php": ">=7.3|^8.0",
+                "phpunit/phpunit": "^9.3.3"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "6.x-dev"
+                "laravel": {
+                    "providers": [
+                        "JMac\\Testing\\AdditionalAssertionsServiceProvider"
+                    ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Laravel\\BrowserKitTesting\\": "src/"
+                    "JMac\\Testing\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6440,20 +6428,16 @@
             ],
             "authors": [
                 {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
+                    "name": "Jason McCreary",
+                    "email": "jason@pureconcepts.net"
                 }
             ],
-            "description": "Provides backwards compatibility for BrowserKit testing in the latest Laravel release.",
-            "keywords": [
-                "laravel",
-                "testing"
-            ],
+            "description": "A set of helpful assertions when testing Laravel applications.",
             "support": {
-                "issues": "https://github.com/laravel/browser-kit-testing/issues",
-                "source": "https://github.com/laravel/browser-kit-testing/tree/v6.3.1"
+                "issues": "https://github.com/jasonmccreary/laravel-test-assertions/issues",
+                "source": "https://github.com/jasonmccreary/laravel-test-assertions/tree/v2.1.1"
             },
-            "time": "2022-04-13T17:44:04+00:00"
+            "time": "2022-03-08T14:47:39+00:00"
         },
         {
             "name": "laravel/sail",
@@ -9264,79 +9248,6 @@
             "time": "2022-04-12T15:19:55+00:00"
         },
         {
-            "name": "symfony/dom-crawler",
-            "version": "v6.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "9b4126901a6146c151d95af3868b1e0e30519ea6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/9b4126901a6146c151d95af3868b1e0e30519ea6",
-                "reference": "9b4126901a6146c151d95af3868b1e0e30519ea6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0.2",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "conflict": {
-                "masterminds/html5": "<2.6"
-            },
-            "require-dev": {
-                "masterminds/html5": "^2.6",
-                "symfony/css-selector": "^5.4|^6.0"
-            },
-            "suggest": {
-                "symfony/css-selector": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\DomCrawler\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Eases DOM navigation for HTML and XML documents",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v6.0.6"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-03-02T12:58:14+00:00"
-        },
-        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -9396,5 +9307,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
