@@ -2,6 +2,7 @@
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Charity\Charity;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 
@@ -112,6 +113,16 @@ function createAuthUserWithRole(String $role) {
 function createAuthUnverifiedUser() {
     return actingAs(createUnverifiedUser());
 }
+function createAuthCharityUser() {
+    $user = User::factory()->create([
+        'role_id' => Role::USERS['CHARITY_ADMIN']
+    ]); 
+    
+    $user->charity()->save(
+        Charity::factory()->makeOne()
+    );
+    return actingAs($user);
+}
 
 function createAuthUser() {
     return actingAs(createUser());
@@ -125,6 +136,15 @@ function createUserWithRole($role) {
     return User::factory()->create([
         'role_id' => Role::USERS[$role]
     ]);
+}
+
+
+function createCharityUser() {
+    return User::factory()->create([
+        'role_id' => Role::USERS['CHARITY_ADMIN']
+    ])->charity()->save(
+        Charity::factory()->makeOne()
+    );
 }
 
 function createUnverifiedUser() {

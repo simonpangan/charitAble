@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ {
     LoginController,
     VerificationController
 };
+use App\Http\Controllers\Charity\CharityVolunteerPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,14 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::inertia('/admin', 'Benefactor/Index')->name('admin.index');
     });
 
-    Route::middleware('role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN')->group(function () {
-        Route::inertia('/charity', 'Charity/Index')->name('charity.index');
+    Route::group([
+            'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN', 
+            'as' => 'charity.', 
+            'prefix' => 'charity'
+        ], function () {
+            
+        Route::post('volunteer', [CharityVolunteerPostController::class, 'store'])->name('volunteer.store');
+        // Route::inertia('', 'Charity/Index')->name('charity.index');
     });
 
     Route::middleware('role:BENEFACTOR')->group(function () {
@@ -44,13 +51,12 @@ Route::name('auth.')->group(function () {
 
     Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 
-    Route::middleware('throttle:6,1')->group(function () {
-        Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
-            ->name('verification.send');
+    Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
+        ->name('verification.send')
+        ->middleware('throttle:6,1');
 
-        Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-            ->name('verification.verify')
-            ->middleware('signed');
-    });
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+        ->name('verification.verify')
+        ->middleware(['signed','throttle:6,1']);
 });
 
