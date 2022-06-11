@@ -3,6 +3,7 @@
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Charity\Charity;
+use App\Models\Charity\CharityVolunteerPost;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 
@@ -172,9 +173,14 @@ function getRoute(String $routename, Array|int $parameters = [])
     return test()->get(route($routename, $parameters));
 }
 
-function postRoute(String $routeName, Array $parameters = [])
+function postRoute(String $routeName, Array $parameters = [], Array|int $query = null)
 {
-    return test()->post(route($routeName), $parameters);
+    return test()->post(route($routeName, $query), $parameters);
+}
+
+function putRoute(String $routeName, Array $parameters = [], Array|int $query = null)
+{
+    return test()->put(route($routeName, $query), $parameters);
 }
 function deleteRoute(String $routeName, int $id)
 {
@@ -188,6 +194,17 @@ function withoutMiddleware()
 {
     return test()->withoutMiddleware();
 }
+
+
+
+//MODELS
+
+function createCharityPost() {
+    createAuthCharityUser();
+
+    return CharityVolunteerPost::factory()->createOne();
+}
+
 
 
 

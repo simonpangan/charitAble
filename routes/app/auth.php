@@ -27,8 +27,12 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             'prefix' => 'charity'
         ], function () {
             
-        Route::post('volunteer', [CharityVolunteerPostController::class, 'store'])->name('volunteer.store');
         // Route::inertia('', 'Charity/Index')->name('charity.index');
+        Route::post('volunteer-posts', [CharityVolunteerPostController::class, 'store'])->name('volunteer.store');
+        Route::get('volunteer-posts/{id}', [CharityVolunteerPostController::class, 'show'])->name('volunteer.show');
+        Route::get('volunteer-posts/{id}/edit', [CharityVolunteerPostController::class, 'edit'])->name('volunteer.edit');
+        Route::put('volunteer-posts/{id}', [CharityVolunteerPostController::class, 'update'])->name('volunteer.update');
+        Route::delete('volunteer-posts/{id}', [CharityVolunteerPostController::class, 'destroy'])->name('volunteer.destroy');
     });
 
     Route::middleware('role:BENEFACTOR')->group(function () {
