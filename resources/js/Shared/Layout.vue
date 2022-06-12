@@ -10,7 +10,6 @@
     </Head>
 
     <header>
-        <h1>My App</h1>
         <Nav />
     </header>
 
