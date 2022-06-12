@@ -49,7 +49,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        $request->user()->createLog('You have login into our application');
+        $request->user()->createLoginLog();
 
         return redirect()->intended($this->redirectPath());
     }

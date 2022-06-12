@@ -56,6 +56,11 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function createLoginLog(): void
+    {
+        $this->createLog('You have login into our application');
+    }
+
     public function benefactor()
     {
         return $this->hasOne(Benefactor::class, 'id');
