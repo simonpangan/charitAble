@@ -10,15 +10,18 @@
     </header>
 
     <slot />
+
+    <Footer />
 </template>
 
 <script>
-import Nav from "./nav";
+import Nav from "./Nav";
+import Footer from "./Footer";
 import { Head } from "@inertiajs/inertia-vue3";
 
 export default {
     name: "Layout",
-    components: {Nav, Head},
+    components: {Nav, Head, Footer},
     // computed: {
     //     username() {
     //         return this.$page.props.auth.user.username;
