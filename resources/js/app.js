@@ -1,12 +1,14 @@
+require('bootstrap');
+
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import Layout from './Shared/Layout.vue';
 
-
 createInertiaApp({
-    resolve: name => {
-        let page = require(`./Pages/${name}`).default;
+    resolve: async name => {
+        let page = (await import(`./Pages/${name}`)).default;
+        // let page = require(`./Pages/${name}`).default;
 
         page.layout ??= Layout;
 
@@ -28,3 +30,5 @@ createInertiaApp({
 InertiaProgress.init({
     showSpinner: true,
 });
+
+
