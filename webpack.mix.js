@@ -11,8 +11,15 @@ const mix = require('laravel-mix');
  */
 
  mix.js('resources/js/app.js', 'public/js')
+ 	.vue(3)
 	.extract()
-    .vue(3)
 	.sass('resources/sass/app.scss', 'public/css')
 	.sass('resources/sass/vendor.scss', 'public/css')
 	.version();
+
+mix.webpackConfig({
+    output: {
+        // filename:'js/main/[name].js',
+        chunkFilename: 'js/pages/[name].js',
+    },
+});
