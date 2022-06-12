@@ -9,12 +9,9 @@
               <h5 class="font-weight-bold mt-3">We're almost there!</h5>
               <p class="text-muted">Please check your email inbox.</p>
             </div>
-            <div
-              v-if="$page.props.flash.resent"
-              class="alert alert-success"
-              role="alert"
-            ></div>
-            Before proceeding, please check your email for a verification link
+            <div v-if="$page.props.flash.resent" class="alert alert-success" role="alert" >
+                A fresh verification link has been sent to your email address.
+            </div>
             <br />
             If you did not receive the email
             <form class="d-inline" @submit.prevent="submit">
