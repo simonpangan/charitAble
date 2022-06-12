@@ -69,7 +69,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 */
 
 Route::name('auth.')->group(function () {
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 
