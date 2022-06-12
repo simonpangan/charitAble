@@ -12,3 +12,11 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+public/mix-manifest.json
+public/css/app.css
+public/css/vendor.css
+public/fonts/Feather.svg
+public/fonts/Feather.ttf
+public/fonts/Feather.woff
+public/js/app.js
+public/js/vendor.js

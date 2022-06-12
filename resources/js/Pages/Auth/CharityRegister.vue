@@ -385,7 +385,7 @@
                         },
                     }"
                     allow-multiple="false"
-                    accepted-file-types="image/jpeg, image/png"
+                    accepted-file-types="image/*"
                     max-files="7"
                     allowDrop="true"
                     dropOnPage="true"
