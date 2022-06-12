@@ -20,10 +20,15 @@
                                 <i class="feather-user position-absolute"></i>
                                 <input  v-model="form.email" type="text"
                                     class="form-control" id="email"
-                                    :class="{ 'is-invalid': form.errors.email }"
-                                />
+                                    :class="[{'is-invalid': props.errors.google_login}, 
+                                        {'is-invalid': form.errors.email}]"
+                                />  
                             </div>
                             <span v-if="form.errors.email" v-text="form.errors.email"
+                                class="invalid-feedback d-block" role="alert">
+                            </span>
+                            <span v-if="props.errors.google_login" 
+                                    v-text="props.errors.google_login"
                                 class="invalid-feedback d-block" role="alert">
                             </span>
                         </div>
@@ -78,6 +83,8 @@
 <script setup>
 import { useForm, Link } from "@inertiajs/inertia-vue3"
 
+const props = defineProps(['errors'])
+
 let form = useForm({
     email: '',
     password: '',
@@ -87,4 +94,5 @@ let form = useForm({
 let submit = () => {
     form.post(route('auth.login'));
 }
+
 </script>
