@@ -1,7 +1,7 @@
 require('bootstrap');
 
 import { createApp, h } from 'vue'
-import { createInertiaApp, Link } from '@inertiajs/inertia-vue3'
+import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import Layout from './Shared/Layout.vue';
 
@@ -21,10 +21,12 @@ createInertiaApp({
 
         VueApp.use(plugin)
             .component('Link', Link)
+            .component('Head', Head)
             .mount(el);
 
         return VueApp;
     },
+    title: title => `charitAble - ${title}` 
 });
 
 InertiaProgress.init({

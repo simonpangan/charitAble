@@ -1,9 +1,14 @@
 <template>
     <!-- Hello, {{ username }} -->  
     <Head>
-        <title>My app </title>
-        <meta type="description" content="Information About my app" head-key="description">
+        <title>My app</title>
+        <meta type="description" 
+            content="Information About my app" 
+            head-key="description"
+        >
+        <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
     </Head>
+
     <header>
         <h1>My App</h1>
         <Nav />

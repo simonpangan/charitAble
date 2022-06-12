@@ -1,4 +1,12 @@
 <template>
+    <Head>
+        <title>login</title>
+        <meta type="login" 
+            content="TANGINA" 
+            head-key="description"
+        >
+    </Head>
+
     <div class="container">
         <div class="row justify-content-center align-items-center d-flex vh-100">
             <div class="col-md-4 mx-auto">
@@ -73,7 +81,7 @@
                                 </Link>
                             </span>
                         </div>
-                    </form>
+                    </form> 
                 </div>
             </div>
         </div>
