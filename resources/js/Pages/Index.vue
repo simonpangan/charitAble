@@ -7,5 +7,3 @@ export default {
 
 }
 </script>
-
-TEll me about yourself
