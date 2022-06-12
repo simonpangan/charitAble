@@ -21,5 +21,7 @@ Route::middleware('auth')
 // Routes that can be access both by authenticated and unauthenticated users
 
 Route::inertia('/', 'Index')->name('index');
-Route::inertia('/privacy-policy', 'Static/PrivacyPolicy')->name('privacy');
-Route::inertia('/terms-and-condition', 'Static/TermsAndCondition')->name('terms');
+Route::inertia('/faq', 'Static/FAQ')->name('faq');
+Route::inertia('/about-us', 'Static/AboutUs')->name('about');
+Route::inertia('/privacy', 'Static/PrivacyPolicy')->name('privacy');
+Route::inertia('/terms', 'Static/TermsAndCondition')->name('terms');
