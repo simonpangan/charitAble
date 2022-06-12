@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ {
 };
 
 use App\Http\Controllers\Charity\{
+    CharityProfileController,
     CharityProgramController,
     CharityVolunteerPostController
 };
@@ -26,14 +27,16 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::inertia('/admin', 'Benefactor/Index')->name('admin.index');
     });
 
-    Route::inertia('/charity', 'Charity/Index')->name('charity.index');
-
+    
     Route::group([
-            'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN', 
-            'as' => 'charity.', 
-            'prefix' => 'charity',
-        ], function () {
-     
+        'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN', 
+        'as' => 'charity.', 
+        'prefix' => 'charity',
+    ], function () {
+        
+        Route::get('/profile', [CharityProfileController::class, 'index'])
+            ->name('profile.index');
+
         Route::controller(CharityProgramController::class)->group(function () {
             Route::get('program', 'index')->name('program.index');
             Route::get('program', 'create')->name('program.create');
@@ -69,7 +72,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 */
 
 Route::name('auth.')->group(function () {
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 

@@ -22,8 +22,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = [
         'ADMIN' => 'admin.index',
-        'CHARITY_SUPER_ADMIN'  => 'charity.index',
-        'CHARITY_ADMIN'  => 'charity.index',
+        'CHARITY_SUPER_ADMIN'  => 'charity.profile.index',
+        'CHARITY_ADMIN'  => 'charity.profile.index',
         'BENEFACTOR'  => 'benefactor.index',
     ];
 

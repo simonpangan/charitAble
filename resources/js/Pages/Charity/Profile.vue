@@ -1,5 +1,5 @@
 <template>
-	Landing Page
+	 Charity Profile
 </template>
 
 <script>

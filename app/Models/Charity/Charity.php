@@ -3,9 +3,9 @@
 namespace App\Models\Charity;
 
 use App\Models\Charity\CharityPosts;
-use Database\Factories\CharityFactory;
 use App\Models\Charity\CharityOfficers;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Charity\CharityVolunteerPost;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Charity extends Model
@@ -15,12 +15,6 @@ class Charity extends Model
     protected $guarded = ['id'];
 
 
-    protected static function newFactory()
-    {
-        return CharityFactory::new();
-    }
-
-    //Relationships
     public function officers()
     {
         return $this->hasMany(CharityOfficers::class);
@@ -33,5 +27,11 @@ class Charity extends Model
     public function posts()
     {
         return $this->hasMany(CharityPosts::class);
+    }
+
+
+    public function volunteerPosts()
+    {
+        return $this->hasMany(CharityVolunteerPost::class);
     }
 }
