@@ -9,7 +9,7 @@
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
                             <h5 class="font-weight-bold text-dark mb-1 mt-0">{{this.$page.props.user.charity.name}} <span class="text-info"><i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i></span></h5>
-                            <p class="mb-0 text-muted"> Category Charity 1 | Category Charity 2</p>
+                            <p class="mb-0 text-muted"> Category Charity 1 | Category Charity 2 | 10,000 followers</p>
                         </div>
                         <div class="profile-right ms-auto">
                             <button type="button" class="btn btn-light me-2"> <i class="feather-external-link"></i> Visit website </button>
@@ -51,12 +51,7 @@
                                     <h6 class="m-0">About</h6>
                                 </div>
                                 <div class="box-body p-3">
-                                    <p>Google’s mission is to organize the world‘s information and make it universally accessible and useful.
-                                    </p>
-                                    <p class="mb-0">Since our founding in 1998, Google has grown by leaps and bounds. From offering search in a single language we now offer dozens of products and services—including various forms of advertising and web applications for
-                                        all kinds of tasks—in scores of languages. And starting from two computer science students in a university dorm room, we now have thousands of employees and offices around the world. A lot has changed since the
-                                        first Google search engine appeared. But some things haven’t changed: our dedication to our users and our belief in the possibilities of the Internet itself.
-                                    </p>
+                                    <p>{{this.$page.props.user.charity.about}}</p>
                                 </div>
                             </div>
                             <div class="box shadow-sm border rounded bg-white mb-3">
@@ -67,12 +62,12 @@
                                     <table class="table table-borderless mb-0">
                                         <tbody>
                                             <tr class="border-bottom">
-                                                <th class="p-3">Website</th>
-                                                <td class="p-3"><a href="#">www.google.com</a></td>
+                                                <th class="p-3">Category</th>
+                                                <td class="p-3"><a href="#">Category 1 | Category 2</a></td>
                                             </tr>
                                             <tr class="border-bottom">
-                                                <th class="p-3">Industry</th>
-                                                <td class="p-3">Internet</td>
+                                                <th class="p-3">Permit/s</th>
+                                                <td class="p-3">SEC Registered Non-Profit Organization</td>
                                             </tr>
                                             <tr class="border-bottom">
                                                 <th class="p-3">Company size</th>
@@ -524,17 +519,32 @@
                         <div class="p-5">
                             <img src="https://agenda2030lac.org/sites/default/files/styles/256x256/public/2020-03/UNICEF-256.png?itok=Z14HqafD" class="img-fluid" alt="Responsive image">
                         </div>
-                        <div class="p-3">
-                            <div class="d-flex align-items-top border-top mb-2">
-                                <p class="mb-0 text-dark font-weight-bold">Followers</p>
-                                <p class="font-weight-bold text-info mb-0 mt-0 ms-auto">358</p>
+                        <div class="p-3 border-top border-bottom">
+                                <div class="d-flex align-items-top">
+                                <p class="mb-0 text-dark font-weight-bold">Total Followers</p>
+                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">35,148</p>
                             </div>
                         </div>
-                        <div class="p-3 border-top">
+
+                        <div class="p-3 border-bottom">
+                                <div class="d-flex align-items-top">
+                                <p class="mb-0 text-dark font-weight-bold">Email Address</p>
+                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">unicef_hr@unicefPH.com</p>
+                            </div>
+                            <div class="d-flex align-items-top">
+                                <p class="mb-0 text-dark font-weight-bold">Number</p>
+                                <p class="font-weight-bold mb-0 mt-0 ms-auto">0912-135-1884</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3">
+                            <div class="mt-2 mb-2">
                             <a href="#"><i class="feather-facebook me-3"></i></a>
                             <a href="#"><i class="feather-twitter mx-3"></i></a>
                             <a href="#"><i class="feather-instagram mx-3"></i></a>
                             <a href="#"><i class="feather-globe mx-3"></i></a>
+                            </div>
+                         
                         </div>
                     </div>
                     <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
