@@ -3,6 +3,7 @@
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Charity\Charity;
+use App\Models\Charity\CharityProgram;
 use App\Models\Charity\CharityVolunteerPost;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -203,6 +204,12 @@ function createCharityPost() {
     createAuthCharityUser();
 
     return CharityVolunteerPost::factory()->createOne();
+}
+
+function createCharityProgram() {
+    createAuthCharityUser();
+
+    return CharityProgram::factory()->createOne();
 }
 
 
