@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->email,
             'role_id' => $this->faker->numberBetween($userRoles->first(), $userRoles->last()),
             'email_verified_at' => Carbon::now(config('app.timezone'))->toDateString(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => $this->faker->password, // password
             'remember_token' => null,
         ];
     }
@@ -97,6 +97,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'role_id' => Role::USERS['CHARITY_ADMIN'],
+                'email' => $this->faker->companyEmail,
             ];
         });
     }
