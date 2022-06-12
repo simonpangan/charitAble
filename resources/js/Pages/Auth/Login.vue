@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { useForm, Link } from "@inertiajs/inertia-vue3"
+import { useForm } from "@inertiajs/inertia-vue3"
 
 const props = defineProps(['errors'])
 

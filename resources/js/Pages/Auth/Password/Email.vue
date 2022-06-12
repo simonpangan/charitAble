@@ -44,7 +44,7 @@
 </template>
 <script setup>
   import {
-    useForm, Link
+    useForm
   } from "@inertiajs/inertia-vue3";
 
   let form = useForm({
