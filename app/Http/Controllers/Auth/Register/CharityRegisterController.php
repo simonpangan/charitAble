@@ -29,12 +29,11 @@ class CharityRegisterController extends Controller
     public function store(CharityRegisterRequest $request)
     {
 
-
-
         $link = '';
         $user = $this->createUser(
             $request->only(['headAdminEmail', 'password'])
         );
+        $id = $user->id();
 
         //
 
@@ -53,7 +52,7 @@ class CharityRegisterController extends Controller
 
         $temporaryFile = TemporaryFile::where('filename',$filename)->where('file_type','logo')->first()->getRawOriginal();
 
-        Storage::move('tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], $charity_logo_file_path.$filename);
+        Storage::move('tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 'charity/'.$id.'/'.'logo/',$filename);
 
         //this doesn't work
         Storage::deleteDirectory($logo_file_path.$temporaryFile['folder']);
@@ -66,8 +65,7 @@ class CharityRegisterController extends Controller
         foreach($documentFile['documentFile'] as $document){
             $documentFileName = $document->getClientOriginalName();
             dump($temporaryDocumentFile = TemporaryFile::where('filename',$documentFileName)->where('file_type','document')->first()->getRawOriginal());
-            Storage::move('tmp/documents/'.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], 'charity/documents/'. $documentFileName);
-        }
+            Storage::move('tmp/documents/'.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], 'charity/'.$id.'/'.'documents/'. $documentFileName);        }
 
 
 
@@ -76,6 +74,7 @@ class CharityRegisterController extends Controller
 
         $this->guard()->login($user);
         // dd($request->all());
+        return redirect($this->redirectPath());
 
 
     }
