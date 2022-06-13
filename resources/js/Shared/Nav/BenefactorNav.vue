@@ -33,8 +33,7 @@
 				<span class="d-none d-lg-inline">Logs</span>
 			</NavLink>
 			<div class="dropdown-divider"></div>
-			<NavLink class="dropdown-item btn btn-link" href="/logout" 
-				method="post" as="button">
+			<NavLink class="dropdown-item btn btn-link" href="/logout" method="post" as="button">
 				<i class="feather-log-out me-1"></i>
 				<span class="d-none d-lg-inline">Logout</span>
 			</NavLink>
