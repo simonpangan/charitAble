@@ -67,6 +67,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Benefactor::class, 'id');
     }
 
+    public function withBenefactor()
+    {
+        return $this->setRelation('benefactor', Benefactor::find(Auth::id()));
+    }
+
     public function charity()
     {
         return $this->hasOne(Charity::class, 'id');

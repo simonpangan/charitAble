@@ -12,7 +12,8 @@
               <p class="text-muted">Please enter your email address</p>
             </div>
             <form @submit.prevent="submit">
-              <div v-if="$page.props.flash.status" v-text="$page.props.flash.status" 
+              <div v-if="$page.props.flash.status" 
+                v-text="$page.props.flash.status" 
                 class="alert alert-success w-80 mx-auto text-center" role="alert">
               </div>
               <div class="mb-3">

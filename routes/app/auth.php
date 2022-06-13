@@ -7,6 +7,12 @@ use App\Http\Controllers\Auth\ {
     VerificationController
 };
 
+use App\Http\Controllers\Benefactor\{
+    BenefactorHomeController,
+    BenefactorProfileController,
+    BenefactorCharitySearchController,
+};
+
 use App\Http\Controllers\Charity\{
     CharityProfileController,
     CharityProgramController,
@@ -56,8 +62,21 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
     });
 
-    Route::middleware('role:BENEFACTOR')->group(function () {
-        Route::inertia('/benefactor', 'Benefactor/Index')->name('benefactor.index');
+    Route::group([
+        'middleware' => 'role:BENEFACTOR', 
+        'as' => 'benefactor.', 
+        'prefix' => 'benefactor',
+    ], function () {
+
+        Route::get('/home', [BenefactorHomeController::class, 'index'])
+            ->name('home.index');
+
+        Route::get('/charity-search', [BenefactorCharitySearchController::class, 'index'])
+            ->name('charity-search.index');
+        
+        
+        Route::get('/profile', [BenefactorProfileController::class, 'index'])
+            ->name('profile.index');
     });
 });
 
