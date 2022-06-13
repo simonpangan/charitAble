@@ -4,6 +4,20 @@
       <a class="navbar-brand me-2" href="/">
         Logo
       </a>
+      <form class="d-none d-sm-inline-block form-inline me-auto my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+            <input v-model="form.seach" type="text" class="form-control shadow-none border-0 text-white" 
+              placeholder="Search peopse, jobs & more..." 
+              aria-label="Search" 
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn h-100" type="submit">
+                <i class="feather-search"></i>
+              </button>
+            </div>
+        </div>
+      </form>
       <ul v-if="auth === undefined" class="navbar-nav ms-auto d-flex align-items-center">
         <li class="nav-item">
           <NavLink class="nav-link" href="/login">
@@ -13,79 +27,27 @@
         </li>
       </ul>
       <ul v-else class="navbar-nav ms-auto d-flex align-items-center">
-        <template v-if="role == 'BENEFACTOR'">
-          <li class="nav-item">
-            <NavLink class="nav-link btn btn-link" href="/benefactor/home">
-              <i class="feather-users me-2"></i>
-              <span class="d-none d-lg-inline">Home</span>
-            </NavLink>
-          </li>
-          <li class="nav-item">
-            <NavLink class="nav-link btn btn-link" href="/benefactor/charity-search">
-              <i class="feather-users me-2"></i>
-              <span class="d-none d-lg-inline">Charities</span>
-            </NavLink>
-          </li>
-          <li class="nav-item">
-            <!-- <NavLink class="nav-link btn btn-link" href="#" 
-                method="post" as="button">
-              <i class="feather-users me-2"></i>
-              <span class="d-none d-lg-inline">Benefactor Profile</span>
-            </NavLink> -->
-          </li>
-        </template>
-        <template v-if="role == 'CHARITY_SUPER_ADMIN' || role == 'CHARITY_ADMIN'">
-          <li class="nav-item">
-            <NavLink class="nav-link btn btn-link" href="#" 
-                method="post" as="button">
-              <i class="feather-users me-2"></i>
-              <span class="d-none d-lg-inline">Charity Profile</span>
-            </NavLink>
-          </li>
-        </template>
-        <li class="nav-item">
-          <NavLink class="nav-link btn btn-link" href="/logout" 
-              method="post" as="button">
-            <i class="feather-log-out me-2"></i>
-            <span class="d-none d-lg-inline">Logout</span>
-          </NavLink>
-        </li>
-        <li class="nav-item dropdown no-arrow ms-1 osahan-profile-dropdown">
-          <a class="nav-link dropdown-toggle pe-0" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img class="img-profile rounded-circle" src="img/p13.png">
-          </a>
-          <!-- Dropdown - User Information -->
-          <div class="dropdown-menu dropdown-menu-end shadow-sm">
-              <div class="p-3 d-flex align-items-center">
-                  <div class="dropdown-list-image me-3">
-                      <img class="rounded-circle" src="img/user.png" alt="">
-                      <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="fw-bold">
-                      <div class="text-truncate">Gurdeep Osahan</div>
-                      <div class="small text-gray-500">UI/UX Designer</div>
-                  </div>
-              </div>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="profile.html">
-                <i class="feather-edit me-1"></i> 
-                My Account
-              </a>
-              <a class="dropdown-item" href="edit-profile.html"><i class="feather-user me-1"></i> Edit Profile</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="sign-in.html"><i class="feather-log-out me-1"></i> Logout</a>
-          </div>
-        </li>
+        <BenefactorNav v-if="role == 'BENEFACTOR'"/>
+        <CharityNav v-if="role == 'CHARITY_SUPER_ADMIN' || role == 'CHARITY_ADMIN'"/>
       </ul>
     </div>
   </nav>
 </template>
 
 <script setup>
-import NavLink from "./NavLink";
+import NavLink from "./Nav/NavLink";
+import BenefactorNav from "./Nav/BenefactorNav";
+import CharityNav from "./Nav/CharityNav";
 import { computed } from 'vue';
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 
+let form = useForm({
+    search: '',
+})
+
+let submit = () => {
+    form.get('/benefactor/charity-search');
+}
 </script>
 
 <script>
