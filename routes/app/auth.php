@@ -8,9 +8,11 @@ use App\Http\Controllers\Auth\ {
 };
 
 use App\Http\Controllers\Benefactor\{
+    BenefactorLogController,
     BenefactorHomeController,
     BenefactorProfileController,
     BenefactorCharitySearchController,
+    BenefactorConnectionsController,
 };
 
 use App\Http\Controllers\Charity\{
@@ -68,6 +70,12 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'prefix' => 'benefactor',
     ], function () {
 
+        Route::get('/logs', BenefactorLogController::class)
+            ->name('logs.index');
+
+        Route::get('/connections',[ BenefactorConnectionsController::class, 'index'])
+            ->name('connection.index');
+
         Route::get('/home', [BenefactorHomeController::class, 'index'])
             ->name('home.index');
 
@@ -77,6 +85,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         
         Route::get('/profile', [BenefactorProfileController::class, 'index'])
             ->name('profile.index');
+        Route::get('/profile/edit', [BenefactorProfileController::class, 'edit'])
+            ->name('profile.edit');
     });
 });
 
