@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Auth\Register;
 
+use App\Models\Role;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Traits\RedirectTo;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CharityRegisterRequest;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Models\User;
-use App\Models\Role;
 use App\Models\TemporaryFile;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\Charity\CharityRegisterRequest;
 
 class CharityRegisterController extends Controller
 {
@@ -30,10 +30,13 @@ class CharityRegisterController extends Controller
     {
 
 
+
         $link = '';
         $user = $this->createUser(
             $request->only(['headAdminEmail', 'password'])
         );
+
+        //
 
         $user->createLog('You have registered to our system');
 
@@ -85,6 +88,7 @@ class CharityRegisterController extends Controller
             'role_id' => Role::USERS['CHARITY_SUPER_ADMIN'],
             'password' => Hash::make($data['password']),
         ]);
+
     }
 
 
@@ -122,6 +126,7 @@ class CharityRegisterController extends Controller
             return '500';
     }
 
+
     public function uploadDocumentsPhoto(Request $request){
 
         //Improvement try to make upload into a single folder.
@@ -141,7 +146,5 @@ class CharityRegisterController extends Controller
                 return $file;
             }
             return $request->hasFile('documentFile');
- }
-
-
+    }
 }
