@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Inertia\Middleware;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -52,6 +54,12 @@ class HandleInertiaRequests extends Middleware
         if ($request->getPathInfo() === "/password/reset") {
             $sharedProps = Arr::add(
                 $sharedProps, 'flash.status', fn () => $request->session()->get('status')
+            );
+        }
+
+        if (Auth::user()) {
+            $sharedProps = Arr::add(
+                $sharedProps, 'auth', new UserResource(Auth::user())
             );
         }
 
