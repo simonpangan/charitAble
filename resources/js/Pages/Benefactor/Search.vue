@@ -8,7 +8,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search jobs" aria-label="Search" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button">
+                                <button class="btn btn-outline-secondary" type="button">
                               <i class="feather-search"></i>
                               </button>
                                 </div>
@@ -16,16 +16,16 @@
                         </form>
                         <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Category</a>
+                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Category</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Title</a>
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Title</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Location</a>
+                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Location</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Type</a>
+                                <a class="nav-link" id="type-tab" data-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Type</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -53,11 +53,11 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p1.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p2.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p3.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p4.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p5.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p1.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p2.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p3.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p4.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p5.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -81,9 +81,9 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p6.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p7.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p8.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p6.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p7.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p8.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -106,10 +106,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p9.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p10.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p11.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p12.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p9.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p10.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p11.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p12.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -133,10 +133,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p13.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p1.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p2.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p3.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p13.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p1.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p2.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p3.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -160,10 +160,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p4.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p5.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p6.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p7.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p4.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p5.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p6.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p7.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -187,10 +187,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p8.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p9.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p10.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p11.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p8.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p9.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p10.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p11.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -214,9 +214,9 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p12.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p13.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p2.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p12.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p13.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p2.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -240,11 +240,11 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p5.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p6.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p7.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p1.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p3.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p5.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p6.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p7.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p1.png" alt="">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p3.png" alt="">
                                                         </div>
                                                         <span class="fw-bold text-primary">18 connections</span>
                                                     </div>
@@ -494,10 +494,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p6.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p7.png" alt="" data-original-title="John Doe">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p8.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p6.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p7.png" alt="" data-bs-original-title="John Doe">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p8.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p9.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -526,10 +526,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="John Doe">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p13.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p10.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p11.png" alt="" data-bs-original-title="John Doe">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p12.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p13.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -558,9 +558,9 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p4.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p1.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p3.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p4.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -589,10 +589,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p5.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p6.png" alt="" data-original-title="John Doe">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p7.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p8.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p5.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p6.png" alt="" data-bs-original-title="John Doe">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p7.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p8.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -621,9 +621,9 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p13.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p8.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p9.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p13.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p8.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -652,10 +652,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="John Doe">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p13.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p10.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p11.png" alt="" data-bs-original-title="John Doe">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p12.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p13.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -684,9 +684,9 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p4.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p1.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p3.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p4.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -715,10 +715,10 @@
                                                     </div>
                                                     <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                         <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p5.png" alt="" data-original-title="Sophia Lee">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p6.png" alt="" data-original-title="John Doe">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p7.png" alt="" data-original-title="Julia Cox">
-                                                            <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p8.png" alt="" data-original-title="Robert Cook">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p5.png" alt="" data-bs-original-title="Sophia Lee">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p6.png" alt="" data-bs-original-title="John Doe">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p7.png" alt="" data-bs-original-title="Julia Cox">
+                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="" src="img/p8.png" alt="" data-bs-original-title="Robert Cook">
                                                         </div>
                                                         <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
@@ -826,12 +826,12 @@
                             </div>
                             <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                 <div class="overlap-rounded-circle">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p9.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p10.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p11.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p10.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p11.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p12.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p9.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p10.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p11.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p10.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p11.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p12.png" alt="">
                                 </div>
                                 <span class="fw-bold text-muted">18 connections</span>
                             </div>
@@ -853,10 +853,10 @@
                             </div>
                             <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                 <div class="overlap-rounded-circle">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Sophia Lee" src="img/p13.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="John Doe" src="img/p1.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Julia Cox" src="img/p2.png" alt="">
-                                    <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="Robert Cook" src="img/p3.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Sophia Lee" src="img/p13.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="John Doe" src="img/p1.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Julia Cox" src="img/p2.png" alt="">
+                                    <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Robert Cook" src="img/p3.png" alt="">
                                 </div>
                                 <span class="fw-bold text-muted">18 connections</span>
                             </div>

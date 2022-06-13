@@ -11,9 +11,9 @@
 			/>
             <div class="p-4">
               <label
-                data-toggle="tooltip"
-                data-placement="top"
-                data-original-title="Upload New Picture"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-original-title="Upload New Picture"
                 class="btn btn-info m-0"
                 for="fileAttachmentBtn"
               >
@@ -26,9 +26,9 @@
                 />
               </label>
               <button
-                data-toggle="tooltip"
-                data-placement="top"
-                data-original-title="Delete"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-original-title="Delete"
                 type="submit"
                 class="btn btn-danger"
               >
@@ -177,9 +177,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your name"
                         required=""
                         aria-describedby="nameLabel"
-                        data-msg="Please enter your name."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please enter your name."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                       <small class="form-text text-muted"
                         >Displayed on your public profile, notifications and
@@ -205,9 +205,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your username"
                         required=""
                         aria-describedby="usernameLabel"
-                        data-msg="Please enter your username."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please enter your username."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                     </div>
                   </div>
@@ -224,9 +224,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                       <select
                         class="form-control custom-select"
                         required=""
-                        data-msg="Please select month."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please select month."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       >
                         <option value="">Select month</option>
                         <option value="birthMonthSelect1">January</option>
@@ -254,9 +254,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                       <select
                         class="form-control custom-select"
                         required=""
-                        data-msg="Please select date."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please select date."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       >
                         <option value="">Select date</option>
                         <option value="birthDateSelect1">1</option>
@@ -303,9 +303,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                       <select
                         class="form-control custom-select"
                         required=""
-                        data-msg="Please select year."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please select year."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       >
                         <option value="">Select year</option>
                         <option value="birthYearSelect1900">1900</option>
@@ -439,9 +439,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                       <select
                         class="form-control custom-select"
                         required=""
-                        data-msg="Please select your gender."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please select your gender."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       >
                         <option value="genderSelect1" selected="">Male</option>
                         <option value="genderSelect2">Female</option>
@@ -468,9 +468,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your email address"
                         required=""
                         aria-describedby="emailLabel"
-                        data-msg="Please enter a valid email address."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please enter a valid email address."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                       <small class="form-text text-muted"
                         >We'll never share your email with anyone else.</small
@@ -495,9 +495,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your location"
                         required=""
                         aria-describedby="locationLabel"
-                        data-msg="Please enter your location."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please enter your location."
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                     </div>
                   </div>
@@ -520,9 +520,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your organization name"
                         required=""
                         aria-describedby="organizationLabel"
-                        data-msg="Please enter your organization name"
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please enter your organization name"
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                     </div>
                   </div>
@@ -544,9 +544,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your website"
                         required=""
                         aria-describedby="websiteLabel"
-                        data-msg="Password enter a valid website"
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Password enter a valid website"
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                       <small class="form-text text-muted"
                         >Your home page, blog or company site, e.g.
@@ -573,9 +573,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                         aria-label="Enter your phone number"
                         required=""
                         aria-describedby="phoneNumberLabel"
-                        data-msg="Please enter a valid phone number"
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
+                        data-bs-msg="Please enter a valid phone number"
+                        data-bs-error-class="u-has-error"
+                        data-bs-success-class="u-has-success"
                       />
                     </div>
                   </div>

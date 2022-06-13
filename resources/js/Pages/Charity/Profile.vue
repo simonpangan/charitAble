@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h5 class="font-weight-bold text-dark mb-1 mt-0">{{this.$page.props.user.charity.name}} <span class="text-info"><i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i></span></h5>
+                            <h5 class="font-weight-bold text-dark mb-1 mt-0">{{this.$page.props.user.charity.name}} <span class="text-info"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></h5>
                             <p class="mb-0 text-muted"> Category Charity 1 | Category Charity</p>
                         </div>
                         <div class="profile-right ms-auto">
@@ -28,16 +28,16 @@
                     <div class="box shadow-sm rounded bg-white mb-3 overflow-hidden">
                         <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                <a class="nav-link active" id="home-tab" data-bs-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Posts</a>
+                                <a class="nav-link" id="profile-tab" data-bs-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Posts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Programs</a>
+                                <a class="nav-link" id="contact-tab" data-bs-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Programs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="type-tab" data-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Volunteer Posting</a>
+                                <a class="nav-link" id="type-tab" data-bs-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Volunteer Posting</a>
                             </li>
                         </ul>
                     </div>
@@ -103,7 +103,7 @@
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate">{{this.$page.props.user.charity.name}}<span class="text-info ms-1"><i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
+                                        <div class="text-truncate">{{this.$page.props.user.charity.name}}<span class="text-info ms-1"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
                                         <div class="small text-gray-500">June 13, 2022</div>
                                     </div>
                                     <span class="ms-auto small">3 hours</span>
@@ -123,7 +123,7 @@
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate">{{this.$page.props.user.charity.name}}<span class="text-info ms-1"><i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
+                                        <div class="text-truncate">{{this.$page.props.user.charity.name}}<span class="text-info ms-1"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
                                         <div class="small text-gray-500">June 13, 2022</div>
                                     </div>
                                     <span class="ms-auto small">3 hours</span>
