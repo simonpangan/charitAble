@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('activity', 256);
+            $table->text('activity');
             $table->timestamp('created_at');
         });
     }
