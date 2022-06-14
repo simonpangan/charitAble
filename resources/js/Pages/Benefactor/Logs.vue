@@ -10,7 +10,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
                       <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                     </svg>
-                  </div> User Logs
+                  </div> 
+                  User Logs
                 </h1>
               </div>
             </div>
@@ -34,7 +35,7 @@
                     </select> entries per page </label>
                 </div>
                 <div class="dataTable-search">
-                  <input class="dataTable-input" placeholder="Search..." type="text">
+                  <input v-model="search" class="dataTable-input" placeholder="Search..." type="text">
                 </div>
               </div>
               <div class="dataTable-container">
@@ -92,9 +93,26 @@
 </template>
 
 <script setup>
-defineProps({
-  logs: Object
+import { ref, watch } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import debounce from 'lodash/debounce';
+
+let props = defineProps({
+  logs: Object,
+  filters: Object
 })
+
+let search = ref(props.filters.search);
+
+watch(search, debounce((value) => {
+  Inertia.get(
+    route('benefactor.logs.index'), { search: value }, {
+      preserveState: true,
+      replace: true
+    }
+  );
+}, 300));
+
 </script>
 
 <script> 
