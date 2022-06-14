@@ -44,13 +44,20 @@
                   <thead>
                     <tr>
                       <th data-sortable="" style="width: 10%;" class="text-center">
-                        <a href="#" class="dataTable-sorter">#</a>
+                        #
                       </th>
                       <th data-sortable="" style="width: 60%;" class="text-center">
-                        <a href="#" class="dataTable-sorter">Activity</a>
+                        Activity
                       </th>
-                      <th data-sortable="" style="width: 20%;" class="text-center">
-                        <a href="#" class="dataTable-sorter">Timestamp</a>
+                      <th data-sortable="" style="width: 20%;" class="text-center"
+                        :class="(sort == 'asc') ? 'asc' : 'desc'"
+                      >
+                        <Link :href="$route('benefactor.logs.index', {
+                          'order' : 'timestamp',
+                          'sort' : (sort == 'asc') ? 'desc' : 'asc' 
+                          })" class="dataTable-sorter">
+                          Timestamp
+                        </Link>
                       </th>
                     </tr>
                   </thead>
@@ -59,6 +66,11 @@
                       <td class="text-center">{{ logs.from + index }}</td>
                       <td>{{ log.activity }}</td>
                       <td>{{ log.created_at }}</td>
+                    </tr>
+                    <tr>
+                      <td class="dataTables-empty" colspan="3">
+                        No results match your search query
+                      </td>
                     </tr>
                   </tbody>
                 </card>
@@ -74,7 +86,7 @@
                       :class="[
                         link.active ? 'active' : '',
                         link.url ? 'pager' : '',
-                    ]">
+                    ]"> 
                       <Component 
                         :is="link.url ? 'Link' : 'span'"
                         v-if="link.url" 
@@ -105,6 +117,7 @@ let props = defineProps({
 
 let search = ref(props.filters.search);
 let entries = ref(props.filters.entries);
+let sort =  ref(props.filters.sort);
 
 
 watch(search, debounce((value) => {
@@ -116,9 +129,36 @@ watch(search, debounce((value) => {
   );
 }, 300));
 
+
 watch(entries, (value) => {
-  Inertia.get(
-    route('benefactor.logs.index'), { search: search.value, entries: value }, {
+
+  console.log(route().params['search']);
+  if(route().params['search'])
+   Inertia.get(
+    route('benefactor.logs.index'), { 
+        search: sarch.value, entries: value 
+      }, {
+      preserveState: true,  
+      replace: true
+    }
+  );
+
+  if (route().params['order'] && route().params['sort']) {
+      Inertia.get(
+        route('benefactor.logs.index'), { 
+          sort: sort.value, order: 'timestamp', entries: value, 
+        }, 
+        {
+          preserveState: true,
+          replace: true
+        }
+      );
+    }
+
+    Inertia.get(
+    route('benefactor.logs.index'), { 
+      entries: value, 
+    }, {
       preserveState: true,
       replace: true
     }
