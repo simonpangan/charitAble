@@ -131,38 +131,48 @@ watch(search, debounce((value) => {
 
 
 watch(entries, (value) => {
-
-  console.log(route().params['search']);
-  if(route().params['search'])
-   Inertia.get(
-    route('benefactor.logs.index'), { 
-        search: sarch.value, entries: value 
+  const routeIsEmpty = Object.keys(route().params).length === 0;
+  
+  if (routeIsEmpty) {
+     Inertia.get(
+      route('benefactor.logs.index'), { 
+        entries: value, 
       }, {
-      preserveState: true,  
-      replace: true
-    }
-  );
+        preserveState: true,
+        replace: true
+      }
+    ); 
+
+    return;
+  }
 
   if (route().params['order'] && route().params['sort']) {
-      Inertia.get(
-        route('benefactor.logs.index'), { 
-          sort: sort.value, order: 'timestamp', entries: value, 
-        }, 
-        {
-          preserveState: true,
-          replace: true
-        }
-      );
-    }
-
     Inertia.get(
-    route('benefactor.logs.index'), { 
-      entries: value, 
-    }, {
-      preserveState: true,
-      replace: true
-    }
-  );
+      route('benefactor.logs.index'), { 
+        sort: sort.value, order: 'timestamp', entries: value, 
+      }, 
+      {
+        preserveState: true,
+        replace: true
+      }
+    );
+
+    return;
+  }
+
+  if(route().params['search']) {
+    Inertia.get(
+      route('benefactor.logs.index'), { 
+          search: search.value, entries: value 
+        }, {
+        preserveState: true,  
+        replace: true
+      }
+    );
+
+    return;
+  }
+ 
 });
 
 </script>
