@@ -26,13 +26,14 @@
               <div class="dataTable-top">
                 <div class="dataTable-dropdown">
                   <label>
-                    <select class="dataTable-selector">
-                      <option value="5">5</option>
-                      <option value="10" selected="">10</option>
-                      <option value="15">15</option>
+                    <select v-model="entries" class="dataTable-selector">
+                      <option value="10" selected>10</option>
                       <option value="20">20</option>
-                      <option value="25">25</option>
-                    </select> entries per page </label>
+                      <option value="50">50</option>
+                      <option value="70">70</option>
+                      <option value="100">100</option>
+                    </select> entries per page 
+                  </label>
                 </div>
                 <div class="dataTable-search">
                   <input v-model="search" class="dataTable-input" placeholder="Search..." type="text">
@@ -103,15 +104,26 @@ let props = defineProps({
 })
 
 let search = ref(props.filters.search);
+let entries = ref(props.filters.entries);
+
 
 watch(search, debounce((value) => {
   Inertia.get(
-    route('benefactor.logs.index'), { search: value }, {
+    route('benefactor.logs.index'), { search: value, entries: entries.value }, {
       preserveState: true,
       replace: true
     }
   );
 }, 300));
+
+watch(entries, (value) => {
+  Inertia.get(
+    route('benefactor.logs.index'), { search: search.value, entries: value }, {
+      preserveState: true,
+      replace: true
+    }
+  );
+});
 
 </script>
 

@@ -12,22 +12,25 @@ class BenefactorLogController extends Controller
 {
     public function __invoke()
     {
+        //set default entries to 10
+        Request::mergeIfMissing(['entries' => 10]);
+
         $logs = Log::query()
             ->when(Request::input('search'), function ($query, $search) {
-                 $query->whereYear('created_at', $search);
+                $query->whereYear('created_at', $search);
             })
             ->where('user_id', Auth::id())
             ->latest()
             ->paginate(
-                10, ['activity', 'created_at'], 'page'
+                Request::input('entries'), 
+                ['activity', 'created_at'], 'page'
             )
             ->withQueryString();
 
-        return Inertia::render(
-            'Benefactor/Logs', 
-            [
+        return Inertia::render( 
+            'Benefactor/Logs', [
                 'logs' => $logs,
-                'filters' => Request::only(['search']),
+                'filters' =>  Request::only(['search', 'entries']),
             ]
         );
     }
