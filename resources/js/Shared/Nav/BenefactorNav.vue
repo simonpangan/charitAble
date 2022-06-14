@@ -26,16 +26,16 @@
 			</NavLink>
 			<NavLink class="dropdown-item btn btn-link" href="/benefactor/connections">
 				<i class="feather-log-out me-1"></i>
-				<span class="d-none d-lg-inline">Connections</span>
+				Connections
 			</NavLink>
 			<NavLink class="dropdown-item btn btn-link" href="/benefactor/logs">
 				<i class="feather-log-out me-1"></i>
-				<span class="d-none d-lg-inline">Logs</span>
+				Logs
 			</NavLink>
 			<div class="dropdown-divider"></div>
 			<NavLink class="dropdown-item btn btn-link" href="/logout" method="post" as="button">
 				<i class="feather-log-out me-1"></i>
-				<span class="d-none d-lg-inline">Logout</span>
+				Logout
 			</NavLink>
 		</div>
 	</li>
