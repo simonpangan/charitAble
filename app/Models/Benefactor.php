@@ -12,4 +12,10 @@ class Benefactor extends Model
     public $timestamps = false;
 
     protected $guarded = ['id'];
+
+    
+    public function getPreferencesAttribute($value)
+    {
+        return explode(',', $value);
+    }
 }
