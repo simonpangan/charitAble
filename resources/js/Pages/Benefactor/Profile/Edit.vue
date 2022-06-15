@@ -47,15 +47,15 @@
                 <div>
                   <ul class="ks-cboxtags">
                     <li v-for="(category, index) in $page.props.charityCategories" :key="index">
-                    <!-- <li v-for="(preference, index) in form.preferences" :key="index"> -->
+                        <!-- v-model="form.preferences"
+                        :checked="preferences.includes(category.name)" -->
                       <input
-                        v0
+                        v-model="form.preferences"
                         type="checkbox" 
                         :id="'checkbox' + index"
-                        :value="preference"
                         class="bg-primary"
-                        :checked="form.preferences.includes(category.name)"
-                        />
+                        :value="category.name"
+                      />
                        <label :for="'checkbox' + index">{{ category.value }}</label>
                     </li> 
                      <div v-if="form.errors['preferences.0']" class="text-danger">
@@ -198,7 +198,7 @@ let props = defineProps({
   auth: Object,
 })
 
-// const preferences = props.auth.user.benefactor.preferences;
+const preferences = props.auth.user.benefactor.preferences;
 
 let form = useForm({
     email: props.auth.user.email,
@@ -208,8 +208,7 @@ let form = useForm({
     age: props.auth.user.benefactor.age,
     city: props.auth.user.benefactor.city,
     account_type: props.auth.user.benefactor.account_type,
-    preferences: props.auth.user.benefactor.preferences,
-    // preferences: [], 
+    preferences: props.auth.user.benefactor.preferences, 
  })
 
 let submit = () => {

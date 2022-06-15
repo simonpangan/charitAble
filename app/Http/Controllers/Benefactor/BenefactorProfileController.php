@@ -28,12 +28,11 @@ class BenefactorProfileController
             ->findOrFail(Auth::id())
             ->update($request->only('email'));
 
-        $user = Benefactor::query()
+        Benefactor::query()
             ->findOrFail(Auth::id())
-            // ->update($request->except('email'));
-            ;
+            ->update($request->except('email'));
 
-        dd($user);
+
         to_route('benefactor.profile.index');
     }
 }

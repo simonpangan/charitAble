@@ -44,13 +44,15 @@ class BenefactorRegisterRequest extends FormRequest
     private function stepOneRules() : array
     {
         return [
+            //50
+            //50
             'first_name' => ['required', 'string', 'min:2', new MaxWordsRule(50)],
             'last_name' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
             /*
                 email validation
                 https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
             */
-            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             //Password default validations is in the AppServiceProvider 
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ];
