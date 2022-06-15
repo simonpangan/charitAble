@@ -45,6 +45,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/profile', [CharityProfileController::class, 'index'])
             ->name('profile.index');
 
+
+
         Route::controller(CharityProgramController::class)->group(function () {
             Route::get('program', 'index')->name('program.index');
             Route::get('program', 'create')->name('program.create');
@@ -82,11 +84,12 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/charity-search', [BenefactorCharitySearchController::class, 'index'])
             ->name('charity-search.index');
         
-        
+
         Route::get('/profile', [BenefactorProfileController::class, 'index'])
             ->name('profile.index');
-        Route::get('/profile/edit', [BenefactorProfileController::class, 'edit'])
-            ->name('profile.edit');
+
+        Route::put('/profile/update', [BenefactorProfileController::class, 'update'])
+            ->name('profile.update');
     });
 });
 
