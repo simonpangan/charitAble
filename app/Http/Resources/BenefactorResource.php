@@ -15,13 +15,13 @@ class BenefactorResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "firstName" =>  $this->first_name,
-            "lastName" =>  $this->last_name,
+            "first_name" =>  $this->first_name,
+            "last_name" =>  $this->last_name,
             "gender" =>  $this->gender,
             "age" => $this->age,
             "city" =>  $this->city,
             "preferences" =>  $this->preferences,
-            "accountType" =>  $this->account_type
+            "account_type" =>  $this->account_type
         ];
     }
 }
