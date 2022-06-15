@@ -1,316 +1,70 @@
 <template>
   <div class="container">
+    <br />
     <div class="row">
-      <aside class="col-md-4">
-        <div class="mb-3 border rounded bg-white profile-box text-center w-10">
-          <div class="p-4 d-flex align-items-center">
-            <img src="img/p13.png" class="img-fluid rounded-circle" alt="Responsive image" />
-            <div class="p-4">
-              <label data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Upload New Picture" class="btn btn-info m-0" for="fileAttachmentBtn">
-                <i class="feather-image"></i>
-                <input id="fileAttachmentBtn" name="file-attachment" type="file" class="d-none" />
-              </label>
-              <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete" type="submit" class="btn btn-danger">
-                <i class="feather-trash-2"></i>
-              </button>
+      <main class="col-md-8 mx-auto">
+        <div class="border rounded bg-white mb-3 bg-black">
+          <div class="box-title border-bottom p-3 position-relative">
+            <h6 class="m-0">Your Basic Info</h6>
+            <div class="position-absolute top-0 end-0 me-3 mt-2">
+              <!-- <a class="font-weight-bold btn btn-link rounded p-3" href="#">
+                    Cancel 
+              </a> -->
+              <button type="button" v-on:click="formSubmit" class="btn btn-primary">Edit</button>
             </div>
-          </div>
-        </div>
-        <div class="border rounded bg-white mb-3">
-          <div class="box-title border-bottom p-3">
-            <h6 class="m-0">About</h6>
-            <p class="mb-0 mt-0 small">Tell about yourself in two sentences.</p>
-          </div>
-          <div class="box-body">
-            <div class="p-3 border-bottom">
-              <div class="form-group mb-4">
-                <label class="mb-1">BIO</label>
-                <div class="position-relative">
-                  <textarea class="form-control" rows="4" name="text" placeholder="Enter Bio">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :)</textarea>
-                </div>
-              </div>
-              <div class="form-group mb-0">
-                <label class="mb-1 w-100">SKILLS</label>
-                <div class="custom-control custom-checkbox d-inline mr-3">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1" />
-                  <label class="custom-control-label" for="customCheck1">JavaScript, jQuery</label>
-                </div>
-                <div class="custom-control custom-checkbox d-inline">
-                  <input type="checkbox" class="custom-control-input" id="customCheck2" />
-                  <label class="custom-control-label" for="customCheck2">HTML5, CSS3</label>
-                </div>
-              </div>
-            </div>
-            <div class="overflow-hidden text-center p-3">
-              <a class="font-weight-bold btn btn-light rounded p-3 d-block" href="#"> SAVE </a>
-            </div>
-          </div>
-        </div>
-        <div class="border rounded bg-white mb-3">
-          <div class="box-title border-bottom p-3">
-            <h6 class="m-0">Social profiles</h6>
-            <p class="mb-0 mt-0 small">Add elsewhere links to your profile.</p>
-          </div>
-          <div class="box-body">
-            <div class="p-3 border-bottom">
-              <div class="position-relative icon-form-control mb-2">
-                <i class="feather-instagram position-absolute text-warning"></i>
-                <input placeholder="Add Instagram link" type="text" class="form-control" />
-              </div>
-              <div class="position-relative icon-form-control mb-2">
-                <i class="feather-facebook position-absolute text-primary"></i>
-                <input placeholder="Add Facebook link" type="text" class="form-control" />
-              </div>
-              <div class="position-relative icon-form-control mb-2">
-                <i class="feather-twitter position-absolute text-info"></i>
-                <input placeholder="Add Twitter link" type="text" class="form-control" />
-              </div>
-              <div class="position-relative icon-form-control mb-2">
-                <i class="feather-youtube position-absolute text-danger"></i>
-                <input placeholder="Add Youtube link" type="text" class="form-control" />
-              </div>
-              <div class="position-relative icon-form-control mb-0">
-                <i class="feather-github position-absolute text-dark"></i>
-                <input placeholder="Add Github link" type="text" class="form-control" />
-              </div>
-            </div>
-            <div class="overflow-hidden text-center p-3">
-              <a class="font-weight-bold btn btn-light rounded p-3 d-block" href="#"> Update Social Profiles </a>
-            </div>
-          </div>
-        </div>
-      </aside>
-      <main class="col-md-8">
-        <div class="border rounded bg-white mb-3">
-          <div class="box-title border-bottom p-3">
-            <h6 class="m-0">Edit Basic Info</h6>
-            <p class="mb-0 mt-0 small"> Lorem ipsum dolor sit amet, consecteturs. </p>
           </div>
           <div class="box-body p-3">
-            <form class="js-validate" novalidate="novalidate">
+            <form @submit.prevent="submit">
               <div class="row">
                 <div class="col-sm-6 mb-2">
                   <div class="js-form-message">
-                    <label id="nameLabel" class="form-label"> Name <span class="text-danger">*</span>
+                    <label id="nameLabel" class="form-label"> First Name <span class="text-danger">*</span>
                     </label>
                     <div class="form-group">
-                      <input type="text" class="form-control" name="name" value="Gurdeep Osahan" placeholder="Enter your name" aria-label="Enter your name" required="" aria-describedby="nameLabel" data-bs-msg="Please enter your name." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
-                      <small class="form-text text-muted">Displayed on your public profile, notifications and other places.</small>
+                      <input type="text" class="form-control" v-model="form.first_name" placeholder="Enter your name" />
+                      <div v-if="form.errors.first_name" class="text-danger">
+                        {{ form.errors.first_name }}
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-6 mb-2">
                   <div class="js-form-message">
-                    <label id="usernameLabel" class="form-label"> Username <span class="text-danger">*</span>
+                    <label id="usernameLabel" class="form-label"> Last Name <span class="text-danger">*</span>
                     </label>
                     <div class="form-group">
-                      <input type="text" class="form-control" name="username" value="iamosahan" placeholder="Enter your username" aria-label="Enter your username" required="" aria-describedby="usernameLabel" data-bs-msg="Please enter your username." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
+                      <input type="text" class="form-control" v-model="form.last_name" placeholder="Enter your last_name" />
+                      <div v-if="form.errors.last_name" class="text-danger">
+                        {{ form.errors.last_name }}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <label class="form-label"> Birth date <span class="text-danger">*</span>
+              <label class="form-label"> Preferences <span class="text-danger">*</span>
               </label>
               <div class="row">
-                <div class="col-md-6 mb-3 mb-sm-6">
-                  <div class="js-form-message">
-                    <div class="form-group">
-                      <select class="form-control custom-select" required="" data-bs-msg="Please select month." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success">
-                        <option value="">Select month</option>
-                        <option value="birthMonthSelect1">January</option>
-                        <option value="birthMonthSelect2">February</option>
-                        <option value="birthMonthSelect3">March</option>
-                        <option value="birthMonthSelect4" selected="selected"> April </option>
-                        <option value="birthMonthSelect5">May</option>
-                        <option value="birthMonthSelect6">June</option>
-                        <option value="birthMonthSelect7">July</option>
-                        <option value="birthMonthSelect8">August</option>
-                        <option value="birthMonthSelect9">September</option>
-                        <option value="birthMonthSelect10">October</option>
-                        <option value="birthMonthSelect11">November</option>
-                        <option value="birthMonthSelect12">December</option>
-                      </select>
+                <div>
+                  <ul class="ks-cboxtags">
+                    <li v-for="(category, index) in $page.props.charityCategories" :key="index">
+                    <!-- <li v-for="(preference, index) in form.preferences" :key="index"> -->
+                      <input
+                        v0
+                        type="checkbox" 
+                        :id="'checkbox' + index"
+                        :value="preference"
+                        class="bg-primary"
+                        :checked="form.preferences.includes(category.name)"
+                        />
+                       <label :for="'checkbox' + index">{{ category.value }}</label>
+                    </li> 
+                     <div v-if="form.errors['preferences.0']" class="text-danger">
+                      {{ form.errors['preferences.0'] }}
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-md-2 mb-3 mb-sm-6">
-                  <div class="js-form-message">
-                    <div class="form-group">
-                      <select class="form-control custom-select" required="" data-bs-msg="Please select date." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success">
-                        <option value="">Select date</option>
-                        <option value="birthDateSelect1">1</option>
-                        <option value="birthDateSelect2">2</option>
-                        <option value="birthDateSelect3">3</option>
-                        <option value="birthDateSelect4">4</option>
-                        <option value="birthDateSelect5">5</option>
-                        <option value="birthDateSelect6">6</option>
-                        <option value="birthDateSelect7">7</option>
-                        <option value="birthDateSelect8">8</option>
-                        <option value="birthDateSelect9">9</option>
-                        <option value="birthDateSelect10">10</option>
-                        <option value="birthDateSelect11">11</option>
-                        <option value="birthDateSelect12" selected="selected"> 12 </option>
-                        <option value="birthDateSelect13">13</option>
-                        <option value="birthDateSelect14">14</option>
-                        <option value="birthDateSelect15">15</option>
-                        <option value="birthDateSelect16">16</option>
-                        <option value="birthDateSelect17">17</option>
-                        <option value="birthDateSelect18">18</option>
-                        <option value="birthDateSelect19">19</option>
-                        <option value="birthDateSelect20">20</option>
-                        <option value="birthDateSelect21">21</option>
-                        <option value="birthDateSelect22">22</option>
-                        <option value="birthDateSelect23">23</option>
-                        <option value="birthDateSelect24">24</option>
-                        <option value="birthDateSelect25">25</option>
-                        <option value="birthDateSelect26">26</option>
-                        <option value="birthDateSelect27">27</option>
-                        <option value="birthDateSelect28">28</option>
-                        <option value="birthDateSelect29">29</option>
-                        <option value="birthDateSelect30">30</option>
-                        <option value="birthDateSelect31">31</option>
-                      </select>
+                    <div v-if="form.errors.preferences" class="text-danger">
+                        {{ form.errors.preferences }}
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-md-2 mb-3 mb-sm-6">
-                  <div class="js-form-message">
-                    <div class="form-group">
-                      <select class="form-control custom-select" required="" data-bs-msg="Please select year." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success">
-                        <option value="">Select year</option>
-                        <option value="birthYearSelect1900">1900</option>
-                        <option value="birthYearSelect1901">1901</option>
-                        <option value="birthYearSelect1902">1902</option>
-                        <option value="birthYearSelect1903">1903</option>
-                        <option value="birthYearSelect1904">1904</option>
-                        <option value="birthYearSelect1905">1905</option>
-                        <option value="birthYearSelect1906">1906</option>
-                        <option value="birthYearSelect1907">1907</option>
-                        <option value="birthYearSelect1908">1908</option>
-                        <option value="birthYearSelect1909">1909</option>
-                        <option value="birthYearSelect1910">1910</option>
-                        <option value="birthYearSelect1911">1911</option>
-                        <option value="birthYearSelect1912">1912</option>
-                        <option value="birthYearSelect1913">1913</option>
-                        <option value="birthYearSelect1914">1914</option>
-                        <option value="birthYearSelect1915">1915</option>
-                        <option value="birthYearSelect1916">1916</option>
-                        <option value="birthYearSelect1917">1917</option>
-                        <option value="birthYearSelect1918">1918</option>
-                        <option value="birthYearSelect1919">1919</option>
-                        <option value="birthYearSelect1920">1920</option>
-                        <option value="birthYearSelect1921">1921</option>
-                        <option value="birthYearSelect1922">1922</option>
-                        <option value="birthYearSelect1923">1923</option>
-                        <option value="birthYearSelect1924">1924</option>
-                        <option value="birthYearSelect1925">1925</option>
-                        <option value="birthYearSelect1926">1926</option>
-                        <option value="birthYearSelect1927">1927</option>
-                        <option value="birthYearSelect1928">1928</option>
-                        <option value="birthYearSelect1929">1929</option>
-                        <option value="birthYearSelect1930">1930</option>
-                        <option value="birthYearSelect1931">1931</option>
-                        <option value="birthYearSelect1932">1932</option>
-                        <option value="birthYearSelect1933">1933</option>
-                        <option value="birthYearSelect1934">1934</option>
-                        <option value="birthYearSelect1935">1935</option>
-                        <option value="birthYearSelect1936">1936</option>
-                        <option value="birthYearSelect1937">1937</option>
-                        <option value="birthYearSelect1938">1938</option>
-                        <option value="birthYearSelect1939">1939</option>
-                        <option value="birthYearSelect1940">1940</option>
-                        <option value="birthYearSelect1941">1941</option>
-                        <option value="birthYearSelect1942">1942</option>
-                        <option value="birthYearSelect1943">1943</option>
-                        <option value="birthYearSelect1944">1944</option>
-                        <option value="birthYearSelect1945">1945</option>
-                        <option value="birthYearSelect1946">1946</option>
-                        <option value="birthYearSelect1947">1947</option>
-                        <option value="birthYearSelect1948">1948</option>
-                        <option value="birthYearSelect1949">1949</option>
-                        <option value="birthYearSelect1950">1950</option>
-                        <option value="birthYearSelect1951">1951</option>
-                        <option value="birthYearSelect1952">1952</option>
-                        <option value="birthYearSelect1953">1953</option>
-                        <option value="birthYearSelect1954">1954</option>
-                        <option value="birthYearSelect1955">1955</option>
-                        <option value="birthYearSelect1956">1956</option>
-                        <option value="birthYearSelect1957">1957</option>
-                        <option value="birthYearSelect1958">1958</option>
-                        <option value="birthYearSelect1959">1959</option>
-                        <option value="birthYearSelect1960">1960</option>
-                        <option value="birthYearSelect1961">1961</option>
-                        <option value="birthYearSelect1962">1962</option>
-                        <option value="birthYearSelect1963">1963</option>
-                        <option value="birthYearSelect1964">1964</option>
-                        <option value="birthYearSelect1965">1965</option>
-                        <option value="birthYearSelect1966">1966</option>
-                        <option value="birthYearSelect1967">1967</option>
-                        <option value="birthYearSelect1968">1968</option>
-                        <option value="birthYearSelect1969">1969</option>
-                        <option value="birthYearSelect1970">1970</option>
-                        <option value="birthYearSelect1971">1971</option>
-                        <option value="birthYearSelect1972">1972</option>
-                        <option value="birthYearSelect1973">1973</option>
-                        <option value="birthYearSelect1974">1974</option>
-                        <option value="birthYearSelect1975">1975</option>
-                        <option value="birthYearSelect1976">1976</option>
-                        <option value="birthYearSelect1977">1977</option>
-                        <option value="birthYearSelect1978">1978</option>
-                        <option value="birthYearSelect1979">1979</option>
-                        <option value="birthYearSelect1980">1980</option>
-                        <option value="birthYearSelect1981">1981</option>
-                        <option value="birthYearSelect1982">1982</option>
-                        <option value="birthYearSelect1983">1983</option>
-                        <option value="birthYearSelect1984">1984</option>
-                        <option value="birthYearSelect1985">1985</option>
-                        <option value="birthYearSelect1986" selected="selected"> 1986 </option>
-                        <option value="birthYearSelect1987">1987</option>
-                        <option value="birthYearSelect1988">1988</option>
-                        <option value="birthYearSelect1989">1989</option>
-                        <option value="birthYearSelect1990">1990</option>
-                        <option value="birthYearSelect1991">1991</option>
-                        <option value="birthYearSelect1992">1992</option>
-                        <option value="birthYearSelect1993">1993</option>
-                        <option value="birthYearSelect1994">1994</option>
-                        <option value="birthYearSelect1995">1995</option>
-                        <option value="birthYearSelect1996">1996</option>
-                        <option value="birthYearSelect1997">1997</option>
-                        <option value="birthYearSelect1998">1998</option>
-                        <option value="birthYearSelect1999">1999</option>
-                        <option value="birthYearSelect2000">2000</option>
-                        <option value="birthYearSelect2001">2001</option>
-                        <option value="birthYearSelect2002">2002</option>
-                        <option value="birthYearSelect2003">2003</option>
-                        <option value="birthYearSelect2004">2004</option>
-                        <option value="birthYearSelect2005">2005</option>
-                        <option value="birthYearSelect2006">2006</option>
-                        <option value="birthYearSelect2007">2007</option>
-                        <option value="birthYearSelect2008">2008</option>
-                        <option value="birthYearSelect2009">2009</option>
-                        <option value="birthYearSelect2010">2010</option>
-                        <option value="birthYearSelect2011">2011</option>
-                        <option value="birthYearSelect2012">2012</option>
-                        <option value="birthYearSelect2013">2013</option>
-                        <option value="birthYearSelect2014">2014</option>
-                        <option value="birthYearSelect2015">2015</option>
-                        <option value="birthYearSelect2016">2016</option>
-                        <option value="birthYearSelect2017">2017</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 col-md-2 mb-2">
-                  <div class="js-form-message">
-                    <div class="form-group">
-                      <select class="form-control custom-select" required="" data-bs-msg="Please select your gender." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success">
-                        <option value="genderSelect1" selected="">Male</option>
-                        <option value="genderSelect2">Female</option>
-                        <option value="genderSelect3">Other</option>
-                      </select>
-                    </div>
-                  </div>
+                  </ul> 
                 </div>
               </div>
               <div class="row">
@@ -319,38 +73,24 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
                     <label id="emailLabel" class="form-label"> Email address <span class="text-danger">*</span>
                     </label>
                     <div class="form-group">
-                      <input type="email" class="form-control" name="email" value="iamosahan@gmail.com" placeholder="Enter your email address" aria-label="Enter your email address" required="" aria-describedby="emailLabel" data-bs-msg="Please enter a valid email address." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
-                      <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                      <input type="email" class="form-control" 
+                        v-model="form.email" placeholder="Enter your email address" 
+                      />
+                      <div v-if="form.errors.email" class="text-danger">
+                        {{ form.errors.email }}
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-6 mb-2">
                   <div class="js-form-message">
-                    <label id="locationLabel" class="form-label"> Location <span class="text-danger">*</span>
+                    <label id="locationLabel" class="form-label"> City <span class="text-danger">*</span>
                     </label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="location" value="Ludhiana, Punjab" placeholder="Enter your location" aria-label="Enter your location" required="" aria-describedby="locationLabel" data-bs-msg="Please enter your location." data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6 mb-2">
-                  <div class="js-form-message">
-                    <label id="organizationLabel" class="form-label"> Organization <span class="text-danger">*</span>
-                    </label>
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="organization" value="Askbootsrap Ltd." placeholder="Enter your organization name" aria-label="Enter your organization name" required="" aria-describedby="organizationLabel" data-bs-msg="Please enter your organization name" data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-2">
-                  <div class="js-form-message">
-                    <label id="websiteLabel" class="form-label"> Website <span class="text-danger">*</span>
-                    </label>
-                    <div class="form-group">
-                      <input class="form-control" type="url" name="website" value="https://askbootstrap.com/" placeholder="Enter your website" aria-label="Enter your website" required="" aria-describedby="websiteLabel" data-bs-msg="Password enter a valid website" data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
-                      <small class="form-text text-muted">Your home page, blog or company site, e.g. http://example.com</small>
+                    <div class="form-group">  
+                      <input type="text" class="form-control" v-model="form.city" placeholder="Enter your location" />
+                      <div v-if="form.errors.city" class="text-danger">
+                        {{ form.errors.city }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -358,31 +98,54 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
               <div class="row">
                 <div class="col-sm-6 mb-2">
                   <div class="js-form-message">
-                    <label id="phoneNumberLabel" class="form-label"> Phone number <span class="text-danger">*</span>
+                    <label id="organizationLabel"  class="form-label">
+                       Gender <span class="text-danger">*</span>
                     </label>
                     <div class="form-group">
-                      <input class="form-control" type="tel" name="phoneNumber" value="+91 85680 79956" placeholder="Enter your phone number" aria-label="Enter your phone number" required="" aria-describedby="phoneNumberLabel" data-bs-msg="Please enter a valid phone number" data-bs-error-class="u-has-error" data-bs-success-class="u-has-success" />
-                    </div>
-                  </div>
-                  <a class="d-inline-block u-text-muted" href="#">
-                    <span class="mr-1">+</span> Add phone number </a>
-                </div>
-                <div class="col-sm-6 mb-2">
-                  <div class="js-form-message">
-                    <label class="form-label"> Preferred language <span class="text-danger">*</span>
-                    </label>
-                    <div class="form-group">
-                      <select class="custom-select">
-                        <option value="">Select language</option>
-                        <option value="languageSelect1" selected=""> English </option>
-                        <option value="languageSelect2">Français</option>
-                        <option value="languageSelect3">Deutsch</option>
-                        <option value="languageSelect4">Português</option>
+                      <select v-model="form.gender" class="form-control custom-select">
+                        <option selected>Open this select menu</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="LGBT">LGBT</option>
+                        <option value="Others">Others/Prefer Not to Say</option>
                       </select>
+                      <div v-if="form.errors.gender" class="text-danger">
+                        {{ form.errors.gender }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 mb-2">
+                  <div class="js-form-message">
+                    <label id="websiteLabel" class="form-label"> Age <span class="text-danger">*</span>
+                    </label>
+                    <div class="form-group">
+                      <input class="form-control" type="number" v-model="form.age" placeholder="Enter your age" />
+                      <div v-if="form.errors.age" class="text-danger">
+                        {{ form.errors.age }}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="row"> 
+                <div class="col-sm-6 mb-2">
+                  <div class="js-form-message">
+                    <label id="phoneNumberLabel" class="form-label"> Account Type <span class="text-danger">*</span>
+                    </label>
+                    <div class="form-group">
+                      <select class="form-control custom-select" v-model="form.account_type">
+                        <option value="Personal">Personal Account</option>
+                        <option value="Business">Business Account</option>
+                      </select>
+                      <div v-if="form.errors.account_type" class="text-danger">
+                        {{ form.errors.account_type }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" > Submit</button>
             </form>
           </div>
         </div>
@@ -422,11 +185,34 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor :
             </div>
           </div>
         </div>
-        <div class="mb-3 text-right">
-          <a class="font-weight-bold btn btn-link rounded p-3" href="#"> &nbsp;&nbsp;&nbsp;&nbsp; Cancel &nbsp;&nbsp;&nbsp;&nbsp; </a>
-          <a class="font-weight-bold btn btn-primary rounded p-3" href="#"> &nbsp;&nbsp;&nbsp;&nbsp; Sava Chenges &nbsp;&nbsp;&nbsp;&nbsp; </a>
-        </div>
       </main>
     </div>
   </div>
 </template>
+
+
+<script setup>
+import { useForm } from "@inertiajs/inertia-vue3";
+
+let props = defineProps({
+  auth: Object,
+})
+
+// const preferences = props.auth.user.benefactor.preferences;
+
+let form = useForm({
+    email: props.auth.user.email,
+    first_name: props.auth.user.benefactor.first_name,
+    last_name: props.auth.user.benefactor.last_name,
+    gender: props.auth.user.benefactor.gender,
+    age: props.auth.user.benefactor.age,
+    city: props.auth.user.benefactor.city,
+    account_type: props.auth.user.benefactor.account_type,
+    preferences: props.auth.user.benefactor.preferences,
+    // preferences: [], 
+ })
+
+let submit = () => {
+  form.put(route('benefactor.profile.update'));
+}
+</script>

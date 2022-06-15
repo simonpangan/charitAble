@@ -4,29 +4,36 @@ namespace App\Http\Controllers\Benefactor;
 
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Benefactor;
+use App\Enums\CharityCategory;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\Benefactor\BenefactorProfileRequest;
+use App\Models\User;
 
 class BenefactorProfileController
 {
     public function index(): Response
     {
         return Inertia::render(
-            'Benefactor/Profile/Index',   
-            [ 'user' => Auth::user()->withBenefactor()->toArray() ]
-        );
-    }   
-
-    public function edit(): Response
-    {
-        return Inertia::render(
             'Benefactor/Profile/Edit',   
-            [ 'user' => Auth::user()->withBenefactor()->toArray() ]
+            [ 
+                'charityCategories'=> CharityCategory::getCategories()
+            ]
         );
     }   
 
-    public function update()
+    public function update(BenefactorProfileRequest $request)
     {
-        
+        User::query()
+            ->findOrFail(Auth::id())
+            ->update($request->only('email'));
+
+        $user = Benefactor::query()
+            ->findOrFail(Auth::id())
+            // ->update($request->except('email'));
+            ;
+
+        dd($user);
+        to_route('benefactor.profile.index');
     }
 }
