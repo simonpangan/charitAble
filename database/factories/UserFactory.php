@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->email,
             'role_id' => $this->faker->numberBetween($userRoles->first(), $userRoles->last()),
             'email_verified_at' => Carbon::now(config('app.timezone'))->toDateString(),
-            'password' => $this->faker->password, // password
+            'password' => $this->faker->password,
             'remember_token' => null,
         ];
     }
