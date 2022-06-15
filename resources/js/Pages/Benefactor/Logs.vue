@@ -42,14 +42,14 @@
               <div class="dataTable-container">
                 <card id="datatablesSimple" class="dataTable-table">
                   <thead>
-                    <tr>
-                      <th data-sortable="" style="width: 10%;" class="text-center">
+                    <tr style="width: 100%">
+                      <th style="width: 10%;" class="text-center">
                         #
                       </th>
-                      <th data-sortable="" style="width: 60%;" class="text-center">
+                      <th style="width: 60%;" class="text-center">
                         Activity
                       </th>
-                      <th data-sortable="" style="width: 20%;" class="text-center"
+                      <th style="width: 20%;" class="text-center"
                         :class="(sort == 'asc') ? 'asc' : 'desc'"
                       >
                         <Link :href="$route('benefactor.logs.index', {
@@ -67,8 +67,8 @@
                       <td>{{ log.activity }}</td>
                       <td>{{ log.created_at }}</td>
                     </tr>
-                    <tr>
-                      <td class="dataTables-empty" colspan="3">
+                    <tr v-if="logs.data.length == 0">
+                      <td class="dataTables-empty" colspan="3" width="1300">
                         No results match your search query
                       </td>
                     </tr>
@@ -132,8 +132,10 @@ watch(search, debounce((value) => {
 
 watch(entries, (value) => {
   const routeIsEmpty = Object.keys(route().params).length === 0;
+  const routeHaveAtleastOneAndIsEntries = 
+    route().params['entries'] && Object.keys(route().params).length === 1;
   
-  if (routeIsEmpty) {
+  if (routeIsEmpty || routeHaveAtleastOneAndIsEntries) {
      Inertia.get(
       route('benefactor.logs.index'), { 
         entries: value, 
