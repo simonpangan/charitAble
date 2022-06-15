@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Benefactor extends Model
 {
@@ -13,9 +14,11 @@ class Benefactor extends Model
 
     protected $guarded = ['id'];
 
-    
-    public function getPreferencesAttribute($value)
+    protected function preferences(): Attribute
     {
-        return explode(',', $value);
+        return Attribute::make(
+            get: fn ($value) => explode(",", $value),
+            set: fn ($value) => implode(",", $value),
+        );
     }
 }
