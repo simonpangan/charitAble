@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Role;
 use Inertia\Middleware;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -57,7 +58,15 @@ class HandleInertiaRequests extends Middleware
             );
         }
 
-        if (Auth::user()) {
+        if (Auth::user() && 
+            in_array(Auth::user()->role_id, [Role::USERS['CHARITY_SUPER_ADMIN'], Role::USERS['CHARITY_ADMIN']])
+         ) {
+            $sharedProps = Arr::add(
+                $sharedProps, 'auth', new UserResource(Auth::user()->withCharity())
+            );
+        }
+
+        if (Auth::user() && Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
             $sharedProps = Arr::add(
                 $sharedProps, 'auth', new UserResource(Auth::user())
             );
