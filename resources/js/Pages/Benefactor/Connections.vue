@@ -23,7 +23,7 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="p-3">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" v-for="(following, index) in followingList" :key="index">
                                             <a href="profile.html">
                                                 <div class="border network-item rounded mb-3">
                                                     <div class="p-3 d-flex align-items-center network-item-header">
@@ -31,279 +31,18 @@
                                                             <img class="rounded-circle" src="img/p1.png" alt="">
                                                         </div>
                                                         <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Sophia Lee</h6>
-                                                            <div class="small text-black-50">Photographer at Photography</div>
+                                                            <h6 class="fw-bold text-dark mb-0">{{ following.name }}</h6>
+                                                            <!-- <div class="small text-black-50">Photographer at Photography</div> -->
                                                         </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p1.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="John Doe" src="img/p2.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p3.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p4.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p5.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
                                                     </div>
                                                     <div class="network-item-footer py-3 d-flex text-center">
                                                         <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
+                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> View Profile </button>
                                                         </div>
                                                         <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p2.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">John Doe</h6>
-                                                            <div class="small text-black-50">Traveler</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p6.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="John Doe" src="img/p7.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p8.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p9.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p3.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Julia Cox</h6>
-                                                            <div class="small text-black-50">Art Designer</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p10.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="John Doe" src="img/p11.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p12.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p13.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p4.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Robert Cook</h6>
-                                                            <div class="small text-black-50">Graphic Designer</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p1.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p3.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p4.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p5.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Stella Bergmann</h6>
-                                                            <div class="small text-black-50">Photography</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p5.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="John Doe" src="img/p6.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p7.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p8.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p6.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Dan Walker</h6>
-                                                            <div class="small text-black-50">UI/UX Designer</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p9.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p13.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p8.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p7.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Julia Cox</h6>
-                                                            <div class="small text-black-50">Art Designer</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p10.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="John Doe" src="img/p11.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p12.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p13.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p8.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Robert Cook</h6>
-                                                            <div class="small text-black-50">Graphic Designer</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p1.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p3.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p4.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p9.png" alt="">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">Stella Bergmann</h6>
-                                                            <div class="small text-black-50">Photography</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                        <div class="overlap-rounded-circle">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Sophia Lee" src="img/p5.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="John Doe" src="img/p6.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Julia Cox" src="img/p7.png" alt="">
-                                                            <img class="rounded-circle shadow-sm" data-bs-toggle="tooltip" data-bs-psacement="top" title="Robert Cook" src="img/p8.png" alt="">
-                                                        </div>
-                                                        <span class="fw-bold small text-primary">4 mutual connections</span>
-                                                    </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                            <button type="button" class="btn btn-primary btn-sm d-block w-100"> Connect </button>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> <i class="feather-user-psus"></i> Follow </button>
+                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> 
+                                                                <i class="feather-user-psus"></i> Unfollow 
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -333,7 +72,7 @@
 							<li class="list-group-item ps-3 pe-3 d-flex align-items-center text-dark">
 								<i class="feather-users me-2 text-dark"></i> 
 									Total: 
-								<span class="ms-auto fw-bold">68</span>
+								<span class="ms-auto fw-bold">{{ charityFollowingCategotyNumber.total }} </span>
 							</li>
                         </ul>
                     </div>
@@ -355,3 +94,13 @@
         </div>
     </div>
 </template>
+
+<script setup>
+
+defineProps({
+    charityFollowingCategotyNumber: Object,
+    followingList: Array
+});
+
+
+</script>
