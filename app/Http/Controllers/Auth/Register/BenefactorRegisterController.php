@@ -20,9 +20,6 @@ use App\Models\User;
 
         public function index()
         {
-            // dump(CharityCategory::cases());
-            // dd(CharityCategory::getCategories());
-            // dd(json_encode(CharityCategory::cases()));
             return Inertia::render('Auth/BenefactorRegister', [
                 'charityCategories'=> CharityCategory::getCategories()
             ]);

@@ -427,9 +427,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Card -->
                         </div>
-                        <!-- End Privacy Accordion -->
                     </div>
                 </div>
             </div>

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Charity;
 
 use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Charity\CharityVolunteerPost;
-use App\Http\Requests\CharityVolunteerPostRequest;
 use Inertia\Response as InertiaResponse;
+use App\Models\Charity\CharityVolunteerPost;
+use App\Http\Requests\Charity\CharityVolunteerPostRequest;
 
 class CharityVolunteerPostController
 {

@@ -27,7 +27,6 @@ class BenefactorProfileRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->all());
         return [
             'first_name' => [
                 'required', 'string', 'min:2', new MaxWordsRule(50)

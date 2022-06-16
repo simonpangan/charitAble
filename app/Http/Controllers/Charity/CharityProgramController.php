@@ -22,7 +22,7 @@ class CharityProgramController
 
     public function store(CharityProgramRequest $request): RedirectResponse
     {
-        CharityProgram::created($request->validated());
+        CharityProgram::create($request->validated());
 
         return to_route('');
     }
