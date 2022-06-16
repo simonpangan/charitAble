@@ -21,7 +21,10 @@ class BenefactorResource extends JsonResource
             "age" => $this->age,
             "city" =>  $this->city,
             "preferences" =>  $this->preferences,
-            "account_type" =>  $this->account_type
+            "total_donation" =>  $this->total_donation,
+            "total_charities_donated" =>  $this->total_charities_donated,
+            "total_charities_followed" =>  $this->total_charities_followed,
+            "total_number_donations" =>  $this->total_number_donations,
         ];
     }
 }
