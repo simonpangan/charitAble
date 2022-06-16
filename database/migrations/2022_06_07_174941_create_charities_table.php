@@ -18,7 +18,7 @@ return new class extends Migration
             $table->primary('id');
 
             $table->string('name')->nullable();
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
             $table->string('header')->nullable();
             $table->string('logo')->nullable();
 
