@@ -15,6 +15,7 @@ const mix = require('laravel-mix');
 	.extract()
 	.sass('resources/sass/app.scss', 'public/css')
 	.sass('resources/sass/vendor.scss', 'public/css')
+	.css('resources/css/datatable.css', 'public/css')
 	.version();
 
 mix.webpackConfig({

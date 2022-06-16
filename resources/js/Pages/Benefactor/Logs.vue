@@ -148,7 +148,7 @@ watch(entries, (value) => {
     return;
   }
 
-   if (route().params['entries'] && route().params['page']) {
+   if ((route().params['entries'] && route().params['page']) || route().params['page']) {
      Inertia.get(
       route('benefactor.logs.index'), { 
         entries: value, 
