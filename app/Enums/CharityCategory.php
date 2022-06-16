@@ -26,4 +26,10 @@ enum CharityCategory: string
             ->pluck('name')
             ->toArray();
     }
+
+    public static function getCategoriesValues() {
+        return collect(CharityCategory::cases())
+            ->pluck('value')
+            ->toArray();
+    }
 }
