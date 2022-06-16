@@ -18,7 +18,7 @@ class LogFactory extends Factory
     {
         return [
             'activity' => $this->faker->sentence,
-            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
+            'created_at' => $this->faker->dateTimeBetween('-5 years', 'now')
         ];
     }
 }
