@@ -148,4 +148,8 @@ return [
 
     ],
 
+
+    //MODEL ENCRYPTION KEY
+
+    'encryption_key' => env('MODEL_ENCRYPTION_KEY'),
 ];

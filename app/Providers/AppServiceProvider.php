@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\LazyCollection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,5 +53,17 @@ class AppServiceProvider extends ServiceProvider
                 }
             });
         });
+
+        //Model encryption
+
+        $key = $this->databaseEncryptionKey();
+        $cipher = config('app.cipher');
+        Model::encryptUsing(new Encrypter($key, $cipher));
+    }
+
+    protected function databaseEncryptionKey(): ?string
+    {
+        $key = config('database.encryption_key');
+        return base64_decode(Str::after($key, 'base64:'));
     }
 }
