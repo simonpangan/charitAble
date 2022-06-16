@@ -20,9 +20,9 @@
 				<i class="feather-edit me-1"></i> 
 				My Account
 			</NavLink>
-			<NavLink class="dropdown-item btn btn-link" href="/benefactor/profile/edit">
-				<i class="feather-user me-1"></i> 
-				Edit Profile
+			<NavLink class="dropdown-item btn btn-link" href="/benefactor/dashboard">
+				<i class="feather-edit me-1"></i> 
+				Dashboard
 			</NavLink>
 			<NavLink class="dropdown-item btn btn-link" href="/benefactor/connections">
 				<i class="feather-log-out me-1"></i>
