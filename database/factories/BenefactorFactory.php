@@ -29,6 +29,10 @@ class BenefactorFactory extends Factory
             'preferences' => [
                 Arr::random(CharityCategory::getCategoriesName())
             ], 
+            'total_donation' =>$this->faker->numberBetween(10, 50000),
+            'total_charities_donated' =>$this->faker->numberBetween(1, 50),
+            'total_charities_followed' =>$this->faker->numberBetween(1, 50),
+            'total_number_donations' =>$this->faker->numberBetween(1, 100),
         ];
     }
 

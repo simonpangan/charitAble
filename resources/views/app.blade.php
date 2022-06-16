@@ -5,15 +5,21 @@
 
     <link href="{{ mix('/css/vendor.css') }}" rel="stylesheet" />
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-
+    
     @inertiaHead
   </head>
   <body>
+
+    <noscript>
+    <x-noscript/>    
+   </noscript>
+
     @routes
     @inertia
 
     <script src="{{ mix('/js/manifest.js') }}" defer></script>
     <script src="{{ mix('/js/vendor.js') }}" defer></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    
   </body>
 </html>

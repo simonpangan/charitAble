@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('preferences')->nullable();
             $table->string('account_type')->nullable();
+            $table->string('total_donation')->nullable();
+            $table->string('total_charities_donated')->nullable();
+            $table->string('total_charities_followed')->nullable();
+            $table->string('total_number_donations')->nullable();
         });
     }
 

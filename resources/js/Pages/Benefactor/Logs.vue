@@ -148,6 +148,21 @@ watch(entries, (value) => {
     return;
   }
 
+   if (route().params['entries'] && route().params['page']) {
+     Inertia.get(
+      route('benefactor.logs.index'), { 
+        entries: value, 
+      }, {
+        preserveState: true,
+        replace: true
+      }
+    ); 
+
+    return;
+  }
+
+  //entries + page
+
   if (route().params['order'] && route().params['sort']) {
     Inertia.get(
       route('benefactor.logs.index'), { 
