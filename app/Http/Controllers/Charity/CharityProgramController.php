@@ -17,7 +17,7 @@ class CharityProgramController
 
     public function create(): Response
     {
-        return Inertia::render('');
+        return Inertia::render('Charity/Program/Create');
     }
 
     public function store(CharityProgramRequest $request): RedirectResponse

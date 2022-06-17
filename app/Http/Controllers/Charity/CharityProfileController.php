@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Charity;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Benefactor;
+use App\Models\Charity\Charity;
+use App\Models\Charity\CharityPosts;
+use App\Models\Charity\CharityVolunteerPost;
+use Illuminate\Support\Facades\Auth;
 
 
 class CharityProfileController extends Controller
@@ -15,7 +19,9 @@ class CharityProfileController extends Controller
     {
         return Inertia::render( 
             'Charity/Profile', 
-            [ 'user' => Auth::user()->withCharity()->toArray() ]
+            [ 'user' => Auth::user()->withCharity()->toArray(),
+              'posts'=> CharityPosts::where('charity_id',Auth::user()->id)->get()->toArray(),
+              'volunteer_post'=> CharityVolunteerPost::where('charity_id',Auth::user()->id)->get()->toArray()]
         );
     }
 }
