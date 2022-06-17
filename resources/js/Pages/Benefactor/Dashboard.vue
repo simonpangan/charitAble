@@ -214,6 +214,6 @@
 <script setup>
   let props = defineProps({
     auth: Object,
+    benefactor: Object
   });
-  let benefactor = props.auth.user.benefactor;
 </script>
