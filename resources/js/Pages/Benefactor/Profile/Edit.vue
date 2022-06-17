@@ -196,19 +196,20 @@ import { useForm } from "@inertiajs/inertia-vue3";
 
 let props = defineProps({
   auth: Object,
+  benefactor: Object,
 })
 
-const preferences = props.auth.user.benefactor.preferences;
+const preferences = props.benefactor.preferences;
 
 let form = useForm({
     email: props.auth.user.email,
-    first_name: props.auth.user.benefactor.first_name,
-    last_name: props.auth.user.benefactor.last_name,
-    gender: props.auth.user.benefactor.gender,
-    age: props.auth.user.benefactor.age,
-    city: props.auth.user.benefactor.city,
-    account_type: props.auth.user.benefactor.account_type,
-    preferences: props.auth.user.benefactor.preferences, 
+    first_name: props.benefactor.first_name,
+    last_name: props.benefactor.last_name,
+    gender: props.benefactor.gender,
+    age: props.benefactor.age,
+    city: props.benefactor.city,
+    account_type: props.benefactor.account_type,
+    preferences: props.benefactor.preferences, 
  })
 
 let submit = () => {
