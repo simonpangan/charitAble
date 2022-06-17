@@ -17,7 +17,8 @@ class BenefactorProfileController
         return Inertia::render(
             'Benefactor/Profile/Edit',   
             [ 
-                'charityCategories'=> CharityCategory::getCategories()
+                'charityCategories'=> CharityCategory::getCategories(),
+                'benefactor' => Benefactor::auth()
             ]
         );
     }   
