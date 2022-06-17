@@ -25,7 +25,7 @@ class CharityPostStoreRequest extends FormRequest
     {
         return [
             'main_content_body' => ['required', 'string', 'min:2'],
-            'main_content_body_image' => ['required', 'string', 'min:2'],
+            'main_content_body_image' => [],
         ];
     }
 }

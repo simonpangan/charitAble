@@ -24,8 +24,7 @@ class CharityVolunteerPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => ['required', 'string'],
-            'location' => ['required', 'string'],
+          
         ];
     }
 }
