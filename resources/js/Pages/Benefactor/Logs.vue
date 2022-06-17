@@ -37,16 +37,22 @@
                 </div>
                 <div class="dataTable-search row mt-2">
                     <div class="col-auto">
-                      <div class="input-group mb-3">
+                      <div class="input-group">
                         <span class="input-group-text" id="inputGroup-sizing-default">From</span>
                         <input type="datetime-local" v-model="from" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
+                      <span v-if="errors.from" v-text="errors.from"
+                          class="invalid-feedback text-center d-block" role="alert">
+                      </span>
                     </div>
                     <div class="col-auto">
-                      <div class="input-group mb-3">
+                      <div class="input-group">
                         <span class="input-group-text" id="inputGroup-sizing-default">To</span>
                         <input type="datetime-local" v-model="to" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
+                      <span v-if="errors.to" v-text="errors.to"
+                          class="invalid-feedback text-center d-block" role="alert">
+                      </span>
                     </div>
                      <div class="col-auto">
                       <Link :href="$route('benefactor.logs.index')" 
@@ -55,6 +61,13 @@
                         class="btn btn-primary"
                       >
                         Search
+                      </Link>
+                      <Link :href="$route('benefactor.logs.index')" 
+                        method="get" 
+                        class="ms-2 btn btn-light"
+                        v-if="! defaultURL"
+                      >
+                        Show all
                       </Link>
                     </div>
                 </div>
@@ -74,7 +87,9 @@
                       >
                         <Link :href="$route('benefactor.logs.index', {
                           'order' : 'timestamp',
-                          'sort' : (sort == 'asc') ? 'desc' : 'asc' 
+                          'sort' : (sort == 'asc') ? 'desc' : 'asc',
+                           from: from,
+                           to: to
                           })" class="dataTable-sorter">
                           Timestamp
                         </Link>
@@ -126,20 +141,25 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import debounce from 'lodash/debounce';
-import { useForm } from "@inertiajs/inertia-vue3"
 
 let props = defineProps({
   logs: Object,
-  filters: Object
+  filters: Object,
+  errors: Object
 })
 
 let from = ref(props.filters.from);
 let to = ref(props.filters.to);
 let entries = ref(props.filters.entries);
 let sort =  ref(props.filters.sort);
+
+
+const defaultURL = computed(() => {
+  return Object.keys(route().params).length === 0
+})
+
 
 watch(entries, (value) => {
   const routeIsEmpty = Object.keys(route().params).length === 0;
@@ -187,7 +207,7 @@ watch(entries, (value) => {
     return;
   }
 
-  if(route().params['from'] && route().params['to']) {
+  if(route().params['from'] && route().params['to'] || (route().params['from'])) {
     Inertia.get(
       route('benefactor.logs.index'), { 
           from: from.value, to: to.value, entries: value 
