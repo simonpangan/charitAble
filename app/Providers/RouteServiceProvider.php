@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
         'ADMIN' => 'admin.index',
         'CHARITY_SUPER_ADMIN'  => 'charity.profile.index',
         'CHARITY_ADMIN'  => 'charity.profile.index',
-        'BENEFACTOR'  => 'benefactor.index',
+        'BENEFACTOR'  => 'benefactor.home.index',
     ];
 
     /**

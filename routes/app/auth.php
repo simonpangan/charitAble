@@ -13,6 +13,7 @@ use App\Http\Controllers\Benefactor\{
     BenefactorProfileController,
     BenefactorCharitySearchController,
     BenefactorConnectionsController,
+    BenefactorDashboardController,
 };
 
 use App\Http\Controllers\Charity\{
@@ -83,6 +84,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::get('/charity-search', [BenefactorCharitySearchController::class, 'index'])
             ->name('charity-search.index');
+
+
+        Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])
+            ->name('dashboard.index');
         
 
         Route::get('/profile', [BenefactorProfileController::class, 'index'])
