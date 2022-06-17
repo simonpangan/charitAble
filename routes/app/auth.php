@@ -89,7 +89,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             ->name('connection.index');
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
-            ->name('index');
+            ->name('home.index');
 
         Route::get('/charity-search', [BenefactorCharitySearchController::class, 'index'])
             ->name('charity-search.index');
