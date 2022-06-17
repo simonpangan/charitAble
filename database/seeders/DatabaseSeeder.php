@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UsersSeeder::class,
             LogSeeder::class,
-            CharitySeeder::class
+            CharitySeeder::class,
+            CharityFollowersSeeder::class,
         ]);
     }
 }
