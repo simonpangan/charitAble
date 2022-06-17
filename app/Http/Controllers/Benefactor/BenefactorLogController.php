@@ -13,8 +13,18 @@ class BenefactorLogController extends Controller
     public function __invoke(Request $request)
     {
         $logs = Log::query()
-            ->when($request->input('search'), function ($query, $search) {
-                $query->whereYear('created_at', $search);
+            ->visibleTo(Auth::user())  
+            ->when($request->input('from') && $request->input('to'), 
+                    function ($query, $from) use ($request) {
+                $query->whereBetween('created_at', 
+                    [$request->input('from'), $request->input('to')]
+                );
+            })
+            ->when($request->input('from') && ($request->input('to') == null), 
+                    function ($query, $from) use ($request) {
+
+                $request->merge(['to' => now()]);
+                $query->whereBetween('created_at', [$from, now()]);
             })
             ->when($request->input('order'), function ($query, $search) use($request){
                 $query->orderByTimestamp($request->only(['order', 'sort']));
@@ -22,7 +32,6 @@ class BenefactorLogController extends Controller
             ->unless($request->input('order'), function ($query, $search) {
                 $query->latest();
             })
-            ->visibleTo(Auth::user())  
             ->paginate(
                 $request->input('entries') ? $request->input('entries') : '10', 
                 ['activity', 'created_at'], 'page'
@@ -34,6 +43,8 @@ class BenefactorLogController extends Controller
                 'logs' => $logs,
                 'filters' =>  [
                     'search' => $request->input('search') ? $request->input('search') : null,
+                    'from' => $request->input('from') ? $request->input('from') : null,
+                    'to' => $request->input('to') ? $request->input('to') : null,
                     'entries' => $request->input('entries') ? $request->input('entries') : '10',
                     'sort' => $request->input('sort') ? $request->input('sort') : 'asc',
                 ]

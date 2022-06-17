@@ -35,8 +35,28 @@
                     </select> entries per page 
                   </label>
                 </div>
-                <div class="dataTable-search">
-                  <input v-model="search" class="dataTable-input" placeholder="Search..." type="text">
+                <div class="dataTable-search row mt-2">
+                    <div class="col-auto">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">From</span>
+                        <input type="datetime-local" v-model="from" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">To</span>
+                        <input type="datetime-local" v-model="to" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                    </div>
+                     <div class="col-auto">
+                      <Link :href="$route('benefactor.logs.index')" 
+                        method="get" 
+                        :data="{from: from, to: to}"
+                        class="btn btn-primary"
+                      >
+                        Search
+                      </Link>
+                    </div>
                 </div>
               </div>
               <div class="dataTable-container">
@@ -109,26 +129,17 @@
 import { ref, watch } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import debounce from 'lodash/debounce';
+import { useForm } from "@inertiajs/inertia-vue3"
 
 let props = defineProps({
   logs: Object,
   filters: Object
 })
 
-let search = ref(props.filters.search);
+let from = ref(props.filters.from);
+let to = ref(props.filters.to);
 let entries = ref(props.filters.entries);
 let sort =  ref(props.filters.sort);
-
-
-watch(search, debounce((value) => {
-  Inertia.get(
-    route('benefactor.logs.index'), { search: value, entries: entries.value }, {
-      preserveState: true,
-      replace: true
-    }
-  );
-}, 300));
-
 
 watch(entries, (value) => {
   const routeIsEmpty = Object.keys(route().params).length === 0;
@@ -161,7 +172,6 @@ watch(entries, (value) => {
     return;
   }
 
-  //entries + page
 
   if (route().params['order'] && route().params['sort']) {
     Inertia.get(
@@ -177,10 +187,10 @@ watch(entries, (value) => {
     return;
   }
 
-  if(route().params['search']) {
+  if(route().params['from'] && route().params['to']) {
     Inertia.get(
       route('benefactor.logs.index'), { 
-          search: search.value, entries: value 
+          from: from.value, to: to.value, entries: value 
         }, {
         preserveState: true,  
         replace: true
@@ -191,7 +201,6 @@ watch(entries, (value) => {
   }
  
 });
-
 </script>
 
 <script> 
