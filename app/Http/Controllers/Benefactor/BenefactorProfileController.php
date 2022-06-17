@@ -15,7 +15,7 @@ class BenefactorProfileController
     public function index(): Response
     {
         return Inertia::render(
-            'Benefactor/Profile/Edit',   
+            'Benefactor/Profile/Index',   
             [ 
                 'charityCategories'=> CharityCategory::getCategories(),
                 'benefactor' => Benefactor::auth()
@@ -34,6 +34,7 @@ class BenefactorProfileController
             ->update($request->except('email'));
 
 
-        to_route('benefactor.profile.index');
+        to_route('benefactor.profile.index')
+            ->with('message', 'Succesfully updated your profile');
     }
 }
