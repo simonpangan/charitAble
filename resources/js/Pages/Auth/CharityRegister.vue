@@ -52,25 +52,11 @@
                   <div class="form-group">
                     <label class="mb-1">Our Organization deals with</label>
                     <div class="position-relative icon-form-control">
-                      <select class="form-select" aria-label="Default select example">
+                      <select v-model="form.charityCategory" class="form-select" aria-label="Default select example">
                         <option disabled selected>Please select one</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label class="mb-1">*Optional Org Category</label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option  v-for="(category,key) in charityCategories" :value='category.value' >
+                        {{category.value}}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -479,7 +465,7 @@
     setup() {
       let form = useForm({
         charityName: null,
-        charityCategory: 'sadsa',
+        charityCategory: null,
         charityEmail: null,
         headAdminEmail: null,
         password: null,
@@ -545,7 +531,8 @@
     },
     props: {
       errors: Object,
-      csrfToken: String
+      csrfToken: String,
+    charityCategories: Array
     },
     data() {
       return {
@@ -568,7 +555,6 @@
       validateFirstStepFields: function() {
         this.v$.charityName.$validate();
         this.v$.charityEmail.$validate();
-        this.v$.charityCategory.$validate();
         this.v$.headAdminEmail.$validate();
         this.v$.password.$validate();
         this.v$.password_confirmation.$validate();
