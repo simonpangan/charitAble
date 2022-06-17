@@ -20,9 +20,6 @@ class UserResource extends JsonResource
         return  [
             'email' => $this->email,
             'roleID' => $this->role_id,
-            'benefactor' => $this->when(
-                $this->role_id == ROLE::USERS['BENEFACTOR'], new BenefactorResource($this->benefactor)
-            ),
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];
