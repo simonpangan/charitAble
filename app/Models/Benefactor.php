@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -26,5 +27,10 @@ class Benefactor extends Model
     public static function auth()
     {
         return Benefactor::find(Auth::id());   
+    }
+
+    public function withFollowingCharities()        
+    {
+        return $this->belongsToMany(Charity::class, 'charity_followers');
     }
 }
