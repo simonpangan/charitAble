@@ -16,6 +16,7 @@ use App\Http\Controllers\Benefactor\{
 };
 
 use App\Http\Controllers\Charity\{
+    CharityPostsController,
     CharityProfileController,
     CharityProgramController,
     CharityVolunteerPostController
@@ -35,13 +36,13 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::inertia('/admin', 'Benefactor/Index')->name('admin.index');
     });
 
-    
+
     Route::group([
-        'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN', 
-        'as' => 'charity.', 
+        'middleware' => 'role:CHARITY_SUPER_ADMIN,CHARITY_ADMIN',
+        'as' => 'charity.',
         'prefix' => 'charity',
     ], function () {
-        
+
         Route::get('/profile', [CharityProfileController::class, 'index'])
             ->name('profile.index');
 
@@ -59,16 +60,24 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
+            Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
             Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');
             Route::get('volunteer-posts/{id}/edit', 'edit')->name('volunteer.edit');
             Route::put('volunteer-posts/{id}', 'update')->name('volunteer.update');
             Route::delete('volunteer-posts/{id}', 'destroy')->name('volunteer.destroy');
         });
+
+        Route::controller(CharityPostsController::class)->group(function(){
+            Route::get('post','create')->name('post.create');
+            Route::post('post-posts', 'store')->name('post.store');
+            Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
+        });
+
     });
 
     Route::group([
-        'middleware' => 'role:BENEFACTOR', 
-        'as' => 'benefactor.', 
+        'middleware' => 'role:BENEFACTOR',
+        'as' => 'benefactor.',
         'prefix' => 'benefactor',
     ], function () {
 
@@ -79,11 +88,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             ->name('connection.index');
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
-            ->name('home.index');
+            ->name('index');
 
         Route::get('/charity-search', [BenefactorCharitySearchController::class, 'index'])
             ->name('charity-search.index');
-        
 
         Route::get('/profile', [BenefactorProfileController::class, 'index'])
             ->name('profile.index');
