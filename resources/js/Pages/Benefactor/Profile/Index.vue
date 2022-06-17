@@ -164,42 +164,6 @@
             </form>
           </div>
         </div>
-        <div class="border rounded bg-white mb-3">
-          <div class="box-title border-bottom p-3">
-            <h6 class="m-0">Experience</h6>
-            <p class="mb-0 mt-0 small"> Tell about your work, job, and other experiences. </p>
-          </div>
-          <div class="box-body px-3 pt-3 pb-0">
-            <div class="row">
-              <div class="col-sm-6 mb-4">
-                <label id="FROM" class="form-label">FROM</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="From" aria-label="FROM" aria-describedby="FROM" />
-                </div>
-              </div>
-              <div class="col-sm-6 mb-4">
-                <label id="TO" class="form-label">TO</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="TO" aria-label="TO" aria-describedby="TO" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 mb-4">
-                <label id="companyLabel" class="form-label">Company</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Enter your company title" aria-label="Enter your company title" aria-describedby="companyLabel" />
-                </div>
-              </div>
-              <div class="col-sm-6 mb-4">
-                <label id="positionLabel" class="form-label">Position</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Enter your position" aria-label="Enter your position" aria-describedby="positionLabel" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   </div>
