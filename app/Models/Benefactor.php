@@ -12,9 +12,9 @@ class Benefactor extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $incrementing = false;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     protected function preferences(): Attribute
     {
@@ -34,22 +34,13 @@ class Benefactor extends Model
         return $this->belongsToMany(Charity::class, 'charity_followers');
     }
 
-    public function scopeWhereSearch($query, $search)
+    public function followingCharitiesByName($name)
     {
-        if (is_null($search))
+        if(is_null($name)) 
         {
-            return;
+            return $this->followingCharities();
         }
 
-        dd( $search);
-        foreach (explode(' ', $search) as $term) {
-            $query->where(function ($query) use ($term) {
-                $query->where('first_name', 'ilike', '%'.$term.'%')
-                ->orWhere('last_name', 'ilike', '%'.$term.'%')
-                ->orWhereHas('company', function ($query) use ($term) {
-                    $query->where('name', 'ilike', '%'.$term.'%');
-                });
-            });
-        }
+        return $this->followingCharities()->where('charities.name', 'like', '%'.$name.'%');
     }
 }
