@@ -75,7 +75,7 @@
                         <ul class="list-group list-group-flush">
                             <Link v-for="(total, name, index) in charityFollowingCategoryNumber" :key="index"
                                 :href="$route('benefactor.connections.index', {
-                                    category: name.replaceAll('_', ' ')
+                                    name: name.replaceAll('_', ' ')
                                 })"
                                 :only="['followingList']"
                             >
@@ -121,7 +121,7 @@ let props = defineProps({
 watch(search, debounce((value) => {
      Inertia.get(
       route('benefactor.connections.index'), { 
-        search: value, 
+        name: value, 
       }, {
         preserveState: true,
         replace: true

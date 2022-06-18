@@ -18,17 +18,17 @@ class BenefactorConnectionsController
     {
         return Inertia::render('Benefactor/Connections/Index', [
             'followingList' => $this->getCharityFollowingLists(
-                $request->get('search'), $request->get('category')
+                $request->get('name'), $request->get('category')
             ),
             'charityFollowingCategoryNumber' => fn () => $this->getCharityFollowingPerCategoryStats(),
-            'search' => $request->get('search') ?? '',
+            'search' => $request->get('name') ?? '',
         ]);
     }
 
-    private function getCharityFollowingLists(string $search = null, string $category = null)
+    private function getCharityFollowingLists(string $name = null, string $category = null)
     {
         return Benefactor::auth()
-            ->filterBy($search, $category)
+            ->filterBy($name, $category)
             ->get(['name', 'id']);
     }
 

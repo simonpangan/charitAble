@@ -39,15 +39,23 @@ class Benefactor extends Model
     public function filterBy($search, $category)
     {
         if ($category && is_null($search)) {
-            // return $this->followingCharities()
-                // ->where('charities.name', 'like', '%'.$name.'%');
+            return $this->filterByCategory($category);
         }
 
-        if(is_null($search)) 
+        if(! is_null($search) && is_null($category)) 
         {
-            return $this->followingCharities();
+            return $this->filterByName($search);
         }
+        
+        return $this->followingCharities();
+    }
 
+    private function filterByCategory(String $category)
+    {
+        # code...
+    }
+    private function filterByName(String $search)
+    {
         return $this->followingCharities()->where('charities.name', 'like', '%'.$search.'%');
     }
 }
