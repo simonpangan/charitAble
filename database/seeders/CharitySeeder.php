@@ -33,19 +33,20 @@ class CharitySeeder extends Seeder
                 ->insert($categories);
         }
 
-        $userFollowing = array();
         $categories = Categories::all()->pluck('id');
-        $benefactorID = User::where('email', 'simonpangan@yahoo.com')->first(['id'])->id;
 
         if (Charity::count() < 1000) 
         {
             $users = User::factory()->count(100)->charitySuperAdmin()->create();
 
-            $users->each(function ($user) use ($benefactorID, &$userFollowing, $categories) {
-                Charity::factory()->create(['id' => $user->id]);
+            $users->each(function ($user) use (&$userFollowing, $categories) {
+                $charity = Charity::factory()->create(['id' => $user->id]);
+
+                // attach 3 categories per fake charity
+                $charity->categories()->attach(
+                    $categories->random(3)
+                );
             });
         }
-        
-        CharityFollowers::insert($userFollowing);
     }
 }
