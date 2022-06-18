@@ -40,14 +40,14 @@ Route::name('auth.')->group(function () {
 
 //route
 Route::name('register.')->group(function () {
-    Route::post('/register', [BenefactorRegisterController::class, 'store'])->name('benefactor.store');
+    Route::post('/register/benefactor/store', [BenefactorRegisterController::class, 'store'])->name('benefactor.store');
     Route::get('/register/benefactor', [BenefactorRegisterController::class, 'index'])->name('benefactor.index');
 
 
     Route::get('/register/charity', [CharityRegisterController::class, 'index'])->name('charity.index');
 
     Route::get('/register/charity', [CharityRegisterController::class, 'index'])->name('charity.index');
-    Route::post('/register',[CharityRegisterController::class,'store'])->name('charity.store');
+    Route::post('/register/charity/store',[CharityRegisterController::class,'store'])->name('charity.store');
     Route::post('/register/charity/upload', [CharityRegisterController::class, 'uploadPhoto']);
     Route::post('/register/charity/uploadDocuments', [CharityRegisterController::class, 'uploadDocumentsPhoto']);
 
