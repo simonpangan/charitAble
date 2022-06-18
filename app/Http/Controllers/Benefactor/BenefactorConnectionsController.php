@@ -8,6 +8,7 @@ use App\Models\Benefactor;
 use Illuminate\Http\Request;
 use App\Enums\CharityCategory;
 use App\Models\Charity\CharityFollowers;
+use Illuminate\Http\RedirectResponse;
 
 class BenefactorConnectionsController
 {
@@ -37,5 +38,14 @@ class BenefactorConnectionsController
             // ->selectRaw("count(case when status = 'bounced' then 1 end) as bounced")
             ->selectRaw('count(*) as total')
             ->first();
+    }
+
+    public function destroy (int $id): RedirectResponse
+    {
+        Benefactor::auth()
+            ->followingCharities()
+            ->detach($id);
+
+        return to_route('benefactor.connections.index');
     }
 }

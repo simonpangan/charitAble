@@ -46,9 +46,13 @@
                                                             <button type="button" class="btn btn-primary btn-sm d-block w-100"> View Profile </button>
                                                         </div>
                                                         <div class="col-6 pe-3 ps-1">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm d-block w-100"> 
-                                                                <i class="feather-user-psus"></i> Unfollow 
-                                                            </button>
+                                                            <Link :href="$route('benefactor.connections.destroy', {
+                                                                id: following.id
+                                                            })" method="delete" as="button" type="button"
+                                                                class="btn btn-outline-primary btn-sm d-block w-100">
+                                                            <i class="feather-user-psus"></i>  
+                                                                Unfollow
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>
