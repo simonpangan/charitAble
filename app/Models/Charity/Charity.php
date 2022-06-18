@@ -2,6 +2,7 @@
 
 namespace App\Models\Charity;
 
+use App\Models\Categories;
 use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityOfficers;
 use Illuminate\Database\Eloquent\Model;
@@ -33,5 +34,13 @@ class Charity extends Model
     public function volunteerPosts()
     {
         return $this->hasMany(CharityVolunteerPost::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(
+            Categories::class, 'charity_categories',
+            'charity_id', 'category_id'
+        );
     }
 }
