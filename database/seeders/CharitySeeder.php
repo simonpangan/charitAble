@@ -1,10 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Benefactor;
 use App\Enums\CharityCategory;
+use App\Models\Categories;
 use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,7 @@ class CharitySeeder extends Seeder
      */
     public function run()
     {
-        if (! DB::table('categories')->count()) {
+        if (! Categories::count()) {
             $categories = collect(CharityCategory::cases())
                 ->pluck('value')
                 ->map(function($value) {
@@ -34,17 +34,20 @@ class CharitySeeder extends Seeder
         }
 
         $userFollowing = array();
+        $categories = Categories::all()->pluck('id');
         $benefactorID = User::where('email', 'simonpangan@yahoo.com')->first(['id'])->id;
 
         if (Charity::count() < 1000) 
         {
             $users = User::factory()->count(10)->charitySuperAdmin()->create();
 
-            $users->each(function ($user) use ($benefactorID, &$userFollowing) {
-                Charity::factory()
-                    ->create([
-                        'id' => $user->id
-                    ]);
+            $users->each(function ($user) use ($benefactorID, &$userFollowing, $categories) {
+                $charity = Charity::factory()->create(['id' => $user->id]);
+
+                // attach 3 categories per fake charity
+                $charity->categories()->attach(
+                    $categories->random(3)
+                );
                     
                 array_push($userFollowing, [
                     'benefactor_id' => $benefactorID,
