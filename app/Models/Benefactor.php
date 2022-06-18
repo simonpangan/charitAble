@@ -29,8 +29,27 @@ class Benefactor extends Model
         return Benefactor::find(Auth::id());   
     }
 
-    public function withFollowingCharities()        
+    public function followingCharities()        
     {
         return $this->belongsToMany(Charity::class, 'charity_followers');
+    }
+
+    public function scopeWhereSearch($query, $search)
+    {
+        if (is_null($search))
+        {
+            return;
+        }
+
+        dd( $search);
+        foreach (explode(' ', $search) as $term) {
+            $query->where(function ($query) use ($term) {
+                $query->where('first_name', 'ilike', '%'.$term.'%')
+                ->orWhere('last_name', 'ilike', '%'.$term.'%')
+                ->orWhereHas('company', function ($query) use ($term) {
+                    $query->where('name', 'ilike', '%'.$term.'%');
+                });
+            });
+        }
     }
 }
