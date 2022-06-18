@@ -42,9 +42,10 @@ class UsersSeeder extends Seeder
             [
                 'email' => 'simonpangan@yahoo.com',
                 'role_id' => Role::USERS['BENEFACTOR'],
-               'email_verified_at' => Carbon::now(config('app.timezone')),
+                'email_verified_at' => Carbon::now(config('app.timezone')),
                 // 'email_verified_at' => null,    
                 'password' => Hash::make('simonpangan'),
+                'created_at' => '2021-06-18 01:15:48',
             ]
         );
         

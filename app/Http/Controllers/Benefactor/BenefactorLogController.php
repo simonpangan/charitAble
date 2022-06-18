@@ -57,10 +57,10 @@ class BenefactorLogController
             that's the time where there are able to access the application. 
         */ 
         // $emailVerifiedAt = Auth::user()->toArray();
-        $emailVerifiedAt = Auth::user()->created_at->format('F jS Y\\, h:i:s A');
+        $userCreatedAt = Auth::user()->created_at->format('F jS Y\\, h:i:s A');
 
         return [
-            'from' => ['required', 'date', "after:{$emailVerifiedAt}", 
+            'from' => ['required', 'date', "after:{$userCreatedAt}", 
                 "before:{$request->input('to')}"],
             'to' => ['nullable', 'date', "after:{$request->input('from')}", 'before:now'],
         ];
