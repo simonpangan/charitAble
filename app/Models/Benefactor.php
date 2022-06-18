@@ -36,13 +36,18 @@ class Benefactor extends Model
         return $this->belongsToMany(Charity::class, 'charity_followers');
     }
 
-    public function followingCharitiesByName($name)
+    public function filterBy($search, $category)
     {
-        if(is_null($name)) 
+        if ($category && is_null($search)) {
+            // return $this->followingCharities()
+                // ->where('charities.name', 'like', '%'.$name.'%');
+        }
+
+        if(is_null($search)) 
         {
             return $this->followingCharities();
         }
 
-        return $this->followingCharities()->where('charities.name', 'like', '%'.$name.'%');
+        return $this->followingCharities()->where('charities.name', 'like', '%'.$search.'%');
     }
 }

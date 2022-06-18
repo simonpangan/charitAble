@@ -7,36 +7,48 @@ use Inertia\Response;
 use App\Models\Benefactor;
 use Illuminate\Http\Request;
 use App\Enums\CharityCategory;
-use App\Models\Charity\CharityFollowers;
+use App\Models\Categories;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Charity\CharityFollowers;
 
 class BenefactorConnectionsController
 {
     public function index(Request $request): Response
     {
         return Inertia::render('Benefactor/Connections/Index', [
-            'charityCategories' => CharityCategory::getCategoriesValues(),
-            'followingList' => $this->getCharityFollowingLists($request->get('search')),
-            'charityFollowingCategotyNumber' => fn () => $this->getFharityFollowingPerCategotyStats(),
+            'followingList' => $this->getCharityFollowingLists(
+                $request->get('search'), $request->get('category')
+            ),
+            'charityFollowingCategoryNumber' => fn () => $this->getCharityFollowingPerCategoryStats(),
+            'search' => $request->get('search') ?? '',
         ]);
     }
 
-    private function getCharityFollowingLists(string $name = null)
+    private function getCharityFollowingLists(string $search = null, string $category = null)
     {
         return Benefactor::auth()
-            ->followingCharitiesByName($name)
+            ->filterBy($search, $category)
             ->get(['name', 'id']);
     }
 
-    private function getFharityFollowingPerCategotyStats()
+    private function getCharityFollowingPerCategoryStats()
     {
         return CharityFollowers::query()
-            ->join('charities', 'charities.id', '=', 'charity_followers.charity_id')
-            // ->selectRaw("count(case when status = 'confirmed' then 1 end) as confirmed")
-            // ->selectRaw("count(case when status = 'unconfirmed' then 1 end) as unconfirmed")
-            // ->selectRaw("count(case when status = 'cancelled' then 1 end) as cancelled")
-            // ->selectRaw("count(case when status = 'bounced' then 1 end) as bounced")
-            ->selectRaw('count(*) as total')
+        ->selectRaw("count(case when charity_categories.category_id = '1' then 1 end) as Animal_Conservation")
+        ->selectRaw("count(case when charity_categories.category_id = '2' then 1 end) as Agriculture")
+        ->selectRaw("count(case when charity_categories.category_id = '3' then 1 end) as Womens_Empowerment")
+        ->selectRaw("count(case when charity_categories.category_id = '4' then 1 end) as Children_Youth")
+        ->selectRaw("count(case when charity_categories.category_id = '5' then 1 end) as Community_Development")
+        ->selectRaw("count(case when charity_categories.category_id = '6' then 1 end) as Education")
+        ->selectRaw("count(case when charity_categories.category_id = '7' then 1 end) as Environment")
+        ->selectRaw("count(case when charity_categories.category_id = '8' then 1 end) as Wildlife_Protection")
+        ->selectRaw('count(distinct charity_followers.charity_id) as All_Charities')
+                ->join('charity_categories', 'charity_categories.charity_id', 
+                        '=', 
+                        'charity_followers.charity_id'
+                    )
+                ->where('charity_followers.benefactor_id', Auth::id())
             ->first();
     }
 

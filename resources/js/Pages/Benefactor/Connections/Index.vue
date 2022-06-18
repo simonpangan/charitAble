@@ -69,30 +69,19 @@
                         <div class="box-title p-3">
                             <h6 class="m-0">My connections based on category</h6>
 							<small class="text-center text-muted">
-								Click icons below if you want to sort.
+								Click text below if you want to sort.
 							</small>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <Link v-for="(category, index) in $page.props.charityCategories" :key="index"
+                            <Link v-for="(total, name, index) in charityFollowingCategoryNumber" :key="index"
                                 :href="$route('benefactor.connections.index', {
-                                    category: category
+                                    category: name.replaceAll('_', ' ')
                                 })"
                                 :only="['followingList']"
                             >
                                 <li class="list-group-item ps-3 pe-3 d-flex align-items-center text-dark">
-                                    <i class="feather-users me-2 text-dark"></i> 
-                                        {{ category }} 
-                                    <span class="ms-auto fw-bold">68</span>
-                                </li>
-                            </Link>
-                            <Link :only="['charityCategories']"
-                                :href="$route('benefactor.connections.index')">
-                                <li class="list-group-item ps-3 pe-3 d-flex align-items-center text-dark">
-                                    <i class="feather-users me-2 text-dark"></i> 
-                                    All Charities
-                                    <span class="ms-auto fw-bold">
-                                        {{ charityFollowingCategotyNumber.total }} 
-                                    </span>
+                                        {{ name.replaceAll('_', ' ') }} 
+                                    <span class="ms-auto fw-bold">{{ total }}</span>
                                 </li>
                             </Link>
                         </ul>
@@ -121,11 +110,12 @@ import { ref, watch, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import debounce from 'lodash/debounce';
 
-let search = ref('');
+let search = ref(props.search);
 
-defineProps({
-    charityFollowingCategotyNumber: Object,
-    followingList: Array    
+let props = defineProps({
+    search: String,    
+    followingList: Array,    
+    charityFollowingCategoryNumber: Object,
 });
 
 watch(search, debounce((value) => {
