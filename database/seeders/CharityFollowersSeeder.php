@@ -20,19 +20,15 @@ class CharityFollowersSeeder extends Seeder
         $userFollowing = array();
         $benefactorID = User::where('email', 'simonpangan@yahoo.com')->first(['id'])->id;
 
-        $users = User::factory()->count(10)->charitySuperAdmin()->create();
+  
+        $charities = Charity::all('id')->pluck('id');
 
-        $users->each(function ($user) use ($benefactorID, &$userFollowing) {
-            Charity::factory()
-                ->create([
-                    'id' => $user->id
-                ]);
-        
+        foreach ($charities->random(30) as $id) {
             array_push($userFollowing, [
                 'benefactor_id' => $benefactorID,
-                'charity_id' => $user->id,
+                'charity_id' => $id,
             ]);
-        });
+        }
         
         CharityFollowers::insert($userFollowing);
     }

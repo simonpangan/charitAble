@@ -39,20 +39,10 @@ class CharitySeeder extends Seeder
 
         if (Charity::count() < 1000) 
         {
-            $users = User::factory()->count(10)->charitySuperAdmin()->create();
+            $users = User::factory()->count(100)->charitySuperAdmin()->create();
 
             $users->each(function ($user) use ($benefactorID, &$userFollowing, $categories) {
-                $charity = Charity::factory()->create(['id' => $user->id]);
-
-                // attach 3 categories per fake charity
-                $charity->categories()->attach(
-                    $categories->random(3)
-                );
-                    
-                array_push($userFollowing, [
-                    'benefactor_id' => $benefactorID,
-                    'charity_id' => $user->id,
-                ]);
+                Charity::factory()->create(['id' => $user->id]);
             });
         }
         
