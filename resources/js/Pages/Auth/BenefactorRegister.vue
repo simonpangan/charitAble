@@ -295,14 +295,14 @@
               <p class="text-muted"> currentStep 3 - What do you feel most passionate about? </p>
             </div>
             <ul class="ks-cboxtags">
-              <li v-for="(category, index) in charityCategories" :key="category.name">
+              <li v-for="(category, index) in charityCategories" :key="category.id">
                 <input
                   v-model="form.preferences"
                   type="checkbox"
                   :id="'checkbox' + index"
-                  :value="category.name"
+                  :value="category.id"
                 />
-                <label :for="'checkbox' + index">{{ category.value }}</label>
+                <label :for="'checkbox' + index">{{ category.name }}</label>
               </li>
               <div v-if="form.errors['preferences.0']" class="text-danger">
                 {{ form.errors['preferences.0'] }}

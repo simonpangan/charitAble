@@ -4,24 +4,23 @@ namespace App\Http\Controllers\Auth\Register;
 
 use App\Models\Role;
 use App\Models\User;
-    use Inertia\Inertia;
-    use App\Traits\RedirectTo;
-    use App\Enums\CharityCategory;
-    use App\Http\Controllers\Controller;
-    use Illuminate\Support\Facades\Hash;
-    use Illuminate\Auth\Events\Registered;
-    use Illuminate\Foundation\Auth\RegistersUsers;
-    use App\Http\Requests\BenefactorRegisterRequest;
+use Inertia\Inertia;
+use App\Traits\RedirectTo;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\BenefactorRegisterRequest;
+use App\Models\Categories;
 
     class BenefactorRegisterController extends Controller
     {
         use RedirectTo, RegistersUsers;
 
-
         public function index()
         {
             return Inertia::render('Auth/BenefactorRegister', [
-                'charityCategories'=> CharityCategory::getCategories()
+                'charityCategories'=> Categories::all()
             ]);
         }
 
@@ -32,6 +31,7 @@ use App\Models\User;
             } elseif ($request->get('step') == 2) {
                 return to_route('register.benefactor.index');
             }
+
 
             //if last step
             $user = $this->createUser(
@@ -63,13 +63,14 @@ use App\Models\User;
 
         private function createBenefactor(User $user, array $data): void
         {
+            
             $user->benefactor()->create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'gender' => $data['gender'],
                 'city' => $data['city'],
                 'age' => $data['age'],
-                'preferences' => implode(",", $data['preferences']),
+                'preferences' => $data['preferences'],
                 'account_type' => $data['account_type'],
             ]);
         }
