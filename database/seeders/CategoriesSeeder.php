@@ -19,7 +19,6 @@ class CategoriesSeeder extends Seeder
         Categories::insert([
             ['name' => 'Animal Conservation'],
             ['name' => 'Agriculture'],
-            ['name' => 'Animal Conservation'],
             ['name' => 'Children and Youth'],
             ['name' => 'Community Development'],
             ['name' => 'Education'],
