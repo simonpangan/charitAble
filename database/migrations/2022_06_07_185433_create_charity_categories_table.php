@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
      
             $table->primary(['category_id', 'charity_id']);
+            $table->index(['charity_id', 'category_id']);
         });
     }
 
