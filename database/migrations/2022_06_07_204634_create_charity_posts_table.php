@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('charity_posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')->constrained();
-            $table->string('main_content_body')->nullable();
+            $table->text('main_content_body');
             $table->string('main_content_body_image')->nullable();
             $table->timestamps();
         });
