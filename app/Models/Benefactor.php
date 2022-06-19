@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Charity\CharityFollowers;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,23 +37,46 @@ class Benefactor extends Model
         return $this->belongsToMany(Charity::class, 'charity_followers');
     }
 
-    public function filterBy($search, $category)
+    public function filterBy($name, $category)
     {
-        if ($category && is_null($search)) {
+        //name is only in the query
+        if(! is_null($name) && is_null($category)) 
+        {
+            return $this->filterByName($name);
+        }
+
+        //category is only in the query
+        if ($category && is_null($name)) {
             return $this->filterByCategory($category);
         }
 
-        if(! is_null($search) && is_null($category)) 
-        {
-            return $this->filterByName($search);
-        }
         
+        //default = get all following charity
         return $this->followingCharities();
     }
 
     private function filterByCategory(String $category)
     {
-        # code...
+        $category = Categories::query()
+            ->where('name', $category)
+            ->first();
+
+        // if category does not exists then we just fetch all following charities
+        if (is_null($category)) {
+            return $this->followingCharities();
+        }
+
+        $benefactorFollowingCharityID = CharityFollowers::query()
+            ->join('charity_categories', 'charity_categories.charity_id', 
+                    '=', 
+                    'charity_followers.charity_id'
+                )
+            ->where('charity_followers.benefactor_id', Auth::id())
+            ->where('charity_categories.category_id', $category->id)
+        ->get('charity_followers.charity_id');
+
+        return $this->followingCharities()
+            ->whereIn('charities.id', $benefactorFollowingCharityID);
     }
     private function filterByName(String $search)
     {

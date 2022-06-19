@@ -75,7 +75,7 @@
                         <ul class="list-group list-group-flush">
                             <Link v-for="(total, name, index) in charityFollowingCategoryNumber" :key="index"
                                 :href="$route('benefactor.connections.index', {
-                                    name: name.replaceAll('_', ' ')
+                                    category: name.replaceAll('_', ' ')
                                 })"
                                 :only="['followingList']"
                             >
