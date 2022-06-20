@@ -193,12 +193,15 @@
       </div>
     </div>
   </div>
-  <span ref="loadMoreIntersect" />
   <div class="d-flex justify-content-center" v-if="loading">
     <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-     </div>
+      <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
+  <div class="alert alert-dark text-center" role="alert" v-if="lastPage">
+    No more posts
+  </div>
+  <span ref="loadMorePosts" />
 </template>
 
 <script>
@@ -244,7 +247,7 @@
         rootMargin: "-150px 0px 0px 0px"
       }));
 
-      observer.observe(this.$refs.loadMoreIntersect)
+      observer.observe(this.$refs.loadMorePosts)
     }
   }
 </script>
