@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Benefactor;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Benefactor;
+use App\Models\Charity\CharityFollowers;
 use App\Models\Charity\CharityPosts;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Charity\CharityVolunteerPost;
@@ -27,8 +28,12 @@ class BenefactorHomeController
         return CharityPosts::query()
             ->select('charities.name as charity_name', 'charities.logo as charity_logo', 'charity_posts.*')
             ->join('charities', 'charities.id', '=', 'charity_posts.charity_id')
-            ->where('charity_id', 8)
-            // ->orderByDesc('charity_posts.id')
+            ->whereIn(
+                'charity_id', 
+                CharityFollowers::query()
+                    ->benefactorFollowing()
+                    ->select('charity_id')
+            )
             ->orderByDesc('charity_posts.created_at')
             ->cursorPaginate(10);
     }
