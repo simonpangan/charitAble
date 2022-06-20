@@ -52,6 +52,15 @@ class BenefactorConnectionsController
             ->first();
     }
 
+    public function store(Request $request): RedirectResponse
+    {
+        Benefactor::auth()
+            ->followingCharities()
+            ->attach($request->only('id'));
+
+        return back();        
+    }
+
     public function destroy (int $id): RedirectResponse
     {
         Benefactor::auth()

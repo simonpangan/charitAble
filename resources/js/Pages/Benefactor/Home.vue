@@ -1,7 +1,7 @@
 <template>
   <div class="py-4" role="scrollComponent">
     <div class="container">
-      <div class="row">
+      <div class="row position-relative">
         <main class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
           <div v-for="(post, index) in allPosts" :key="index">
             <div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
@@ -89,102 +89,24 @@
               <h6 class="m-0">Charities You Might Like</h6>
             </div>
             <div class="box-body p-3">
-              <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+              <div v-for="charity in randomCharity" :key="charity.id"
+                class="d-flex align-items-center osahan-post-header mb-3 people-list">
                 <div class="dropdown-list-image me-3">
                   <img class="rounded-circle" src="img/p8.png" alt="">
                   <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="fw-bold me-2">
-                  <div class="text-truncate">Charity 1</div>
-                  <div class="small text-gray-500">Animal Conservation </div>
+                  <div class="text-truncate"> {{ charity.name }} </div>
                 </div>
                 <span class="ms-auto">
-                  <button type="button" class="btn btn-light btn-sm text-nowrap">
-                    <i class="feather-plus"></i> Follow </button>
+                  <Link :href="$route('benefactor.connections.store')" 
+                      :data="{ id: charity.id }"
+                      method="post" as="button" type="button"
+                      class="btn btn-light btn-sm text-nowrap">
+                  <i class="feather-plus"></i>  
+                      Follow
+                  </Link>
                 </span>
-              </div>
-              <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" src="img/p9.png" alt="">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="fw-bold me-2">
-                  <div class="text-truncate">Charity 2</div>
-                  <div class="small text-gray-500">Children Welfare </div>
-                </div>
-                <span class="ms-auto">
-                  <button type="button" class="btn btn-light btn-sm text-nowrap">
-                    <i class="feather-plus"></i> Follow </button>
-                </span>
-              </div>
-              <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" src="img/p10.png" alt="">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="fw-bold me-2">
-                  <div class="text-truncate">Charity 3</div>
-                  <div class="small text-gray-500">Woman Empowerment </div>
-                </div>
-                <span class="ms-auto">
-                  <button type="button" class="btn btn-light btn-sm text-nowrap">
-                    <i class="feather-plus"></i> Follow </button>
-                </span>
-              </div>
-              <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" src="img/p11.png" alt="">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="fw-bold me-2">
-                  <div class="text-truncate">Charity 4</div>
-                  <div class="small text-gray-500">Enviromental Conservation </div>
-                </div>
-                <span class="ms-auto">
-                  <button type="button" class="btn btn-light btn-sm text-nowrap">
-                    <i class="feather-plus"></i> Follow </button>
-                </span>
-              </div>
-              <div class="d-flex align-items-center osahan-post-header people-list">
-                <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" src="img/p12.png" alt="">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="fw-bold me-2">
-                  <div class="text-truncate">Charity 5</div>
-                  <div class="small text-gray-500">Animal Conservation </div>
-                </div>
-                <span class="ms-auto">
-                  <button type="button" class="btn btn-light btn-sm text-nowrap">
-                    <i class="feather-plus"></i> Follow </button>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="box shadow-sm border rounded bg-white mb-3">
-            <div class="box-title border-bottom p-3">
-              <h6 class="m-0">Volunteer Postings </h6>
-            </div>
-            <div class="box-body p-3">
-              <div v-for="volunteer_post in $page.props.volunteer_post" :key="volunteer_post.id">
-                <a href="job-profile.html">
-                  <div class="shadow-sm border rounded bg-white job-item mb-3">
-                    <div class="d-flex align-items-center p-3 job-item-header">
-                      <div class="overflow-hidden me-2">
-                        <h6 class="fw-bold text-dark mb-0 text-truncate">{{volunteer_post.volunteer_work_name}}</h6>
-                        <div class="text-truncate text-primary">Aspin Academy</div>
-                        <div class="small text-gray-500">
-                          <i class="feather-map-pin"></i>{{volunteer_post.location}}
-                        </div>
-                      </div>
-                      <img class="img-fluid ms-auto" src="img/l3.png" alt="">
-                    </div>
-                    <div class="p-3 job-item-footer border-top">
-                      <small class="text-gray-500">
-                        <i class="feather-clock"></i> {{volunteer_post.created_at}}} </small>
-                    </div>
-                  </div>
-                </a>
               </div>
             </div>
           </div>
@@ -208,7 +130,8 @@
     props: {
         posts: Array,
         user: Array,
-        volunteer_post: Array
+        volunteer_post: Array,
+        randomCharity: Array
     },
    data() {
         return {
@@ -228,7 +151,7 @@
         this.$inertia.get(this.posts.next_page_url, {}, {
             preserveState: true,
             preserveScroll: true,
-            only: ['posts'],
+            only: ['posts'],  
             onStart: visit => {
                 this.loading = true
             },
