@@ -8,29 +8,28 @@ use App\Models\Benefactor;
 use App\Models\Charity\CharityPosts;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Charity\CharityVolunteerPost;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 
 
 class BenefactorHomeController
 {
-    public function index(): Response
+    public function index()
     {
-        Benefactor::auth()
-            ->followingCharities()
-            ->get(['name']);
-
-
-        //Initial Algorithm
-        /*
-            'posts' => CharityPosts::all()
-                        ->where(charity_followers::where('benefactor_id',auth->user-id()))
-                        ->orderBy('created_at', 'DESC')
-                        ->paginate(?)
-                        
-        */
         return Inertia::render('Benefactor/Home',[
             'user' => Auth::user()->withBenefactor()->toArray(),
-            'posts' => CharityPosts::where('charity_id', 7)->paginate(10)
+            'posts' => $this->getCharityPostsByFollowing()
             // 'volunteer_post'=> CharityVolunteerPost::where('charity_id',52)->get()->toArray()
         ]);
+    }
+
+    private function getCharityPostsByFollowing(): CursorPaginator
+    {
+        return CharityPosts::query()
+            ->select('charities.name as charity_name', 'charities.logo as charity_logo', 'charity_posts.*')
+            ->join('charities', 'charities.id', '=', 'charity_posts.charity_id')
+            ->where('charity_id', 8)
+            // ->orderByDesc('charity_posts.id')
+            ->orderByDesc('charity_posts.created_at')
+            ->cursorPaginate(10);
     }
 }

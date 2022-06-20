@@ -11,10 +11,9 @@
                   <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="fw-bold">
-                  <div class="text-truncate">Aspin Academy</div>
-                  <div class="small text-gray-500">Animal Conservation</div>
+                  <div class="text-truncate">{{ post.charity_name }}</div>
                 </div>
-                <span class="ms-auto small">3 hours</span>
+                <span class="ms-auto small">{{ post.created_at_formatted }}</span>
               </div>
               <div class="p-3 border-bottom osahan-post-body">
                 <p class="mb-0"> {{post.main_content_body}}</p>
