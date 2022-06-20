@@ -25,14 +25,11 @@ class BenefactorHomeController
                         ->where(charity_followers::where('benefactor_id',auth->user-id()))
                         ->orderBy('created_at', 'DESC')
                         ->paginate(?)
-
-
-
                         
         */
         return Inertia::render('Benefactor/Home',[
             'user' => Auth::user()->withBenefactor()->toArray(),
-            // 'posts' => CharityPosts::where('charity_id',52)->get()->toArray(),
+            'posts' => CharityPosts::where('charity_id', 7)->paginate(10)
             // 'volunteer_post'=> CharityVolunteerPost::where('charity_id',52)->get()->toArray()
         ]);
     }
