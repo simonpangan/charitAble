@@ -1,14 +1,11 @@
 <template>
     <Head>
         <title>login</title>
-        <meta type="login" 
-            content="TANGINA" 
-            head-key="description"
-        >
     </Head>
 
     <div class="container">
-        <div class="row justify-content-center align-items-center d-flex vh-100">
+        <br />
+        <div class="row justify-content-center align-items-center d-flex">
             <div class="col-md-4 mx-auto">
                 <div class="py-4" :class="{ 'osahan-login': ! form.hasErrors }">
                     <div class="text-center mb-4">
