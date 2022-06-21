@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('charity_id')->constrained();
             $table->string('volunteer_work_name')->nullable();
-            $table->string('description')->nullable();
-            $table->string('location')->nullable();
-            $table->string('qualifications')->nullable();
-            $table->string('image')->nullable();
+            $table->text('description');
+            $table->string('location');
+            $table->json('qualifications');
+            $table->string('image');
             $table->string('incentives')->nullable();
             $table->timestamps();
         });
