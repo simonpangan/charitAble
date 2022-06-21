@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\Benefactor;
 
+use App\Models\Categories;
 use App\Rules\MaxWordsRule;
-use App\Enums\CharityCategory;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BenefactorProfileRequest extends FormRequest
@@ -46,7 +45,7 @@ class BenefactorProfileRequest extends FormRequest
                 'array', 'required', 
             ],
             'preferences.*' => [
-                'required', 'distinct', Rule::in(CharityCategory::getCategoriesName())
+                'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
             ],
         ];
     }

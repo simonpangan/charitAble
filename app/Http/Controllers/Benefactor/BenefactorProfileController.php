@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Benefactor;
 
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Benefactor;
-use App\Enums\CharityCategory;
+use App\Models\Categories;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Benefactor\BenefactorProfileRequest;
-use App\Models\User;
 
 class BenefactorProfileController
 {
@@ -17,7 +17,7 @@ class BenefactorProfileController
         return Inertia::render(
             'Benefactor/Profile/Index',   
             [ 
-                'charityCategories'=> CharityCategory::getCategories(),
+                'charityCategories'=> Categories::all(),
                 'benefactor' => Benefactor::auth()
             ]
         );

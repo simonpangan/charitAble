@@ -61,18 +61,16 @@
               <div class="row">
                 <div>
                   <ul class="ks-cboxtags">
-                    <li v-for="(category, index) in $page.props.charityCategories" :key="index">
-                        <!-- v-model="form.preferences"
-                        :checked="preferences.includes(category.name)" -->
+                    <li v-for="(category, index) in charityCategories" :key="category.id">
                       <input
                         v-model="form.preferences"
                         type="checkbox" 
                         :id="'checkbox' + index"
                         class="bg-primary"
                         :disabled="type != 'edit'"
-                        :value="category.name"
+                        :value="category.id"
                       />
-                       <label :for="'checkbox' + index">{{ category.value }}</label>
+                       <label :for="'checkbox' + index">{{ category.name }}</label>
                     </li> 
                      <div v-if="form.errors['preferences.0']" class="text-danger">
                       {{ form.errors['preferences.0'] }}
@@ -178,7 +176,8 @@ let type = ref('view');
 
 let props = defineProps({
   auth: Object,
-  benefactor: Object
+  benefactor: Object,
+  charityCategories: Array
 })
 
 let form = useForm({
