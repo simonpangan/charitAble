@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -16,13 +17,31 @@ class Benefactor extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-
     protected $guarded = [];
+
+    public $casts = [
+        'first_name' => 'encrypted',
+        'last_name' => 'encrypted',
+        'total_donation' => 'encrypted',
+        'account_type' => 'encrypted',
+        'total_charities_donated' => 'encrypted',
+        'total_charities_followed' => 'encrypted',
+        'total_number_donations' => 'encrypted',
+    ];
 
     protected function preferences(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => explode(",", $value),
+            get: function ($value) {
+                $preferences = collect(explode(",", $value))->map(function ($preference) {
+                    return Str::of($preference)
+                    ->replace('_', ' ')
+                    ->title()
+                    ->value;
+                });
+
+                return $preferences->toArray();
+            },
             set: fn ($value) => implode(",", $value),
         );
     }
