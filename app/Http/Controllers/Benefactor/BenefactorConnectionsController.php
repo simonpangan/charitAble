@@ -54,24 +54,26 @@ class BenefactorConnectionsController
 
     public function store(Request $request): RedirectResponse
     {
-        Benefactor::auth()
+        $benefactor = Benefactor::auth();
+
+        $benefactor
             ->followingCharities()
             ->attach($request->only('id'));
         
-        Benefactor::auth()
-            ->increment('total_charities_followed');
+        $benefactor->update(['total_charities_followed' => ($benefactor->total_charities_followed + 1)]);
 
         return back();        
     }
 
     public function destroy (int $id): RedirectResponse
     {
-        Benefactor::auth()
+        $benefactor = Benefactor::auth();
+
+        $benefactor
             ->followingCharities()
             ->detach($id);
 
-        Benefactor::auth()
-            ->decrement('total_charities_followed');
+        $benefactor->update(['total_charities_followed' => ($benefactor->total_charities_followed - 1)]);
 
         return to_route('benefactor.connections.index');
     }
