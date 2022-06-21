@@ -31,6 +31,39 @@
               </div>
             </div>
           </div>
+          <div v-if="! userFollowsAtleastOneCharity">
+            <div class="card p-3">
+              <figure class="p-3 mb-0 text-center">
+                <blockquote class="blockquote">
+                  <p>Please follow atleast 1 charity.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer mb-0 text-muted">
+                  charitAble
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+           <div v-if="userFollowsAtleastOneCharity &&
+              (allPosts.length == 0)
+            ">
+            <div class="card p-3">
+              <figure class="p-3 mb-0 text-center">
+                <blockquote class="blockquote">
+                  <p>Your following charity has no current post.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer mb-0 text-muted">
+                  charitAble
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+           <div class="alert alert-dark text-center" role="alert" 
+            v-if="lastPage && 
+            userFollowsAtleastOneCharity &&
+            (allPosts.length != 0)
+            ">
+            No more posts
+          </div>
         </main>
         <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
           <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
@@ -119,9 +152,6 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div class="alert alert-dark text-center" role="alert" v-if="lastPage">
-    No more posts
-  </div>
   <span ref="loadMorePosts" />
 </template>
 
@@ -131,7 +161,8 @@
         posts: Array,
         user: Array,
         volunteer_post: Array,
-        randomCharity: Array
+        randomCharity: Array,
+        userFollowsAtleastOneCharity: Boolean
     },
    data() {
         return {

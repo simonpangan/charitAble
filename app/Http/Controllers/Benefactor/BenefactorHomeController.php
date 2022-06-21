@@ -24,7 +24,15 @@ class BenefactorHomeController
             'user' => fn () => Auth::user()->withBenefactor()->toArray(),
             'posts' => $this->getCharityPostsByFollowing(),
             'randomCharity' => fn () => $this->getRandomCharity(),
+            'userFollowsAtleastOneCharity' => fn () => $this->userHasFollowing(),
         ]);
+    }
+
+    private function userHasFollowing()   
+    {
+        $followingNumber =  CharityFollowers::where('benefactor_id', Auth::id())->count();
+
+        return ($followingNumber > 0) ? true : false;
     }
 
     private function getCharityPostsByFollowing(): CursorPaginator
