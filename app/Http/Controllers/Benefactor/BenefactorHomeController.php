@@ -21,7 +21,7 @@ class BenefactorHomeController
     public function index()
     {
         return Inertia::render('Benefactor/Home',[
-            'user' => fn () => Auth::user()->withBenefactor()->toArray(),
+            'benefactor' => fn () => Benefactor::auth(),
             'posts' => $this->getCharityPostsByFollowing(),
             'randomCharity' => fn () => $this->getRandomCharity(),
             'userFollowsAtleastOneCharity' => fn () => $this->userHasFollowing(),

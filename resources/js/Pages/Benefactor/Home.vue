@@ -58,7 +58,7 @@
             </div>
           </div>
            <div class="alert alert-dark text-center" role="alert" 
-            v-if="lastPage && 
+            v-if="(posts.next_page_url === null) && 
             userFollowsAtleastOneCharity &&
             (allPosts.length != 0)
             ">
@@ -66,56 +66,22 @@
           </div>
         </main>
         <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
-          <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
-            <div class="py-4 px-3 border-bottom">
-              <!-- <img src="img/p13.png" class="img-fluid mt-2 rounded-circle" alt="Responsive image"> -->
-              <h5 class="fw-bold text-dark mb-1 mt-4">{{this.$page.props.user.email}}</h5>
+        <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
+          <div class="py-4 px-3 border-bottom">
+            <h5 class="font-weight-bold text-dark mb-1 mt-4">{{ benefactor.first_name + benefactor.last_name }}</h5>
+          </div>
+          <div class="d-flex">
+            <div class="col-6 border-right p-3">
+              <h6 class="font-weight-bold text-dark mb-1">{{ benefactor.total_charities_followed }}</h6>
+              <p class="mb-0 text-black-50 small">Connections</p>
             </div>
-            <div class="d-flex">
-              <div class="col-6 border-end p-3">
-                <h6 class="fw-bold text-dark mb-1">358</h6>
-                <p class="mb-0 text-black-50 small">?Number of Followed Charities</p>
-              </div>
-              <div class="col-6 p-3">
-                <h6 class="fw-bold text-dark mb-1">85</h6>
-                <p class="mb-0 text-black-50 small">Charities Donated?</p>
-              </div>
-            </div>
-            <div class="overflow-hidden border-top">
-              <a class="fw-bold p-3 d-block" href="profile.html"> View my profile </a>
+            <div class="col-6 p-3">
+              <h6 class="font-weight-bold text-dark mb-1"> ₱ {{ benefactor.total_donation }}</h6>
+              <p class="mb-0 text-black-50 small">Donations</p>
             </div>
           </div>
-          <div class="box mb-3 shadow-sm rounded bg-white view-box overflow-hidden">
-            <div class="box-title border-bottom p-3">
-              <h6 class="m-0">Donated Programs</h6>
-            </div>
-            <div class="d-flex text-center">
-              <div class="col-6 border-end py-4 px-2">
-                <h5 class="fw-bold text-info mb-1">08 <i class="feather-bar-chart-2"></i>
-                </h5>
-                <p class="mb-0 text-black-50 small">last 5 days</p>
-              </div>
-              <div class="col-6 py-4 px-2">
-                <h5 class="fw-bold text-success mb-1">+ 43% <i class="feather-bar-chart"></i>
-                </h5>
-                <p class="mb-0 text-black-50 small">Since last week</p>
-              </div>
-            </div>
-            <div class="overflow-hidden border-top text-center">
-              <img src="img/chart.png" class="img-fluid" alt="Responsive image">
-            </div>
-          </div>
-          <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
-            <img src="img/job1.png" class="img-fluid" alt="Responsive image">
-            <div class="p-3 border-bottom">
-              <h6 class="fw-bold text-dark">Osahan Solutions</h6>
-              <p class="mb-0 text-muted">Looking for talent?</p>
-            </div>
-            <div class="p-3">
-              <button type="button" class="btn btn-outline-primary ps-4 pe-4"> POST A JOB </button>
-            </div>
-          </div>
-        </aside>
+        </div>
+       </aside>
         <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
           <div class="box shadow-sm border rounded bg-white mb-3">
             <div class="box-title border-bottom p-3">
@@ -132,13 +98,10 @@
                   <div class="text-truncate"> {{ charity.name }} </div>
                 </div>
                 <span class="ms-auto">
-                  <Link :href="$route('benefactor.connections.store')" 
-                      :data="{ id: charity.id }"
-                      method="post" as="button" type="button"
-                      class="btn btn-light btn-sm text-nowrap">
-                  <i class="feather-plus"></i>  
-                      Follow
-                  </Link>
+                  <button  @click="followCharity(charity.id)" class="btn btn-light btn-sm text-nowrap">
+                    <i class="feather-plus"></i>  
+                        Follow
+                  </button>
                 </span>
               </div>
             </div>
@@ -159,7 +122,7 @@
   export default {
     props: {
         posts: Array,
-        user: Array,
+        benefactor: Array,
         volunteer_post: Array,
         randomCharity: Array,
         userFollowsAtleastOneCharity: Boolean
@@ -192,6 +155,15 @@
                 this.loading = false
             }
         })
+      },
+      followCharity($id) {
+        this.$inertia.post(route('benefactor.connections.store'), {
+          id: $id
+        }, {
+            onSuccess: () => {
+              this.$inertia.get(route('benefactor.home.index'));
+            }
+        });
       }
     },
     mounted() {
@@ -201,6 +173,6 @@
       }));
 
       observer.observe(this.$refs.loadMorePosts)
-    }
+    },
   }
 </script>
