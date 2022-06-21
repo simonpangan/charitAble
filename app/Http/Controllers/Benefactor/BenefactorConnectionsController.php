@@ -57,6 +57,9 @@ class BenefactorConnectionsController
         Benefactor::auth()
             ->followingCharities()
             ->attach($request->only('id'));
+        
+        Benefactor::auth()
+            ->increment('total_charities_followed');
 
         return back();        
     }
@@ -66,6 +69,9 @@ class BenefactorConnectionsController
         Benefactor::auth()
             ->followingCharities()
             ->detach($id);
+
+        Benefactor::auth()
+            ->decrement('total_charities_followed');
 
         return to_route('benefactor.connections.index');
     }
