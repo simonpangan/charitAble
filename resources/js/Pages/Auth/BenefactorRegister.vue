@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center align-items-center d-flex vh-100">
+  <div class="container mt-4">
+    <div class="row justify-content-center align-items-center d-flex">
       <form @submit.prevent="submit">
         <section v-if="currentStep == 1">
           <div class="col-md-4 mx-auto">
@@ -143,20 +143,6 @@
                     Agree & Join
                   </span> 
                 </button>
-              </div>
-              <div class="text-center mt-3 border-bottom pb-3">
-                <p class="small text-muted">Or login with</p>
-                <div class="text-center">
-                  <button type="button" class="btn btn-sm btn-outline-instagram btn-block px-5">
-                    <i class="feather-instagram"></i> Sign Up Using Google </button>
-                </div>
-              </div>
-              <div class="py-3 d-flex align-item-center">
-                <a href="forgot-password.html">Forgot password?</a>
-              </div>
-              <div class="py-3 d-flex align-item-center">
-                <span class="me-5"> Charities or NGO? <a class="fw-bold ms-2" href="sign-in.html">Let's Work Together</a>
-                </span>
               </div>
             </div>
           </div>
