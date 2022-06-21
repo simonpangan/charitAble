@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('volunteer_work_name')->nullable();
             $table->string('description')->nullable();
             $table->string('location')->nullable();
+            $table->string('qualifications')->nullable();
+            $table->string('image')->nullable();
             $table->string('incentives')->nullable();
             $table->timestamps();
         });
