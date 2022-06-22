@@ -4,6 +4,7 @@ namespace App\Models\Charity;
 
 use App\Traits\CharityID;
 use App\Models\Categories;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,13 @@ class CharityProgram extends Model
         'goal' => 'array',
         'program_expenses' => 'array',
     ];
+
+    protected $appends = ['created_at_formatted'];
+    
+    public function getCreatedAtFormattedAttribute()
+    {
+        return (Carbon::parse($this->created_at)->diffForHumans());
+    }
 
     public function scopeFilterProgramBy($query, $name, $category)
     {
