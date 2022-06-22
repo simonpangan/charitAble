@@ -28,7 +28,8 @@ class BenefactorConnectionsVolunteerController
     private function getFollowingCharitiesVolunteerPost(string $name = null, string $category = null)   
     {
         return CharityVolunteerPost::query()
-            ->select('charity_volunteer_posts.*')
+            ->select(['charity_volunteer_posts.*', 'charities.name as charity_name'])
+            ->join('charities', 'charities.id', '=', 'charity_volunteer_posts.charity_id')
             ->filterVolunteerPostBy($name, $category)
             ->latest()
             ->paginate(10)

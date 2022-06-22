@@ -15,7 +15,7 @@
                           <div class="d-flex align-items-center p-3 job-item-header">
                             <div class="overflow-hidden mr-2">
                               <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{ post.name }}</h6>
-                              <div class="text-truncate text-primary">Envato</div>
+                              <div class="text-truncate text-primary">{{ post.charity_name }}</div>
                               <div class="small text-gray-500">
                                 <i class="feather-map-pin"></i> 
                                 {{ post.location }}
@@ -59,7 +59,7 @@
         <aside class="col col-xl-3 order-xl-2 col-lg-12 order-lg-2 col-12">
           <div class="box mb-3 shadow-sm border rounded bg-white list-sidebar">
             <div class="box-title p-3">
-              <h6 class="m-0">My connections based on category</h6>
+              <h6 class="m-0">Volunteer posts</h6>
               <small class="text-center text-muted"> Click text below if you want to sort. </small>
             </div>
             <ul class="list-group list-group-flush">
