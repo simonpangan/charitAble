@@ -73,6 +73,6 @@ class BenefactorConnectionsCharitiesController
 
         $benefactor->update(['total_charities_followed' => ($benefactor->total_charities_followed - 1)]);
 
-        return to_route('benefactor.connections.index');
+        return back();
     }
 }
