@@ -18,8 +18,13 @@
           Volunteer
         </Link>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> Programs </a>
+       <li class="nav-item">
+        <Link class="nav-link" id="home-tab" 
+          :href="$route('benefactor.connections.program.index')"
+          :class="{ 'active': $page.component === 'Benefactor/Connections/Program' }"
+        > 
+          Program
+        </Link>
       </li>
       <li class="nav-item ms-auto me-3">
         <input type="text" class="form-control mt-2" v-model="search" placeholder="Search" />
