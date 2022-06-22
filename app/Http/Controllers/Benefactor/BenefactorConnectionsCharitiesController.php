@@ -6,17 +6,15 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Benefactor;
 use Illuminate\Http\Request;
-use App\Enums\CharityCategory;
-use App\Models\Categories;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityFollowers;
 
-class BenefactorConnectionsController
+class BenefactorConnectionsCharitiesController
 {
     public function index(Request $request): Response
     {
-        return Inertia::render('Benefactor/Connections/Index', [
+        return Inertia::render('Benefactor/Connections/Charities', [
             'followingList' => $this->getCharityFollowingLists(
                 $request->get('name'), $request->get('category')
             ),

@@ -11,9 +11,10 @@ use App\Http\Controllers\Benefactor\{
     BenefactorLogController,
     BenefactorHomeController,
     BenefactorProfileController,
-    BenefactorCharitySearchController,
-    BenefactorConnectionsController,
     BenefactorDashboardController,
+    BenefactorCharitySearchController,
+    BenefactorConnectionsCharitiesController,
+    BenefactorConnectionsVolunteerController
 };
 
 use App\Http\Controllers\Charity\{
@@ -94,12 +95,15 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/logs', BenefactorLogController::class)
             ->name('logs.index');
 
-        Route::get('/connections',[ BenefactorConnectionsController::class, 'index'])
-            ->name('connections.index');
-        Route::delete('/connections/{id}',[ BenefactorConnectionsController::class, 'destroy'])
-            ->name('connections.destroy');
-        Route::post('/connections/',[ BenefactorConnectionsController::class, 'store'])
-            ->name('connections.store');
+        Route::get('/connections-charities',[ BenefactorConnectionsCharitiesController::class, 'index'])
+            ->name('connections.charities.index');
+        Route::delete('/connections/{id}',[ BenefactorConnectionsCharitiesController::class, 'destroy'])
+            ->name('connections.charities.destroy');
+        Route::post('/connections/',[ BenefactorConnectionsCharitiesController::class, 'store'])
+            ->name('connections.charities.store');
+
+        Route::get('/connections-volunteer',[ BenefactorConnectionsVolunteerController::class, 'index'])
+            ->name('connections.volunteer.index');
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
             ->name('home.index');

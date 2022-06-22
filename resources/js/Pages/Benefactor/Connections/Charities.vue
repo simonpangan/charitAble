@@ -52,7 +52,7 @@
                                                             <button type="button" class="btn btn-primary btn-sm d-block w-100"> View Profile </button>
                                                         </div>
                                                         <div class="col-6 pe-3 ps-1">
-                                                            <Link :href="$route('benefactor.connections.destroy', {
+                                                            <Link :href="$route('benefactor.connections.charities.destroy', {
                                                                 id: following.id
                                                             })" method="delete" as="button" type="button"
                                                                 class="btn btn-outline-primary btn-sm d-block w-100">
@@ -80,7 +80,7 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <Link v-for="(total, name, index) in charityFollowingCategoryNumber" :key="index"
-                                :href="$route('benefactor.connections.index', {
+                                :href="$route('benefactor.connections.charities.index', {
                                     category: name.replaceAll('_', ' ')
                                 })"
                                 :only="['followingList']"
@@ -126,7 +126,7 @@ let props = defineProps({
 
 watch(search, debounce((value) => {
      Inertia.get(
-      route('benefactor.connections.index'), { 
+      route('benefactor.connections.charities.index'), { 
         name: value, 
       }, {
         preserveState: true,
