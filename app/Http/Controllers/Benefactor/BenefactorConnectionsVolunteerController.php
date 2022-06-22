@@ -30,6 +30,7 @@ class BenefactorConnectionsVolunteerController
         return CharityVolunteerPost::query()
             ->select('charity_volunteer_posts.*')
             ->filterVolunteerPostBy($name, $category)
+            ->latest()
             ->paginate(10)
             ->withQueryString();
     }
