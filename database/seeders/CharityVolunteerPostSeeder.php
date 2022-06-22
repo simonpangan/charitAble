@@ -4,10 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
-use App\Models\Charity\CharityProgram;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Charity\CharityVolunteerPost;
 
-class CharityProgramSeeder extends Seeder
+class CharityVolunteerPostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,17 +15,16 @@ class CharityProgramSeeder extends Seeder
      */
     public function run()
     {
-        CharityProgram::withoutEvents(function () {
+        CharityVolunteerPost::withoutEvents(function () {
             $charity = Charity::all();
 
             $charity->each(function ($charity) {
-                $posts = CharityProgram::factory()->count(10)->raw([
+                $posts = CharityVolunteerPost::factory()->count(10)->raw([
                     'charity_id' => $charity->id
                 ]);
             
-                $charity->programs()->createMany($posts);
+                $charity->volunteerPosts()->createMany($posts);
             });
         });
-
     }
 }

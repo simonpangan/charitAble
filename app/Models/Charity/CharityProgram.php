@@ -11,4 +11,9 @@ class CharityProgram extends Model
     use HasFactory, CharityID;
 
     protected $guarded = ['id'];   
+
+    protected $casts = [
+        'goal' => 'array',
+        'program_expenses' => 'array',
+    ];
 }

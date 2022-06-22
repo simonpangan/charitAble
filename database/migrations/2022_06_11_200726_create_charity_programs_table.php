@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('charity_programs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')->constrained();
-            $table->string('program_name');
-            $table->string('program_description');
-            $table->string('location')->nullable();
-            $table->string('goal')->nullable();
+            $table->string('name');
+            $table->text('description');
+            $table->string('location');
+            $table->json('goal');
             $table->string('total_donation_amount');
             $table->string('total_withdrawn_amount');
-            $table->string('program_expenses')->nullable();
+            $table->json('program_expenses');
             $table->string('header');
             $table->timestamps();
         });
