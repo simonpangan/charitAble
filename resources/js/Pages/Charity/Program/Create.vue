@@ -388,13 +388,7 @@ export default {
     },
     remove: function () {
       this.count--;
-      var x = new Array(this.goal_values);
-      var y = new Array(this.goal_date_values);
-
-      var z = x.map(function (e, i) {
-        return [e, y[i]];
-      });
-      this.form.goal = z;
+   
     },
     addProgram: function () {
       this.countProgram++;
@@ -418,12 +412,12 @@ export default {
         }
 
         for(let i=0; i <this.program_expenses.length;i++){
-            if(this.program_expenses_values[i] && this.program_date_expenses[i] != null){
+            if(this.program_expenses[i] && this.program_date_expenses[i] != null){
             expenses.push(this.program_expenses[i] +','+ this.program_date_expenses[i]);
             this.form.program_expenses = expenses;
             }
         }
-       form.post(route("charity.program.store"));
+       this.form.post(route("charity.program.store"));
 
     },
   },

@@ -8,8 +8,8 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h3 class="font-weight-bold text-dark mb-1 mt-0">Program Name <span class="text-info"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></h3>
-                            <p class="mb-0 text-muted"> A Program by {{'Charity Name'}}</p>
+                            <h3 class="font-weight-bold text-dark mb-1 mt-0"> {{this.$page.props.program.program_name}}<span class="text-info"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></h3>
+                            <p class="mb-0 text-muted"> A Program by {{this.$page.props.charity[0].name}}</p>
                         </div>
                         <div class="profile-right ms-auto">
                         </div>
@@ -48,12 +48,9 @@
                                     <h6 class="m-0">Program Description</h6>
                                 </div>
                                 <div class="box-body p-3">
-                                    <p>Google’s mission is to organize the world‘s information and make it universally accessible and useful.
+                                    <p>{{this.$page.props.program.program_description}}
                                     </p>
-                                    <p class="mb-0">Since our founding in 1998, Google has grown by leaps and bounds. From offering search in a single language we now offer dozens of products and services—including various forms of advertising and web applications for
-                                        all kinds of tasks—in scores of languages. And starting from two computer science students in a university dorm room, we now have thousands of employees and offices around the world. A lot has changed since the
-                                        first Google search engine appeared. But some things haven’t changed: our dedication to our users and our belief in the possibilities of the Internet itself.
-                                    </p>
+
                                 </div>
                             </div>
                             <div class="box shadow-sm border rounded bg-white mb-3">
@@ -542,7 +539,7 @@
                                 <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div>
-                                <h3 class="mx-auto nmb-1">₱ 40,000</h3>
+                                <h3 class="mx-auto nmb-1">{{this.$page.props.program.total_donation_amount}}</h3>
                                 <p class="">funded out of 50,000</p>
                             </div>
 
@@ -630,3 +627,7 @@
     </div>
 
 </template>
+
+<script>
+
+</script>

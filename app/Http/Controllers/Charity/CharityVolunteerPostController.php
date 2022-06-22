@@ -19,7 +19,7 @@ class CharityVolunteerPostController
             'description' => 'asdsa',
             'location' => $request['location'],
             'incentives' => $request['volunteer_incentives'],
-            
+
         ]);
 
         return to_route('charity.profile.index');
@@ -33,7 +33,7 @@ class CharityVolunteerPostController
     public function show(int $id): InertiaResponse
     {
         return Inertia::render(
-            '',
+            'Charity/Volunteer-Posting/VolunteerPost',
             CharityVolunteerPost::findOrFail($id)->toArray()
         );
     }
