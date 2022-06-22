@@ -4,33 +4,7 @@
             <div class="row">
                 <main class="col col-xl-9 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
                     <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post ">
-                        <div>
-                            <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
-                               <li class="nav-item">
-                                   <a class="nav-link active" id="home-tab" data-bs-toggle="tab" 
-					    				href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                       Charities
-                                   </a>
-                               </li>
-                               <li class="nav-item">
-                                   <a class="nav-link" id="home-tab" data-bs-toggle="tab" 
-					    				href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                       Volunteer
-                                    </a>
-                               </li>
-                                <li class="nav-item">
-                                   <a class="nav-link" id="home-tab" data-bs-toggle="tab" 
-					    				href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                       Programs
-                                   </a>
-                               </li>
-                                <li class="nav-item ms-auto me-3">
-                                  <input type="email" class="form-control mt-2"
-                                     placeholder="Search" v-model="search"
-                                    />
-                               </li>
-                           </ul>      
-                        </div>
+                        <ConnectionsNavLinks />
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="p-3">
@@ -112,6 +86,7 @@
 </template>
 
 <script setup>
+import ConnectionsNavLinks from './ConnectionsNavLinks.vue';
 import { ref, watch, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import debounce from 'lodash/debounce';
