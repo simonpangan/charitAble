@@ -24,7 +24,7 @@
 				<i class="feather-edit me-1"></i> 
 				Dashboard
 			</NavLink>
-			<NavLink class="dropdown-item btn btn-link" href="/benefactor/connections">
+			<NavLink class="dropdown-item btn btn-link" href="/benefactor/connections-charities">
 				<i class="feather-log-out me-1"></i>
 				Connections
 			</NavLink>
