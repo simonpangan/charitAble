@@ -9,7 +9,7 @@
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="p-3">
                   <div class="row">
-                    <div v-for="post in followingCharitiesVolunteerPost" :key="post.id" class="col-md-6">
+                    <div v-for="post in followingCharitiesVolunteerPost.data" :key="post.id" class="col-md-6">
                       <a href="job-profile.html">
                         <div class="border job-item mb-3">
                           <div class="d-flex align-items-center p-3 job-item-header">
@@ -32,6 +32,26 @@
                   </div>
                 </div>
               </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li  v-for="(link, index) in followingCharitiesVolunteerPost.links" :key="index"
+                    class="page-item"
+                    :class="[
+                        link.active ? 'active' : '',
+                        link.url ? 'pager' : '',
+                    ]"
+                    >
+                    <Component 
+                      :is="link.url ? 'Link' : 'span'"
+                      v-if="link.url" 
+                      :href="link.url" 
+                      v-html="link.label"
+                      class="page-link"
+                    >
+                    </Component>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </main>

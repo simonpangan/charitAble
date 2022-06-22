@@ -14,7 +14,7 @@ use App\Models\Charity\CharityCategories;
 
 class BenefactorConnectionsVolunteerController
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         return Inertia::render('Benefactor/Connections/Volunteer', [
             'followingCharitiesVolunteerPost' => $this->getFollowingCharitiesVolunteerPost(
@@ -30,7 +30,8 @@ class BenefactorConnectionsVolunteerController
         return CharityVolunteerPost::query()
             ->select('charity_volunteer_posts.*')
             ->filterVolunteerPostBy($name, $category)
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
     }
 
     private function getCharityFollowingPerCategoryStats()
