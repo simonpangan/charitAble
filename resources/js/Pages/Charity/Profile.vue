@@ -34,10 +34,10 @@
                                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Posts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Programs</a>
+                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Volunteer Posting</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="type-tab" data-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Volunteer Posting</a>
+                                <a class="nav-link" id="type-tab" data-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Program</a>
                             </li>
                         </ul>
                     </div>
@@ -125,9 +125,10 @@
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                             <div class="box shadow-sm border rounded bg-white p-3">
                                 <div class="row">
-                                    <div v-for="volunteer_post in $page.props.volunteer_post" :key="volunteer_post.id">
-                                        <div class="col-md-6">
-                                            <a href="job-profile.html">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div v-for="volunteer_post in $page.props.volunteer_post" :key="volunteer_post.id" class="col-md-6">
+                                            <Link href="volunteer-post/">Create
                                                 <div class="border job-item mb-3">
                                                     <div class="d-flex align-items-center p-3 job-item-header">
                                                         <div class="overflow-hidden me-2">
@@ -143,7 +144,8 @@
                                                         <small class="text-gray-500"><i class="feather-clock"></i>{{volunteer_post.created_at}}</small>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </Link>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,8 +171,11 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title  nmb-1">Tree Planting</h5>
                                                     <p class="card-text text-muted">Binangonan, Rizal</p>
+                                                    <div class=" border-bottom">
                                                     <p class="card-text text-success ">On-Going</p>
                                                     <p class="card-text text-dark">38 Proud Supporters</p>
+                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -238,7 +243,7 @@
                                 <div class="font-weight-bold me-2">
                                     <div class="text-truncate">Create Program</div>
                                 </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-warning btn-sm">Create</button>
+                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-warning btn-sm"><Link href="program">Create</Link></button>
                            </span>
                             </div>
 
