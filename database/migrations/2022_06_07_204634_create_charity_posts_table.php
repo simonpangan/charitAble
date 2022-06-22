@@ -19,7 +19,15 @@ return new class extends Migration
             $table->text('main_content_body');
             $table->string('main_content_body_image')->nullable();
             $table->timestamps();
+
+            // $table->index(['charity_id', 'created_at']);
         });
+
+        DB::statement('
+            CREATE INDEX charity_posts_charity_id_created_at_index 
+            on charity_posts 
+            (charity_id ASC, created_at DESC)'
+    )   ;
     }
 
     /**

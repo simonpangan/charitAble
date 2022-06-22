@@ -15,7 +15,13 @@
                                <li class="nav-item">
                                    <a class="nav-link" id="home-tab" data-bs-toggle="tab" 
 					    				href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                       Charities
+                                       Volunteer
+                                    </a>
+                               </li>
+                                <li class="nav-item">
+                                   <a class="nav-link" id="home-tab" data-bs-toggle="tab" 
+					    				href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                       Programs
                                    </a>
                                </li>
                                 <li class="nav-item ms-auto me-3">

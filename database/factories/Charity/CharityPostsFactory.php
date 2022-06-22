@@ -20,7 +20,7 @@ class CharityPostsFactory extends Factory
         return [
             'main_content_body' => $this->faker->paragraph,
             'main_content_body_image' => $this->faker->sentence,  
-            'created_at' => now()
+            'created_at' => $this->faker->dateTimeBetween('-5 years', 'now')
         ];
     }
 }

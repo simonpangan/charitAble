@@ -23,6 +23,10 @@ use App\Http\Controllers\Charity\{
     CharityVolunteerPostController
 };
 
+use App\Http\Controllers\Admin\ {
+    AdminHomeController
+};
+
 /*
 |--------------------------------------------------------------------------
 | Auth  & Verified Routes
@@ -33,8 +37,13 @@ use App\Http\Controllers\Charity\{
 */
 
 Route::middleware('verified:auth.verification.notice')->group(function () {
-    Route::middleware('role:ADMIN')->group(function () {
-        Route::inertia('/admin', 'Benefactor/Index')->name('admin.index');
+
+    Route::group([
+        'middleware' => 'role:ADMIN',
+        'as' => 'admin.',
+        'prefix' => 'admin',
+    ], function () {
+        Route::get('/home', [AdminHomeController::class, 'index'])->name('home.index');
     });
 
 
@@ -86,7 +95,11 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             ->name('logs.index');
 
         Route::get('/connections',[ BenefactorConnectionsController::class, 'index'])
-            ->name('connection.index');
+            ->name('connections.index');
+        Route::delete('/connections/{id}',[ BenefactorConnectionsController::class, 'destroy'])
+            ->name('connections.destroy');
+        Route::post('/connections/',[ BenefactorConnectionsController::class, 'store'])
+            ->name('connections.store');
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
             ->name('home.index');

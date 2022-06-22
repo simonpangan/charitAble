@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
 use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityFollowers;
@@ -17,19 +18,29 @@ class CharityPostsSeeder extends Seeder
      */
     public function run()
     {
-        $benefactorID = User::where('email', 'simonpangan@yahoo.com')->first(['id'])->id;
+        $benefactorID = User::where('email', 'simonjoseph.pangan@gmail.com')->first(['id'])->id;
 
-        $benefactorFollowingList = CharityFollowers::query()
-            ->where('benefactor_id', $benefactorID)->get()
-            ->pluck('charity_id');
+        // $benefactorFollowingList = CharityFollowers::query()
+        //     ->where('benefactor_id', $benefactorID)->get()
+        //     ->pluck('charity_id');
 
 
-        $benefactorFollowingList->each(function ($charityID) {
-            $posts = CharityPosts::factory()->count(100)->raw([
+        $charitiesID = Charity::all()->pluck('id');
+
+        $charitiesID->each(function ($charityID) {
+            $posts = CharityPosts::factory()->count(10)->raw([
                 'charity_id' => $charityID
             ]);
 
             CharityPosts::insert($posts);
         });
+
+        // $benefactorFollowingList->each(function ($charityID) {
+        //     $posts = CharityPosts::factory()->count(1)->raw([
+        //         'charity_id' => $charityID
+        //     ]);
+
+        //     CharityPosts::insert($posts);
+        // });
     }
 }

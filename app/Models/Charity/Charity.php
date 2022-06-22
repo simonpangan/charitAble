@@ -37,6 +37,11 @@ class Charity extends Model
         return $this->hasMany(CharityVolunteerPost::class);
     }
 
+    public function programs()
+    {
+        return $this->hasMany(CharityProgram::class);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(

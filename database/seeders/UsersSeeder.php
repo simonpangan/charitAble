@@ -6,13 +6,8 @@ use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\Role;
 use App\Models\User;
-use Faker\Generator;
-use Illuminate\Support\Str;
-use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
-use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\LazyCollection;
 
 class UsersSeeder extends Seeder
 {
@@ -38,9 +33,21 @@ class UsersSeeder extends Seeder
 //            User::insertOrIgnore($chunk->toArray());
 //        });
 
+        User::firstOrCreate(
+            [
+                'email' => 'admin@yahoo.com',
+                'role_id' => Role::USERS['ADMIN'],
+                'email_verified_at' => Carbon::now(config('app.timezone')),
+                // 'email_verified_at' => null,    
+                'password' => Hash::make('simonpangan'),
+                'created_at' => '2021-06-18 01:15:48',
+            ]
+        );
+
+
         $benefactor = User::firstOrCreate(
             [
-                'email' => 'simonpangan@yahoo.com',
+                'email' => 'simonjoseph.pangan@gmail.com',
                 'role_id' => Role::USERS['BENEFACTOR'],
                 'email_verified_at' => Carbon::now(config('app.timezone')),
                 // 'email_verified_at' => null,    
@@ -54,10 +61,10 @@ class UsersSeeder extends Seeder
         $benefactor->benefactor()->create([
             'first_name' => 'Simon Joseph',
             'last_name' => 'Pangan',
-            'gender' => 'Male',
+            'gender' => 'Male', 
             'age' => '22',
             'city' => 'Valenzuela',
-            'preferences' => ['COMMUNITY_DEVELOPMENT'],
+            'preferences' => [ 1, 2, 3 ,4 ,5],
             'account_type' => 'Personal',
             'total_donation' => '10000',
             'total_charities_donated' => '10',
@@ -92,6 +99,6 @@ class UsersSeeder extends Seeder
 
     private function createLogsForUser(): array
     {
-        return Log::factory()->count(500)->raw();
+        return Log::factory()->count(5000)->raw();
     }
 }

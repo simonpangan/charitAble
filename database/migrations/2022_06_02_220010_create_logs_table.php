@@ -18,7 +18,23 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->text('activity');
             $table->timestamp('created_at');
+
+            // $table->index(['user_id', 'created_at']);
+
         });
+
+        //postgres
+        DB::statement('
+            CREATE INDEX logs_user_id_created_at_index 
+            on logs 
+            (user_id ASC, created_at DESC)'
+        );
+
+        //mysql
+        // DB::statement('ALTER TABLE logs 
+        //     ADD INDEX logs_user_id_created_at_index 
+        //     (user_id ASC, created_at DESC)'
+        // );
     }
 
     /**

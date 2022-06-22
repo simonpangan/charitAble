@@ -24,7 +24,7 @@ class CategoriesSeeder extends Seeder
             ['name' => 'Education'],
             ['name' => 'Environment'],
             ['name' => 'Wildlife Protection'],
-            ['name' => 'Women\'s Empowerment'],
+            ['name' => 'Womens Empowerment'],
         ]);
     }
 }
