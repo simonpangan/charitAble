@@ -4,7 +4,7 @@
       <div class="row">
         <main class="col col-xl-9 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
           <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post ">
-            <ConnectionsNavLinks />
+            <ConnectionsNavLinks v-bind:search="props.name" @search="searchPost" />
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="p-3">
@@ -17,14 +17,15 @@
                               <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{ post.name }}</h6>
                               <div class="text-truncate text-primary">Envato</div>
                               <div class="small text-gray-500">
-                                <i class="feather-map-pin"></i> India, Punjab
+                                <i class="feather-map-pin"></i> 
+                                {{ post.location }}
                               </div>
                             </div>
                             <img class="img-fluid ml-auto" src="img/l1.png" alt="">
                           </div>
                           <div class="p-3 job-item-footer">
                             <small class="text-gray-500">
-                              <i class="feather-clock"></i> Posted 3 Days ago </small>
+                              <i class="feather-clock"></i> Posted {{ post.created_at_formatted }} </small>
                           </div>
                         </div>
                       </a>
@@ -95,31 +96,26 @@
 
 <script setup>
   import ConnectionsNavLinks from './ConnectionsNavLinks.vue';
-  import {
-    ref,
-    watch,
-    computed
-  } from 'vue';
+
   import {
     Inertia
   } from '@inertiajs/inertia';
 
-  import debounce from 'lodash/debounce';
-
-  let search = ref(props.search);
 
   let props = defineProps({
-    search: String,
+    name: String,
     charityFollowingCategoryNumber: Object,
     followingCharitiesVolunteerPost: Array,
   });
 
-  watch(search, debounce((value) => {
-    Inertia.get(route('benefactor.connections.charities.index'), {
-      name: value,
-    }, {
-      preserveState: true,
-      replace: true
-    });
-  }, 300));
+  let searchPost = (value) => {
+    Inertia.get(
+      route('benefactor.connections.volunteer.index'), { 
+        name: value, 
+      }, {
+        preserveState: true,
+        replace: true
+      }
+    );
+  }
 </script>

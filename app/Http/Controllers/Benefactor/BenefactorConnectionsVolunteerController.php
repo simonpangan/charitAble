@@ -21,7 +21,7 @@ class BenefactorConnectionsVolunteerController
                 $request->get('name'), $request->get('category')
             ),
             'charityFollowingCategoryNumber' => fn () => $this->getCharityFollowingPerCategoryStats(),
-            'search' => $request->get('name') ?? '',
+            'name' => $request->get('name') ?? '',
         ]);
     }
 
@@ -57,7 +57,9 @@ class BenefactorConnectionsVolunteerController
                          ->where('benefactor_id', Auth::id())
                          ->get()
                     )
-                ->first();
+                ->first()
+                ->getAttributes()
+                ;
     }
 
 }

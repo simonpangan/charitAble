@@ -22,12 +22,30 @@
         <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> Programs </a>
       </li>
       <li class="nav-item ms-auto me-3">
-        <input type="email" class="form-control mt-2" placeholder="Search" />
+        <input type="text" class="form-control mt-2" v-model="search" placeholder="Search" />
       </li>
     </ul>
   </div>
 </template>
 
 <script setup>
+import debounce from 'lodash/debounce';
+import {
+    ref,
+    watch,
+    defineEmits
+  } from 'vue';
+
+let props = defineProps({
+    search: String,
+});
+
+let search = ref(props.search);
+
+const emit = defineEmits(['search'])
+
+watch(search, debounce((value) => {
+     emit('search', value);
+}, 300));
 
 </script>

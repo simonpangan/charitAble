@@ -4,7 +4,7 @@
             <div class="row">
                 <main class="col col-xl-9 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
                     <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post ">
-                        <ConnectionsNavLinks />
+                        <ConnectionsNavLinks v-bind:search="props.search" @search="searchPost" />
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="p-3">
@@ -87,11 +87,8 @@
 
 <script setup>
 import ConnectionsNavLinks from './ConnectionsNavLinks.vue';
-import { ref, watch, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import debounce from 'lodash/debounce';
 
-let search = ref(props.search);
 
 let props = defineProps({
     search: String,    
@@ -99,8 +96,8 @@ let props = defineProps({
     charityFollowingCategoryNumber: Object,
 });
 
-watch(search, debounce((value) => {
-     Inertia.get(
+let searchPost = (value) => {
+       Inertia.get(
       route('benefactor.connections.charities.index'), { 
         name: value, 
       }, {
@@ -108,6 +105,6 @@ watch(search, debounce((value) => {
         replace: true
       }
     ); 
-}, 300));
+  }
 
 </script>
