@@ -21,6 +21,12 @@ class CharityProgram extends Model
     ];
 
     protected $appends = ['created_at_formatted'];
+
+
+    public function charity()
+    {
+        return $this->belongsTo(Charity::class);
+    }
     
     public function getCreatedAtFormattedAttribute()
     {

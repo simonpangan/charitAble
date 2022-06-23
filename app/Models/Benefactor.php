@@ -106,6 +106,8 @@ class Benefactor extends Model
     public function programDonations()
     {
         // return $this->belongsToMany(CharityProgram::class, 'program_donations', 'charity_program_id', 'benefactor_id');
-        return $this->belongsToMany(CharityProgram::class, 'program_donations', 'benefactor_id', 'charity_program_id');
+        return $this->belongsToMany(CharityProgram::class, 'program_donations', 'benefactor_id', 'charity_program_id')
+            ->withPivot('amount', 'created_at')
+            ;
     }
 }

@@ -67,10 +67,7 @@
             <th class="text-center">Amount</th>
             <th class="text-center">Donated At</th>
         </tr>
-        @foreach ($user->benefactor->programDonations()
-            ->latest()
-            ->get(['name', 'program_donations.amount', 'program_donations.created_at']) 
-            as $donation)
+        @foreach ($donations as $donation)
         <tr>
             <td>{{ $loop->index + 1}}</td>
             <td>{{ $donation->name }}</td>
@@ -79,5 +76,21 @@
         </tr>
         @endforeach
     </table>
+    <div class="page-break"></div>
+    <h4>Charities you have donated</h4>
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Charity Name</th>
+        </tr>
+        @foreach ($donatedCharities as $charities)
+        <tr>
+            <td>{{ $loop->index + 1}}</td>
+            <td>{{ $charities->name }}</td>
+        </tr>
+        @endforeach
+    </table>
+	<br />
 </body>
 </html>
