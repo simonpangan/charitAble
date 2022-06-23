@@ -28,6 +28,7 @@ class CharityFactory extends Factory
             'instagram_link' => $this->faker->url, 
             'is_pnc_accredited' => $this->faker->numberBetween(0, 1),
             'charity_verified_at' => now()->toDateTimeString(),
+            'followers' => $this->faker->numberBetween(0, 5000),
         ];
     }
 }
