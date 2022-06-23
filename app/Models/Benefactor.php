@@ -7,6 +7,7 @@ use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Charity\CharityFollowers;
+use App\Models\Charity\CharityProgram;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -100,5 +101,11 @@ class Benefactor extends Model
     private function filterByName(String $search)
     {
         return $this->followingCharities()->where('charities.name', 'like', '%'.$search.'%');
+    }
+
+    public function programDonations()
+    {
+        // return $this->belongsToMany(CharityProgram::class, 'program_donations', 'charity_program_id', 'benefactor_id');
+        return $this->belongsToMany(CharityProgram::class, 'program_donations', 'benefactor_id', 'charity_program_id');
     }
 }
