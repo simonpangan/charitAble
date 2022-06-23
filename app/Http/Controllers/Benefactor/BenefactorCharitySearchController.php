@@ -22,6 +22,8 @@ class BenefactorCharitySearchController
 
     private function getCharities($category = null)
     {
+        $id = Categories::select('id')->whereName($category)->take(1)->first()->id;
+
         return Charity::query()
             ->select('charities.*')
             ->addSelect(
@@ -34,8 +36,9 @@ class BenefactorCharitySearchController
                 )
             )
             ->orderBy('followers', 'desc')
-            ->when($category, function($query, $value) {
-                dd($query);
+            ->when($category, function($query) use ($id) {
+                $query->join('charity_categories', 'charity_categories.charity_id', '=', 'charities.id');
+                $query->where('charity_categories.category_id', $id);
             })
             ->paginate(20);
     }

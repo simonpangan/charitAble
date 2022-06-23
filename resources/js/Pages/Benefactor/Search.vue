@@ -15,12 +15,7 @@
                 <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
                     <li class="nav-item">
                         <Link class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                            Most Followers
-                        </Link>
-                    </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                        Least Followers
+                            By Followers
                         </Link>
                     </li>
                     <li class="nav-item">
@@ -32,7 +27,7 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="p-3 job-tags">
-                            <Link class="btn btn-outline-secondary btn-sm me-1">
+                            <Link :href="$route('benefactor.charity-search.index')" class="btn btn-outline-secondary btn-sm me-1">
                                 All
                             </Link>
                             <Link v-for="category in charityCategories" :key="category.id" 
