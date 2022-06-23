@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             CharityFollowersSeeder::class,
             CharityPostsSeeder::class,
             CharityVolunteerPostSeeder::class,
-            CharityProgramSeeder::class
+            CharityProgramSeeder::class,
+            ProgramDonationSeeder::class
         ]);
     }
 }

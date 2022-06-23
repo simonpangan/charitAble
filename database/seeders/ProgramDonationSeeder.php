@@ -31,7 +31,7 @@ class ProgramDonationSeeder extends Seeder
         foreach ($program->random(20) as $program) {
             $benefactor->programDonations()->attach($program->id, [
                 'amount' => 100,
-                'created_at' => $faker->dateTimeBetween('-5 years', 'now')
+                'donated_at' => $faker->dateTimeBetween('-5 years', 'now')
             ]);
         }
     }

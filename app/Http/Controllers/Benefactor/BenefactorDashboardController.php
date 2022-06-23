@@ -11,8 +11,15 @@ class BenefactorDashboardController extends Controller
 {
     public function index(): Response
     {
+        $benefactor = Benefactor::auth();
+
+        $programDonations = $benefactor->programDonations()
+            ->latest()
+            ->paginate(10, ['name', 'program_donations.amount']);
+
         return Inertia::render('Benefactor/Dashboard', [
-            'benefactor' => Benefactor::auth()
+            'benefactor' => $benefactor,    
+            'programDonations' => $programDonations 
         ]);
     }
 }

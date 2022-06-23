@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('charity_program_id')->constrained();
             $table->foreignId('benefactor_id')->constrained();
             $table->string('amount');
-            $table->timestamp('created_at');
+            $table->timestamp('donated_at');
 
 
             $table->index(['charity_program_id', 'benefactor_id']);

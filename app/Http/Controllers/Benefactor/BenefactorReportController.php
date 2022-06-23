@@ -23,8 +23,8 @@ class BenefactorReportController
         $user = Auth::user();
 
         $donations =  $user->benefactor->programDonations()
-            ->latest()
-            ->get(['name', 'charity_id','program_donations.amount', 'program_donations.created_at']);
+            ->latest('donated_at')
+            ->get(['name', 'charity_id','program_donations.amount']);
 
             
         $charities = Charity::find($donations->pluck('charity_id')->unique()->toArray(), ['name']);

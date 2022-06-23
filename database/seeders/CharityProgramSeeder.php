@@ -20,7 +20,7 @@ class CharityProgramSeeder extends Seeder
             $charity = Charity::all();
 
             $charity->each(function ($charity) {
-                $posts = CharityProgram::factory()->count(10)->raw([
+                $posts = CharityProgram::factory()->count(5)->raw([
                     'charity_id' => $charity->id
                 ]);
             
