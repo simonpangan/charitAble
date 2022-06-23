@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('is_pnc_accredited')->nullable();
             $table->timestamp('charity_verified_at')->nullable();
 
-            $table->string('followers')->nullable();
+            $table->integer('followers');
             
             $table->timestamps();
         });
