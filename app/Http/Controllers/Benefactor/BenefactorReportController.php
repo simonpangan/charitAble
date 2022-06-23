@@ -13,18 +13,16 @@ class BenefactorReportController
     public function redirectToGeneratedReport()
     {
        return redirect()->to(URL::temporarySignedRoute(
-        'benefactor.report.generate', now()->addSecond(10),
+        'benefactor.report.generate', now()->addHour(2),
        ));
     }
 
-        public function generate()
+    public function generate()
     {
-        $users = Auth::user();
-
         $data = [
             'title' => 'Report',
             'date' => now()->toDateTimeString(),
-            'user' => array_merge($users->toArray(), $users->benefactor->toArray())
+            'user' => Auth::user(),
         ]; 
 
         $pdf = PDF::loadView('reports/benefactor', $data);
