@@ -10,11 +10,13 @@ use App\Http\Controllers\Auth\ {
 use App\Http\Controllers\Benefactor\{
     BenefactorLogController,
     BenefactorHomeController,
+    BenefactorReportController,
     BenefactorProfileController,
     BenefactorDashboardController,
     BenefactorCharitySearchController,
     BenefactorConnectionsCharitiesController,
-    BenefactorConnectionsVolunteerController
+    BenefactorConnectionsProgramController,
+    BenefactorConnectionsVolunteerController,
 };
 
 use App\Http\Controllers\Charity\{
@@ -27,6 +29,7 @@ use App\Http\Controllers\Charity\{
 use App\Http\Controllers\Admin\ {
     AdminHomeController
 };
+use App\Http\Controllers\PaymongoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +94,17 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'as' => 'benefactor.',
         'prefix' => 'benefactor',
     ], function () {
+        Route::get('/paymongo', [PaymongoController::class, 'store']);
+        Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
+        Route::get('/paymongo/search', [PaymongoController::class, 'search']);
+
+
+        Route::get('/report/redirect',[ BenefactorReportController::class, 'redirectToGeneratedReport'])
+            ->name('report.redirect');
+        Route::get('/report',[ BenefactorReportController::class, 'generate'])
+            ->name('report.generate')
+            ->middleware('signed')
+            ;
 
         Route::get('/logs', BenefactorLogController::class)
             ->name('logs.index');
@@ -104,6 +118,11 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::get('/connections-volunteer',[ BenefactorConnectionsVolunteerController::class, 'index'])
             ->name('connections.volunteer.index');
+
+
+        Route::get('/connections-program',[ BenefactorConnectionsProgramController::class, 'index'])
+            ->name('connections.program.index');
+
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
             ->name('home.index');
