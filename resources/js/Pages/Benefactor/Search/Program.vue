@@ -80,7 +80,7 @@ import {
 } from '@inertiajs/inertia';
 
 let props = defineProps({
-     name: String,
+    name: String,
     charityCategories: Array,
     programs: Object,
 })
