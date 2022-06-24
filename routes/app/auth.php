@@ -127,8 +127,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/home', [BenefactorHomeController::class, 'index'])
             ->name('home.index');
 
-        Route::get('/charity-search', [BenefactorCharitySearchController::class, 'index'])
-            ->name('charity-search.index');
+        Route::get('/charity-search/followers', [BenefactorCharitySearchController::class, 'index'])
+            ->name('charity-search.followers.index');
 
 
         Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])
