@@ -7,6 +7,7 @@ use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityOfficers;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Charity\CharityVolunteerPost;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Charity extends Model
@@ -48,5 +49,10 @@ class Charity extends Model
             Categories::class, 'charity_categories',
             'charity_id', 'category_id'
         );
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class);
     }
 }
