@@ -39,6 +39,7 @@ class BenefactorCharitySearchLocationController
                 $query->join('charity_location', 'charity_location.charity_id', '=', 'charities.id');
                 $query->where('charity_location.location_id', $locationDB->id);
             })
-            ->paginate(20);
+            ->paginate(20)
+            ->withQueryString();
     }
 }

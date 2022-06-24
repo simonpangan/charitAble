@@ -40,6 +40,7 @@ class BenefactorCharitySearchController
                 $query->join('charity_categories', 'charity_categories.charity_id', '=', 'charities.id');
                 $query->where('charity_categories.category_id', $categoryDB->id);
             })
-            ->paginate(20);
+            ->paginate(20)
+            ->withQueryString();
     }
 }
