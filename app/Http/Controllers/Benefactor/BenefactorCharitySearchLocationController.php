@@ -16,11 +16,13 @@ class BenefactorCharitySearchLocationController
     {
         return Inertia::render('Benefactor/Search/Location', [
             'locations'=> fn() => Location::all(),
-            'charities' => $this->getCharities(request()->only('location'))
+            'charities' => $this->getCharities(
+                request()->get('name'), request()->get('location')
+            )
         ]);
     }
 
-    private function getCharities($location = null)
+    private function getCharities($name = null, $location = null)
     {
         $locationDB = Location::select('*')->whereName($location)->first();
 
@@ -35,6 +37,9 @@ class BenefactorCharitySearchLocationController
                     as isFollowed'
                 )
             )
+            ->when(($name), function($query, $value) {
+                $query->where('charities.name', 'like', '%'.$value.'%'); 
+            })
             ->when(($location && ! is_null($locationDB)), function($query) use ($locationDB) {
                 $query->join('charity_location', 'charity_location.charity_id', '=', 'charities.id');
                 $query->where('charity_location.location_id', $locationDB->id);

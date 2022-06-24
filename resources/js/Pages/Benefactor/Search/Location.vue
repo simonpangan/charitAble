@@ -2,11 +2,11 @@
    <div class="container mt-4">
         <main class="mx-auto w-100" style="max-width: 1200px;">
             <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post">  
-                <SearchNavLinks />
+                <SearchNavLinks v-bind:search="props.name" @search="searchPost" />
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="p-3 job-tags">
-                            <Link :href="$route('benefactor.charity-search.followers')" class="btn btn-outline-secondary btn-sm me-1">
+                            <Link :href="$route('benefactor.charity-search.location')" class="btn btn-outline-secondary btn-sm me-1">
                                 All
                             </Link>
                             <Link v-for="location in locations" :key="location.id" 
@@ -15,7 +15,7 @@
                                 })"
                                 class="btn btn-sm me-1"
                                 :class="($route().params['location'] == location.name) ? 'btn-secondary' : 'btn-outline-secondary'"
-                            >
+                            >   
                                 {{ location.name }}
                             </Link>
                         </div>
@@ -90,10 +90,25 @@
 
 <script setup>
 import SearchNavLinks from './SearchNavLinks.vue';
+import {
+    Inertia
+} from '@inertiajs/inertia';
+
 
 let props = defineProps({
-  charities: Object,
-  locations: Object
+    name: String,
+    charities: Object,
+    locations: Object
 })
 
+let searchPost = (value) => {
+    Inertia.get(
+        route('benefactor.charity-search.location'), { 
+            name: value, 
+            }, {
+            preserveState: true,
+            replace: true
+        }
+    );
+}
 </script>
