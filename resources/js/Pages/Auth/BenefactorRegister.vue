@@ -204,24 +204,11 @@
                   <label class="mb-1">City</label>
                   <div class="position-relative icon-form-control">
                     <i class="feather-at-sign position-absolute"></i>
-                    <select class="form-select" v-model="form.city">
-                      <option disabled value="">Please Select</option>
-                      <option>Caloocan</option>
-                      <option>Las Piñas</option>
-                      <option>Makati</option>
-                      <option>Malabon</option>
-                      <option>Mandaluyong</option>
-                      <option>Manila</option>
-                      <option>Marikina</option>
-                      <option>Navotas</option>
-                      <option>Parañaque</option>
-                      <option>Pasay</option>
-                      <option>Pateros</option>
-                      <option>Quezon City</option>
-                      <option>San Juan</option>
-                      <option>Taguig</option>
-                      <option>Valenzuela</option>
-                    </select>
+                    <input
+                      v-model="form.city"
+                      type="text"
+                      class="form-control"
+                    />
                     <div v-if="form.errors.city" class="text-danger">
                       {{ form.errors.city }}
                     </div>
