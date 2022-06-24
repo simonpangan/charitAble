@@ -6,7 +6,7 @@
 		</NavLink>
 		</li>
 		<li class="nav-item">
-		<NavLink class="nav-link btn btn-link" href="/benefactor/charity-search">
+		<NavLink class="nav-link btn btn-link" href="/benefactor/charity-search/followers">
 			<i class="feather-users me-2"></i>
 			<span class="d-none d-lg-inline">Charities</span>
 		</NavLink>
