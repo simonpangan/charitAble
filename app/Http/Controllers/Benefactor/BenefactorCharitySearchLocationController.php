@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class BenefactorCharitySearchLocationController
 {
-    public function index(): Response
+    public function __invoke(): Response
     {
         return Inertia::render('Benefactor/Search/Location', [
             'locations'=> fn() => Location::all(),

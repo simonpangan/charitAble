@@ -6,11 +6,11 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="p-3 job-tags">
-                            <Link :href="$route('benefactor.charity-search.followers.index')" class="btn btn-outline-secondary btn-sm me-1">
+                            <Link :href="$route('benefactor.charity-search.followers')" class="btn btn-outline-secondary btn-sm me-1">
                                 All
                             </Link>
                             <Link v-for="location in locations" :key="location.id" 
-                                :href="$route('benefactor.charity-search.location.index', {
+                                :href="$route('benefactor.charity-search.location', {
                                     location: location.name
                                 })"
                                 class="btn btn-sm me-1"

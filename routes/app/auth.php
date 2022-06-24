@@ -122,16 +122,16 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
 
         Route::get('/connections-program',[ BenefactorConnectionsProgramController::class, 'index'])
-            ->name('connections.program.index');
+            ->name('connections.program.index');    
 
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
             ->name('home.index');
 
-        Route::get('/charity-search/followers', [BenefactorCharitySearchController::class, 'index'])
-            ->name('charity-search.followers.index');
-        Route::get('/charity-search/location', [BenefactorCharitySearchLocationController::class, 'index'])
-            ->name('charity-search.location.index');
+        Route::get('/charity-search/followers', BenefactorCharitySearchController::class)
+            ->name('charity-search.followers');
+        Route::get('/charity-search/location', BenefactorCharitySearchLocationController::class)
+            ->name('charity-search.location');
 
 
         Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])

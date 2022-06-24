@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class BenefactorCharitySearchController
 {
-    public function index(): Response
+    public function __invoke(): Response
     {
         return Inertia::render('Benefactor/Search/Followers', [
             'charityCategories'=> fn() => Categories::all(),
