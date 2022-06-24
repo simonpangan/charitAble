@@ -14,7 +14,7 @@ class BenefactorCharitySearchController
 {
     public function index(): Response
     {
-        return Inertia::render('Benefactor/Search',[
+        return Inertia::render('Benefactor/Search/Followers', [
             'charityCategories'=> fn() => Categories::all(),
             'charities' => $this->getCharities(request()->only('category'))
         ]);
@@ -22,7 +22,8 @@ class BenefactorCharitySearchController
 
     private function getCharities($category = null)
     {
-        $id = Categories::select('id')->whereName($category)->take(1)->first()->id;
+        $category = Categories::select('id')->whereName($category)->take(1)->first();
+
 
         return Charity::query()
             ->select('charities.*')
@@ -36,9 +37,9 @@ class BenefactorCharitySearchController
                 )
             )
             ->orderBy('followers', 'desc')
-            ->when($category, function($query) use ($id) {
+            ->when(($category && ! is_null($category)), function($query) use ($category) {
                 $query->join('charity_categories', 'charity_categories.charity_id', '=', 'charities.id');
-                $query->where('charity_categories.category_id', $id);
+                $query->where('charity_categories.category_id', $category->id);
             })
             ->paginate(20);
     }
