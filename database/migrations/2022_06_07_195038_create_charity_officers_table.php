@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('charity_officers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')->constrained();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('position');
             $table->date('officer_since');
             $table->timestamps();
