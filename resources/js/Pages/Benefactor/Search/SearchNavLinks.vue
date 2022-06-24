@@ -3,14 +3,18 @@
 		<li class="nav-item">
 			<Link 
 			 	:href="$route('benefactor.charity-search.followers.index')"
-				class="nav-link active"
+				class="nav-link"
 				:class="{ 'active': $page.component === 'Benefactor/Search/Followers' }"
 				>
 				By Followers
 			</Link>
 		</li>
 		<li class="nav-item">
-			<Link class="nav-link">
+			<Link 
+				:href="$route('benefactor.charity-search.location.index')"
+				class="nav-link"
+				:class="{ 'active': $page.component === 'Benefactor/Search/Location' }"
+			>
 				Location
 			</Link>
 		</li>

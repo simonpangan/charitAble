@@ -14,6 +14,7 @@ use App\Http\Controllers\Benefactor\{
     BenefactorProfileController,
     BenefactorDashboardController,
     BenefactorCharitySearchController,
+    BenefactorCharitySearchLocationController,
     BenefactorConnectionsCharitiesController,
     BenefactorConnectionsProgramController,
     BenefactorConnectionsVolunteerController,
@@ -129,6 +130,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::get('/charity-search/followers', [BenefactorCharitySearchController::class, 'index'])
             ->name('charity-search.followers.index');
+        Route::get('/charity-search/location', [BenefactorCharitySearchLocationController::class, 'index'])
+            ->name('charity-search.location.index');
 
 
         Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])
