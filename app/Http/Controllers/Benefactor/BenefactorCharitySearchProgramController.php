@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Benefactor;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Categories;
-use App\Models\Charity\Charity;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Charity\CharityProgram;
 use App\Models\Charity\CharityCategories;
 
@@ -17,8 +15,9 @@ class BenefactorCharitySearchProgramController
         return Inertia::render('Benefactor/Search/Program', [
             'charityCategories'=> fn() => Categories::all(  ),
             'programs' => $this->getPrograms(
-                request()->only('name'), request()->only('category')
-            )
+                request()->get('name'), request()->get('category')
+            ),
+            'name' => request()->get('name') ?? '',
         ]);
     }
 
@@ -28,10 +27,9 @@ class BenefactorCharitySearchProgramController
             ->select(['charity_programs.*', 'charities.name as charity_name'])
             ->join('charities', 'charities.id', '=', 'charity_programs.charity_id')
             ->latest()
-            // ->when($name, function ($query, $name) {
-            //     // $query->join('charity_programs', 'charities.id', '=', 'charity_programs.charity_id');
-            //     // $query->where('role_id', $name);
-            // })
+            ->when($name, function ($query, $name) {
+                $query->where('charity_programs.name', 'like', '%'.$name.'%'); 
+            })
             ->when($category, function ($query, $category) {
               $this->filterByCategory($query, $category);
             })

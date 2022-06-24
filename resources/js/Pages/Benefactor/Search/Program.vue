@@ -2,7 +2,7 @@
    <div class="container mt-4">
         <main class="mx-auto w-100" style="max-width: 1200px;">
             <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post">  
-                <SearchNavLinks />
+                <SearchNavLinks v-bind:search="props.name" @search="searchPost" />
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="p-3 job-tags">
@@ -75,10 +75,24 @@
 
 <script setup>
 import SearchNavLinks from './SearchNavLinks.vue';
+import {
+    Inertia
+} from '@inertiajs/inertia';
 
 let props = defineProps({
+     name: String,
     charityCategories: Array,
-    programs: Array,
+    programs: Object,
 })
 
+let searchPost = (value) => {
+    Inertia.get(
+        route('benefactor.charity-search.program'), { 
+            name: value, 
+            }, {
+            preserveState: true,
+            replace: true
+        }
+    );
+}
 </script>
