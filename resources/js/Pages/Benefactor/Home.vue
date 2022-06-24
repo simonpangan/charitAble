@@ -157,7 +157,7 @@
         })
       },
       followCharity($id) {
-        this.$inertia.post(route('benefactor.connections.store'), {
+        this.$inertia.post(route('benefactor.connections.charities.store'), {
           id: $id
         }, {
             onSuccess: () => {
