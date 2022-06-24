@@ -9,14 +9,14 @@
                             <Link :href="$route('benefactor.charity-search.followers.index')" class="btn btn-outline-secondary btn-sm me-1">
                                 All
                             </Link>
-                            <Link v-for="category in charityCategories" :key="category.id" 
-                                :href="$route('benefactor.charity-search.followers.index', {
-                                    category: category.name
+                            <Link v-for="location in locations" :key="location.id" 
+                                :href="$route('benefactor.charity-search.location.index', {
+                                    location: location.name
                                 })"
                                 class="btn btn-sm me-1"
-                                :class="($route().params['category'] == category.name) ? 'btn-secondary' : 'btn-outline-secondary'"
+                                :class="($route().params['location'] == location.name) ? 'btn-secondary' : 'btn-outline-secondary'"
                             >
-                                {{ category.name }}
+                                {{ location.name }}
                             </Link>
                         </div>
                         <div class="p-3 border-top">
@@ -92,8 +92,8 @@
 import SearchNavLinks from './SearchNavLinks.vue';
 
 let props = defineProps({
-  charityCategories: Array,
-  charities: Object
+  charities: Object,
+  locations: Object
 })
 
 </script>
