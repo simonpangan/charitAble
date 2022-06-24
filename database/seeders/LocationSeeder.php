@@ -16,6 +16,7 @@ class LocationSeeder extends Seeder
     public function run()
     {
         Location::insert(
+        [
             ['name' => 'Quezon City'],
             ['name' => 'Manila'],
             ['name' => 'Caloocan'],
@@ -33,6 +34,7 @@ class LocationSeeder extends Seeder
             ['name' => 'Navotas'],
             ['name' => 'San Juan'],
             ['name' => 'Pateros'],
+        ]
         );
     }
 }
