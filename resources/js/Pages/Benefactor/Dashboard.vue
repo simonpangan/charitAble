@@ -276,6 +276,5 @@ import { Inertia } from '@inertiajs/inertia';
 </script>
 
 <script> 
-  import { assertExpressionStatement } from '@babel/types';
 import  '../../../../public/css/datatable.css'; 
 </script>

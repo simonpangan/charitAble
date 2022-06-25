@@ -9,8 +9,9 @@
           <div
             class="mb-3 border rounded bg-white profile-box text-center w-10"
           >
+
             <div class="p-4 d-flex align-items-center">
-              <h6 class="m-0">Create Volunteer Posting</h6>
+              <h6 class="m-0">Create Volunteer Posting </h6>
             </div>
           </div>
           <div class="border rounded bg-white mb-3">
@@ -37,8 +38,14 @@
           </div>
         </aside>
 
+
         <main class="col-md-8">
+
           <div class="border rounded bg-white mb-3">
+                  <div v-if="$page.props.flash.message" role="alert"
+              class="alert alert-success mx-auto text-center">
+                {{ $page.props.flash.message }}
+              </div>
             <div class="box-title border-bottom p-3">
               <h6 class="m-0">Edit Basic Info</h6>
               <p class="mb-0 mt-0 small">
@@ -56,12 +63,11 @@
                         <span class="text-danger">*</span>
                       </label>
                       <div class="form-group">
+
                         <input
                           type="text"
                           class="form-control"
-
-                          v-model="form.volunteer_work_name"
-
+                          v-model="form.name"
                         />
                         <small class="form-text text-muted"
                           >Displayed on your public profile, notifications and
@@ -188,7 +194,7 @@
             </div>
           </div>
           <div class="mb-3 text-right">
-            <Link  class="font-weight-bold btn btn-link rounded p-3" href="/charity/profile">
+            <Link  class="font-weight-bold btn btn-link rounded p-3" :href="$route('charity.volunteer.show', {id:volunteer_post.id})">
              Cancel
             </Link>
             <button class="font-weight-bold btn btn-primary rounded p-3" type="submit">
@@ -201,38 +207,26 @@
     </div>
   </div>
 </form>
-
 </template>
-
-<script>
+<script setup>
 
 import { useForm } from "@inertiajs/inertia-vue3"
 
-export default {
 
-  setup() {
-    let form = useForm({
-    volunteer_work_name: null,
-    volunteer_description: null,
-    location:null,
-    volunteer_qualifications:null,
-    volunteer_incentives:null,
+let props = defineProps({
+    volunteer_post: Object
 })
 
-    let submit = () => {
-        form.post(route('charity.volunteer.store'));
-    }
+let form = useForm({
+   name: props.volunteer_post.name,
+   volunteer_description: props.volunteer_post.description,
+   location: props.volunteer_post.location,
+   volunteer_qualifications: props.volunteer_post.qualifications,
+   volunteer_incentives: props.volunteer_post.incentives
 
-    return { form,submit}
-  },
-  props: {
-    csrfToken: String,
-  },
-  data() {
+ })
 
-  },
-  methods: {
-
-  },
-};
+let submit = () => {
+  form.put(route('charity.volunteer.update', {id:props.volunteer_post.id}));
+}
 </script>

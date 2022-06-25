@@ -8,6 +8,7 @@ use App\Models\Charity\CharityVolunteerPost;
 use App\Http\Requests\Charity\CharityVolunteerPostRequest;
 use Inertia\Response as InertiaResponse;
 use Inertia\Response;
+use App\Models\Charity\Charity;
 
 class CharityVolunteerPostController
 {
@@ -15,11 +16,12 @@ class CharityVolunteerPostController
     {
         CharityVolunteerPost::create([
             'charity_id' => auth()->user()->id,
-            'volunteer_work_name' => $request['volunteer_work_name'],
+            'name' => $request['volunteer_work_name'],
+            'qualifications' => $request['volunteer_qualifications'],
             'description' => 'asdsa',
             'location' => $request['location'],
             'incentives' => $request['volunteer_incentives'],
-
+            'status' => '1'
         ]);
 
         return to_route('charity.profile.index');
@@ -32,26 +34,43 @@ class CharityVolunteerPostController
     }
     public function show(int $id): InertiaResponse
     {
+        $charity_id = CharityVolunteerPost::findOrFail($id)->charity_id;
+
         return Inertia::render(
             'Charity/Volunteer-Posting/VolunteerPost',
-            CharityVolunteerPost::findOrFail($id)->toArray()
-        );
+            [
+                'volunteer_post' => CharityVolunteerPost::findOrFail($id)->toArray(),
+                'charity' => Charity::where('id',$charity_id)->get()->toArray(),
+            ]);
     }
     public function edit(int $id): InertiaResponse
     {
+        $charity_id = CharityVolunteerPost::findOrFail($id)->charity_id;
         return Inertia::render(
-            '',
-            CharityVolunteerPost::findOrFail($id)->toArray()
-        );
+            'Charity/Volunteer-Posting/Edit',
+            [
+                'volunteer_post' => CharityVolunteerPost::findOrFail($id)->toArray(),
+                'charity' => Charity::where('id',$charity_id)->get()->toArray(),
+            ]);
+
     }
 
     public function update(CharityVolunteerPostRequest $request, int $id): RedirectResponse
     {
         CharityVolunteerPost::query()
             ->findOrFail($id)
-            ->update($request->validated());
+            ->update(
+                ['charity_id' => auth()->user()->id,
+                 'name' => $request['name'],
+                  'qualifications' => $request['volunteer_qualifications'],
+                  'description' => $request['volunteer_description'],
+                  'location' => $request['location'],
+                  'incentives' => $request['volunteer_incentives'],
+                  ['status' => '1']]);
 
-        return to_route('');
+
+        return to_route('charity.volunteer.edit', $id)
+        ->with('message', 'Succesfully updated your profile');
     }
 
     public function destroy(int $id): RedirectResponse

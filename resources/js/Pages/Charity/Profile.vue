@@ -77,6 +77,31 @@
                             </div>
                             <div class="box shadow-sm border rounded bg-white mb-3">
                                 <div class="box-title border-bottom p-3">
+                                    <div class="d-flex justify-content-between">
+                                    <h6 class="m-0 ">NGO Heads / Board Members</h6>
+                                        <i class="feather-more-vertical" data-bs-toggle="dropdown"></i>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Add/Edit Board Member</a>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="box-body">
+                                    <table class="table table-borderless mb-0 ">
+                                        <tbody>
+                                            <tr class="nmb-1">
+                                                <th class="p-3">Name</th>
+                                                <td class="p-3">Simon Pangan</td>
+                                            </tr>
+                                            <tr class="border-bottom">
+                                                <th class="p-3">Position</th>
+                                                <td class="p-3">Head Board Member</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="box shadow-sm border rounded bg-white mb-3">
+                                <div class="box-title border-bottom p-3">
                                     <h6 class="m-0">Locations</h6>
                                 </div>
                                 <div class="p-3">
@@ -128,7 +153,7 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div v-for="volunteer_post in $page.props.volunteer_post" :key="volunteer_post.id" class="col-md-6">
-                                            <Link href="volunteer-post/">Create
+                                            <Link :href="'volunteer-posts/' + volunteer_post.id">
                                                 <div class="border job-item mb-3">
                                                     <div class="d-flex align-items-center p-3 job-item-header">
                                                         <div class="overflow-hidden me-2">
@@ -175,7 +200,7 @@
                                                     <p class="card-text text-success ">On-Going</p>
                                                     <p class="card-text text-dark">38 Proud Supporters</p>
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -352,16 +377,6 @@
 
                         </div>
                     </div>
-                    <div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center">
-                        <img src="img/ads1.png" class="img-fluid" alt="Responsive image">
-                        <div class="p-3 border-bottom">
-                            <h6 class="font-weight-bold text-gold">Osahanin Premium</h6>
-                            <p class="mb-0 text-muted">Grow &amp; nurture your network</p>
-                        </div>
-                        <div class="p-3">
-                            <button type="button" class="btn btn-outline-gold pl-4 pr-4"> ACTIVATE </button>
-                        </div>
-                    </div>
                 </aside>
             </div>
         </div>
@@ -399,19 +414,4 @@
     },
   }
 </script>
-<style>
-  @import "filepond/dist/filepond.css";
 
-.filepond--wrapper {
-  max-height: 120px;
-}
-
-  .filepond--drop-label{
-    background-color:white;
-    border-radius: 25px;
-    border: .5px solid #e1d9d1;
-    padding: 20px;
-  }
-  @import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
-
-</style>
