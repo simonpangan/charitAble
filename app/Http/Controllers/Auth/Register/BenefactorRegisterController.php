@@ -63,7 +63,6 @@ use App\Models\Categories;
 
         private function createBenefactor(User $user, array $data): void
         {
-            
             $user->benefactor()->create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -72,6 +71,10 @@ use App\Models\Categories;
                 'age' => $data['age'],
                 'preferences' => $data['preferences'],
                 'account_type' => $data['account_type'],
+                'total_donation' => 0,
+                'total_charities_donated' => 0,
+                'total_charities_followed' => 0,
+                'total_number_donations' => 0,
             ]);
         }
     }
