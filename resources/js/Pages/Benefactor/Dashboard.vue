@@ -2,9 +2,16 @@
   <div class="container mt-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-      <a :href="$route('benefactor.report.redirect')" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report 
-      </a>
+      <div class="d-block">
+        <a 
+          :href="$route('benefactor.report.redirect')" 
+          class="d-block btn btn-sm btn-primary shadow-sm"
+          :class="(! canDownload) ? 'disabled' : null"
+          >
+          <i class="fas fa-download fa-sm text-white-50"></i> Generate Report 
+        </a>  
+        <small class="form-text text-muted">You can only download every 5 minutes.</small>
+      </div>
     </div>
     <div class="row">
       <div class="col-xl-3 col-md-6 mb-4">
@@ -236,7 +243,8 @@
   let props = defineProps({
     benefactor: Object,
     programDonations: Object,
-    charities: Array
+    charities: Array,
+    canDownload: Boolean
   });
 </script>
 

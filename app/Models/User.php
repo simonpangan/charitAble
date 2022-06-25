@@ -18,13 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     
-    protected $fillable = [
-        // 'city', ?
-        'role_id',
-        'email',
-        'password',
-        'email_verified_at'
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',
@@ -80,5 +74,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function withCharity()
     {
         return $this->setRelation('charity', Charity::find(Auth::id()));
+    }
+
+    public function getIsAllowedToDownloadAttribute() {
+        return (now()->diffInMinutes($this->last_generate_report)) > 5 ? true : false;
     }
 }
