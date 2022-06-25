@@ -17,17 +17,17 @@ return new class extends Migration
             $table->foreignId('id')->constrained('users');
             $table->primary('id');
 
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('gender')->nullable();
-            $table->smallInteger('age')->nullable();
-            $table->string('city')->nullable();
-            $table->string('preferences')->nullable();
-            $table->string('account_type')->nullable();
-            $table->string('total_donation')->nullable();
-            $table->string('total_charities_donated')->nullable();
-            $table->string('total_charities_followed')->nullable();
-            $table->string('total_number_donations')->nullable();
+            $table->text('first_name');
+            $table->text('last_name');
+            $table->string('gender');
+            $table->smallInteger('age');
+            $table->string('city');
+            $table->string('preferences');
+            $table->text('account_type');
+            $table->text('total_donation');
+            $table->text('total_charities_donated');
+            $table->text('total_charities_followed');
+            $table->text('total_number_donations');
         });
     }
 
