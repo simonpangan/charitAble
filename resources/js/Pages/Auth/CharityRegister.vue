@@ -54,8 +54,8 @@
                     <div class="position-relative icon-form-control">
                       <select v-model="form.charityCategory" class="form-select" aria-label="Default select example">
                         <option disabled selected>Please select one</option>
-                        <option  v-for="(category,key) in charityCategories" :value='category.value' >
-                        {{category.value}}
+                        <option  v-for="(category, index) in $page.props.charityCategories" :key="index" :value="category.name">
+                        {{ category.name}}
                         </option>
                       </select>
                     </div>
@@ -270,7 +270,17 @@
                   </div>
                 </div>
               </div>
+
                     <label class="pb-5">Organization Logo</label>
+                    <div v-if="this.image_file">
+                        <p>Uploaded File : </p>
+                         <div class="d-flex mx-auto">
+                            {{this.image_file}}
+                        </div>
+                    </div>
+
+
+
                     <file-pond name="file"
                      class="h-50 mb-5"
                       v-model="file"
@@ -295,6 +305,7 @@
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
                     v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
+
 
 
             </div>
@@ -539,6 +550,8 @@
         preferences: [],
         step: 1,
         totalSteps: 3,
+        image_file: '',
+        image_file_size: '',
       };
     },
     methods: {
@@ -550,6 +563,10 @@
         this.form.documentFile = documentFile.map(documentFile => documentFile.file);
       },
       handleFilePondUpdateFiles: function(file) {
+
+        this.image_file = file[0].filename;
+        this.image_file_size = file[0].fileSize;
+
         this.form.file = file[0].file;
       },
       validateFirstStepFields: function() {
