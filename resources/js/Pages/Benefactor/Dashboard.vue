@@ -3,13 +3,13 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
       <div class="d-block">
-        <a 
-          :href="$route('benefactor.report.redirect')" 
-          class="d-block btn btn-sm btn-primary shadow-sm"
-          :class="(! canDownload) ? 'disabled' : null"
+        <button 
+            class="d-block btn btn-sm btn-primary shadow-sm mx-auto"
+            @click="download"
+            :disabled="! canDownload"
           >
           <i class="fas fa-download fa-sm text-white-50"></i> Generate Report 
-        </a>  
+        </button>  
         <small class="form-text text-muted">You can only download every 5 minutes.</small>
       </div>
     </div>
@@ -240,14 +240,42 @@
 </template>
 
 <script setup>
+import axios from 'axios'
+import NProgress from 'nprogress'
+import { Inertia } from '@inertiajs/inertia';
+
   let props = defineProps({
     benefactor: Object,
     programDonations: Object,
     charities: Array,
     canDownload: Boolean
   });
+
+  let download = () => {
+    NProgress.start();
+    
+    axios({
+      url: route('benefactor.report.redirect'),
+      method: 'GET',
+      responseType: 'blob',
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'report.pdf');
+      document.body.appendChild(link);
+      link.click();
+
+      NProgress.done();
+
+      Inertia.visit(route('benefactor.dashboard.index'), {}, { only: ['canDownload'] });
+
+    });
+
+  }
 </script>
 
 <script> 
-  import  '../../../../public/css/datatable.css'; 
+  import { assertExpressionStatement } from '@babel/types';
+import  '../../../../public/css/datatable.css'; 
 </script>
