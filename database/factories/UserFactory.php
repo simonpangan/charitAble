@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'email_verified_at' => Carbon::now(config('app.timezone'))->toDateString(),
             'password' => $this->faker->password,
             'remember_token' => null,
+            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
         ];
     }
 
