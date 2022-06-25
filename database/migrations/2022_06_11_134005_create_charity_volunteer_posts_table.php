@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->text('description');
             $table->string('location');
-            $table->json('qualifications');
-            $table->string('image');
+            $table->text('qualifications');
             $table->string('incentives')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }
