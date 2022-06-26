@@ -14,10 +14,12 @@ use App\Http\Controllers\Benefactor\{
     BenefactorProfileController,
     BenefactorDashboardController,
     BenefactorCharitySearchController,
-    BenefactorCharitySearchLocationController,
-    BenefactorConnectionsCharitiesController,
     BenefactorConnectionsProgramController,
+    BenefactorCharitySearchProgramController,
     BenefactorConnectionsVolunteerController,
+    BenefactorConnectionsCharitiesController,
+    BenefactorCharitySearchLocationController,
+    BenefactorCharitySearchVolunteerController
 };
 
 use App\Http\Controllers\Charity\{
@@ -28,10 +30,11 @@ use App\Http\Controllers\Charity\{
 };
 
 use App\Http\Controllers\Admin\ {
-    AdminHomeController
+    AdminHomeController,
+    AdminApprovalController
 };
-use App\Http\Controllers\PaymongoController;
 
+use App\Http\Controllers\Payment\PaymongoController;
 /*
 |--------------------------------------------------------------------------
 | Auth  & Verified Routes
@@ -49,6 +52,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'prefix' => 'admin',
     ], function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home.index');
+        Route::get('/home/documents/{id}', [AdminHomeController::class, 'show'])->name('home.show');
+        Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
+        Route::post('/approval/disapprove', [AdminApprovalController::class, 'disApprove'])->name('approval.disapprove');
     });
 
 
@@ -95,11 +101,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'as' => 'benefactor.',
         'prefix' => 'benefactor',
     ], function () {
-        Route::get('/paymongo', [PaymongoController::class, 'store']);
-        Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
-        Route::get('/paymongo/search', [PaymongoController::class, 'search']);
-
-
         Route::get('/report/redirect',[ BenefactorReportController::class, 'redirectToGeneratedReport'])
             ->name('report.redirect');
         Route::get('/report',[ BenefactorReportController::class, 'generate'])
@@ -130,8 +131,13 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::get('/charity-search/followers', BenefactorCharitySearchController::class)
             ->name('charity-search.followers');
-        Route::get('/charity-search/location', BenefactorCharitySearchLocationController::class)
+        Route::get('/charity-search/locations', BenefactorCharitySearchLocationController::class)
             ->name('charity-search.location');
+        Route::get('/charity-search/programs', BenefactorCharitySearchProgramController::class)
+            ->name('charity-search.program');
+        Route::get('/charity-search/volunteer', BenefactorCharitySearchVolunteerController::class)
+            ->name('charity-search.volunteer');
+
 
 
         Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])
@@ -169,4 +175,18 @@ Route::name('auth.')->group(function () {
         ->name('verification.verify')
         ->middleware(['signed','throttle:6,1']);
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Payment Routes
+|--------------------------------------------------------------------------
+|
+| Routes that can be access by authenticated user
+|
+*/
+
+Route::get('/paymongo', [PaymongoController::class, 'store']);
+Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
+Route::get('/paymongo/search', [PaymongoController::class, 'search']);
 
