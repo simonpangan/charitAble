@@ -6,6 +6,7 @@ use App\Models\Role;
 use Inertia\Middleware;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Models\Charity\Charity;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,17 +59,9 @@ class HandleInertiaRequests extends Middleware
             );
         }
 
-        if (Auth::user() && 
-            in_array(Auth::user()->role_id, [Role::USERS['CHARITY_SUPER_ADMIN'], Role::USERS['CHARITY_ADMIN']])
-         ) {
+        if (Auth::user() ) {
             $sharedProps = Arr::add(
                 $sharedProps, 'auth', new UserResource(Auth::user()->withCharity())
-            );
-        }
-
-        if (Auth::user() && Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
-            $sharedProps = Arr::add(
-                $sharedProps, 'auth', new UserResource(Auth::user())
             );
         }
 
