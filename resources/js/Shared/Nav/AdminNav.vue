@@ -1,6 +1,6 @@
 <template>
 	<li class="nav-item">
-	<NavLink class="nav-link btn btn-link" href="/benefactor/home">
+	<NavLink class="nav-link btn btn-link" href="/admin/home">
 		<span class="d-none d-lg-inline">Charities</span>
 	</NavLink>
 	</li>
