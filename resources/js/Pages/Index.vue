@@ -1,5 +1,5 @@
 <template>
-	Landing Page
+	{{ $domain }}
 </template>
 
 <script>

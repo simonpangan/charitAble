@@ -3,6 +3,7 @@ require('bootstrap');
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
+
 import Layout from './Shared/Layout.vue';
 
 createInertiaApp({
@@ -18,6 +19,7 @@ createInertiaApp({
         const VueApp = createApp({ render: () => h(App, props) });
 
         VueApp.config.globalProperties.$route = route;
+        VueApp.config.globalProperties.$domain = window.domain;
 
         VueApp.use(plugin)
             .component('Link', Link)
