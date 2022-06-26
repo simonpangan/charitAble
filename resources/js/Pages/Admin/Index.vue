@@ -70,8 +70,18 @@
                           <div v-else class="badge bg-warning rounded-pill">Pending</div>
                         </td>
                        <td>
-                         <Link v-if="charity.charity_verified_at" href="/logout" method="post" as="button" type="button">Disapprove</Link>
-                        <Link v-else href="/logout" method="post" as="button" type="button">Approve</Link>
+                        <Link class="btn btn-outline-danger" v-if="charity.charity_verified_at"
+                           :href="$route('admin.approval.disapprove')" 
+                           method="post" 
+                           :data="{ id: charity.id }" 
+                           as="button" type="button">
+                           Disapprove
+                        </Link>
+                        <Link class="btn btn-outline-primary" v-else 
+                          :href="$route('admin.approval.approve')" 
+                           :data="{ id: charity.id }" 
+                          method="post" as="button" type="button">Approve</Link>
+                        <!-- <Link class="btn btn-outline-primary" href="/">Show Documents</Link> -->
                       </td>
                     </tr>
                     <tr v-if="charities.data.length == 0">
