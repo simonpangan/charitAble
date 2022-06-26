@@ -12,66 +12,40 @@
                   <img src="img/logo.svg" alt="" />
                 </a>
                 <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
-                <p class="text-muted">currentStep 1 - Basic Sign Up</p>
+                <p class="text-muted">Step 1</p>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">First name</label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <input v-model.trim="form.first_name" type="text" class="form-control" />
                       <div v-if="form.errors.first_name" class="text-danger">
                         {{ form.errors.first_name }}
                       </div>
-                      <div v-if="v$.first_name.$error">
-                        <p class="text-danger">
-                          <small>{{ v$.first_name.$errors[0].$message }}</small>
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Last name</label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <input v-model.trim="form.last_name" type="text" class="form-control" />
                       <div v-if="form.errors.last_name" class="text-danger">
                         {{ form.errors.last_name }}
                       </div>
-                      <div v-if="v$.first_name.$error">
-                        <p class="text-danger">
-                          <small>{{ v$.last_name.$errors[0].$message }}</small>
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label class="mb-1">Email</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.email" type="email" class="form-control" />
                     <div class="text-danger" v-if="form.errors.email">
                       {{ form.errors.email }}
                     </div>
-                    <div class="text-danger" v-if="v$.email.$error">
-                      <p class="text-danger">
-                        <small>{{ v$.email.$errors[0].$message }}</small>
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
-                  <label class="mb-1">Password (8 or more characters)</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-unlock position-absolute"></i>
+                  <label class="mb-1">Password</label>
                     <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
                     <div class="text-danger" v-if="form.errors.password">
                       {{ form.errors.password }}
@@ -106,19 +80,16 @@
                             v$.password.minLength.$invalid ||
                             v$.password.maxLength.$invalid ||
                             form.password == ''
-                          "> &#10006; Passwords needs to be in between 8 to 19 characters. </p>
+                          "> &#10006; Passwords needs to be a minimum of 9 characters </p>
                         <p style="color: green" class="nmb-1" v-else> &check; Passwords needs to be in between 8 to 19 characters. </p>
                       </small>
                       <small></small>
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label class="mb-1">Confirm Password</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-unlock position-absolute"></i>
                     <input v-model.trim="form.password_confirmation" type="password" class="form-control" />
                     <div class="text-danger" v-if="v$.password_confirmation.$error">
                       <p class="text-danger">
@@ -126,7 +97,6 @@
                         }}</small>
                       </p>
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="row"></div>
@@ -155,33 +125,22 @@
                   <img src="img/logo.svg" alt="" />
                 </a>
                 <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
-                <p class="text-muted">currentStep 2 - Personal Information</p>
+                <p class="text-muted">Step 2</p>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Age</label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <input v-model="form.age" type="number" class="form-control" />
                       <div v-if="form.errors.age" class="text-danger">
                         {{ form.errors.age }}
                       </div>
-                      <div class="text-danger" v-if="v$.age.$error">
-                        <p class="text-danger">
-                          <small>{{ v$.age.$errors[0].$message }}</small>
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Gender</label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <select v-model="form.gender" class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="LGBT">LGBT</option>
@@ -190,20 +149,12 @@
                       <div v-if="form.errors.gender" class="text-danger">
                         {{ form.errors.gender }}
                       </div>
-                      <div class="text-danger" v-if="v$.gender.$error">
-                        <p class="text-danger">
-                          <small>{{ v$.gender.$errors[0].$message }}</small>
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label class="mb-1">City</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input
                       v-model="form.city"
                       type="text"
@@ -212,19 +163,11 @@
                     <div v-if="form.errors.city" class="text-danger">
                       {{ form.errors.city }}
                     </div>
-                    <div class="text-danger" v-if="v$.city.$error">
-                      <p class="text-danger">
-                        <small>{{ v$.city.$errors[0].$message }}</small>
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label class="mb-1">Account Type</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <select class="form-select" v-model="form.account_type">
                       <option value="Personal">Personal Account</option>
                       <option value="Business">Business Account</option>
@@ -232,12 +175,6 @@
                     <div v-if="form.errors.account_type" class="text-danger">
                       {{ form.errors.account_type }}
                     </div>
-                    <div class="text-danger" v-if="v$.account_type.$error">
-                      <p class="text-danger">
-                        <small>{{ v$.account_type.$errors[0].$message }}</small>
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="row mt-2">
@@ -312,11 +249,6 @@
     required,
     minLength,
     maxLength,
-    email,
-    sameAs,
-    numeric,
-    minValue,
-    maxValue,
   } from "@vuelidate/validators"; 
 
   export default {
@@ -335,21 +267,8 @@
       });
 
       const rules = computed(() => ({
-        //2 letter minimum
-        first_name: {
-          required: helpers.withMessage("First name cannot be empty", required),
-        },
-        //2 letter minimum
-        last_name: {
-          required: helpers.withMessage("Last name cannot be empty", required),
-        },
-        email: {
-          required: helpers.withMessage("Email is invalid", required),
-          email,
-        },
         password: {
-          minLength: minLength(9),
-          maxLength: maxLength(19),
+          minLength: minLength(8),
           required: helpers.withMessage("Password cannot be empty", required),
           containsSpecial: helpers.withMessage(
             () => `The password requires an special character`,
@@ -363,28 +282,6 @@
           containsUppercase: helpers.withMessage(
             () => `The password requires an uppercase character`,
             (value) => /[A-Z]/.test(value)),
-        },
-        password_confirmation: {
-          required: helpers.withMessage("Confirm Password cannot be empty", required),
-          sameAs: helpers.withMessage("Confirm Password is incorrect", sameAs(form.password)),
-        },
-        age: {
-          required: helpers.withMessage("Age cannot be empty", required),
-          numeric: helpers.withMessage("Age input needs to be a number", numeric),
-          minValue: helpers.withMessage("Sorry! User needs to be 18 above to join our platform", minValue(18)),
-          maxValue: helpers.withMessage("Age is invalid", maxValue(120)),
-        },
-        account_type: {
-          required: helpers.withMessage("Account Type cannot be empty", required),
-        },
-        gender: {
-          required: helpers.withMessage("Gender cannot be empty", required),
-        },
-        city: {
-          required: helpers.withMessage("City cannot be empty", required)
-        },
-        preferences: {
-          required: helpers.withMessage("Please select at least 1 categories", required),
         },
       }));
       
@@ -409,52 +306,22 @@
       };
     },
     methods: {
-      validateFirstStepFields: function() {
-        this.v$.first_name.$validate();
-        this.v$.last_name.$validate();
-        this.v$.email.$validate();
-        this.v$.password.$validate();
-        this.v$.password_confirmation.$validate();
-      },
-      validateSecondStepFields: function() {
-        this.v$.age.$validate();
-        this.v$.account_type.$validate();
-        this.v$.city.$validate();
-        this.v$.gender.$validate();
-      },
       prevStep: function() {
         this.currentStep--;
       },
       nextStep: function(e) {
-        // this.validateFirstStepFields();
-
-        if (! this.v$.first_name.$error && 
-            ! this.v$.last_name.$error && 
-            ! this.v$.password.$error && 
-            ! this.v$.password_confirmation.$error && 
-            ! this.v$.email.$error
-        ) { 
-          this.form.post(route("register.benefactor.store", {
-            step: 1,
-          }), {
-            onSuccess: () => this.currentStep++,
-          })
-        } 
+        this.form.post(route("register.benefactor.store", {
+          step: 1,
+        }), {
+          onSuccess: () => this.currentStep++,
+        })
       },
       secondNextStep: function(e) {
-        // this.validateSecondStepFields();
-
-        if (! this.v$.age.$error && 
-            ! this.v$.account_type.$error && 
-            ! this.v$.city.$error && 
-            ! this.v$.gender.$error
-        ) {
-          this.form.post(route("register.benefactor.store", {
-            step: 2,
-          }), {
-            onSuccess: () => this.currentStep++,
-          })
-        }
+        this.form.post(route("register.benefactor.store", {
+          step: 2,
+        }), {
+          onSuccess: () => this.currentStep++,
+        })
       },
     },
   };
