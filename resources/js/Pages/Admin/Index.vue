@@ -81,7 +81,11 @@
                           :href="$route('admin.approval.approve')" 
                            :data="{ id: charity.id }" 
                           method="post" as="button" type="button">Approve</Link>
-                        <!-- <Link class="btn btn-outline-primary" href="/">Show Documents</Link> -->
+                          <Link class="btn btn-outline-info" :href="$route('admin.home.show', {
+                            'id': charity.id
+                          })">
+                            <small>Show Documents</small>
+                           </Link>
                       </td>
                     </tr>
                     <tr v-if="charities.data.length == 0">

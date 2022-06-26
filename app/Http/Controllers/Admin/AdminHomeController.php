@@ -11,7 +11,6 @@ class AdminHomeController extends Controller
 {
     public function index()
     {
-
         return Inertia::render('Admin/Index', [
             'charities' => $this->getCharities(),
             'filters' =>  [
@@ -48,5 +47,14 @@ class AdminHomeController extends Controller
         })
         ->paginate(15)
         ->withQueryString();
+    }
+
+    public function show(int $id)
+    {
+        $charity = Charity::with('documents')->find($id);
+
+        return Inertia::render('Admin/Show', [
+            'charity' => $charity,
+        ]);
     }
 }
