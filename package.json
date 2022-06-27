@@ -36,6 +36,7 @@
         "filepond-plugin-image-preview": "^4.6.11",
         "nprogress": "^0.2.0",
         "vue": "^3.2.33",
-        "vue-filepond": "^7.0.3"
+        "vue-filepond": "^7.0.3",
+        "web3": "^1.7.4"
     }
 }
