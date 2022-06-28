@@ -6,11 +6,12 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Charity\CharityPosts;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
 use Illuminate\Support\Facades\Storage;
-use Auth;
+
 
 class CharityPostsController
 {
@@ -71,6 +72,7 @@ class CharityPostsController
             ]);
 
             // $link = $charity_logo_file_path.$id.'/'.$filename;
+        // Auth::user()->createLog("You have deleted program with id");
 
         return to_route('charity.profile.index');
     }
@@ -79,7 +81,9 @@ class CharityPostsController
     {
         CharityPosts::query()
             ->findOrFail($id)
-            ->delete();
+            ->delete()
+            
+        // Auth::user()->createLog("You have deleted program with id");
 
         return to_route('charity.posts.index');
     }
