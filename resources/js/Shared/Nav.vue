@@ -1,15 +1,15 @@
 <template>
   <nav class="navbar navbar-expand navbar-dark bg-dark osahan-nav-top p-0">
     <div class="container">
-      <a class="navbar-brand me-2" href="/">
+      <Link class="navbar-brand me-2" href="/">
         <img src="/logo/logo-only.png" alt="logo" width="50" height="90">
-      </a>
+      </Link>
    
       <ul v-if="auth === undefined" class="navbar-nav ms-auto d-flex align-items-center">
         <li class="nav-item">
           <NavLink class="nav-link" href="/login">
-            <i class="feather-log-in me-2"></i>
-            <span class="d-none d-lg-inline">Login</span>
+            <span class="d-none d-lg-inline me-1">Login</span>
+            <i class="far fa-sign-in"></i>
           </NavLink>
         </li>
       </ul>
