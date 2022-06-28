@@ -7,9 +7,8 @@
               Page not <span class="fw-bold">found</span>
             </h1>
             <p class="mb-0 lead">Oops! Looks like you followed a bad link.</p>
-            <p class="lead mb-5">If you think this is a problem with us, please <a href="#">tell us</a>.</p>
-            <a href="index.html" class="btn btn-primary btn-lg">Go Back</a>
-            <a href="button" class="btn btn-light btn-lg">Help</a>
+            <br />
+            <Link v-on:click="goBack" class="btn btn-primary btn-lg">Go Back</Link>
           </div>
           <div class="col-md-6">
             <svg class="w-100" id="fd59ce54-f850-4dfc-bc34-dd7d379d600e" data-bs-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1074.392 584.231">
@@ -75,3 +74,10 @@
     </div>
   </div>
 </template>
+
+<script setup>
+
+let goBack = () => {
+  return window.history.back()
+}
+</script>
