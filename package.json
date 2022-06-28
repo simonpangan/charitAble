@@ -32,6 +32,7 @@
         "@vuelidate/core": "^2.0.0-alpha.41",
         "@vuelidate/validators": "^2.0.0-alpha.29",
         "axios": "^0.27.2",
+        "dotenv": "^16.0.1",
         "filepond": "^4.30.4",
         "filepond-plugin-file-validate-type": "^1.2.8",
         "filepond-plugin-image-preview": "^4.6.11",
