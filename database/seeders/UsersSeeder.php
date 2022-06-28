@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -57,7 +58,7 @@ class UsersSeeder extends Seeder
         );
         
         $benefactor->logs()->createMany($this->createLogsForUser());
-
+        
         $benefactor->benefactor()->create([
             'first_name' => 'Simon Joseph',
             'last_name' => 'Pangan',
@@ -66,12 +67,13 @@ class UsersSeeder extends Seeder
             'city' => 'Valenzuela',
             'preferences' => [ 1, 2, 3 ,4 ,5],
             'account_type' => 'Personal',
-            'total_donation' => '10000',
-            'total_charities_donated' => '10',
-            'total_charities_followed' => '5',
-            'total_number_donations' => '10',
+            'total_donation' => 10000,
+            'total_charities_donated' => 10,
+            'total_charities_followed' => 5,
+            'total_number_donations' => 10,
         ]);
 
+        
         $charity = User::firstOrCreate(
             ['email' => 'charity@gmail.com'],
             [
@@ -81,6 +83,11 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('charity'),
             ]
         );
+
+        $charity->logs()->createMany($this->createLogsForUser());
+        
+        $charity->charity()->create(Charity::factory()->raw());
+        
 
         // if (Log::where('user_id', $charity->id)->get()->count() < 5) {
         //     $charity->charity()->create(Charity::factory()->raw());
