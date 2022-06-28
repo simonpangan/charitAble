@@ -27,17 +27,15 @@ class BenefactorProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => [
-                'required', 'string', 'min:2', new MaxWordsRule(50)
-            ],  
-            'last_name' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
+            'first_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
+            'last_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'email' => [
                 'required','string','email','max:255',
                 'email', Rule::unique('users')->ignore($this->user()->id)
             ],
             'age' => ['required', 'numeric', 'min:18', 'max:100'],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
-            'city' => ['required', 'string'],
+            'city' => ['required', 'string', 'max:50'],
             'account_type' => [
                 'required', 'string', Rule::in(['Personal', 'Business'])
             ],
@@ -47,6 +45,17 @@ class BenefactorProfileRequest extends FormRequest
             'preferences.*' => [
                 'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
             ],
+        ];
+    }
+
+  
+
+    public function messages()
+    {
+        return [
+            'first_name.regex' => 'The first name must only contain letters, dashes and spaces',
+            //allows letters, hyphens and spaces explicitly
+            'last_name.regex' => 'The last name must only contain letters, dashes and spaces',
         ];
     }
 

@@ -45,16 +45,9 @@ class BenefactorRegisterRequest extends FormRequest
     private function stepOneRules() : array
     {
         return [
-            //50
-            //50
-            'first_name' => ['required', 'string', 'min:2', new MaxWordsRule(50)],
-            'last_name' => ['required', 'string', 'min:2', new MaxWordsRule(2)],
-            /*
-                email validation
-                https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
-            */
+            'first_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
+            'last_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            //Password default validations is in the AppServiceProvider 
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ];
     }
@@ -64,7 +57,7 @@ class BenefactorRegisterRequest extends FormRequest
         return array_merge($this->stepOneRules(), [
             'age' => ['required', 'numeric', 'min:18', 'max:100'],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
-            'city' => ['required', 'string'],
+            'city' => ['required', 'string', 'max:50'],
             'account_type' => ['required', 'string', Rule::in(['Personal', 'Business'])],
         ]);
     }
@@ -81,4 +74,13 @@ class BenefactorRegisterRequest extends FormRequest
             ],
         ]);
     }   
+
+    public function messages()
+    {
+        return [
+            'first_name.regex' => 'The first name must only contain letters, dashes and spaces',
+            //allows letters, hyphens and spaces explicitly
+            'last_name.regex' => 'The last name must only contain letters, dashes and spaces',
+        ];
+    }
 }
