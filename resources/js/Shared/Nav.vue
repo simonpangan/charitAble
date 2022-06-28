@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand navbar-dark bg-dark osahan-nav-top p-0">
     <div class="container">
       <a class="navbar-brand me-2" href="/">
-        Logo
+        <img src="/logo/logo-only.png" alt="logo" width="50" height="90">
       </a>
    
       <ul v-if="auth === undefined" class="navbar-nav ms-auto d-flex align-items-center">
