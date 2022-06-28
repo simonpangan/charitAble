@@ -81,6 +81,7 @@ class UsersSeeder extends Seeder
                 'role_id' => Role::USERS['CHARITY_SUPER_ADMIN'],
                 'email_verified_at' => Carbon::now(config('app.timezone')),
                 'password' => Hash::make('charity'),
+                'created_at' => '2021-06-18 01:15:48',
             ]
         );
 
