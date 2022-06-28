@@ -1,5 +1,5 @@
 require('bootstrap');
-
+import "./icons";
 
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue3'
