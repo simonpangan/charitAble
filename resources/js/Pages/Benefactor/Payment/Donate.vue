@@ -37,8 +37,8 @@
                         <input
                           type="text"
                           class="form-control"
-                          aria-label="Sizing example input"
-                          aria-describedby="inputGroup-sizing-lg"
+                          v-model="this.price"
+                          @input="updateDonation"
                         />
                         <span class="input-group-text">.00</span>
                       </div>
@@ -59,19 +59,10 @@
                   <label for="customRange3" class="form-label mt-5"
                     >Enter tip</label
                   >
-                  <input
-                    type="range"
-                    class="form-range"
-                    min="0"
-                    max="30"
-                    step="5"
-                    id="customRange3"
-                  />
+                   <input type="range" min="0" max="30" step="5" v-model="tip_level" @input="updateSlider" :style="{backgroundSize: backgroundSize}">
+                    <div class="data">Tip Level:   {{this.tip_level }}% </div>
                   <div class="alert alert-light" role="alert">
-                    <strong
-                      >I will figure out how to vue the para makita ung range
-                      percentage </strong
-                    ><br />
+                    <br />
                     Charitable provides 0% platform fee for benefactors, but
                     providing a percentage tip on your contributions will be a
                     long way on continuing our services.
@@ -94,6 +85,7 @@
                             type="radio"
                             name="flexRadioDefault"
                             id="flexRadioDefault1"
+                            v-on:change="PaypalSelected"
                           />
                           <label
                             class="form-check-label"
@@ -166,10 +158,10 @@
                       </label>
                     </div>
 
-                    <button type="button" class="btn btn-lg btn-primary mt-4">
-                      <i class="feather-plus"></i> Dapat button to ng Paypal,
-                      gcash paymongo etc...
-                    </button>
+                    <div
+                      id="paypal-button-container"
+                      v-on:click.prevent.self ="PaypalTransaction"
+                    ></div>
                   </section>
                 </div>
               </div>
@@ -191,16 +183,16 @@
 
               <div class="d-flex">
                 <p>Your Donation</p>
-                <p class="text-muted ms-auto">PHP 100.00</p>
+                <p class="text-muted ms-auto">{{this.price}}</p>
               </div>
               <div class="d-flex">
                 <p>Charitable Tip</p>
-                <p class="text-muted ms-auto">PHP 20.00</p>
+                <p class="text-muted ms-auto">{{this.tip_level}}%</p>
               </div>
               <hr />
               <div class="d-flex">
                 <p class="text-dark">Total Contribution</p>
-                <p class="text-dark ms-auto">PHP 120.00</p>
+                <p class="text-dark ms-auto">{{this.total_price}}</p>
               </div>
             </div>
           </div>
@@ -216,18 +208,7 @@
               ads-box
               text-center
             "
-          >
-            <img src="img/ads1.png" class="img-fluid" alt="Responsive image" />
-            <div class="p-3 border-bottom">
-              <h6 class="font-weight-bold text-gold">Osahanin Premium</h6>
-              <p class="mb-0 text-muted">Grow &amp; nurture your network</p>
-            </div>
-            <div class="p-3">
-              <button type="button" class="btn btn-outline-gold pl-4 pr-4">
-                ACTIVATE
-              </button>
-            </div>
-          </div>
+          ></div>
         </aside>
       </div>
     </div>
@@ -235,19 +216,108 @@
 </template>
 
 <script>
+import { reactive, computed } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+import axios from 'axios';
+import { loadScript } from "@paypal/paypal-js";
+let paypal;
+
 export default {
-    //add mo sa table ung tip_range, para meron sa dtabase ntn
-  setup() {},
+  //add mo sa table ung tip_range, para meron sa dtabase ntn
+  beforeMounted() {
+    this.PaypalSelected();
+  },
+  setup() {
+
+  },
   props: {},
   data() {
     return {
-      step: 0,
+    total_price : 0,
+    price: 0,
+    step: 0,
+    tip_level: 5,
+    tip_price: 0
     };
   },
   methods: {
-    ChoosePaymentSection: function () {
-      this.step++;
+    updateDonation: function(e){
+    this.tip_price = (this.tip_level / 100) * this.price;
+      this.total_price = parseFloat(this.price) + parseFloat(this.tip_price);
     },
+    updateSlider: function(e) {
+        let clickedElement = e.target,
+         min = clickedElement.min,
+         max = clickedElement.max,
+         val = clickedElement.value;
+
+      this.tip_price = (this.tip_level / 100) * this.price;
+      this.total_price = parseFloat(this.price) + parseFloat(this.tip_price);
+     },
+    ChoosePaymentSection: function () {
+        if(this.step == 0){
+            this.step++;
+        }
+    },
+    PaypalSelected: function () {
+    this.$forceUpdate();
+      loadScript({
+        "client-id":
+          "AZYDSrvAxpUej4aA4gpkC2BPNN7nPXyeH0Ck2dS_LCL-2ow-XgnH7Gzl2Sxd__WPHxRQ2FhaRl6KIgvH", currency: "PHP"
+      })
+        .then((paypal) => {
+          paypal
+            .Buttons(({
+            createOrder:(data,actions) => {
+                    return axios({
+                    method: 'POST',
+                    headers: {},
+                    url: 'paypal/order/create',
+                    data: {
+                            'tip_level' : this.tip_level,
+                            'tip_price' : this.tip_price,
+                            'total_contribution_amount': this.total_price,
+                        }
+                })
+                .then((response) => {
+                    console.log(response.data.id);
+                    return response.data.id;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+
+            OnApprove:(data,action) =>{
+                return Inertia.post('paypal/order/capture',{
+                    method:'POST',
+                    data: JSON.stringify({
+                        orderID : data.orderID,
+                    })
+                })
+            }
+        }))
+            .render("#paypal-button-container")
+            .catch((error) => {
+              console.error("failed to render the PayPal Buttons", error);
+            });
+        })
+        .catch((error) => {
+          console.error("failed to load the PayPal JS SDK script", error);
+        });
+    },
+   
+
   },
+  computed:{
+    total_price(){
+        return this.price * this.tip_price()
+    },
+
+    tip_price(){
+        return this.price = (this.tip_level / 100) * this.price
+    }
+
+  }
 };
 </script>
