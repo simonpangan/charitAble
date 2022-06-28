@@ -1,4 +1,5 @@
 <template>
+	<Head title="Search" />
     <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
 		<li class="nav-item">
 			<Link 

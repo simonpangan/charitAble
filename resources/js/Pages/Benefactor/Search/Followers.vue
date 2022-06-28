@@ -1,4 +1,5 @@
 <template>
+    <Head title="Search" />
    <div class="container mt-4">
         <main class="mx-auto w-100" style="max-width: 1200px;">
             <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post">  

@@ -1,7 +1,5 @@
 <template>
-    <Head>
-        <title>login</title>
-    </Head>
+     <Head title="Login" />
 
     <div class="container">
         <br />
@@ -12,11 +10,11 @@
                         <Link href="index.html">
                             <img src="img/logo.svg" alt="chariAble Logo">
                         </Link>
-                        <h5 class="fw-bold mt-3">Welco  me Back</h5>
-                        <p class="text-muted">
+                        <h5 class="fw-bold mt-3">Welcome Back</h5>
+                        <!-- <p class="text-muted">
                             Don't miss your next opportunity. 
                             Sign in to stay updated on your professional world.
-                        </p>
+                        </p> -->
                     </div>
                     <form @submit.prevent="submit">
                         <div class="mb-3">

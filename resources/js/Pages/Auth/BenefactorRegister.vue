@@ -1,4 +1,5 @@
 <template>
+  <Head title="Benefactor Register" />
   <div class="container mt-4">
     <div class="row justify-content-center align-items-center d-flex">
       <form @submit.prevent="submit">

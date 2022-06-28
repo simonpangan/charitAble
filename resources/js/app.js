@@ -1,5 +1,6 @@
 require('bootstrap');
 
+
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
@@ -28,7 +29,7 @@ createInertiaApp({
 
         return VueApp;
     },
-    title: title => `charitAble - ${title}` 
+    title: title => `${title} | Charitable` 
 });
 
 InertiaProgress.init({

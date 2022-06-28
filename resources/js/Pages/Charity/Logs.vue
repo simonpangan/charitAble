@@ -1,4 +1,5 @@
 <template>
+    <Head title="logs" />
     <main>
       <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
         <div class="container-xl px-4">
@@ -55,14 +56,14 @@
                       </span>
                     </div>
                      <div class="col-auto">
-                      <Link :href="$route('benefactor.logs.index')" 
+                      <Link :href="$route('charity.logs.index')" 
                         method="get" 
                         :data="{from: from, to: to}"
                         class="btn btn-primary"
                       >
                         Search
                       </Link>
-                      <Link :href="$route('benefactor.logs.index')" 
+                      <Link :href="$route('charity.logs.index')" 
                         method="get" 
                         class="ms-2 btn btn-light"
                         v-if="! defaultURL"
@@ -85,7 +86,7 @@
                       <th style="width: 20%;" class="text-center"
                         :class="(sort == 'asc') ? 'asc' : 'desc'"
                       >
-                        <Link :href="$route('benefactor.logs.index', {
+                        <Link :href="$route('charity.logs.index', {
                           'order' : 'timestamp',
                           'sort' : (sort == 'asc') ? 'desc' : 'asc',
                            from: from,
@@ -168,7 +169,7 @@ watch(entries, (value) => {
   
   if (routeIsEmpty || routeHaveAtleastOneAndIsEntries) {
      Inertia.get(
-      route('benefactor.logs.index'), { 
+      route('charity.logs.index'), { 
         entries: value, 
       }, {
         preserveState: true,
@@ -181,7 +182,7 @@ watch(entries, (value) => {
 
    if ((route().params['entries'] && route().params['page']) || route().params['page']) {
      Inertia.get(
-      route('benefactor.logs.index'), { 
+      route('charity.logs.index'), { 
         entries: value, 
       }, {
         preserveState: true,
@@ -195,7 +196,7 @@ watch(entries, (value) => {
 
   if (route().params['order'] && route().params['sort']) {
     Inertia.get(
-      route('benefactor.logs.index'), { 
+      route('charity.logs.index'), { 
         sort: sort.value, order: 'timestamp', entries: value, 
       }, 
       {
@@ -209,7 +210,7 @@ watch(entries, (value) => {
 
   if(route().params['from'] && route().params['to'] || (route().params['from'])) {
     Inertia.get(
-      route('benefactor.logs.index'), { 
+      route('charity.logs.index'), { 
           from: from.value, to: to.value, entries: value 
         }, {
         preserveState: true,  

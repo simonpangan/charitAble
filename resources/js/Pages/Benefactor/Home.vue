@@ -1,4 +1,5 @@
 <template>
+  <Head title="Home" />
   <div class="py-4" role="scrollComponent">
     <div class="container">
       <div class="row position-relative">

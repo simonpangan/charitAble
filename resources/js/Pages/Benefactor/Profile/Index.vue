@@ -1,4 +1,5 @@
 <template>
+  <Head title="Profile" />
   <div class="container">
     <br />
     <div class="row">
