@@ -7,14 +7,7 @@
             <div class="col-md-4 mx-auto">
                 <div class="py-4" :class="{ 'osahan-login': ! form.hasErrors }">
                     <div class="text-center mb-4">
-                        <Link href="index.html">
-                            <img src="img/logo.svg" alt="chariAble Logo">
-                        </Link>
                         <h5 class="fw-bold mt-3">Welcome Back</h5>
-                        <!-- <p class="text-muted">
-                            Don't miss your next opportunity. 
-                            Sign in to stay updated on your professional world.
-                        </p> -->
                     </div>
                     <form @submit.prevent="submit">
                         <div class="mb-3">
@@ -70,11 +63,17 @@
                             <Link :href="$route('auth.password.request')">
                                 Forgot password?
                             </Link>
-                            <span class="ms-auto"> New to charitAble?
-                                <Link href="$route('users.create')" class="fw-bold">
-                                    Join now
+                            <div class="ms-auto">
+                                New to charitAble? 
+                                Join now as 
+                                <Link class="fw-bold" :href="$route('register.charity.index')">
+                                    Charity
                                 </Link>
-                            </span>
+                                or
+                                <Link class="fw-bold" :href="$route('register.benefactor.index')">
+                                    Benefactor
+                                </Link>
+                            </div>
                         </div>
                     </form> 
                 </div>
