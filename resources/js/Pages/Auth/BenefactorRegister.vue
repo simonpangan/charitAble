@@ -6,7 +6,10 @@
         <section v-if="currentStep == 1">
           <div class="col-md-4 mx-auto">
             <i class="feather-arrow-left me-2"></i>
-            <Link class="fw-bold" :href="$route('auth.login')">Return to Login</Link>
+            <Link class="fw-bold" :href="$route('auth.login')">
+              <i class="far fa-angle-double-left fa-lg"></i>
+              Return to Login
+            </Link>
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
                 <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
@@ -106,6 +109,7 @@
                   </span>
                   <span v-else>
                     Agree & Join
+                    <i class="fas fa-check-circle ms-1"></i>
                   </span> 
                 </button>
               </div>

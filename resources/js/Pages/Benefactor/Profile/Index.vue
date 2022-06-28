@@ -9,16 +9,17 @@
             <h6 class="m-0">Your Basic Info</h6>
             <div class="position-absolute top-0 end-0 me-3 mt-2" v-if="type == 'edit'">
               <button @click="type = 'view'" type="button" v-on:click="formSubmit" 
-                class="btn btn-light me-2">
-                Cancel
+                class="btn btn-danger me-2">
+                <i class="fad fa-align-slash"></i>
               </button>
               <button type="button" v-on:click="submit" class="btn btn-primary">
-                Submit
+                <i class="fad fa-check"></i>
               </button>
             </div>
             <div class="position-absolute top-0 end-0 me-3 mt-2" v-else>
                <button type="button"  @click="type = 'edit'" class="btn btn-primary">
                 Edit
+               <i class="fas fa-edit ms-1"></i>
               </button>
             </div>
           </div>

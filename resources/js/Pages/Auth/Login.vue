@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label for="email" class="mb-1">Email</label>
                             <div class="icon-form-control position-relative">
-                                <i class="feather-user position-absolute"></i>
+                                <i class="far fa-at position-absolute mt-2 ms-3"></i>
                                 <input  v-model="form.email" type="text"
                                     class="form-control" id="email"
                                     :class="[{'is-invalid': props.errors.google_login}, 
@@ -31,7 +31,7 @@
                         <div class="mb-3">
                             <label class="mb-1">Password</label>
                             <div class="icon-form-control position-relative">
-                                <i class="position-absolute feather-unlock"></i>
+                                <i class="far fa-lock position-absolute mt-2 ms-3"></i>
                                 <input v-model="form.password" type="password"
                                     class="form-control" :class="{ 'is-invalid': form.errors.password }">
                             </div>
@@ -49,12 +49,14 @@
                         <button :disabled="form.processing" type="submit" 
                                 class="btn btn-primary btn-block text-uppercase w-100"> 
                             Sign in 
+                            <i class="fal fa-sign-in"></i>
                         </button>
                         <div class="text-center mt-3 border-bottom pb-3">
                             <p class="small text-muted">Or</p>
                             <div class="text-center">
                                 <a :href="$route('auth.google.index')" 
                                     class="btn btn-light text-uppercase w-100">
+                                    <i class="fab fa-google me-1"></i>
                                     Sign in with google
                                 </a>
                             </div>

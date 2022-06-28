@@ -9,6 +9,7 @@
           :only="['followingList']"
         > 
           Charities 
+        <i class="fad fa-home-heart"></i>
         </Link>
       </li>
       <li class="nav-item">
@@ -17,6 +18,7 @@
           :class="{ 'active': $page.component === 'Benefactor/Connections/Volunteer' }"
         > 
           Volunteer
+          <i class="fad fa-hands-helping"></i>
         </Link>
       </li>
        <li class="nav-item">
@@ -25,6 +27,7 @@
           :class="{ 'active': $page.component === 'Benefactor/Connections/Program' }"
         > 
           Program
+          <i class="fad fa-hand-holding-usd"></i>
         </Link>
       </li>
       <li class="nav-item ms-auto me-3">

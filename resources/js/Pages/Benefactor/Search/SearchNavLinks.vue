@@ -8,6 +8,7 @@
 				:class="{ 'active': $page.component === 'Benefactor/Search/Followers' }"
 				>
 				By Followers
+				<i class="far fa-users"></i>
 			</Link>
 		</li>
 		<li class="nav-item">
@@ -17,6 +18,17 @@
 				:class="{ 'active': $page.component === 'Benefactor/Search/Location' }"
 			>
 				Location
+				<i class="fad fa-location"></i>
+			</Link>
+		</li>
+		<li class="nav-item">
+			<Link 
+				:href="$route('benefactor.charity-search.volunteer')"
+				class="nav-link"
+				:class="{ 'active': $page.component === 'Benefactor/Search/Volunteer' }"
+			>
+				Volunteer
+				<i class="fad fa-hands-helping"></i>
 			</Link>
 		</li>
 		<li class="nav-item">
@@ -26,19 +38,11 @@
 				:class="{ 'active': $page.component === 'Benefactor/Search/Program' }"
 			>
 				Program
-			</Link>
-		</li>
-			<li class="nav-item">
-			<Link 
-				:href="$route('benefactor.charity-search.volunteer')"
-				class="nav-link"
-				:class="{ 'active': $page.component === 'Benefactor/Search/Volunteer' }"
-			>
-				Volunteer
+				<i class="fad fa-hand-holding-usd"></i>
 			</Link>
 		</li>
 		<li class="nav-item ms-auto me-3">
-        	<input type="text" class="form-control mt-2" v-model="search" placeholder="Search" />
+			<input type="text" class="form-control mt-2" v-model="search" placeholder="Search" />
       	</li>
 	</ul>
 </template>
