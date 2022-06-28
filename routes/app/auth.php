@@ -23,10 +23,11 @@ use App\Http\Controllers\Benefactor\{
 };
 
 use App\Http\Controllers\Charity\{
+    CharityLogController,
     CharityPostsController,
     CharityProfileController,
     CharityProgramController,
-    CharityVolunteerPostController
+    CharityVolunteerPostController,
 };
 
 use App\Http\Controllers\Admin\ {
@@ -67,7 +68,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/profile', [CharityProfileController::class, 'index'])
             ->name('profile.index');
 
-
+        Route::get('/logs', CharityLogController::class)->name('logs.index');
 
         Route::controller(CharityProgramController::class)->group(function () {
             Route::get('program', 'index')->name('program.index');
@@ -186,7 +187,14 @@ Route::name('auth.')->group(function () {
 |
 */
 
-Route::get('/paymongo', [PaymongoController::class, 'store']);
-Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
+Route::get('/paymongo/gcash', [PaymongoController::class, 'gcash']);
+Route::get('/paymongo/callback-gcash', [PaymongoController::class, 'gcashCallback']);
+Route::get('/paymongo/callback-gcash/failed', [PaymongoController::class, 'gcashFailed']);
+
+Route::get('/paymongo/grab', [PaymongoController::class, 'grabPay']);
+Route::get('/paymongo/callback-grab', [PaymongoController::class, 'grabPayCallback']);
+Route::get('/paymongo/callback-grab/failed', [PaymongoController::class, 'grabPayFailed']);
+
 Route::get('/paymongo/search', [PaymongoController::class, 'search']);
+Route::get('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent']);
 
