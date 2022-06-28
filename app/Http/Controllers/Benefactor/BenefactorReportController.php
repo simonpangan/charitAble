@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Benefactor;
 
-use App\Models\Charity\Charity;
 use PDF;
 use App\Models\User;
+use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +38,11 @@ class BenefactorReportController
         ]; 
 
         $pdf = PDF::loadView('reports/benefactor', $data);
-        
-        return $pdf->stream();
+
+        $user->update(['last_generate_report' => now()]);
+
+        $user->createLog('You have generated report');
+
+        return $pdf->download('report.pdf');
     }
 }

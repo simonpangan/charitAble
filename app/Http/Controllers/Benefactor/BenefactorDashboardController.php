@@ -7,6 +7,7 @@ use Inertia\Response;
 use App\Models\Benefactor;
 use App\Models\Charity\Charity;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BenefactorDashboardController extends Controller
 {
@@ -15,7 +16,8 @@ class BenefactorDashboardController extends Controller
         return Inertia::render('Benefactor/Dashboard', [
             'benefactor' => fn() => $this->getBenefactorAuth(),
             'programDonations'=> fn() => $this->getProgramDonations(),
-            'charities' => fn () => $this->getCharities()
+            'charities' => fn () => $this->getCharities(),
+            'canDownload' => Auth::user()->is_allowed_to_download
         ]);
     }
 
