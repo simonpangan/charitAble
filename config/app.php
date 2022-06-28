@@ -181,6 +181,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -214,6 +216,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
