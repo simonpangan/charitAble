@@ -31,8 +31,6 @@ return new class extends Migration
             $table->timestamp('charity_verified_at')->nullable();
 
             $table->integer('followers');
-            
-            $table->timestamps();
         });
     }
 
