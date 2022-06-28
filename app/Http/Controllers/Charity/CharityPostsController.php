@@ -81,7 +81,7 @@ class CharityPostsController
     {
         CharityPosts::query()
             ->findOrFail($id)
-            ->delete()
+            ->delete();
             
         // Auth::user()->createLog("You have deleted program with id");
 
