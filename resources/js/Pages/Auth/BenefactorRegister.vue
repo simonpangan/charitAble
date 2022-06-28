@@ -6,12 +6,9 @@
         <section v-if="currentStep == 1">
           <div class="col-md-4 mx-auto">
             <i class="feather-arrow-left me-2"></i>
-            <a class="fw-bold" href="sign-in.html">Return to Login</a>
+            <Link class="fw-bold" :href="$route('auth.login')">Return to Login</Link>
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
-                <a href="index.html">
-                  <img src="img/logo.svg" alt="" />
-                </a>
                 <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
                 <p class="text-muted">Step 1</p>
               </div>
@@ -79,7 +76,6 @@
                       <small>
                         <p style="color: orange" class="nmb-1" v-if="
                             v$.password.minLength.$invalid ||
-                            v$.password.maxLength.$invalid ||
                             form.password == ''
                           "> &#10006; Passwords needs to be a minimum of 9 characters </p>
                         <p style="color: green" class="nmb-1" v-else> &check; Passwords needs to be in between 8 to 19 characters. </p>
@@ -92,17 +88,15 @@
                 <div class="col">
                   <label class="mb-1">Confirm Password</label>
                     <input v-model.trim="form.password_confirmation" type="password" class="form-control" />
-                    <div class="text-danger" v-if="v$.password_confirmation.$error">
-                      <p class="text-danger">
-                        <small>{{ v$.password_confirmation.$errors[0].$message
-                        }}</small>
-                      </p>
-                    </div>
                 </div>
               </div>
               <div class="row"></div>
               <div class="row">
-                <label class="mb-1 mt-2">You agree to the Osahanin <a href="#">User Agreement</a>, <a href="#">Privacy Policy</a>, and <a href="#">Cookie Policy</a>. </label>
+                <label class="mb-1 mt-2">You agree to the Osahanin 
+                  <Link :href="$route('terms')">User Agreement</Link>, 
+                  <Link :href="$route('privacy')">Privacy Policy</Link>, and 
+                  <Link :href="$route('terms')">Cookie Policy</Link>. 
+                </label>
               </div>
               <div class="text-center">
                 <button :disabled="form.processing" class="btn btn-primary text-uppercase mt-3 px-5" @click.prevent="nextStep"> 
@@ -269,7 +263,8 @@
 
       const rules = computed(() => ({
         password: {
-          minLength: minLength(8),
+          minLength: minLength(9),
+          maxLength: maxLength(19),
           required: helpers.withMessage("Password cannot be empty", required),
           containsSpecial: helpers.withMessage(
             () => `The password requires an special character`,
