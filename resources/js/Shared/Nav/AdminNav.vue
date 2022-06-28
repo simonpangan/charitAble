@@ -12,6 +12,7 @@
 	<li class="nav-item">
 	<NavLink class="nav-link btn btn-link" href="/logout" method="post" as="button">
 		Logout
+		<i class="fad fa-sign-out ms-1"></i>
 	</NavLink>
 	</li>
 </template>

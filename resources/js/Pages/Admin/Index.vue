@@ -31,14 +31,14 @@
               <div class="dataTable-container">
                 <card id="datatablesSimple" class="dataTable-table">
                   <thead>
-                    <tr style="width: 100%">
-                      <th style="width: 10%;" class="text-center">
+                    <tr>
+                      <th width="10%" class="text-center">
                         #
                       </th>
-                      <th style="width: 60%;" class="text-center">
+                      <th width="30%" class="text-center">
                         Name
                       </th>
-                      <th style="width: 20%;" class="text-center"
+                      <th width="20%" class="text-center"
                         :class="(sort == 'asc') ? 'asc' : 'desc'"
                       >
                         <Link :href="$route('admin.home.index', {
@@ -47,7 +47,7 @@
                           Created At
                         </Link>
                       </th>
-                    <th style="width: 60%;" class="text-center"
+                    <th width="10%" class="text-center"
                         :class="(status == 'pending') ? 'asc' : 'desc'">
                         <Link :href="$route('admin.home.index', {
                           'status' : (status == 'pending') ? 'approved' : 'pending',
@@ -55,7 +55,7 @@
                           Status
                         </Link>
                     </th>
-                    <th style="width: 60%;" class="text-center">
+                    <th width="10%" class="text-center">
                         Action
                     </th>
                     </tr>
@@ -65,27 +65,30 @@
                       <td class="text-center">{{ charities.from + index }}</td>
                       <td>{{ charity.name }}</td>
                       <td>{{ charity.created_at }}</td>
-                       <td>
-                         <div v-if="charity.charity_verified_at" class="badge bg-primary text-white rounded-pill">Approve</div>
+                       <td class="text-center">
+                         <div v-if="charity.charity_verified_at" 
+                          class="badge bg-success text-white rounded-pill">Approve</div>
                           <div v-else class="badge bg-warning rounded-pill">Pending</div>
-                        </td>
-                       <td>
-                        <Link class="btn btn-outline-danger" v-if="charity.charity_verified_at"
+                      </td>
+                       <td class="d-flex justify-content-evenly">
+                        <Link class="btn btn-danger" v-if="charity.charity_verified_at"
                            :href="$route('admin.approval.disapprove')" 
                            method="post" 
                            :data="{ id: charity.id }" 
                            as="button" type="button">
-                           Disapprove
+                           <i class="fas fa-times-circle"></i>
                         </Link>
-                        <Link class="btn btn-outline-primary" v-else 
+                        <Link class="btn btn-primary" v-else 
                           :href="$route('admin.approval.approve')" 
                            :data="{ id: charity.id }" 
-                          method="post" as="button" type="button">Approve</Link>
-                          <Link class="btn btn-outline-info" :href="$route('admin.home.show', {
-                            'id': charity.id
-                          })">
-                            <small>Show Documents</small>
-                           </Link>
+                          method="post" as="button" type="button">
+                          <i class="fas fa-badge-check"></i>
+                        </Link>
+                        <Link class="btn btn-info d-inline" :href="$route('admin.home.show', {
+                          'id': charity.id
+                        })">
+                          <i class="fad fa-download"></i>
+                        </Link>
                       </td>
                     </tr>
                     <tr v-if="charities.data.length == 0">
