@@ -11,10 +11,14 @@
 			<img class="img-profile rounded-circle" src="img/p13.png">
 		</a>
 		<div class="dropdown-menu dropdown-menu-end shadow-sm">
+			<NavLink class="dropdown-item btn btn-link" href="/charity/logs">
+				<i class="feather-log-out me-1"></i>
+				Logs
+			</NavLink>
 			<NavLink class="dropdown-item btn btn-link" href="/logout" 
-			method="post" as="button">
-			<i class="feather-log-out me-1"></i>
-			<span class="d-none d-lg-inline">Logout</span>
+				method="post" as="button">
+				<i class="feather-log-out me-1"></i>
+				<span class="d-none d-lg-inline">Logout</span>
 			</NavLink>
 		</div>
 	</li>
