@@ -66,7 +66,7 @@ class CharityRegisterController extends Controller
                 'tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
                 'public/charity/'.$id.'/'.'logo/'.$filename
             );
-            //this doesn't work
+
             Storage::deleteDirectory('tmp/logo/'.$temporaryFile['folder']);
 
             TemporaryFile::where('filename',$filename)
