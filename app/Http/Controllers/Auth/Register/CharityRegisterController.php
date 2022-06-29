@@ -62,15 +62,18 @@ class CharityRegisterController extends Controller
                 ->first()
                 ->getRawOriginal();
 
-            Storage::move('tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 'charity/'.$id.'/'.'logo/'.$filename);
+            Storage::move(
+                'tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
+                'public/charity/'.$id.'/'.'logo/'.$filename
+            );
             //this doesn't work
             Storage::deleteDirectory('tmp/logo/'.$temporaryFile['folder']);
 
             TemporaryFile::where('filename',$filename)
-                            ->where('file_type','logo')
-                            ->latest()
-                            ->first()
-                            ->delete();
+                ->where('file_type','logo')
+                ->latest()
+                ->first()
+                ->delete();
 
             $link = env('APP_URL') . 'storage/charity/'.$id.'/logo'.'/'.$filename;
         }
@@ -80,12 +83,12 @@ class CharityRegisterController extends Controller
 
         $this->createCharityWithPreferences($user, $request->except(['email', 'password']), $link);
         
-        foreach($documentFile['documentFile'] as $document){
+        foreach($documentFile['documentFile'] as $document) {
             $documentFileName = $document->getClientOriginalName();
             $temporaryDocumentFile = TemporaryFile::where('filename',$documentFileName)
-                                    ->where('file_type','document')
-                                    ->first()
-                                    ->getRawOriginal();
+                ->where('file_type','document')
+                ->first()
+                ->getRawOriginal();
 
             Storage::move('tmp/documents/'.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], 'charity/'.$id.'/'.'documents/'.$documentFileName);
             Storage::deleteDirectory('tmp/documents/'.$temporaryDocumentFile['folder']);
@@ -120,7 +123,7 @@ class CharityRegisterController extends Controller
             'website_link' => $data['website_link'],
             'facebook_link' => $data['fb_link'],
             'twitter_link' => $data['twitter_link'],
-           'instagram_link' => $data['ig_link'],
+            'instagram_link' => $data['ig_link'],
         ]);
 
         $charity->categories()->attach($data['categories']);
