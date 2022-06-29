@@ -69,11 +69,12 @@ class CharityProgramController
         CharityProgram::create([
             'program_name' => $request['program_name'],
             'program_description' => $request['program_description'],
-            'location' => $request['location'],
+            'location' => 'location request',
             //'goal' => implode("-",$request['goal']),
             'goal' => $request['goal'],
             'total_donation_amount' => $request['program_donation_total'],
-            'program_expenses' =>  implode("-",$request['program_expenses']),
+            'total_withdrawn_amount' => 0,
+            'program_expenses' =>  $request['program_expenses'],
             'header' => $link
         ]);
     }

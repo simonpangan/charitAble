@@ -385,10 +385,10 @@ export default {
   methods: {
     add: function () {
       this.count++;
+   
     },
     remove: function () {
       this.count--;
-   
     },
     addProgram: function () {
       this.countProgram++;
@@ -400,25 +400,32 @@ export default {
       this.form.header = file[0].file;
     },
     SubmitFormButton: function () {
-        console.log(this.goal_values + this.goal_date_values);
-        var goal_array = [];
-        var expenses = [];
+      console.log(this.goal_values + this.goal_date_values);
+      var goal_array = [];
+      var expenses = [];
 
-        for(let i=0; i <this.goal_values.length;i++){
-            if(this.goal_values[i] && this.goal_date_values[i] != null){
-            goal_array.push(this.goal_values[i] +','+ this.goal_date_values[i]);
-            this.form.goal = goal_array;
-            }
+      for (let i = 0; i < this.goal_values.length; i++) {
+        if (this.goal_values[i] && this.goal_date_values[i] != null) {
+          //goal_array.push(this.goal_values[i] +','+ this.goal_date_values[i]);
+          goal_array.push({
+            goal: this.goal_values[i],
+            goal_date: this.goal_date_values[i],
+          });
+
+          this.form.goal = goal_array;
         }
+      }
 
-        for(let i=0; i <this.program_expenses.length;i++){
-            if(this.program_expenses[i] && this.program_date_expenses[i] != null){
-            expenses.push(this.program_expenses[i] +','+ this.program_date_expenses[i]);
-            this.form.program_expenses = expenses;
-            }
+      for (let i = 0; i < this.program_expenses.length; i++) {
+        if (this.program_expenses[i] && this.program_date_expenses[i] != null) {
+          expenses.push({
+            program_expenses: this.program_expenses[i],
+            program_date_expenses: this.program_date_expenses[i],
+          });
+          this.form.program_expenses = expenses;
         }
-       this.form.post(route("charity.program.store"));
-
+      }
+      this.form.post(route("charity.program.store"));
     },
   },
 };

@@ -70,7 +70,6 @@
                                                 <th class="p-3">Location</th>
                                                 <td class="p-3">14th floor, North Tower, Rockwell Business Center Sheridan Sheridan Street, corner United St, Mandaluyong, 1550 Metro Manila </td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -79,23 +78,29 @@
                                 <div class="box-title border-bottom p-3">
                                     <div class="d-flex justify-content-between">
                                     <h6 class="m-0 ">NGO Heads / Board Members</h6>
-                                        <i class="feather-more-vertical" data-bs-toggle="dropdown"></i>
+                                        <i class="fal fa-ellipsis-v-alt" data-bs-toggle="dropdown"></i>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Add/Edit Board Member</a>
+                                                <a class="dropdown-item" :href="$route('charity.officer.create')">Add/Edit Board Member</a>
                                             </div>
                                     </div>
                                 </div>
                                 <div class="box-body">
                                     <table class="table table-borderless mb-0 ">
                                         <tbody>
+                                            <div class="border-bottom" v-for="officer in $page.props.officer" :key="officer.id">
                                             <tr class="nmb-1">
                                                 <th class="p-3">Name</th>
-                                                <td class="p-3">Simon Pangan</td>
+                                                <td class="p-3">{{officer.last_name + ' ' + officer.first_name}} </td>
                                             </tr>
-                                            <tr class="border-bottom">
+                                            <tr class="nmb-1">
                                                 <th class="p-3">Position</th>
-                                                <td class="p-3">Head Board Member</td>
+                                                <td class="p-3">{{officer.position}}</td>
                                             </tr>
+                                            <tr class="nmb-1">
+                                                <th class="p-3">Date of Position</th>
+                                                <td class="p-3">{{officer.officer_since}}</td>
+                                            </tr>
+                                            </div>
                                         </tbody>
                                     </table>
                                 </div>
@@ -381,19 +386,9 @@
 </template>
 
 <script>
-  import vueFilePond from "vue-filepond";
-  // Import FilePond styles
-  import "filepond/dist/filepond.min.css";
-  // Import image preview and file type validation plugins
-  import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
-  import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-  // Create component
-  const FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview);
   export default {
-    components: {
-      FilePond,
-    },
+   
     setup() {
 
     },
@@ -401,17 +396,15 @@
       posts:Array,
       user:Object,
       volunteer_post:Array,
-      program:Array
+      program:Array,
+      officer:Array
     },
     data() {
 
     },
     methods: {
-      handleFilePondInit: function() {
-        console.log("FilePond has initialized");
-        // FilePond instance methods are available on `this.$refs.pond`
-      },
-    },
+    
+    }
   }
 </script>
 

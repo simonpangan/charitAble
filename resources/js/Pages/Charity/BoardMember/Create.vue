@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center align-items-center d-flex h-75">
+    <div class="row justify-content-center align-items-center d-flex h-75 mt-5">
       <div class="col-md-6">
           <i class="feather-arrow-left me-2 "></i
                             ><Link href="profile" class="fw-bold text-muted ">Return to Profile</Link>
@@ -101,7 +101,7 @@ export default {
 })
 
     let submit = () => {
-        form.post(route('charity.boardmember.store'));
+        form.post(route('charity.officer.store'));
     }
 
     return { form,submit}
