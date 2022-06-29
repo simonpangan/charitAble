@@ -1,4 +1,5 @@
 <template>
+    <Head title="Profile" />
     <div class="profile-cover text-center">
         <img class="img-fluid" src="https://blogs.microsoft.com/wp-content/uploads/prod/2020/10/HERO-ART-microsoft_azure_1920x1000_nologo.jpg" style="height:20%;" alt="">
     </div>
