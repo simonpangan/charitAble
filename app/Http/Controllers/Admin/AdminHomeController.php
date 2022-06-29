@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Charity\Charity;
-use Illuminate\Http\Request;
+
+use File;
+use ZipArchive;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Models\Charity\Charity;
+use App\Http\Controllers\Controller;
+
 
 class AdminHomeController extends Controller
 {
@@ -51,10 +55,23 @@ class AdminHomeController extends Controller
 
     public function show(int $id)
     {
-        $charity = Charity::with('documents')->find($id);
-
-        return Inertia::render('Admin/Show', [
-            'charity' => $charity,
-        ]);
+        // $charity = Charity::with('documents')->findOrFail($id);
+        $zip = new ZipArchive;
+   
+        $fileName = 'myNewFile.zip';
+   
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+        {
+            $files = File::files(public_path('logo'));
+   
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+            }
+             
+            $zip->close();
+        }
+    
+        return response()->download(public_path($fileName));
     }
 }

@@ -80,11 +80,13 @@
                         <p style="color: orange" class="nmb-1" v-if="
                             v$.password.minLength.$invalid ||
                             form.password == ''
-                          "> &#10006; Passwords needs to be a minimum of 9 characters </p>
-                        <p style="color: green" class="nmb-1" v-else> &check; Passwords needs to be in between 8 to 19 characters. </p>
+                          "> &#10006; Passwords needs to have a minimum of 8 characters </p>
+                        <p style="color: green" class="nmb-1" v-else> &check; 
+                          Passwords needs to have a minimum of 8 characters 
+                        </p>
                       </small>
                       <small></small>
-                  </div>
+                  </div>  
                 </div>
               </div>
               <div class="row">
@@ -201,7 +203,7 @@
                 <img src="img/logo.svg" alt="" />
               </a>
               <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
-              <p class="text-muted"> currentStep 3 - What do you feel most passionate about? </p>
+              <p class="text-muted"> Step 3 - What do you feel most passionate about? </p>
             </div>
             <ul class="ks-cboxtags">
               <li v-for="(category, index) in charityCategories" :key="category.id">
@@ -267,8 +269,7 @@
 
       const rules = computed(() => ({
         password: {
-          minLength: minLength(9),
-          maxLength: maxLength(19),
+          minLength: minLength(8),
           required: helpers.withMessage("Password cannot be empty", required),
           containsSpecial: helpers.withMessage(
             () => `The password requires an special character`,
