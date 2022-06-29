@@ -282,7 +282,7 @@
                                     <div class="text-truncate">Create Program</div>
                                 </div>
                                 <span class="ms-auto">
-                                    <Link href="program" class="btn btn-outline-primary btn-warning btn-sm">
+                                    <Link href="program" class="btn btn-outline-primary btn-sm">
                                         Create
                                     </Link>
                                </span>
