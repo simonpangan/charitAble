@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Charity\Charity;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminHomeController extends Controller
@@ -53,25 +54,24 @@ class AdminHomeController extends Controller
         ->withQueryString();
     }
 
-    public function show(int $id)
+    public function download(int $id)
     {
-        // $charity = Charity::with('documents')->findOrFail($id);
         $zip = new ZipArchive;
-   
-        $fileName = 'myNewFile.zip';
-   
-        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+
+        $zipFile = Storage::path('documents.zip');
+        
+        if($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE)) 
         {
-            $files = File::files(public_path('logo'));
-   
+            $files = File::files(storage_path("app\charity\\".$id."\\documents"));
+
             foreach ($files as $key => $value) {
                 $relativeNameInZipFile = basename($value);
                 $zip->addFile($value, $relativeNameInZipFile);
             }
-             
+                
             $zip->close();
         }
     
-        return response()->download(public_path($fileName));
+        return response()->download($zipFile);
     }
 }
