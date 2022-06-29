@@ -93,7 +93,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityPostsController::class)->group(function(){
-            Route::get('post','create')->name('post.create');
+            Route::get('post','index')->name('post.index');
+            Route::get('post/create','create')->name('post.create');
             Route::post('post-posts', 'store')->name('post.store');
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
         });

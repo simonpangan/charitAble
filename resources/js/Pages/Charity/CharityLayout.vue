@@ -31,10 +31,14 @@
                     <div class="box shadow-sm rounded bg-white mb-3 overflow-hidden">
                        	<ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
 							<li class="nav-item">
-								<Link class="nav-link active" :href="$route('charity.profile.index')">About</Link>
+								<Link class="nav-link" 
+                                :class="{ 'active': $page.component === 'Charity/Profile' }"
+                                :href="$route('charity.profile.index')">About</Link>
 							</li>
 							<li class="nav-item">
-								<!-- <Link class="nav-link" :href="$route('charity.post.index')">Posts</Link> -->
+                                <Link class="nav-link" 
+                                :class="{ 'active': $page.component === 'Charity/Post/Index' }"
+                                :href="$route('charity.post.index')">Posts</Link>
 							</li>
 							<li class="nav-item">
 								<!-- <Link class="nav-link" :href="$route('charity.post.index')">VoluntPosting</Link> -->
