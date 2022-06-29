@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('location');
             $table->text('qualifications');
             $table->string('incentives')->nullable();
-            $table->string('status');
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }

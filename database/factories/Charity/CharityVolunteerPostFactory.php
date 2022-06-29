@@ -25,6 +25,7 @@ class CharityVolunteerPostFactory extends Factory
                 '2' => $this->faker->sentence, 
             ],
             'incentives' => $this->faker->sentence,  
+            'is_active' => $this->faker->numberBetween(0,1),  
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
         ];
     }
