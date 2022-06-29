@@ -35,12 +35,18 @@ class CharitySeeder extends Seeder
 
         $categories = Categories::all()->pluck('id');
 
-        if (Charity::count() < 1000) 
+        if (Charity::count() < 30) 
         {
-            $users = User::factory()->count(100)->charitySuperAdmin()->create();
+            $users = User::factory()
+                ->count(30)
+                ->charitySuperAdmin()
+                ->create();
 
-            $users->each(function ($user) use (&$userFollowing, $categories) {
-                $charity = Charity::factory()->create(['id' => $user->id]);
+            $users->each(function ($user, $key) use (&$userFollowing, $categories) {
+                $charity = Charity::factory()
+                    ->logo("http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/" 
+                        . $this->nbaTeamsLogos()[$key] . ".png")
+                    ->create(['id' => $user->id]);
 
                 // attach 3 categories per fake charity
                 $charity->categories()->attach(
@@ -48,5 +54,15 @@ class CharitySeeder extends Seeder
                 );
             });
         }
+    }
+
+    private function nbaTeamsLogos() 
+    {
+        return [
+            "atl", "bkn", "bos", "cha", "chi", "cle", "dal", "den",
+            "det", "gsw", "hou", "ind", "lac", "lal", "mem", "mia", 
+            "mil", "min", "nop", "nyk", "okc", "orl", "phi", "phx", 
+            "por", "sac", "sas", "tor", "uta", "was",
+        ];
     }
 }

@@ -23,7 +23,7 @@ class CharityFollowersSeeder extends Seeder
   
         $charities = Charity::all('id')->pluck('id');
 
-        foreach ($charities->random(30) as $id) {
+        foreach ($charities->random(5) as $id) {
             array_push($userFollowing, [
                 'benefactor_id' => $benefactorID,
                 'charity_id' => $id,

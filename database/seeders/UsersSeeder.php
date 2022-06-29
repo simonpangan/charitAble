@@ -107,6 +107,6 @@ class UsersSeeder extends Seeder
 
     private function createLogsForUser(): array
     {
-        return Log::factory()->count(5000)->raw();
+        return Log::factory()->count(1000)->raw();
     }
 }
