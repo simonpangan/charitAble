@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->text('about')->nullable();
             $table->string('header')->nullable();
+            $table->string('charity_email')->nullable();
             $table->string('logo')->nullable();
 
             $table->string('website_link')->nullable();
