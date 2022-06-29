@@ -53,7 +53,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'prefix' => 'admin',
     ], function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home.index');
-        Route::get('/home/documents/{id}', [AdminHomeController::class, 'show'])->name('home.show');
+        Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->name('home.download');
         Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
         Route::post('/approval/disapprove', [AdminApprovalController::class, 'disApprove'])->name('approval.disapprove');
     });
