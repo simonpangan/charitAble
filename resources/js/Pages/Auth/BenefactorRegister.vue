@@ -5,7 +5,6 @@
       <form @submit.prevent="submit">
         <section v-if="currentStep == 1">
           <div class="col-md-4 mx-auto">
-            <i class="feather-arrow-left me-2"></i>
             <Link class="fw-bold" :href="$route('auth.login')">
               <i class="far fa-angle-double-left fa-lg"></i>
               Return to Login
@@ -196,7 +195,7 @@
             </div>
           </div>
         </section>
-        <section v-if="currentStep == 3">
+        <section v-if="currentStep == 3"> 
           <div class="col-md-6 mx-auto">
             <div class="text-center mb-4">
               <a href="index.html">

@@ -5,7 +5,6 @@
       <section v-if="step == 1">
         <div class="row justify-content-center align-items-center d-flex vh-100">
           <div class="col-md-4">
-            <i class="feather-arrow-left me-2"></i>
              <Link class="fw-bold" :href="$route('auth.login')">
               <i class="far fa-angle-double-left fa-lg"></i>
               Return to Login
