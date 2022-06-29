@@ -261,25 +261,34 @@
                                     <div class="text-truncate">Create Posts</div>
 
                                 </div>
-                                <button type="button" class="btn btn-outline-primary btn-sm ms-auto"><Link :href="$route('charity.post.create')">Create</Link></button>
-
+                                <Link class="btn btn-outline-primary btn-sm ms-auto" 
+                                    :href="$route('charity.post.create')"
+                                >
+                                    Create
+                                </Link>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
                                 <div class="font-weight-bold me-2">
                                 <div class="text-truncate">Create Volunteer Posting</div>
 
                                 </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-sm"><Link :href="$route('charity.volunteer.create')">Create</Link></button>
-                           </span>
+                                <span class="ms-auto">
+                                    <Link class="btn btn-outline-primary btn-sm" 
+                                    :href="$route('charity.volunteer.create')">
+                                        Create
+                                    </Link>
+                                </span>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
                                 <div class="font-weight-bold me-2">
                                     <div class="text-truncate">Create Program</div>
                                 </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-warning btn-sm"><Link href="program">Create</Link></button>
-                           </span>
+                                <span class="ms-auto">
+                                    <Link href="program" class="btn btn-outline-primary btn-warning btn-sm">
+                                        Create
+                                    </Link>
+                               </span>
                             </div>
-
                         </div>
                     </div>
                 </aside>
