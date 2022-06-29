@@ -8,7 +8,7 @@
           <div class="box-title border-bottom p-3 position-relative"> 
             <h6 class="m-0">Your Basic Info</h6>
             <div class="position-absolute top-0 end-0 me-3 mt-2" v-if="type == 'edit'">
-              <button @click="type = 'view'" type="button" v-on:click="formSubmit" 
+              <button @click="cancel" type="button" v-on:click="formSubmit" 
                 class="btn btn-danger me-2">
                 <i class="fad fa-align-slash"></i>
               </button>
@@ -199,5 +199,10 @@ let submit = () => {
       onSuccess: () => type.value = 'view'
     }
   );
+}
+
+let cancel = () => {
+  type.value = 'view';
+  form.reset()
 }
 </script>
