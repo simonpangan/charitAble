@@ -131,7 +131,16 @@
                                         <div class="text-truncate">{{this.$page.props.user.charity.name}}<span class="text-info ms-1"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
                                         <div class="small text-gray-500">June 13, 2022</div>
                                     </div>
-                                    <span class="ms-auto small">3 hours</span>
+
+                                    
+                                    <span class="ms-auto small"></span>
+                                <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                   <i class="fal fa-ellipsis-v-alt"></i>
+                                </a>
+  
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                            </ul>
                                 </div>
                                 <div class="p-3 border-bottom osahan-post-body">
                                     {{post.main_content_body}}
@@ -179,30 +188,18 @@
                         <div class="tab-pane fade" id="type" role="tabpanel" aria-labelledby="type-tab">
                             <div class="box shadow-sm border rounded bg-white mb-3">
                                     <div class="row p-4">
-                                        <div class="col-md-6 ">
-                                            <div class="card overflow-hidden">
-                                                <img src="https://images.unsplash.com/photo-1593113616828-6f22bca04804?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="img-fluid" alt="Responsive image">
-                                                <div class="card-body">
-                                                    <h5 class="card-title nmb-1">Tree Planting</h5>
-                                                    <p class="card-text text-muted ">Binangonan, Rizal</p>
-                                                    <p class="card-text text-success ">On-Going</p>
-                                                    <p class="card-text text-dark">40 Proud Supporters</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card overflow-hidden">
-                                                <img src="https://images.unsplash.com/photo-1593113616828-6f22bca04804?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="img-fluid" alt="Responsive image">
-                                                <div class="card-body">
-                                                    <h5 class="card-title  nmb-1">Tree Planting</h5>
-                                                    <p class="card-text text-muted">Binangonan, Rizal</p>
-                                                    <div class=" border-bottom">
-                                                    <p class="card-text text-success ">On-Going</p>
-                                                    <p class="card-text text-dark">38 Proud Supporters</p>
+                                        <div v-for="program in $page.props.program" :key="program.id" class="col-md-6 mt-3">
+                                        <Link :href="'program/' + program.id">
+                                                <div class="card overflow-hidden">
+                                                    <img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/04/a0004907/img/basic/a0004907_main.jpg?20210317142845&q=80&rw=750&rh=536" class="img-fluid" alt="Responsive image">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title nmb-1">{{program.program_name}}</h5>
+                                                        <p class="card-text text-muted ">{{program.location}}</p>
+                                                        <p class="card-text text-success ">On-Going</p>
+                                                        <p class="card-text text-dark">{{program.created_at_formatted}}</p>
                                                     </div>
-
                                                 </div>
-                                            </div>
+                                        </Link>
                                         </div>
                                     </div>
                             </div>
@@ -253,15 +250,15 @@
                                     <div class="text-truncate">Create Posts</div>
 
                                 </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-sm"><Link href="post">Create</Link></button>
-                           </span>
+                                <button type="button" class="btn btn-outline-primary btn-sm ms-auto"><Link :href="$route('charity.post.create')">Create</Link></button>
+
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
                                 <div class="font-weight-bold me-2">
                                 <div class="text-truncate">Create Volunteer Posting</div>
 
                                 </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-sm"><Link href="volunteer-posts/create">Create</Link></button>
+                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-sm"><Link :href="$route('charity.volunteer.create')">Create</Link></button>
                            </span>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
@@ -401,7 +398,10 @@
 
     },
     props: {
-      csrfToken: String
+      posts:Array,
+      user:Object,
+      volunteer_post:Array,
+      program:Array
     },
     data() {
 
