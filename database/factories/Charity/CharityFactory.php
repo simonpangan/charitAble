@@ -20,7 +20,6 @@ class CharityFactory extends Factory
         return [
             'name' => $this->faker->company,
             'about' => $this->faker->paragraph(5),
-            'header' => $this->faker->sentence,  
             'logo' => $this->faker->sentence,  
             'website_link' =>$this->faker->url,
             'facebook_link' => $this->faker->url, 
@@ -30,5 +29,14 @@ class CharityFactory extends Factory
             'charity_verified_at' => $this->faker->randomElement([now()->toDateTimeString(), null]),
             'followers' => $this->faker->numberBetween(0, 5000),
         ];
+    }
+
+    public function logo($logo)
+    {
+        return $this->state(function (array $attributes) use ($logo) {
+            return [
+                'logo' => $logo,
+            ];
+        });
     }
 }

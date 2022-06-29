@@ -19,7 +19,6 @@ return new class extends Migration
 
             $table->string('name')->nullable();
             $table->text('about')->nullable();
-            $table->string('header')->nullable();
             $table->string('charity_email')->nullable();
             $table->string('logo')->nullable();
 
@@ -31,7 +30,7 @@ return new class extends Migration
             $table->boolean('is_pnc_accredited')->nullable();
             $table->timestamp('charity_verified_at')->nullable();
 
-            $table->integer('followers');
+            $table->integer('followers')->default(0);
         });
     }
 
