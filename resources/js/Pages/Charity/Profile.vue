@@ -6,7 +6,12 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h1 class="font-weight-bold text-dark mb-1 mt-0">{{this.$page.props.user.charity.name}} <span class="text-info"><i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i></span></h1>
+                            <h1 class="font-weight-bold text-dark mb-1 mt-0">
+                                {{this.$page.props.user.charity.name}} 
+                                <span class="text-info">
+                                    <i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i>
+                                </span>
+                            </h1>
                             <p class="mb-0 text-muted"> Category Charity 1 | Category Charity</p>
                         </div>
                         <div class="profile-right ms-auto">
@@ -24,20 +29,7 @@
                 <!-- Main Content -->
                 <main class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
                     <div class="box shadow-sm rounded bg-white mb-3 overflow-hidden">
-                        <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Posts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Volunteer Posting</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="type-tab" data-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Program</a>
-                            </li>
-                        </ul>
+                        <CharityNavLinksVue />
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -397,6 +389,10 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import CharityNavLinksVue from './CharityNavLinks.vue';
+</script>
 
 <script>
 
