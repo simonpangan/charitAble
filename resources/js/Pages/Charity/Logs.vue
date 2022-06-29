@@ -61,7 +61,7 @@
                         :data="{from: from, to: to}"
                         class="btn btn-primary"
                       >
-                        Search
+                        <i class="fad fa-search"></i>
                       </Link>
                       <Link :href="$route('charity.logs.index')" 
                         method="get" 
