@@ -1,9 +1,8 @@
 <template>
 	<li class="nav-item">
-		<NavLink class="nav-link btn btn-link" href="#" 
-			method="post" as="button">
-			<!-- <i class="feather-users me-2"></i> -->
-			<span class="d-none d-lg-inline">Charity Profile</span>
+		<NavLink class="nav-link btn btn-link" :href="$route('charity.profile.index')">
+			<i class="fad fa-user-alt me-2 fa-lg"></i>
+			<span class="d-none d-lg-inline">Profile</span>
 		</NavLink>
 		</li>
 		<li class="nav-item dropdown no-arrow ms-1 osahan-profile-dropdown">
