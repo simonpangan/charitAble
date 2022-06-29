@@ -44,7 +44,7 @@ class PaypalPaymentController extends Controller
        // echo('Create working');
     }
 
-    public function capture(Request $request,$id)
+    public function capture(Request $request)
     {
 
         $data = json_decode($request->getContent(), true);
@@ -56,9 +56,8 @@ class PaypalPaymentController extends Controller
 
 //            $result = $result->purchase_units[0]->payments->captures[0];
 
-        return to_route('charity.donate.success')
-        ->with('message', 'Succesfully updated your profile')
-        ->with('receipt',response()->json($result));
+        return ("FUCKKK");
+
 
     }
 
