@@ -2,9 +2,12 @@
   <div class="container">
     <div class="row justify-content-center align-items-center d-flex h-75 mt-5">
       <div class="col-md-6">
-          <i class="far fa-arrow-left me-2 "></i
-                            ><Link href="profile" class="fw-bold text-muted ">Return to Profile</Link>
+
+        <i class="far fa-arrow-left me-2"></i>
+       <Link href="profile" class="fw-bold text-muted ">Return to Profile</Link>
         <form @submit.prevent="submit">
+        <div class="border-bottom" v-for="officer in $page.props.officer" :key="officer.id">
+        </div>
         <div class="box shadow-sm border rounded bg-white mb-3 mt-3 osahan-post">
           <div
             class="
@@ -16,7 +19,6 @@
             "
           >
             <div class="me-3">
-              <h6>Add Board Member</h6>
             </div>
           </div>
           <div class="p-3 border-bottom osahan-post-body">
@@ -39,7 +41,6 @@
                     </label>
                     <div class="form-group">
                       <input  type="text" class="form-control" v-model="form.last_name" placeholder="Enter your last_name" />
-                  
                     </div>
                   </div>
                 </div>
@@ -105,6 +106,9 @@ export default {
     }
 
     return { form,submit}
+  },
+  props:{
+    officer:Array
   }
 };
 </script>

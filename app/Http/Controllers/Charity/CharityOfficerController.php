@@ -5,11 +5,19 @@ namespace App\Http\Controllers\Charity;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityOfficers;
+use App\Models\Charity\Charity;
 use Inertia\Inertia;
 use Inertia\Response;
+use Inertia\Response as InertiaResponse;
 
 class CharityOfficerController
 {
+    public function create(): Response
+    {
+        return Inertia::render('Charity/BoardMember/Create');
+    }
+
+    
     public function store(Request $request): RedirectResponse
     {
         $id = auth()->user()->id;
@@ -24,11 +32,20 @@ class CharityOfficerController
 
         return to_route('charity.profile.index');
     }
-    public function create(): Response
+    
+    public function edit(int $id): InertiaResponse
     {
-        return Inertia::render('Charity/BoardMember/Create');
-    }
+        $id = auth()->user()->id;
 
+        return Inertia::render(
+            'Charity/BoardMember/Edit',
+            [
+                'charity' => Charity::where('id',$id)->get()->toArray(),
+                'officer' => CharityOfficers::where('charity_id',$id)->get()->toArray(),
+            ]);
+
+    }
+    
     // public function edit(int $id): InertiaResponse
     // {
     //     return Inertia::render(

@@ -28,6 +28,7 @@ use App\Http\Controllers\Charity\{
     CharityProfileController,
     CharityProgramController,
     CharityVolunteerPostController,
+    CharityOfficerController
 };
 
 use App\Http\Controllers\Admin\ {
@@ -35,7 +36,9 @@ use App\Http\Controllers\Admin\ {
     AdminApprovalController
 };
 
-use App\Http\Controllers\Payment\PaymongoController;
+use App\Http\Controllers\BenefactorDonationController;
+use App\Http\Controllers\PaymongoController;
+use App\Http\Controllers\PaypalPaymentController;
 /*
 |--------------------------------------------------------------------------
 | Auth  & Verified Routes
@@ -95,6 +98,20 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
         });
 
+        Route::controller(CharityOfficerController::class)->group(function(){
+            Route::get('officer','create')->name('officer.create');
+            Route::get('officer/{id}/edit','edit')->name('officer.edit');
+            Route::post('officer', 'store')->name('officer.store');
+        });
+
+        Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');
+        Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
+
+        Route::group(['prefix'=>'payment/paypal'], function(){
+            Route::post('/order/create',[PaypalPaymentController::class,'create']);
+            Route::post('/order/capture/',[PaypalPaymentController::class,'capture']);
+        });
+
     });
 
     Route::group([
@@ -124,7 +141,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
 
         Route::get('/connections-program',[ BenefactorConnectionsProgramController::class, 'index'])
-            ->name('connections.program.index');    
+            ->name('connections.program.index');
 
 
         Route::get('/home', [BenefactorHomeController::class, 'index'])
@@ -143,7 +160,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])
             ->name('dashboard.index');
-        
+
 
         Route::get('/profile', [BenefactorProfileController::class, 'index'])
             ->name('profile.index');

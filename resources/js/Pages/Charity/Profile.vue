@@ -80,7 +80,8 @@
                                     <h6 class="m-0 ">NGO Heads / Board Members</h6>
                                         <i class="fal fa-ellipsis-v-alt" data-bs-toggle="dropdown"></i>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" :href="$route('charity.officer.create')">Add/Edit Board Member</a>
+                                                <a class="dropdown-item" :href="$route('charity.officer.create')">Add Board Member</a>
+                                                <a class="dropdown-item" :href="$route('charity.officer.edit', {id: this.$page.props.user.charity.id})">Edit/Delete Board Member</a>
                                             </div>
                                     </div>
                                 </div>
@@ -88,6 +89,7 @@
                                     <table class="table table-borderless mb-0 ">
                                         <tbody>
                                             <div class="border-bottom" v-for="officer in $page.props.officer" :key="officer.id">
+                                            
                                             <tr class="nmb-1">
                                                 <th class="p-3">Name</th>
                                                 <td class="p-3">{{officer.last_name + ' ' + officer.first_name}} </td>
@@ -99,6 +101,10 @@
                                             <tr class="nmb-1">
                                                 <th class="p-3">Date of Position</th>
                                                 <td class="p-3">{{officer.officer_since}}</td>
+                                            </tr>
+                                              <tr class="nmb-1">
+                                                <th class="p-3">Actions: </th>
+                                                <td class="p-3"><Link class="btn btn-success btn-sm ">Edit</Link> <Link class="btn btn-danger btn-sm ms-2">Delete</Link></td>
                                             </tr>
                                             </div>
                                         </tbody>
