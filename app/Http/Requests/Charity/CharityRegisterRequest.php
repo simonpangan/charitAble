@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Charity;
 
+use App\Models\Categories;
 use App\Rules\MaxWordsRule;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CharityRegisterRequest extends FormRequest
 {
@@ -25,17 +27,32 @@ class CharityRegisterRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'charityName' => ['required', 'string', 'min:2', new MaxWordsRule(10)],
-            /*
-                email validation
-                https://minuteoflaravel.com/validation/laravel-email-validation-be-aware-of-how-you-validate/
-            */
-            'charityEmail' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
-            'headAdminEmail' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
-            //Password default validations is in the AppServiceProvider
-            'password' => ['required', 'string', 'confirmed', Password::defaults()],
+        if ($this->query->get('step') == 1) {   
+            return $this->stepOneRules();   
+        }
+        
+        return $this->stepOneRules();   
+    }
 
+    private function stepOneRules() : array
+    {
+        return [
+            'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
+            'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'confirmed', Password::defaults()],
+            'preferences' => ['array', 'required'],
+            'preferences.*' => [
+                'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
+            ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'charity_email.required' => 'The organization email field is required.',
+            'email.required' => 'The head admin email field is required.',
         ];
     }
 }
