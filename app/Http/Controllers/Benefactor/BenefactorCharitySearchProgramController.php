@@ -33,7 +33,7 @@ class BenefactorCharitySearchProgramController
             ->when($category, function ($query, $category) {
               $this->filterByCategory($query, $category);
             })
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
     }
 

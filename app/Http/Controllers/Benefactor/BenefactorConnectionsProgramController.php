@@ -30,7 +30,7 @@ class BenefactorConnectionsProgramController
             ->join('charities', 'charities.id', '=', 'charity_programs.charity_id')
             ->filterProgramBy($name, $category)
             ->latest()
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
     }
     private function charityFollowingProgramCategoryStats()

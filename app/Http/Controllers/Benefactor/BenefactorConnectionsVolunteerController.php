@@ -32,7 +32,7 @@ class BenefactorConnectionsVolunteerController
             ->join('charities', 'charities.id', '=', 'charity_volunteer_posts.charity_id')
             ->filterVolunteerPostBy($name, $category)
             ->latest()
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
     }
 
