@@ -28,7 +28,7 @@
                                             <div class="border network-item rounded mb-3">
                                                 <div class="p-3 d-flex align-items-center network-item-header">
                                                     <div class="dropdown-list-image me-3">
-                                                        <img class="rounded-circle" src="img/p2.png" alt="">
+                                                        <img class="rounded-circle" :src="charity.logo" alt="charity logo">
                                                     </div>
                                                     <div class="fw-bold">
                                                         <h6 class="fw-bold text-dark mb-0">{{ charity.name }}</h6>

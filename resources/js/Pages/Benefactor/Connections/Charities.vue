@@ -14,11 +14,10 @@
                                                 <div class="border network-item rounded mb-3">
                                                     <div class="p-3 d-flex align-items-center network-item-header">
                                                         <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" src="img/p1.png" alt="">
+                                                            <img class="rounded-circle" :src="following.logo" alt="charity logo">
                                                         </div>
                                                         <div class="fw-bold">
                                                             <h6 class="fw-bold text-dark mb-0">{{ following.name }}</h6>
-                                                            <!-- <div class="small text-black-50">Photographer at Photography</div> -->
                                                         </div>
                                                     </div>
                                                     <div class="network-item-footer py-3 d-flex text-center">

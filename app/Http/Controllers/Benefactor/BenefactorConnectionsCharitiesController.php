@@ -27,7 +27,7 @@ class BenefactorConnectionsCharitiesController
     {
         return Benefactor::auth()
             ->filterBy($name, $category)
-            ->get(['name', 'id']);
+            ->get(['name', 'id', 'logo']);
     }
 
     private function getCharityFollowingPerCategoryStats()

@@ -1,5 +1,6 @@
 <template>
   <Head title="Home" />
+    
   <div class="py-4" role="scrollComponent">
     <div class="container">
       <div class="row position-relative">
@@ -8,7 +9,10 @@
             <div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
               <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                 <div class="dropdown-list-image me-3">
-                  <!-- <img class="rounded-circle" src='http://127.0.0.1:8000/storage/charity/56/logo/unicef.png' alt=""> -->
+                  <img class="rounded-circle" 
+                    :src="post.charity_logo"
+                    alt="charity logo"
+                  >
                   <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="fw-bold">
@@ -92,7 +96,7 @@
               <div v-for="charity in randomCharity" :key="charity.id"
                 class="d-flex align-items-center osahan-post-header mb-3 people-list">
                 <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" src="img/p8.png" alt="">
+                  <img class="rounded-circle" :src="charity.logo" alt="charity logo">
                   <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="fw-bold me-2">
