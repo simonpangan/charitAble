@@ -78,7 +78,7 @@ class CharityRegisterController extends Controller
 
         $documentFile = $request->only('documentFile');
 
-        $this->createCharity($user, $request->except(['email', 'password']), $link);
+        $this->createCharityWithPreferences($user, $request->except(['email', 'password']), $link);
         
         foreach($documentFile['documentFile'] as $document){
             $documentFileName = $document->getClientOriginalName();
@@ -110,7 +110,7 @@ class CharityRegisterController extends Controller
         ]);
     }
 
-    private function createCharity(User $user, array $data, $link): void
+    private function createCharityWithPreferences(User $user, array $data, $link): void
     {
          $charity = $user->charity()->create([
             'name' => $data['name'],
@@ -120,16 +120,11 @@ class CharityRegisterController extends Controller
             'website_link' => $data['website_link'],
             'facebook_link' => $data['fb_link'],
             'twitter_link' => $data['twitter_link'],
-            'instagram_link' => $data['ig_link'],
+           'instagram_link' => $data['ig_link'],
         ]);
 
+        $charity->categories()->attach($data['categories']);
     }
-
-    // private function createCategoryLink(array $data): void{
-    //     return CharityCategory::create([
-
-    //     ]);
-    // }
 
     public function uploadPhoto(Request $request)
     {

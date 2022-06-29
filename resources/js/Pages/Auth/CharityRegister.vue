@@ -51,18 +51,18 @@
                       <ul class="ks-cboxtags">
                         <li v-for="(category, index) in charityCategories" :key="category.id">
                           <input
-                            v-model="form.preferences"
+                            v-model="form.categories"
                             type="checkbox"
                             :id="'checkbox' + index"
                             :value="category.id"
                           />
                           <label :for="'checkbox' + index">{{ category.name }}</label>
                         </li>
-                        <div v-if="form.errors['preferences.0']" class="text-danger">
-                          {{ form.errors['preferences.0'] }}
+                        <div v-if="form.errors['categories.0']" class="text-danger">
+                          {{ form.errors['categories.0'] }}
                         </div>
-                        <div v-if="form.errors.preferences" class="text-danger">
-                          {{ form.errors['preferences'] }}
+                        <div v-if="form.errors.categories" class="text-danger">
+                          {{ form.errors['categories'] }}
                         </div>
                       </ul>
                     </div>
@@ -451,7 +451,7 @@
         file: [],
         categories: [],
         documentFile: null,
-        preferences: []
+        categories: []
       });
 
       const rules = computed(() => ({
@@ -488,7 +488,7 @@
     },
     data() {
       return {
-        preferences: [],
+        categories: [],
         step: 1,
         totalSteps: 3,
         image_file: '',

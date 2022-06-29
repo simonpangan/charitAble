@@ -41,8 +41,8 @@ class CharityRegisterRequest extends FormRequest
             'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
-            'preferences' => ['array', 'required'],
-            'preferences.*' => [
+            'categories' => ['array', 'required'],
+            'categories.*' => [
                 'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
             ],
         ];
