@@ -846,7 +846,7 @@ ul.ks-cboxtags {
                 font-weight: 900;
                 font-size: 12px;
                 padding: 2px 6px 2px 2px;
-                content: "\f067";
+                // content: "\f067";
                 transition: transform .3s ease-in-out;
             }
         }
@@ -855,7 +855,7 @@ ul.ks-cboxtags {
                 + {
                     label {
                         &::before {
-                            content: "\f00c";
+                            // content: "\f00c";
                             transform: rotate(-360deg);
                             transition: transform .3s ease-in-out;
                         }
