@@ -17,7 +17,12 @@ class CharityPostsController
 {
     public function index(): Response
     {
-        return Inertia::render('Charity/Post/Index');
+        return Inertia::render('Charity/Post/Index',[
+            'posts'=> CharityPosts::where(
+                    'charity_id',Auth::user()->id
+                )->get(),
+            'user' => Auth::user()->withCharity()->toArray(),
+        ]);
     }
 
     public function create(): Response
