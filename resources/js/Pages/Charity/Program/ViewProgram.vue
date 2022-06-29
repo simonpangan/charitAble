@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h3 class="font-weight-bold text-dark mb-1 mt-0"> {{this.$page.props.program.program_name}}<span class="text-info"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></h3>
+                            <h3 class="font-weight-bold text-dark mb-1 mt-0"> {{this.$page.props.program.program_name}}</h3>
                             <p class="mb-0 text-muted"> A Program by {{this.$page.props.charity[0].name}}</p>
                         </div>
                         <div class="profile-right ms-auto">
@@ -60,22 +60,42 @@
                                 <div class="box-body">
                                     <table class="table table-borderless mb-0">
                                         <tbody>
-                                            <tr class="border-bottom">
-                                                <th class="p-3">Expenses Name Number 1</th>
-                                                <td class="p-3">12,000</td>
-                                            </tr>
-                                            <tr class="border-bottom">
-                                                <th class="p-3">Expenses Number 2</th>
-                                                <td class="p-3">5,000</td>
-                                            </tr>
-
-                                            <tr class="">
-                                                <th class="p-3">Expenses Number 2s</th>
-                                                <td class="p-3">2,000</td>
+                                            <tr v-for="expenses in this.$page.props.program.program_expenses">
+                                            <th class="p-3"> {{expenses.program_expenses}}</th>
+                                                <td class="p-3"> {{expenses.program_date_expenses}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+
+
+
+                        <div v-for="volunteer_post in $page.props.volunteer_post" :key="volunteer_post.id" class="col-md-6">
+                                            <Link :href="'volunteer-posts/' + volunteer_post.id">
+                                                <div class="border job-item mb-3">
+                                                    <div class="d-flex align-items-center p-3 job-item-header">
+                                                        <div class="overflow-hidden me-2">
+                                                            <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{volunteer_post.volunteer_work_name}}</h6>
+                                                            <div class="text-truncate text-primary">{{this.$page.props.user.charity.name}}</div>
+                                                            <div class="small text-gray-500"><i class="feather-map-pin"></i>{{volunteer_post.location}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+                                                        <span class="font-weight-bold text-success">Active</span>
+                                                    </div>
+                                                    <div class="p-3 job-item-footer">
+                                                        <small class="text-gray-500"><i class="feather-clock"></i>{{volunteer_post.created_at}}</small>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+
+
+
+
+
+
+
                             </div>
 
                             <div class="box shadow-sm border rounded bg-white mb-3">
@@ -84,26 +104,13 @@
                                 </div>
                                 <div class="box-body p-3">
                                    <ul class="StepProgress">
-                                        <li class="StepProgress-item program-is-done">
-                                        <p class="text-muted">July 20, 22</p>
-                                        <strong>Goal One - Help 1000 Families</strong>
-                                        <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
+
+                                        <li class="StepProgress-item program-is-done" v-for="goal in this.$page.props.program.goal">
+                                         <p class="text-dark"><strong>{{goal.goal}}</strong></p>
+                                        <p class="text-muted">Expected Date of Completion :{{goal.goal_date}}</p>
                                         </li>
-                                        <li class="StepProgress-item program-is-done">
-                                        <p class="text-muted">July 30, 22</p>
-                                        <strong>Goal Two - Feed Malnourished Children</strong>
-                                        <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
-                                        </li>
-                                        <li class="StepProgress-item program-is-done">
-                                        <p class="text-muted">Aug 7, 22</p>
-                                        <strong>Step Three - Documents</strong>
-                                        <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
-                                        </li>
-                                        <li class="StepProgress-item program-is-done">
-                                        <p class="text-muted">Aug 14, 22</p>
-                                        <strong>Step Four - Email Verification</strong>
-                                        <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
-                                        </li>
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -548,7 +555,7 @@
                                 <p class="text-muted">Total Donors</p>
                             </div>
 
-                            <button type="button" class="btn btn-block btn-lg btn-primary w-100 mt-5"> <i class="feather-plus"></i> Donate Now! </button>
+                            <Link :href="$route('benefactor.donate.create',this.$page.props.program.id)"><button type="button" class="btn btn-block btn-lg btn-primary w-100 mt-5"> <i class="feather-plus"></i> Donate Now! </button></Link>
 
 
 

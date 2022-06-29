@@ -11,6 +11,8 @@
                         </div>
                         <div class="profile-right ms-auto">
                             <Link class="btn btn-success btn-lg" :href="$route('charity.volunteer.edit', {id:volunteer_post.id})">Edit</Link>
+                            <Link class="btn btn-danger btn-lg ms-2" :href="$route('charity.volunteer.edit', {id:volunteer_post.id})">Delete</Link>
+
                         </div>
                     </div>
 
@@ -450,7 +452,9 @@
                 </main>
                 <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
 
-                        <button type="button" class="btn btn-block btn-lg btn-primary w-100 mb-3"> <i class="feather-plus"></i> Join Now </button>
+                        <a type="button" class="btn btn-block btn-lg btn-primary w-100 mb-3" 
+                        :href="'mailto:test@example.com?subject=Interested at' + this.volunteer_post.name +'&body=I am looking forward to join your cause!'">
+                         <i class="feather-plus"></i> Join Now </a>
 
 
                     <div class="box shadow-sm border rounded bg-white mb-3">
@@ -518,8 +522,10 @@
 </template>
 
 <script setup>
+
   let props = defineProps({
     charity: Array,
     volunteer_post: Object
   });
+
 </script>

@@ -102,6 +102,7 @@
                             type="radio"
                             name="flexRadioDefault"
                             id="flexRadioDefault1"
+                            v-on:change="PaymongoSelected"
                           />
                           <label
                             class="form-check-label"
@@ -161,6 +162,7 @@
                     <div
                       id="paypal-button-container"
                       v-on:click.prevent.self ="PaypalTransaction"
+                      v-if="this.payment_method == 'paypal'"
                     ></div>
                   </section>
                 </div>
@@ -233,6 +235,7 @@ export default {
   props: {},
   data() {
     return {
+    payment_method : 'paypal',
     total_price : 0,
     price: 0,
     step: 0,
@@ -259,7 +262,12 @@ export default {
             this.step++;
         }
     },
+    PaymongoSelected:function(){
+    this.payment_method = 'gcash';
+
+    },
     PaypalSelected: function () {
+    this.payment_method = 'paypal';
     this.$forceUpdate();
       loadScript({
         "client-id":
@@ -306,9 +314,13 @@ export default {
           console.error("failed to load the PayPal JS SDK script", error);
         });
     },
-   
+
 
   },
+   props: {
+    charity:Array,
+    program:Array
+    },
   computed:{
     total_price(){
         return this.price * this.tip_price()
