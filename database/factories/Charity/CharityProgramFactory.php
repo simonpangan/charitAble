@@ -23,12 +23,12 @@ class CharityProgramFactory extends Factory
             'header' => $this->faker->sentence,  
             'goal' => [
                 '1' => [
-                    'goalName' => $this->faker->sentence,
-                     'date-goalName' =>  $this->faker->date()
+                    'name' => $this->faker->sentence,
+                    'date' =>  $this->faker->date()
                 ], 
                 '2' => [
-                    'goalName' => $this->faker->sentence,
-                     'date-goalName' =>  $this->faker->date()
+                    'name' => $this->faker->sentence,
+                    'date' =>  $this->faker->date()
                 ], 
             ],
             'total_donation_amount' => 50000,  
