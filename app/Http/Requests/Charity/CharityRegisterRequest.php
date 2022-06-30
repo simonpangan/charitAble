@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Charity;
 
 use App\Models\Categories;
-use App\Rules\MaxWordsRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
