@@ -23,11 +23,16 @@ class CharityProfileController extends Controller
     {
         $id = (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN']) ? Auth::id() : $id;
 
+        $charity =  Charity::query()
+            ->with('categories', 'officers')
+            ->find($id);
+
         return Inertia::render(
-            'Charity/Profile',
-            [ 'charity' => Charity::query()
-                    ->with('categories', 'officers')
-                    ->find($id),
+            'Charity/Profile',[ 
+                'charity' => $charity,
+                 'can' => [
+                    'modifyBoardMember' => Auth::id() ==  $charity->id
+                 ]   
             ],
         );
     }
