@@ -1,9 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container mt-4">
     <div class="row justify-content-center align-items-center d-flex h-75">
       <div class="col-md-6">
-          <i class="feather-arrow-left me-2 "></i
-                            ><Link href="profile" class="fw-bold text-muted ">Return to Profile</Link>
+        <Link class="fw-bold" :href="$route('charity.profile.index')">
+            <i class="far fa-angle-double-left fa-lg"></i>
+            Return to Profile
+        </Link>
         <form @submit.prevent="submit">
         <div class="box shadow-sm border rounded bg-white mb-3 mt-3 osahan-post">
           <div
