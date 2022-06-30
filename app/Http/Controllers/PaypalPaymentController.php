@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ProgramDonations;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
-
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Exceptions;
 
 class PaypalPaymentController extends Controller
 {
@@ -47,25 +49,23 @@ class PaypalPaymentController extends Controller
     public function capture(Request $request)
     {
 
-        $data = json_decode($request->getContent(), true);
-        $orderId = $data['orderId'];
-        $this->PayPalClient->setApiCredentials(config('paypal'));
-        $token = $this->PayPalClient->getAccessToken();
-        $this->PayPalClient->setAccessToken($token);
-        $result = $this->PayPalClient->capturePaymentOrder($orderId);
+        try{
+            ProgramDonations::create([
+                'benefactor_id' =>  2,
+                'charity_program_id' => $request['charity_program_id'],
+                'amount' => $request['amount'],
+                'transaction_id' => $request['transaction_id'],
+                'tip_price' => $request['tip_price'],
+                'donated_at' => Carbon::now()
+            ]);
 
-//            $result = $result->purchase_units[0]->payments->captures[0];
-
-        return ("FUCKKK");
+            return "Status 500";
+        }catch(\Exception $e){
+            return response($e);
+        }
 
 
     }
 
-    public function createProgram($data){
-
-        ProgramDonations::create([
-            //benefactor_id : Auth::id
-            //program_id : Pass from url_id
-        ]);
-    }
+   
 }
