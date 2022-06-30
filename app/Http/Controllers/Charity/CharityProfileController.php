@@ -3,19 +3,11 @@
 namespace App\Http\Controllers\Charity;
 
 use App\Models\Role;
-use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Benefactor;
 use App\Models\Charity\Charity;
 use App\Http\Controllers\Controller;
-use App\Models\Charity\CharityPosts;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Charity\CharityProgram;
-
-use App\Models\Charity\CharityOfficers;
-use App\Models\Charity\CharityVolunteerPost;
-
 
 class CharityProfileController extends Controller
 {

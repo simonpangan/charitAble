@@ -22,7 +22,10 @@
                                         </span>
                                     </div>
                                     <div class="p-3 job-item-footer">
-                                        <small class="text-gray-500"><i class="feather-clock"></i>{{volunteer_post.created_at}}</small>
+                                        <small class="text-gray-500">
+                                            <i class="fas fa-clock"></i>
+                                            {{volunteer_post.created_at_formatted}}
+                                        </small>
                                     </div>
                                 </div>
                             </Link>

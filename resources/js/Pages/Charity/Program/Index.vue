@@ -12,7 +12,10 @@
                                 <h5 class="card-title nmb-1">{{program.program_name}}</h5>
                                 <p class="card-text text-muted ">{{program.location}}</p>
                                 <p class="card-text text-success ">On-Going</p>
-                                <p class="card-text text-dark">{{program.created_at_formatted}}</p>
+                                <p class="card-text text-dark">
+                                  <i class="fas fa-clock"></i>
+                                  {{program.created_at_formatted}}
+                                </p>
                             </div>
                         </div>
                 </Link>
