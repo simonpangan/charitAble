@@ -10,9 +10,12 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityOfficers;
 use Inertia\Response as InertiaResponse;
 use App\Http\Requests\Charity\CharityOfficerRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CharityOfficerController
 {
+    use AuthorizesRequests;
+    
     public function create(): Response
     {
         return Inertia::render('Charity/BoardMember/Create');
@@ -50,9 +53,12 @@ class CharityOfficerController
 
     public function destroy(int $id): RedirectResponse
     {
-        CharityOfficers::query()
-            ->findOrFail($id)
-            ->delete();
+        $this->authorize('delete',  
+            $officer = CharityOfficers::query()
+                ->findOrFail($id)
+        );
+
+        $officer->delete();
 
         return to_route('charity.profile.index');
     }
