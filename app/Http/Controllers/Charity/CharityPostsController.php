@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Charity\CharityPostStoreRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 
 class CharityPostsController
 {
+    use AuthorizesRequests;
+
     public function index(int $id = null): Response
     {
         if (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN'] && $id == null) {
@@ -34,7 +38,7 @@ class CharityPostsController
         return Inertia::render('Charity/Post/Index',[
             'posts'=> CharityPosts::where(
                     'charity_id', $charity->id
-                )->get(),
+                )->latest()->get(),
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id
@@ -101,13 +105,17 @@ class CharityPostsController
 
     public function destroy(int $id): RedirectResponse
     {
-        CharityPosts::query()
-            ->findOrFail($id)
-            ->delete();
-            
-        // Auth::user()->createLog("You have deleted program with id");
+        $post = CharityPosts::findOrFail($id);
 
-        return to_route('charity.posts.index');
+        abort_if($post->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+
+        Auth::user()->createLog("You have deleted a post");
+
+        $post->delete();
+
+        return to_route('charity.post.index', [
+            'id' => Auth::id()
+        ]);
     }
 
     public function uploadPostPhoto(Request $request){
@@ -127,5 +135,5 @@ class CharityPostsController
             return '200';
         }
         return '500';
-}
+    }
 }
