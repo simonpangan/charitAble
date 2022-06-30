@@ -73,14 +73,11 @@
                         <div class="p-3 border-bottom">
                                 <div class="d-flex align-items-top">
                                 <p class="mb-0 text-dark font-weight-bold">Email Address</p>
-                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">unicef_hr@unicefPH.com</p>
-                            </div>
-                            <div class="d-flex align-items-top">
-                                <p class="mb-0 text-dark font-weight-bold">Number</p>
-                                <p class="font-weight-bold mb-0 mt-0 ms-auto">0912-135-1884</p>
+                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">
+                                    {{this.$page.props.charity.charity_email}}
+                                </p>
                             </div>
                         </div>
-
                         <div class="p-3">
                             <div class="mt-2 mb-2">
                             <a href="#"><i class="feather-facebook me-3"></i></a>
@@ -88,7 +85,6 @@
                             <a href="#"><i class="feather-instagram mx-3"></i></a>
                             <a href="#"><i class="feather-globe mx-3"></i></a>
                             </div>
-
                         </div>
                     </div>
                     <div class="box shadow-sm border rounded bg-white mb-3">
