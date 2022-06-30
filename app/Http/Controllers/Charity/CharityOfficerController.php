@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Charity;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use App\Models\Charity\CharityOfficers;
-use App\Models\Charity\Charity;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
+use App\Models\Charity\Charity;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Charity\CharityOfficers;
 use Inertia\Response as InertiaResponse;
+use App\Http\Requests\Charity\CharityOfficerRequest;
 
 class CharityOfficerController
 {
@@ -18,7 +19,7 @@ class CharityOfficerController
     }
 
     
-    public function store(Request $request): RedirectResponse
+    public function store(CharityOfficerRequest $request): RedirectResponse
     {
         $id = auth()->user()->id;
 
