@@ -17,14 +17,11 @@ class CharityOfficerController
     {
         return Inertia::render('Charity/BoardMember/Create');
     }
-
     
     public function store(CharityOfficerRequest $request): RedirectResponse
     {
-        $id = auth()->user()->id;
-
         CharityOfficers::create([
-            'charity_id' => $id,
+            'charity_id' => auth()->user()->id,
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'officer_since' => $request['officer_since'],
@@ -33,43 +30,30 @@ class CharityOfficerController
 
         return to_route('charity.profile.index');
     }
-    
-    public function edit(int $id): InertiaResponse
-    {
-        $id = auth()->user()->id;
 
+    public function show(int $id): InertiaResponse
+    {
         return Inertia::render(
             'Charity/BoardMember/Edit',
-            [
-                'charity' => Charity::where('id',$id)->get()->toArray(),
-                'officer' => CharityOfficers::where('charity_id',$id)->get()->toArray(),
-            ]);
-
+            ['officer' => CharityOfficers::find($id)]
+        );
     }
     
-    // public function edit(int $id): InertiaResponse
-    // {
-    //     return Inertia::render(
-    //         '',
-    //         CharityVolunteerPost::findOrFail($id)->toArray()
-    //     );
-    // }
+    public function edit(CharityOfficerRequest $request): RedirectResponse
+    {
+        CharityOfficers::query()
+            ->findOrFail($request->id)
+            ->update($request->validated());
 
-    // public function update(CharityVolunteerPostRequest $request, int $id): RedirectResponse
-    // {
-    //     CharityVolunteerPost::query()
-    //         ->findOrFail($id)
-    //         ->update($request->validated());
+        return to_route('charity.profile.index');
+    }
 
-    //     return to_route('');
-    // }
+    public function destroy(int $id): RedirectResponse
+    {
+        CharityOfficers::query()
+            ->findOrFail($id)
+            ->delete();
 
-    // public function destroy(int $id): RedirectResponse
-    // {
-    //     CharityVolunteerPost::query()
-    //         ->findOrFail($id)
-    //         ->delete();
-
-    //     return to_route('index');
-    // }
+        return to_route('charity.profile.index');
+    }
 }

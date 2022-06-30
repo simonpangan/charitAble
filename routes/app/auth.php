@@ -102,8 +102,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::controller(CharityOfficerController::class)->group(function(){
             Route::get('officer','create')->name('officer.create');
-            Route::get('officer/{id}/edit','edit')->name('officer.edit');
-            Route::post('officer', 'store')->name('officer.store');
+            Route::post('officer/create','store')->name('officer.store');
+            Route::get('officer/{id}/edit','show')->name('officer.show');
+            Route::put('officer','edit')->name('officer.edit');
+            Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
         });
 
         Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');

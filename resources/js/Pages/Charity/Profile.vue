@@ -56,7 +56,7 @@
                             <div class="border-bottom" v-for="officer in charity.officers" :key="officer.id">
                                 <tr class="nmb-1">
                                     <th class="p-3">Name</th>
-                                    <td class="p-3">{{officer.last_name + ' ' + officer.first_name}} </td>
+                                    <td class="p-3">{{officer.first_name + ' ' + officer.last_name}} </td>
                                 </tr>
                                 <tr class="nmb-1">
                                     <th class="p-3">Position</th>
@@ -69,7 +69,12 @@
                                     <tr class="nmb-1">
                                     <th class="p-3">Actions: </th>
                                     <td class="p-3">
-                                        <Link class="btn btn-success btn-sm ">Edit</Link> 
+                                        <Link 
+                                            :href="$route('charity.officer.show', {
+                                                id: officer.id
+                                            })"
+                                            class="btn btn-success btn-sm"
+                                        >Edit</Link> 
                                         <Link 
                                             @click="officerDelete(officer.id)"
                                             as="button" 
@@ -132,13 +137,15 @@ export default {
             if (result.isConfirmed) {
                 Inertia.delete(route('charity.officer.destroy', {
                     id: id 
-                }));
-
-                this.$swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
+                }), {
+                    onSuccess: () => {
+                         this.$swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    },
+                });
             }
         })
     },

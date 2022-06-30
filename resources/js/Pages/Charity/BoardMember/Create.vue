@@ -24,7 +24,10 @@
                     <div class="form-group">
                       <input type="text" class="form-control" 
                         v-model="form.first_name" 
-                        placeholder="Enter your name" />
+                        placeholder="Enter name" />
+                        <span v-if="form.errors.first_name" class="text-danger">
+                          {{ form.errors.first_name }}
+                        </span>
                     </div>
                   </div>
                 </div>
@@ -33,8 +36,11 @@
                     <label id="usernameLabel" class="form-label"> Last Name <span class="text-danger">*</span>
                     </label>
                     <div class="form-group">
-                      <input  type="text" class="form-control" v-model="form.last_name" placeholder="Enter your last_name" />
-                      </div>
+                      <input  type="text" class="form-control" v-model="form.last_name" placeholder="Enter last name" />
+                        <span v-if="form.errors.last_name" class="text-danger">
+                          {{ form.errors.last_name }}
+                        </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -42,13 +48,13 @@
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Position</label>
-                    <div class="position-relative icon-form-control">
-                      <select  class="form-select" v-model="form.position">
-                        <option disabled selected>Please select one</option>
-                        <option value="Board Member">Board Member</option>
-                        <option value="Senior Staff Member">Senior Staff Member</option>
-                        <option value="Owner/Founder">Owner / Founder</option>
-                      </select>
+                    <div class="position-relative">
+                      <input type="text" class="form-control" 
+                        v-model="form.position" 
+                        placeholder="Enter position" />
+                      <span v-if="form.errors.position" class="text-danger">
+                          {{ form.errors.position }}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -56,9 +62,12 @@
               <div class="row mt-2">
                   <div class="col">
                       <div class="form-group">
-                          <label class="mb-1">Position since...</label>
+                          <label class="mb-1">Officer since...</label>
                           <input type="date" v-model="form.officer_since" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
+                        <span v-if="form.errors.officer_since" class="text-danger">
+                          {{ form.errors.officer_since }}
+                      </span>
                   </div>
               </div>    
           </div>
@@ -66,7 +75,7 @@
             <div class="p-3 d-flex">
               <span class="mx-auto">
                 <button :disabled="form.processing"  type="submit" class="btn btn-primary btn-sm rounded">
-                  <i class="feather-send"></i> Send
+                  Submit
                 </button>
               </span>
             </div>
