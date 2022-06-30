@@ -68,7 +68,15 @@
                                 </tr>
                                     <tr class="nmb-1">
                                     <th class="p-3">Actions: </th>
-                                    <td class="p-3"><Link class="btn btn-success btn-sm ">Edit</Link> <Link class="btn btn-danger btn-sm ms-2">Delete</Link></td>
+                                    <td class="p-3">
+                                        <Link class="btn btn-success btn-sm ">Edit</Link> 
+                                        <Link 
+                                            @click="officerDelete(officer.id)"
+                                            as="button" 
+                                            class="btn btn-danger btn-sm ms-2">
+                                            Delete
+                                        </Link>
+                                    </td>
                                 </tr>
                             </div>
                         </tbody>
@@ -104,4 +112,36 @@ import CharityLayout from './CharityLayout.vue';
 let props = defineProps({
     charity: Object,
 })
+</script>
+
+<script>
+import { Inertia } from '@inertiajs/inertia'
+
+export default {
+  methods: {
+    officerDelete(id) {
+        this.$swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Inertia.delete(route('charity.officer.destroy', {
+                    id: id 
+                }));
+
+                this.$swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+    },
+  },
+};
 </script>
