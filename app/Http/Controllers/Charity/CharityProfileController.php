@@ -37,7 +37,7 @@ class CharityProfileController extends Controller
             'Charity/Profile',[ 
                 'charity' => $charity,
                  'can' => [
-                    'modifyBoardMember' => Auth::id() ==  $charity->id
+                    'access' => Auth::id() ==  $charity->id
                  ]   
             ],
         );

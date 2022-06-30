@@ -87,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box shadow-sm border rounded bg-white mb-3">
+                    <div v-if="$page.props.can.access" class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Charity Features</h6>
                         </div>
