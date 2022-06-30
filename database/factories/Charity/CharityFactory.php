@@ -21,6 +21,7 @@ class CharityFactory extends Factory
             'name' => $this->faker->company,
             'about' => $this->faker->paragraph(5),
             'logo' => $this->faker->sentence,  
+            'charity_email' => $this->faker->email,  
             'website_link' =>$this->faker->url,
             'facebook_link' => $this->faker->url, 
             'twitter_link' => $this->faker->url, 
