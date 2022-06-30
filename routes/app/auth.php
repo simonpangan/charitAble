@@ -84,6 +84,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
+            Route::get('volunteer-posts', 'index')->name('volunteer.index');
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
             Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');

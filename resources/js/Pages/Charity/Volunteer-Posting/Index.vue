@@ -1,0 +1,43 @@
+<template>
+    <Head title="Volunteer Posting" />
+    <charity-layout>
+        <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="box shadow-sm border rounded bg-white p-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div v-for="volunteer_post in volunteerPost" :key="volunteer_post.id" class="col-md-6">
+                            <Link :href="'volunteer-posts/' + volunteer_post.id">
+                                <div class="border job-item mb-3">
+                                    <div class="d-flex align-items-center p-3 job-item-header">
+                                        <div class="overflow-hidden me-2">
+                                            <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{volunteer_post.volunteer_work_name}}</h6>
+                                            <div class="text-truncate text-primary">{{this.$page.props.user.charity.name}}</div>
+                                            <div class="small text-gray-500"><i class="feather-map-pin"></i>{{volunteer_post.location}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+                                        <span class="font-weight-bold text-success">Active</span>
+                                    </div>
+                                    <div class="p-3 job-item-footer">
+                                        <small class="text-gray-500"><i class="feather-clock"></i>{{volunteer_post.created_at}}</small>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </charity-layout>
+</template>
+
+<script setup>
+import CharityLayout from '../CharityLayout.vue';
+
+let props = defineProps({
+    volunteerPost: String,
+});
+
+</script>

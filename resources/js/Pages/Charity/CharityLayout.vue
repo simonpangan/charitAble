@@ -40,7 +40,11 @@
                                 :href="$route('charity.post.index')">Posts</Link>
 							</li>
 							<li class="nav-item">
-								<!-- <Link class="nav-link" :href="$route('charity.post.index')">VoluntPosting</Link> -->
+								<Link class="nav-link" 
+                                    :class="{ 'active': $page.component === 'Charity/Volunteer-Posting/Index' }"
+                                    :href="$route('charity.volunteer.index')">
+                                    VoluntPosting
+                                </Link>
 							</li>
 							<li class="nav-item">
 								<!-- <Link class="nav-link" :href="$route('charity.program.index')">Program</Link> -->
