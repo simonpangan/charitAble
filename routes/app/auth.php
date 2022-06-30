@@ -51,7 +51,7 @@ use App\Http\Controllers\PaypalPaymentController;
 Route::middleware('verified:auth.verification.notice')->group(function () {
 
     //CAN BE ACCESS BY ANY VERIFIED USER
-    Route::get('/profile/{id?}', [CharityProfileController::class, 'index'])
+    Route::get('charity/profile/{id?}', [CharityProfileController::class, 'index'])
         ->name('charity.profile.index')
         ->where('id', '[0-9]+');
 
