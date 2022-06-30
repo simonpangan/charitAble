@@ -2,26 +2,43 @@
 
 namespace App\Http\Controllers\Charity;
 
+use App\Models\Role;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Charity\CharityPosts;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
+use App\Models\Charity\Charity;
+use App\Models\Charity\CharityPosts;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Charity\CharityPostStoreRequest;
 
 
 class CharityPostsController
 {
-    public function index(): Response
+    public function index(int $id = null): Response
     {
+        if (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN'] && $id == null) {
+            $charityID = Auth::id();
+        } elseif (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN'] && $id) {
+            $charityID = $id;
+        } else {
+            $charityID = $id;
+        }
+
+        $charity =  Charity::query()
+            ->with('categories', 'officers')
+            ->findOrFail($charityID);
+
         return Inertia::render('Charity/Post/Index',[
             'posts'=> CharityPosts::where(
-                    'charity_id',Auth::user()->id
+                    'charity_id', $charity->id
                 )->get(),
-            'user' => Auth::user()->withCharity()->toArray(),
+            'charity' => $charity,
+            'can' => [
+                'access' => Auth::id() ==  $charity->id
+            ]
         ]);
     }
 
