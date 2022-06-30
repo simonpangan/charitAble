@@ -75,7 +75,7 @@ class CharityRegisterController extends Controller
                 ->first()
                 ->delete();
 
-            $link = 'storage/charity/'.$id.'/logo'.'/'.$filename;
+            $link = '/storage/charity/'.$id.'/logo'.'/'.$filename;
         }
 
 
