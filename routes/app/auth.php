@@ -76,7 +76,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/logs', CharityLogController::class)->name('logs.index');
 
         Route::controller(CharityProgramController::class)->group(function () {
-            Route::get('program', 'index')->name('program.index');
+            Route::get('{id?}/program', 'index')->name('program.index')
+                ->where('id', '[0-9]+');
             Route::get('program/create', 'create')->name('program.create');
             Route::post('program', 'store')->name('program.store');
             Route::get('program/{id}', 'show')->name('program.show');
@@ -86,7 +87,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
-            Route::get('{id?}/volunteer-posts', 'index')->name('volunteer.index')->where('id', '[0-9]+');
+            Route::get('{id?}/volunteer-posts', 'index')->name('volunteer.index')
+                ->where('id', '[0-9]+');
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
             Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');

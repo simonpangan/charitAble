@@ -15,13 +15,19 @@ use App\Http\Requests\Charity\CharityProgramRequest;
 
 class CharityProgramController
 {
-    public function index(): Response
+    public function index(int $id): Response
     {
+        $charity =  Charity::query()
+            ->findOrFail($id);
+
         return Inertia::render('Charity/Program/Index',[
-            'user' => Auth::user()->withCharity(),
             'programs' => CharityProgram::where(
-                'charity_id', Auth::user()->id
-            )->get()->toArray(),
+                    'charity_id', $id
+                )->get(),
+            'charity' => $charity,
+            'can' => [
+                'access' => Auth::id() ==  $charity->id
+            ]
         ]);
     }
 
