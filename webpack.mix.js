@@ -1,4 +1,7 @@
 const mix = require('laravel-mix');
+var path = require('path');
+
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -23,4 +26,8 @@ mix.webpackConfig({
         // filename:'js/main/[name].js',
         chunkFilename: 'js/pages/[name].js',
     },
+});
+
+mix.alias({
+    '~blockchain': path.join(__dirname, 'blockchain')
 });
