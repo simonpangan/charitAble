@@ -6,12 +6,11 @@
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
                             <h1 class="font-weight-bold text-dark mb-1 mt-0">
-                                {{this.$page.props.user.charity.name}} 
+                                {{this.$page.props.charity.name}} 
                                 <span class="text-info">
                                     <i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i>
                                 </span>
                             </h1>
-                            <p class="mb-0 text-muted"> Category Charity 1 | Category Charity</p>
                         </div>
                         <div class="profile-right ms-auto">
                             <button type="button" class="btn btn-light me-2"> <i class="feather-external-link"></i> Donate </button>
@@ -47,8 +46,12 @@
                                 </Link>
 							</li>
 							<li class="nav-item">
-								<!-- <Link class="nav-link" :href="$route('charity.program.index')">Program</Link> -->
-							</li>
+								<Link class="nav-link" 
+                                    :class="{ 'active': $page.component === 'Charity/Program/Index' }"
+                                    :href="$route('charity.program.index')">
+                                    Program
+                                </Link>
+                            </li>
 						</ul>
                     </div>
                     <div class="tab-content" id="myTabContent">
@@ -58,12 +61,12 @@
                 <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
                     <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
                         <div class="p-5">
-                            <img v-bind:src="this.$page.props.user.charity.logo" class="img-fluid" alt="Responsive image">
+                            <img v-bind:src="this.$page.props.charity.logo" class="img-fluid" alt="Responsive image">
                         </div>
                         <div class="p-3 border-top border-bottom">
                                 <div class="d-flex align-items-top">
                                 <p class="mb-0 text-dark font-weight-bold">Total Followers</p>
-                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">35,148</p>
+                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">{{this.$page.props.charity.followers}}</p>
                             </div>
                         </div>
 
