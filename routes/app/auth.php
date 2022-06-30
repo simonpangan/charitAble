@@ -86,7 +86,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
-            Route::get('volunteer-posts', 'index')->name('volunteer.index');
+            Route::get('{id?}/volunteer-posts', 'index')->name('volunteer.index')->where('id', '[0-9]+');
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
             Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');
@@ -96,7 +96,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityPostsController::class)->group(function(){
-            Route::get('{id?}/post','index')->name('post.index');
+            Route::get('{id?}/post','index')->name('post.index')->where('id', '[0-9]+');
             Route::get('post/create','create')->name('post.create');
             Route::post('post', 'store')->name('post.store');
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
