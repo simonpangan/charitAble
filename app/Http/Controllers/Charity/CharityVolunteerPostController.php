@@ -3,15 +3,26 @@
 namespace App\Http\Controllers\Charity;
 
 use Inertia\Inertia;
-use Illuminate\Http\RedirectResponse;
-use App\Models\Charity\CharityVolunteerPost;
-use App\Http\Requests\Charity\CharityVolunteerPostRequest;
-use Inertia\Response as InertiaResponse;
 use Inertia\Response;
 use App\Models\Charity\Charity;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Response as InertiaResponse;
+use App\Models\Charity\CharityVolunteerPost;
+use App\Http\Requests\Charity\CharityVolunteerPostRequest;
 
 class CharityVolunteerPostController
 {
+    public function index(): Response
+    {
+        return Inertia::render('Charity/Volunteer-Posting/Index',[
+            'volunteerPost'=> CharityVolunteerPost::where(
+                    'charity_id',Auth::user()->id
+                )->get(),
+            'user' => Auth::user()->withCharity(),
+        ]);
+    }
+
     public function store(CharityVolunteerPostRequest $request): RedirectResponse
     {
         CharityVolunteerPost::create([
