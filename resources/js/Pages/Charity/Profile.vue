@@ -32,9 +32,37 @@
                                 <th class="p-3">Permit/s</th>
                                 <td class="p-3">SEC Registered Non-Profit Organization</td>
                             </tr>
-                            <tr class="border-bottom">
-                                <th class="p-3">Location</th>
-                                <td class="p-3">14th floor, North Tower, Rockwell Business Center Sheridan Sheridan Street, corner United St, Mandaluyong, 1550 Metro Manila </td>
+                            <tr class="border-bottom" v-if="charity.website_link">
+                                <th class="p-3">Website</th>
+                                <td class="p-3">
+                                    <a :href="charity.website_link" class="text-dark" target="_blank">
+                                        {{ charity.website_link }}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="border-bottom" v-if="charity.facebook_link">
+                                <th class="p-3">Facebook</th>
+                                <td class="p-3">
+                                      <a :href="charity.facebook_link" class="text-dark" target="_blank">
+                                        {{ charity.facebook_link }}
+                                    </a>
+                                </td>
+                            </tr>
+                             <tr class="border-bottom" v-if="charity.twitter_link">
+                                <th class="p-3">Twitter</th>
+                                <td class="p-3">
+                                    <a :href="charity.twitter_link" class="text-dark" target="_blank">
+                                        {{ charity.twitter_link }}
+                                    </a>
+                                </td>
+                            </tr>
+                             <tr class="border-bottom" v-if="charity.instagram_link">
+                                <th class="p-3">Instagram</th>
+                                <td class="p-3">
+                                    <a :href="charity.instagram_link" class="text-dark" target="_blank">
+                                        {{ charity.instagram_link }}
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -86,25 +114,6 @@
                             </div>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="box shadow-sm border rounded bg-white mb-3">
-                <div class="box-title border-bottom p-3">
-                    <h6 class="m-0">Locations</h6>
-                </div>
-                <div class="p-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card overflow-hidden">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123497.75112352976!2d120.99396112601966!3d14.695351893726098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c90bd1249c53%3A0x7f97c78e9a17f459!2sUnited%20Nations%20Children&#39;s%20Fund%20(UNICEF)!5e0!3m2!1sen!2sph!4v1655078379001!5m2!1sen!2sph&z=6"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                                    width="100%" height="150" frameborder="0" style="border:0;" ></iframe>
-                                <div class="card-body">
-                                    <h6 class="card-title">UNICEF Philippines Main Branch</h6>
-                                    <p class="card-text">14th floor, North Tower, Rockwell Business Center Sheridan Sheridan Street, corner United St, Mandaluyong, 1550 Metro Manila</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
