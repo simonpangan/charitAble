@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Charity;
 
+use App\Models\Role;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Charity\Charity;
@@ -13,13 +14,19 @@ use App\Http\Requests\Charity\CharityVolunteerPostRequest;
 
 class CharityVolunteerPostController
 {
-    public function index(): Response
+    public function index(int $id): Response
     {
+        $charity =  Charity::query()
+            ->findOrFail($id);
+
         return Inertia::render('Charity/Volunteer-Posting/Index',[
             'volunteerPost'=> CharityVolunteerPost::where(
-                    'charity_id',Auth::user()->id
+                    'charity_id', $id
                 )->get(),
-            'user' => Auth::user()->withCharity(),
+            'charity' => $charity,
+            'can' => [
+                'access' => Auth::id() ==  $charity->id
+            ]
         ]);
     }
 
