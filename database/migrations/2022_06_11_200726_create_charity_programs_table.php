@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('charity_programs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')->constrained();
-            $table->string('name');
-            $table->text('description');
+            $table->string('program_name');
+            $table->text('program_description');
             $table->string('location');
             $table->json('goal');
             $table->string('total_donation_amount');

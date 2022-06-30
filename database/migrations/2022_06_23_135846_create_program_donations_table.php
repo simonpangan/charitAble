@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('program_donations', function (Blueprint $table) {
+        Schema::create('program_donation', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_program_id')->constrained();
             $table->foreignId('benefactor_id')->constrained();
             $table->string('amount');
             $table->timestamp('donated_at');
-
-
+            $table->string('transaction_id');
+            $table->string('tip_price');
             $table->index(['charity_program_id', 'benefactor_id']);
             $table->index(['benefactor_id', 'charity_program_id']);
         });

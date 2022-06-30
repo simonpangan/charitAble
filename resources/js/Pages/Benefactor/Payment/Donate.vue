@@ -45,15 +45,13 @@
                     </div>
                   </div>
 
-                  <h6 class="text-dark nmb-1">
-                    You are supporting
-                    <strong class="text-dark">{{
-                      "Insert Program Name"
-                    }}</strong>
-                  </h6>
-                  <p class="text-muted">
+                  <p class="text-dark nmb-1">
+                    You are supporting towards the program : <strong class="text-dark">{{this.$page.props.program.program_name}}</strong>
+
+                  </p>
+                  <p class="text-muted"><small>
                     Your contribution will help
-                    <strong>{{ "Insert Charity Name" }}</strong>
+                    {{this.$page.props.charity[0].name}}</small>
                   </p>
 
                   <label for="customRange3" class="form-label mt-5"
@@ -218,7 +216,7 @@
 </template>
 
 <script>
-import { reactive, computed } from "vue";
+import { reactive, computed,ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import axios from 'axios';
 import { loadScript } from "@paypal/paypal-js";
@@ -229,10 +227,13 @@ export default {
   beforeMounted() {
     this.PaypalSelected();
   },
+props: {
+    charity:Array,
+    program:Array
+},
   setup() {
 
   },
-  props: {},
   data() {
     return {
     payment_method : 'paypal',
@@ -240,7 +241,8 @@ export default {
     price: 0,
     step: 0,
     tip_level: 5,
-    tip_price: 0
+    tip_price: 0,
+    program_id : this.program.id
     };
   },
   methods: {
@@ -271,7 +273,7 @@ export default {
     this.$forceUpdate();
       loadScript({
         "client-id":
-          "AZYDSrvAxpUej4aA4gpkC2BPNN7nPXyeH0Ck2dS_LCL-2ow-XgnH7Gzl2Sxd__WPHxRQ2FhaRl6KIgvH", currency: "PHP"
+          "AZYDSrvAxpUej4aA4gpkC2BPNN7nPXyeH0Ck2dS_LCL-2ow-XgnH7Gzl2Sxd__WPHxRQ2FhaRl6KIgvH&disable-funding=credit,card", currency: "PHP",
       })
         .then((paypal) => {
           paypal
@@ -296,13 +298,25 @@ export default {
                 });
             },
 
-            OnApprove:(data,action) =>{
-                return Inertia.post('paypal/order/capture',{
-                    method:'POST',
-                    data: JSON.stringify({
-                        orderID : data.orderID,
+            onApprove:(data,action) =>{
+                return action.order.capture()
+                .then(function(orderData) {
+             console.log(orderData.purchase_units[0].amount.value);
+            // const transaction = orderData.purchase_units[0].payments.captures[0];
+            // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                    axios.post('paypal/order/capture/',{
+                         amount: orderData.purchase_units[0].amount.value,
+                        transaction_id:orderData.id,
+                        tip_price: orderData.purchase_units[0].description,
+                        charity_program_id: 1
+                    }).then((response)=>{
+                        let vm = this;
+
+                        Inertia.visit(route('charity.donate.success',
+
+                        {id: vm.program_id,transaction_id:orderData.id}))
                     })
-                })
+                });
             }
         }))
             .render("#paypal-button-container")
@@ -317,10 +331,7 @@ export default {
 
 
   },
-   props: {
-    charity:Array,
-    program:Array
-    },
+
   computed:{
     total_price(){
         return this.price * this.tip_price()
