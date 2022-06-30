@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('program_donation', function (Blueprint $table) {
+        Schema::create('program_donations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_program_id')->constrained();
             $table->foreignId('benefactor_id')->constrained();
