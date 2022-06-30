@@ -10,37 +10,35 @@
                                 <div class="p-3">
                                     <div class="row">
                                         <div class="col-md-4" v-for="(following, index) in followingList" :key="index">
-                                            <a href="profile.html">
-                                                <div class="border network-item rounded mb-3">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" :src="following.logo" alt="charity logo">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">{{ following.name }}</h6>
-                                                        </div>
+                                            <div class="border network-item rounded mb-3">
+                                                <div class="p-3 d-flex align-items-center network-item-header">
+                                                    <div class="dropdown-list-image me-3">
+                                                        <img class="rounded-circle" :src="following.logo" alt="charity logo">
                                                     </div>
-                                                    <div class="network-item-footer py-3 d-flex text-center">
-                                                        <div class="col-6 ps-3 pe-1">
-                                                             <Link class="btn btn-primary btn-sm d-block w-100"
-                                                                :href="$route('charity.profile.index', {
-                                                                    id: following.id
-                                                                })" >
-                                                                    View Profile
-                                                            </Link>
-                                                        </div>
-                                                        <div class="col-6 pe-3 ps-1">
-                                                            <Link :href="$route('benefactor.connections.charities.destroy', {
-                                                                id: following.id
-                                                            })" method="delete" as="button" type="button"
-                                                                class="btn btn-outline-primary btn-sm d-block w-100">
-                                                            <i class="feather-user-psus"></i>  
-                                                                Unfollow
-                                                            </Link>
-                                                        </div>
+                                                    <div class="fw-bold">
+                                                        <h6 class="fw-bold text-dark mb-0">{{ following.name }}</h6>
                                                     </div>
                                                 </div>
-                                            </a>
+                                                <div class="network-item-footer py-3 d-flex text-center">
+                                                    <div class="col-6 ps-3 pe-1">
+                                                            <Link class="btn btn-primary btn-sm d-block w-100"
+                                                            :href="$route('charity.profile.index', {
+                                                                id: following.id
+                                                            })" >
+                                                                View Profile
+                                                        </Link>
+                                                    </div>
+                                                    <div class="col-6 pe-3 ps-1">
+                                                        <Link :href="$route('benefactor.connections.charities.destroy', {
+                                                            id: following.id
+                                                        })" method="delete" as="button" type="button"
+                                                            class="btn btn-outline-primary btn-sm d-block w-100">
+                                                        <i class="feather-user-psus"></i>  
+                                                            Unfollow
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

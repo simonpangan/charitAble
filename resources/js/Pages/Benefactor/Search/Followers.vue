@@ -24,47 +24,45 @@
                             <div class="p-3 w-100">
                                 <div class="row">
                                     <div v-for="charity in charities.data" :key="charity.id" class="col-md-3">
-                                        <Link href="profile.html">
-                                            <div class="border network-item rounded mb-3">
-                                                <div class="p-3 d-flex align-items-center network-item-header">
-                                                    <div class="dropdown-list-image me-3">
-                                                        <img class="rounded-circle" :src="charity.logo" alt="charity logo">
-                                                    </div>
-                                                    <div class="fw-bold">
-                                                        <h6 class="fw-bold text-dark mb-0">{{ charity.name }}</h6>
-                                                    </div>
+                                        <div class="border network-item rounded mb-3">
+                                            <div class="p-3 d-flex align-items-center network-item-header">
+                                                <div class="dropdown-list-image me-3">
+                                                    <img class="rounded-circle" :src="charity.logo" alt="charity logo">
                                                 </div>
-                                                <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                    <span class="fw-bold small text-primary">{{ charity.followers }} Followers</span>
-                                                </div>
-                                                <div class="network-item-footer py-3 d-flex text-center">
-                                                    <div class="col-6 ps-3 pe-1">
-                                                        <Link class="btn btn-primary btn-sm d-block w-100"
-                                                            :href="$route('charity.profile.index', {
-                                                               id: charity.id
-                                                           })" >
-                                                           View Profile
-                                                        </Link>
-                                                    </div>
-                                                    <div class="col-6 pe-3 ps-1">
-                                                        <Link v-if="charity.isFollowed" :href="$route('benefactor.connections.charities.destroy', {
-                                                               id: charity.id
-                                                           })" 
-                                                               method="delete" as="button" type="button"
-                                                               class="btn btn-outline-secondary btn-sm d-block w-100">
-                                                           <i class="feather-user-psus"></i> Unfollow 
-                                                       </Link>
-                                                        <Link v-else :href="$route('benefactor.connections.charities.store', {
-                                                               id: charity.id
-                                                           })" 
-                                                               method="post" as="button" type="button"
-                                                               class="btn btn-outline-primary btn-sm d-block w-100">
-                                                           <i class="feather-user-psus"></i> Follow 
-                                                       </Link>
-                                                    </div>
+                                                <div class="fw-bold">
+                                                    <h6 class="fw-bold text-dark mb-0">{{ charity.name }}</h6>
                                                 </div>
                                             </div>
-                                        </Link>
+                                            <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
+                                                <span class="fw-bold small text-primary">{{ charity.followers }} Followers</span>
+                                            </div>
+                                            <div class="network-item-footer py-3 d-flex text-center">
+                                                <div class="col-6 ps-3 pe-1">
+                                                    <Link class="btn btn-primary btn-sm d-block w-100"
+                                                        :href="$route('charity.profile.index', {
+                                                            id: charity.id
+                                                        })" >
+                                                        View Profile
+                                                    </Link>
+                                                </div>
+                                                <div class="col-6 pe-3 ps-1">
+                                                    <Link v-if="charity.isFollowed" :href="$route('benefactor.connections.charities.destroy', {
+                                                            id: charity.id
+                                                        })" 
+                                                            method="delete" as="button" type="button"
+                                                            class="btn btn-outline-secondary btn-sm d-block w-100">
+                                                        <i class="feather-user-psus"></i> Unfollow 
+                                                    </Link>
+                                                    <Link v-else :href="$route('benefactor.connections.charities.store', {
+                                                            id: charity.id
+                                                        })" 
+                                                            method="post" as="button" type="button"
+                                                            class="btn btn-outline-primary btn-sm d-block w-100">
+                                                        <i class="feather-user-psus"></i> Follow 
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
