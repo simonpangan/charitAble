@@ -21,11 +21,17 @@ class CharityProfileController extends Controller
 {
     public function index(int $id = null): Response
     {
-        $id = (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN']) ? Auth::id() : $id;
+        if (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN'] && $id == null) {
+            $charityID = Auth::id();
+        } elseif (Auth::user()->role_id == Role::USERS['CHARITY_SUPER_ADMIN'] && $id) {
+            $charityID = $id;
+        } else {
+            $charityID = $id;
+        }
 
         $charity =  Charity::query()
             ->with('categories', 'officers')
-            ->find($id);
+            ->findOrFail($charityID);
 
         return Inertia::render(
             'Charity/Profile',[ 

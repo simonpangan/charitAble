@@ -36,24 +36,32 @@ class CharityOfficerController
 
     public function show(int $id): InertiaResponse
     {
+        $this->authorize('modify',  
+            $officer = CharityOfficers::query()
+                ->findOrFail($id)
+        );
+
         return Inertia::render(
             'Charity/BoardMember/Edit',
-            ['officer' => CharityOfficers::find($id)]
+            ['officer' => $officer]
         );
     }
     
     public function edit(CharityOfficerRequest $request): RedirectResponse
     {
-        CharityOfficers::query()
-            ->findOrFail($request->id)
-            ->update($request->validated());
+        $this->authorize('modify',  
+            $officer = CharityOfficers::query()
+                ->findOrFail($request->id)
+        );
+
+        $officer->update($request->validated());
 
         return to_route('charity.profile.index');
     }
 
     public function destroy(int $id): RedirectResponse
     {
-        $this->authorize('delete',  
+        $this->authorize('modify',  
             $officer = CharityOfficers::query()
                 ->findOrFail($id)
         );

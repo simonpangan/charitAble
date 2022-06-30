@@ -10,14 +10,7 @@ class CharityOfficersPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, CharityOfficers $charityOfficers)
-    {
-        // dd($user->id == $charityOfficers->charity_id);
-
-        return $user->id == $charityOfficers->charity_id;
-    }
-
-    public function delete(User $user, CharityOfficers $charityOfficers)
+    public function modify(User $user, CharityOfficers $charityOfficers)
     {
         return $user->id == $charityOfficers->charity_id;
     }
