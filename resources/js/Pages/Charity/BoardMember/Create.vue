@@ -1,26 +1,22 @@
 <template>
+  <Head title="Add Board Member" />
   <div class="container">
     <div class="row justify-content-center align-items-center d-flex h-75 mt-5">
       <div class="col-md-6">
-          <i class="far fa-arrow-left me-2 "></i
-                            ><Link href="profile" class="fw-bold text-muted ">Return to Profile</Link>
+        <Link :href="$route('charity.profile.index')" class="fw-bold text-muted ">
+          <i class="far fa-arrow-left me-2 "></i>
+          Return to Profile
+        </Link>
         <form @submit.prevent="submit">
         <div class="box shadow-sm border rounded bg-white mb-3 mt-3 osahan-post">
           <div
-            class="
-              p-3
-              d-flex
-              align-items-center
-              border-bottom
-              osahan-post-header
-            "
-          >
+            class="p-3 d-flex align-items-center border-bottom osahan-post-header">
             <div class="me-3">
               <h6>Add Board Member</h6>
             </div>
           </div>
           <div class="p-3 border-bottom osahan-post-body">
-                         <div class="row">
+            <div class="row">
                 <div class="col-sm-6 mb-2">
                   <div class="js-form-message">
                     <label id="nameLabel" class="form-label"> First Name <span class="text-danger">*</span>
@@ -29,7 +25,6 @@
                       <input type="text" class="form-control" 
                         v-model="form.first_name" 
                         placeholder="Enter your name" />
-                  
                     </div>
                   </div>
                 </div>
@@ -39,8 +34,7 @@
                     </label>
                     <div class="form-group">
                       <input  type="text" class="form-control" v-model="form.last_name" placeholder="Enter your last_name" />
-                  
-                    </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -59,15 +53,14 @@
                   </div>
                 </div>
               </div>
-                      
-                <div class="row mt-2">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="mb-1">Position since...</label>
-                            <input type="date" v-model="form.officer_since" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </div>
-                </div>    
+              <div class="row mt-2">
+                  <div class="col">
+                      <div class="form-group">
+                          <label class="mb-1">Position since...</label>
+                          <input type="date" v-model="form.officer_since" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                  </div>
+              </div>    
           </div>
           <div class="p-3 border-bottom osahan-post-footer">
             <div class="p-3 d-flex">
@@ -88,23 +81,20 @@
 <script>
 import { useForm } from "@inertiajs/inertia-vue3"
 
-
-
 export default {
-
   setup() {
     let form = useForm({
         first_name: null,
         last_name: null,
         position: null,
         officer_since:null
-})
+    })
 
     let submit = () => {
         form.post(route('charity.officer.store'));
     }
 
-    return { form,submit}
+    return { form, submit}
   }
 };
 </script>
