@@ -2,8 +2,8 @@
   <div class="container mt-4">
     <div class="row justify-content-center align-items-center d-flex h-75">
       <div class="col-md-6">
-        <Link class="fw-bold" :href="$route('charity.profile.index')">
-            <i class="far fa-angle-double-left fa-lg"></i>
+        <Link class="fw-bold text-muted" :href="$route('charity.profile.index')">
+            <i class="far fa-arrow-left me-2"></i>
             Return to Profile
         </Link>
         <form @submit.prevent="submit">

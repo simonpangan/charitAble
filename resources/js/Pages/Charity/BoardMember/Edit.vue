@@ -2,9 +2,10 @@
   <div class="container">
     <div class="row justify-content-center align-items-center d-flex h-75 mt-5">
       <div class="col-md-6">
-
-        <i class="far fa-arrow-left me-2"></i>
-       <Link href="profile" class="fw-bold text-muted ">Return to Profile</Link>
+       <Link :href="$route('charity.profile.index')" class="fw-bold text-muted">
+          <i class="far fa-arrow-left me-2"></i>
+          Return to Profile
+       </Link>
         <form @submit.prevent="submit">
         <div class="border-bottom" v-for="officer in $page.props.officer" :key="officer.id">
         </div>
