@@ -16,13 +16,13 @@ class CharityVolunteerPostController
 {
     public function index(int $id): Response
     {
-        $charity =  Charity::query()
+        $charity = Charity::query()
             ->findOrFail($id);
 
         return Inertia::render('Charity/Volunteer-Posting/Index',[
             'volunteerPost'=> CharityVolunteerPost::where(
                     'charity_id', $id
-                )->get(),
+                )->latest()->get(),
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id

@@ -48,7 +48,7 @@
                                     :href="$route('charity.volunteer.index', {
                                         'id': this.$page.props.charity.id
                                     })">
-                                    VoluntPosting
+                                    Volunteer Posting
                                 </Link>
 							</li>
 							<li class="nav-item">
