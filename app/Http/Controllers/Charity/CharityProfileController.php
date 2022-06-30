@@ -22,11 +22,10 @@ class CharityProfileController extends Controller
     {
         return Inertia::render(
             'Charity/Profile',
-            [ 'user' => Auth::user()->withCharity()->toArray(),
-              'posts'=> CharityPosts::where('charity_id',Auth::user()->id)->get()->toArray(),
-              'volunteer_post'=> CharityVolunteerPost::where('charity_id',Auth::user()->id)->get()->toArray(),
-              'program' => CharityProgram::where('charity_id', Auth::user()->id)->get()->toArray(),
-              'officer' => CharityOfficers::where('charity_id', Auth::user()->id)->get()->toArray()],
+            [ 
+                'user' => Auth::user()->withCharity()->toArray(),
+                'officer' => CharityOfficers::where('charity_id', Auth::user()->id)->get()->toArray()
+            ],
         );
 
     }
