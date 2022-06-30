@@ -31,7 +31,9 @@
 							<li class="nav-item">
 								<Link class="nav-link" 
                                 :class="{ 'active': $page.component === 'Charity/Profile' }"
-                                :href="$route('charity.profile.index')">About</Link>
+                                :href="$route('charity.profile.index', {
+                                    'id': this.$page.props.charity.id
+                                })">About</Link>
 							</li>
 							<li class="nav-item">
                                 <Link class="nav-link" 

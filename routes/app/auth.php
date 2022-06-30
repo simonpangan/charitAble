@@ -39,6 +39,8 @@ use App\Http\Controllers\Admin\ {
 use App\Http\Controllers\BenefactorDonationController;
 use App\Http\Controllers\PaymongoController;
 use App\Http\Controllers\PaypalPaymentController;
+use App\Models\Charity\CharityVolunteerPost;
+
 /*
 |--------------------------------------------------------------------------
 | Auth  & Verified Routes
@@ -55,6 +57,19 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         ->name('charity.profile.index')
         ->where('id', '[0-9]+');
 
+    Route::get('charity/{id?}/program',  [CharityProgramController::class, 'index'])
+        ->name('charity.program.index')
+        ->where('id', '[0-9]+');
+
+    Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
+        ->name('charity.post.index')
+        ->where('id', '[0-9]+');
+
+    Route::get('charity/{id?}/volunteer-posts',  [CharityVolunteerPostController::class, 'index'])
+        ->name('charity.volunteer.index')
+        ->where('id', '[0-9]+');
+
+    //-------------------------
 
     Route::group([
         'middleware' => 'role:ADMIN',
@@ -76,8 +91,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/logs', CharityLogController::class)->name('logs.index');
 
         Route::controller(CharityProgramController::class)->group(function () {
-            Route::get('{id?}/program', 'index')->name('program.index')
-                ->where('id', '[0-9]+');
             Route::get('program/create', 'create')->name('program.create');
             Route::post('program', 'store')->name('program.store');
             Route::get('program/{id}', 'show')->name('program.show');
@@ -87,8 +100,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
-            Route::get('{id?}/volunteer-posts', 'index')->name('volunteer.index')
-                ->where('id', '[0-9]+');
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
             Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');
@@ -98,7 +109,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
 
         Route::controller(CharityPostsController::class)->group(function(){
-            Route::get('{id?}/post','index')->name('post.index')->where('id', '[0-9]+');
             Route::get('post/create','create')->name('post.create');
             Route::post('post', 'store')->name('post.store');
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
