@@ -31,8 +31,9 @@ class CharityProgramFactory extends Factory
                     'date' =>  $this->faker->date()
                 ], 
             ],
-            'total_donation_amount' => 50000,  
-            'total_withdrawn_amount' => 40000,  
+            'total_donation_amount' => $this->faker->numberBetween(100, 50000),  
+            'total_withdrawn_amount' => $this->faker->numberBetween(100, 100000),  
+            'total_needed_amount' => $this->faker->numberBetween(50000, 100000),  
             'program_expenses' => [
                 '1' => [
                     'name' => $this->faker->word,

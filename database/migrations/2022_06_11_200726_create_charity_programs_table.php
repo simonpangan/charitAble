@@ -20,8 +20,9 @@ return new class extends Migration
             $table->text('description');
             $table->string('location');
             $table->json('goal');
-            $table->string('total_donation_amount');
-            $table->string('total_withdrawn_amount');
+            $table->bigInteger('total_donation_amount')->default(0);
+            $table->bigInteger('total_withdrawn_amount')->default(0);
+            $table->bigInteger('total_needed_amount')->default(0);
             $table->json('program_expenses');
             $table->string('header');
             $table->timestamps();
