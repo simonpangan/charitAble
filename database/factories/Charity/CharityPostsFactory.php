@@ -19,7 +19,7 @@ class CharityPostsFactory extends Factory
     {
         return [
             'main_content_body' => $this->faker->paragraph,
-            'main_content_body_image' => $this->faker->sentence,  
+            'main_content_body_image' => 'https://www.cloudways.com/blog/wp-content/uploads/OG-Banner-204.jpg',  
             'created_at' => $this->faker->dateTimeBetween('-5 years', 'now')
         ];
     }
