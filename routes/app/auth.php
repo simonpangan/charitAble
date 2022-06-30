@@ -50,6 +50,12 @@ use App\Http\Controllers\PaypalPaymentController;
 
 Route::middleware('verified:auth.verification.notice')->group(function () {
 
+    //CAN BE ACCESS BY ANY VERIFIED USER
+    Route::get('/profile/{id?}', [CharityProfileController::class, 'index'])
+        ->name('charity.profile.index')
+        ->where('id', '[0-9]+');
+
+
     Route::group([
         'middleware' => 'role:ADMIN',
         'as' => 'admin.',
@@ -67,11 +73,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'as' => 'charity.',
         'prefix' => 'charity',
     ], function () {
-
-        Route::get('/profile/{id?}', [CharityProfileController::class, 'index'])
-            ->name('profile.index')
-            ->where('id', '[0-9]+');
-
         Route::get('/logs', CharityLogController::class)->name('logs.index');
 
         Route::controller(CharityProgramController::class)->group(function () {

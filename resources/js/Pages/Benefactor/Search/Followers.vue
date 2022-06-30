@@ -39,7 +39,12 @@
                                                 </div>
                                                 <div class="network-item-footer py-3 d-flex text-center">
                                                     <div class="col-6 ps-3 pe-1">
-                                                        <button type="button" class="btn btn-primary btn-sm d-block w-100"> View Profile </button>
+                                                        <Link class="btn btn-primary btn-sm d-block w-100"
+                                                            :href="$route('charity.profile.index', {
+                                                               id: charity.id
+                                                           })" >
+                                                           View Profile
+                                                        </Link>
                                                     </div>
                                                     <div class="col-6 pe-3 ps-1">
                                                         <Link v-if="charity.isFollowed" :href="$route('benefactor.connections.charities.destroy', {
