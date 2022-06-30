@@ -61,7 +61,7 @@ class HandleInertiaRequests extends Middleware
 
         if (Auth::user() ) {
             $sharedProps = Arr::add(
-                $sharedProps, 'auth', new UserResource(Auth::user()->withCharity())
+                $sharedProps, 'auth', new UserResource(Auth::user())
             );
         }
 
