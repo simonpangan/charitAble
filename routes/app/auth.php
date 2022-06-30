@@ -68,8 +68,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'prefix' => 'charity',
     ], function () {
 
-        Route::get('/profile', [CharityProfileController::class, 'index'])
-            ->name('profile.index');
+        Route::get('/profile/{id?}', [CharityProfileController::class, 'index'])
+            ->name('profile.index')
+            ->where('id', '[0-9]+');
 
         Route::get('/logs', CharityLogController::class)->name('logs.index');
 
