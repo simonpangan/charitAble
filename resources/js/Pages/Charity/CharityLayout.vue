@@ -1,5 +1,4 @@
 <template>
-    <Head title="Profile" />
     <div class="bg-white shadow-sm border-bottom">
         <div class="container">
             <div class="row">
