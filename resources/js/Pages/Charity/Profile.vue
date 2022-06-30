@@ -72,7 +72,7 @@
                 <div class="box-title border-bottom p-3">
                     <div class="d-flex justify-content-between">
                         <h6 class="m-0 ">NGO Heads / Board Members</h6>
-                        <Link class="btn btn-primary btn-sm" :href="$route('charity.officer.create')">
+                        <Link v-if="can.modifyBoardMember" class="btn btn-primary btn-sm" :href="$route('charity.officer.create')">
                             Add Board Member
                             <i class="fad fa-user-plus ms-1"></i>
                         </Link>
@@ -94,7 +94,7 @@
                                     <th class="p-3">Officer Since</th>
                                     <td class="p-3">{{officer.officer_since}}</td>
                                 </tr>
-                                    <tr class="nmb-1">
+                                <tr class="nmb-1" v-if="can.modifyBoardMember">
                                     <th class="p-3">Actions: </th>
                                     <td class="p-3">
                                         <Link 
@@ -125,6 +125,7 @@ import CharityLayout from './CharityLayout.vue';
 
 let props = defineProps({
     charity: Object,
+    can: Array
 })
 </script>
 
