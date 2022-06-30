@@ -75,7 +75,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::controller(CharityProgramController::class)->group(function () {
             Route::get('program', 'index')->name('program.index');
-            Route::get('program', 'create')->name('program.create');
+            Route::get('program/create', 'create')->name('program.create');
             Route::post('program', 'store')->name('program.store');
             Route::get('program/{id}', 'show')->name('program.show');
             Route::get('program/{id}/edit', 'edit')->name('program.edit');

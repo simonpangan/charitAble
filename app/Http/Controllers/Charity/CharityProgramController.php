@@ -4,19 +4,25 @@ namespace App\Http\Controllers\Charity;
 
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
+use App\Models\TemporaryFile;
+use App\Models\Charity\Charity;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityProgram;
-use App\Http\Requests\Charity\CharityProgramRequest;
-use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Storage;
-use App\Models\TemporaryFile;
-use Illuminate\Http\Request;
+use App\Http\Requests\Charity\CharityProgramRequest;
 
 class CharityProgramController
 {
     public function index(): Response
     {
-        return Inertia::render('');
+        return Inertia::render('Charity/Program/Index',[
+            'user' => Auth::user()->withCharity(),
+            'programs' => CharityProgram::where(
+                'charity_id', Auth::user()->id
+            )->get()->toArray(),
+        ]);
     }
 
     public function create(): Response
