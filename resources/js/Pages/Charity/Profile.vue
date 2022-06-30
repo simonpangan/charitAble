@@ -7,7 +7,7 @@
                     <h6 class="m-0">About</h6>
                 </div>
                 <div class="box-body p-3">
-                    <p>{{this.$page.props.user.charity.about}}</p>
+                    <p>{{charity.about}}</p>
                 </div>
             </div>
             <div class="box shadow-sm border rounded bg-white mb-3">
@@ -19,7 +19,14 @@
                         <tbody>
                             <tr class="border-bottom">
                                 <th class="p-3">Category</th>
-                                <td class="p-3"><a href="#">Category 1 | Category 2</a></td>
+                                <td class="p-3">
+                                    <template v-for="(category, index) in charity.categories" :key="category.id">
+                                        <span v-if="index == 0">
+                                            {{ category.name }}
+                                        </span>
+                                        <span v-else> | {{ category.name }}</span>
+                                    </template>
+                                </td>
                             </tr>
                             <tr class="border-bottom">
                                 <th class="p-3">Permit/s</th>
@@ -39,13 +46,13 @@
                     <h6 class="m-0 ">NGO Heads / Board Members</h6>
                         <i class="fal fa-ellipsis-v-alt" data-bs-toggle="dropdown"></i>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" :href="$route('charity.officer.create')">Add Board Member</a>
-                                <a class="dropdown-item" :href="$route('charity.officer.edit', {id: this.$page.props.user.charity.id})">Edit/Delete Board Member</a>
+                                <!-- <a class="dropdown-item" :href="$route('charity.officer.create')">Add Board Member</a> -->
+                                <!-- <a class="dropdown-item" :href="$route('charity.officer.edit', {id: this.$page.props.user.charity.id})">Edit/Delete Board Member</a> -->
                             </div>
                     </div>
                 </div>
                 <div class="box-body">
-                    <table class="table table-borderless mb-0 ">
+                    <!-- <table class="table table-borderless mb-0 ">
                         <tbody>
                             <div class="border-bottom" v-for="officer in $page.props.officer" :key="officer.id">
                             
@@ -67,7 +74,7 @@
                             </tr>
                             </div>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
             </div>
             <div class="box shadow-sm border rounded bg-white mb-3">
@@ -95,4 +102,8 @@
 
 <script setup>
 import CharityLayout from './CharityLayout.vue';
+
+let props = defineProps({
+    charity: Object,
+})
 </script>

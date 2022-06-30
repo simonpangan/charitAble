@@ -23,10 +23,11 @@ class CharityProfileController extends Controller
         return Inertia::render(
             'Charity/Profile',
             [ 
-                'user' => Auth::user()->withCharity()->toArray(),
-                'officer' => CharityOfficers::where('charity_id', Auth::user()->id)->get()->toArray()
+                'charity' => Charity::with('categories')->find(Auth::id()),
+                'officer' => CharityOfficers::where(
+                        'charity_id', Auth::user()->id
+                    )->get()->toArray()
             ],
         );
-
     }
 }
