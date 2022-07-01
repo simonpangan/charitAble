@@ -102,12 +102,14 @@
                                                 id: officer.id
                                             })"
                                             class="btn btn-success btn-sm"
-                                        >Edit</Link> 
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </Link> 
                                         <Link 
                                             @click="officerDelete(officer.id)"
                                             as="button" 
                                             class="btn btn-danger btn-sm ms-2">
-                                            Delete
+                                            <i class="fad fa-trash"></i>
                                         </Link>
                                     </td>
                                 </tr>
