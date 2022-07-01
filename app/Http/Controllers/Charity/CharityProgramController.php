@@ -8,12 +8,14 @@ use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
 use App\Models\Charity\Charity;
+use App\Models\ProgramDonation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityProgram;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityProgramRequest;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CharityProgramController
 {
@@ -154,10 +156,14 @@ class CharityProgramController
 
     public function destroy(int $id): RedirectResponse
     {
-        CharityProgram::query()
-            ->findOrFail($id)
-            ->delete();
+        $program = CharityProgram::findOrFail($id);
+        
+        abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+    
+        ProgramDonation::where('charity_program_id', $id)->delete();
 
-        return to_route('index');
+        $program->delete();
+
+        return to_route('charity.program.index', Auth::id());
     }
 }

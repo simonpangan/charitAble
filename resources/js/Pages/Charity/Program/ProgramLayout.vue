@@ -15,7 +15,13 @@
 								A Program by {{$page.props.program.charity.name}}
 							</p>
                         </div>
-                        <div class="profile-right ms-auto">
+                       <div class="profile-right ms-auto">
+                            <!-- <Link class="btn btn-success btn-lg" :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">Edit</Link> -->
+                            <Link  @click="deletePost($page.props.program.id)"
+                                as="button" 
+                                class="btn btn-danger btn-lg ms-2" >  
+                                <i class="fad fa-trash"></i>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -62,7 +68,11 @@
                                 <p class="">funded out of {{$page.props.program.total_needed_amount}}</p>
                             </div>
                             <div>
-                                <h5>43</h5>
+                                <h5>{{$page.props.program.total_withdrawn_amount}}</h5>
+                                <p class="text-muted">Withdrawn Money</p>
+                            </div>
+                            <div>
+                                <h5>{{$page.props.program.total_donors}}</h5>
                                 <p class="text-muted">Total Donors</p>
                             </div>
                             <!-- <Link :href="$route('benefactor.donate.create', { -->
@@ -127,16 +137,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center">
-                        <img src="img/ads1.png" class="img-fluid" alt="Responsive image">
-                        <div class="p-3 border-bottom">
-                            <h6 class="font-weight-bold text-gold">Osahanin Premium</h6>
-                            <p class="mb-0 text-muted">Grow &amp; nurture your network</p>
-                        </div>
-                        <div class="p-3">
-                            <button type="button" class="btn btn-outline-gold pl-4 pr-4"> ACTIVATE </button>
-                        </div>
-                    </div>
                 </aside>
             </div>
         </div>
@@ -144,16 +144,41 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { Inertia } from '@inertiajs/inertia';
 
 export default {
     props: ['program'],
     computed: {
         donationPercentage() {
             return Math.round((this.$page.props.program.total_donation_amount / this.$page.props.program.total_needed_amount) * 100) ;
+        },     
+    },
+    methods: {
+        deletePost (id)  {
+            this.$swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.delete(route('charity.program.destroy', {
+                        id: id 
+                    }), {
+                        onSuccess: () => {
+                            this.$swal.fire(
+                                'Deleted!',
+                                'Your program has been deleted.',
+                                'success'
+                            )
+                        },
+                    });
+                }
+            })
         }
     }
 }
 </script>
-
-
