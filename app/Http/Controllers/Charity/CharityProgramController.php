@@ -58,73 +58,38 @@ class CharityProgramController
 
     public function store(CharityProgramRequest $request): RedirectResponse
     {
-        // CharityProgram::create($request->validated());
         $link = '';
-        // dd($request->input('goal'));
-        if($request->hasFile('file')){
+
+        if($request->hasFile('file'))
+        {
             $file = $request->file('file');
             $filename = $file->getClientOriginalName();
 
             $temporaryFile = TemporaryFile::where('filename',$filename)
-                            ->where('file_type','logo')
-                            ->latest()
-                            ->first()
-                            ->getRawOriginal();
+                ->where('file_type','logo')
+                ->latest()
+                ->first()
+                ->getRawOriginal();
 
             Storage::move('tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 'charity/'.'/'.'program/'.$filename);
             //this doesn't work
             Storage::deleteDirectory('tmp/program/'.$temporaryFile['folder']);
 
             TemporaryFile::where('filename',$filename)
-                            ->where('file_type','program-header')
-                            ->latest()
-                            ->first()
-                            ->delete();
+                ->where('file_type','program-header')
+                ->latest()
+                ->first()
+                ->delete();
 
             //delete temporary
             $link = 'charity/'.'/'.'program/'.$filename;
-            }
-
-            $this->createProgram($request,$link);
-
-        return to_route('charity.profile.index');
-    }
-
-    public function createProgram(CharityProgramRequest $request,$link){
-
-        $goal_array = [];
-        for($i=0; $i<count($request['goal']);$i++){
-            $goal_array[] = $request['goal'][$i];
-        }
-        CharityProgram::create([
-            'program_name' => $request['program_name'],
-            'program_description' => $request['program_description'],
-            'location' => 'location request',
-            //'goal' => implode("-",$request['goal']),
-            'goal' => $request['goal'],
-            'total_donation_amount' => $request['program_donation_total'],
-            'total_withdrawn_amount' => 0,
-            'program_expenses' =>  $request['program_expenses'],
-            'header' => $link
-        ]);
-    }
-
-    public function uploadProgramPhoto(Request $request){
-
-        if($request->hasFile('file')){
-            $file = $request->file('file');
-            $filename = $file->getClientOriginalName();
-            $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('tmp/program/'. $folder ,$filename);
-
-            return TemporaryFile::create([
-                'folder' => $folder,
-                'filename' => $filename,
-                'file_type' => 'program-header'
-            ]);
         }
 
-        return '500';
+        CharityProgram::create(
+           array_merge($request->validated(), ['header' => $link])
+        );
+
+        return to_route('charity.program.index', Auth::id());
     }
 
     public function show(int $id): Response
@@ -174,5 +139,23 @@ class CharityProgramController
         $program->delete();
 
         return to_route('charity.program.index', Auth::id());
+    }
+
+    public function uploadProgramPhoto(Request $request){
+
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $filename = $file->getClientOriginalName();
+            $folder = uniqid() . '-' . now()->timestamp;
+            $file->storeAs('tmp/program/'. $folder ,$filename);
+
+            return TemporaryFile::create([
+                'folder' => $folder,
+                'filename' => $filename,
+                'file_type' => 'program-header'
+            ]);
+        }
+
+        return '500';
     }
 }

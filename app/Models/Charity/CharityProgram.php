@@ -16,7 +16,7 @@ class CharityProgram extends Model
     protected $guarded = ['id'];   
 
     protected $casts = [
-        'goal' => 'array',
+        'goals' => 'array',
         'expenses' => 'array',
     ];
 
