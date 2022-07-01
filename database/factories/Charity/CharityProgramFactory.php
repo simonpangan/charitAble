@@ -21,7 +21,7 @@ class CharityProgramFactory extends Factory
             'description' => $this->faker->paragraph,
             'location' => $this->faker->sentence,  
             'header' => $this->faker->sentence,  
-            'goal' => [
+            'goals' => [
                 '1' => [
                     'name' => $this->faker->sentence,
                     'date' =>  $this->faker->date()
