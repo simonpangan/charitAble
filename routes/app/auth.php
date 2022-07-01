@@ -57,9 +57,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         ->name('charity.profile.index')
         ->where('id', '[0-9]+');
 
-    Route::get('charity/{id?}/program',  [CharityProgramController::class, 'index'])
-        ->name('charity.program.index')
-        ->where('id', '[0-9]+');
+    Route::controller(CharityProgramController::class)->group(function () {
+        Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
+        Route::get('charity/program/{id}', 'show')->name('charity.program.show');
+    });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
         ->name('charity.post.index')
@@ -94,7 +95,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::controller(CharityProgramController::class)->group(function () {
             Route::get('program/create', 'create')->name('program.create');
             Route::post('program', 'store')->name('program.store');
-            Route::get('program/{id}', 'show')->name('program.show');
             Route::get('program/{id}/edit', 'edit')->name('program.edit');
             Route::put('program/{id}', 'update')->name('program.update');
             Route::delete('program/{id}', 'destroy')->name('program.destroy');
