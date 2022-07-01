@@ -11,7 +11,16 @@
                         </div>
                         <div class="profile-right ms-auto">
                             <Link class="btn btn-success btn-lg" :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">Edit</Link>
-                            <Link class="btn btn-danger btn-lg ms-2" :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">Delete</Link>
+                            <Link  @click="deletePost(volunteerPost.id)"
+                                as="button" 
+                                class="btn btn-danger btn-lg ms-2" 
+                                :href="$route('charity.volunteer.destroy', 
+                                {
+                                    id:volunteerPost.id
+                                }
+                            )">  
+                                <i class="fad fa-trash"></i>
+                            </Link>
                         </div>
                     </div>
 
@@ -127,7 +136,41 @@
 </template>
 
 <script setup>
-  let props = defineProps({
+let props = defineProps({
     volunteerPost: Object
-  });
+});
+</script>
+
+<script>
+import { Inertia } from '@inertiajs/inertia';
+
+export default {
+    methods: {
+        deletePost (id)  {
+            this.$swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.delete(route('charity.volunteer.destroy', {
+                        id: id 
+                    }), {
+                        onSuccess: () => {
+                            this.$swal.fire(
+                                'Deleted!',
+                                'Your volunteer post has been deleted.',
+                                'success'
+                            )
+                        },
+                    });
+                }
+            })
+        }
+    }
+}
 </script>

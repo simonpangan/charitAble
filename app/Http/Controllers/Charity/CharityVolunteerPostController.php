@@ -12,6 +12,8 @@ use App\Models\Charity\CharityFollowers;
 use Inertia\Response as InertiaResponse;
 use App\Models\Charity\CharityVolunteerPost;
 use App\Http\Requests\Charity\CharityVolunteerPostRequest;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class CharityVolunteerPostController
 {
@@ -68,14 +70,13 @@ class CharityVolunteerPostController
     }
     public function show(int $id): InertiaResponse
     {
-        $charity_id = CharityVolunteerPost::findOrFail($id)->charity_id;
-
         return Inertia::render(
-            'Charity/Volunteer-Posting/VolunteerPost',
-            [
-                'volunteer_post' => CharityVolunteerPost::findOrFail($id)->toArray(),
-                'charity' => Charity::where('id',$charity_id)->get()->toArray(),
-            ]);
+            'Charity/Volunteer-Posting/Show', [
+                'volunteerPost' => CharityVolunteerPost::query()
+                    ->with('charity:id,name')
+                    ->findOrFail($id),
+            ]
+        );
     }
     public function edit(int $id): InertiaResponse
     {
@@ -109,10 +110,12 @@ class CharityVolunteerPostController
 
     public function destroy(int $id): RedirectResponse
     {
-        CharityVolunteerPost::query()
-            ->findOrFail($id)
-            ->delete();
+        $volunteerPost = CharityVolunteerPost::findOrFail($id);
+        
+        abort_if($volunteerPost->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
-        return to_route('index');
+        $volunteerPost->delete();
+
+        return to_route('charity.volunteer.index', Auth::id());
     }
 }
