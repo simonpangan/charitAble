@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->text('description');
             $table->string('location');
+            $table->boolean('is_virtual');
             $table->text('qualifications');
             $table->string('incentives')->nullable();
             $table->timestamps();
