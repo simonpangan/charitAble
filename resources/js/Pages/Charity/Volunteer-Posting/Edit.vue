@@ -1,133 +1,65 @@
 <template>
-<form @submit.prevent="submit">
-
-  <div class="py-4">
-    <div class="container">
-      <div class="row">
-        <!-- Main Content -->
-        <aside class="col-md-4">
-          <div
-            class="mb-3 border rounded bg-white profile-box text-center w-10"
-          >
-
-            <div class="p-4 d-flex align-items-center">
-              <h6 class="m-0">Create Volunteer Posting </h6>
-            </div>
-          </div>
-          <div class="border rounded bg-white mb-3">
-            <div class="box-title border-bottom p-3">
-              <h6 class="m-0">Volunteer Posting Details</h6>
-              <p class="mb-0 mt-0 small">
-                Tell about yourself in two sentences.
-              </p>
-            </div>
-            <div class="box-body">
-              <div class="p-3 border-bottom">
-                <div class="form-group mb-4"></div>
-                <div class="form-group mb-0"></div>
-              </div>
-              <div class="overflow-hidden text-center p-3">
-                <a
-                  class="font-weight-bold btn btn-light rounded p-3 d-block"
-                  href="#"
-                >
-                  SAVE
-                </a>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-
-        <main class="col-md-8">
-
-          <div class="border rounded bg-white mb-3">
-                  <div v-if="$page.props.flash.message" role="alert"
-              class="alert alert-success mx-auto text-center">
+  <Head title="Create Volunteer Posting "></Head>
+  <form @submit.prevent="submit">
+    <div class="py-4">
+      <div class="container">
+        <main class="mx-auto" style="max-width: 800px">
+          <Link class="fw-bold text-muted" :href="$route('charity.volunteer.show', 
+            {id:volunteerPost.id})">
+            <i class="far fa-arrow-left me-2"></i>
+            Go Back
+          </Link>
+          <div class="border rounded bg-white mb-3 mt-2">
+             <div v-if="$page.props.flash.message" role="alert"
+              class="alert alert-success w-80 mx-auto text-center">
                 {{ $page.props.flash.message }}
-              </div>
-            <div class="box-title border-bottom p-3">
-              <h6 class="m-0">Edit Basic Info</h6>
-              <p class="mb-0 mt-0 small">
-                Please enter key details.
-              </p>
             </div>
-
+            <div class="box-title border-bottom p-3">
+              <h6 class="m-0">Volunteer Work Info</h6>
+            </div>
             <div class="box-body p-3">
-                <div class="row">
-                  <!-- Input -->
-                  <div class="col-sm-6 mb-2">
-                    <div class="js-form-message">
-                      <label id="nameLabel" class="form-label">
-                        Volunteer Work Name
-                        <span class="text-danger">*</span>
-                      </label>
-                      <div class="form-group">
-
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="form.name"
-                        />
-                        <small class="form-text text-muted"
-                          >Displayed on your public profile, notifications and
-                          other places.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input -->
-                  <!-- Input -->
-
-                  <!-- End Input -->
+              <div class="mb-3">
+                <label id="nameLabel" class="form-label">
+                  Volunteer Work Name
+                  <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" v-model="form.name" />
+                <small class="form-text text-muted">Displayed on your public profile, notifications andother places.</small>
+                <span v-if="form.errors.name" v-text="form.errors.name"
+                  class="invalid-feedback d-block" role="alert">
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="mb-1">Program Description</label>
+                <span class="text-danger">*</span>
+                <div class="position-relative">
+                    <textarea class="form-control" rows="4" name="text" v-model="form.description">
+                    </textarea>
                 </div>
-
-                <div class="row">
-                  <div class="col-sm-12 mb-2">
-                    <label class="mb-1">Program Description</label>
+              </div>
+              <div class="mb-3">
+                <div class="js-form-message">
+                  <label id="locationLabel" class="form-label">
+                    Location
                     <span class="text-danger">*</span>
-                    <div class="position-relative">
-                      <textarea
-                        class="form-control"
-                        rows="4"
-                        name="text"
-                        v-model="form.volunteer_description"
-                        placeholder=""
-                      ></textarea
-                      >
-                      <small class="form-text text-muted"
-                          >What will the volunteer do? What should they expect for this volunteer work?</small
-                    >
-                    </div>
-                  </div>
+                  </label>
+                  <input type="text" class="form-control" v-model="form.location" />
+                  <span v-if="form.errors.location" v-text="form.errors.location"
+                    class="invalid-feedback d-block" role="alert">
+                  </span>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12 mb-2">
-                    <div class="js-form-message">
-                      <label id="locationLabel" class="form-label">
-                        Location
-                        <span class="text-danger">*</span>
-                      </label>
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="form.location"
-
-                        />
-                        <input
-                         class="form-check-input" type="checkbox"
-                         v-on:change="changeToOnline"
-                        />
-                        <label class="form-check-label" for="exampleCheck1"
-                          >Volunteer work is virtual.</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- End Input -->
+              </div>
+               <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="form.is_virtual">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Is it virtual?
+                    </label>
+                    <span v-if="form.errors.is_virtual" v-text="form.errors.is_virtual"
+                      class="invalid-feedback d-block" role="alert">
+                    </span>
                 </div>
+              </div>
             </div>
           </div>
           <div class="border rounded bg-white mb-3">
@@ -140,22 +72,16 @@
             <div class="box-body px-3 pt-3 pb-0">
               <div class="row">
                 <div class="col-sm-12 mb-2">
-                  <label class="mb-1"
-                    >Volunteer Qualifications</label
-                  >
+                  <label class="mb-1">Volunteer Qualifications</label>
                   <span class="text-danger">*</span>
                   <div class="position-relative">
-                    <textarea
-                      class="form-control"
-                      rows="4"
-                      name="text"
-                      placeholder=""
-                      v-model="form.volunteer_qualifications"
-                    ></textarea
-                    >
-                     <small class="form-text text-muted"
-                          >Information could include volunteer skills, traits and experience needed for the volunteer work.</small
-                    >
+                    <textarea class="form-control" rows="4" name="text" placeholder="" v-model="form.qualifications"></textarea>
+                    <small class="form-text text-muted">
+                      Information could include volunteer skills, traits and experience needed for the volunteer work.
+                    </small>
+                    <span v-if="form.errors.qualifications" v-text="form.errors.qualifications"
+                      class="invalid-feedback d-block" role="alert">
+                    </span>
                   </div>
                 </div>
               </div>
@@ -171,62 +97,58 @@
             <div class="box-body p-3">
               <div class="row">
                 <div class="col-sm-12 mb-2">
-                  <label class="mb-1"
-                    >Potential Incentives or Reward</label
-                  >
+                  <label class="mb-1">Potential Incentives or Reward</label>
                   <span class="text-danger">*</span>
                   <div class="position-relative">
-                    <textarea
-                      class="form-control"
-                      rows="4"
-                      name="text"
-                      v-model="form.volunteer_incentives"
-                      placeholder="Enter Bio"
-                    >
-                    </textarea
-                    >
-                    <small class="form-text text-muted"
-                          >From allowance incentives upto recognition or medal awards, the potential incentives are endless.</small
-                    >
+                    <textarea class="form-control" rows="4" name="text" v-model="form.incentives" placeholder="Enter Bio"></textarea>
+                    <small class="form-text text-muted">
+                      From allowance incentives upto recognition or medal awards, the potential incentives are endless.
+                    </small>
+                    <span v-if="form.errors.incentives" v-text="form.errors.incentives"
+                      class="invalid-feedback d-block" role="alert">
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="mb-3 text-right">
-            <Link  class="font-weight-bold btn btn-link rounded p-3" :href="$route('charity.volunteer.show', {id:volunteer_post.id})">
-             Cancel
+          <div class="mb-3 text-right float-end">
+            <Link class="btn btn-danger rounded p-3 me-3" v-on:click="goBack">
+              <i class="far fa-arrow-left me-2"></i>
+              Cancel
             </Link>
-            <button class="font-weight-bold btn btn-primary rounded p-3" type="submit">
-               Save Changes
+            <button type="submit" class="font-weight-bold btn btn-primary rounded p-3">
+              Save Changes
+                <i class="far fa-arrow-right me-2"></i>
             </button>
           </div>
         </main>
-
       </div>
     </div>
-  </div>
-</form>
+  </form>
 </template>
-<script setup>
 
+<script setup>
 import { useForm } from "@inertiajs/inertia-vue3"
 
-
 let props = defineProps({
-    volunteer_post: Object
+    volunteerPost: Object
 })
 
 let form = useForm({
-   name: props.volunteer_post.name,
-   volunteer_description: props.volunteer_post.description,
-   location: props.volunteer_post.location,
-   volunteer_qualifications: props.volunteer_post.qualifications,
-   volunteer_incentives: props.volunteer_post.incentives
-
+   name: props.volunteerPost.name,
+   description: props.volunteerPost.description,
+   location: props.volunteerPost.location,
+   is_virtual: props.volunteerPost.is_virtual,
+   qualifications: props.volunteerPost.qualifications,
+   incentives: props.volunteerPost.incentives
  })
 
 let submit = () => {
-  form.put(route('charity.volunteer.update', {id:props.volunteer_post.id}));
+  form.put(route('charity.volunteer.update', {id:props.volunteerPost.id}));
 }
+
+let goBack = () => {
+  return window.history.back();
+};
 </script>
