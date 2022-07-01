@@ -11,16 +11,13 @@
             </Link>
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
-                <a href="index.html">
-                  <img src="img/logo.svg" alt="" />
-                </a>
                 <h5 class="fw-bold mt-3">Charity Creation Setup</h5>
                 <p class="text-muted">Step 1 - NGO Information</p>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Organization Name</label>
+                    <label class="mb-1">Organization Name <span class="text-danger">*</span></label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-user position-absolute"></i>
                       <input v-model="form.name" type="text" class="form-control" />
@@ -31,9 +28,9 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
-                  <label class="mb-1">Organization Email</label>
+                  <label class="mb-1">Organization Email <span class="text-danger">*</span></label>
                   <div class="position-relative icon-form-control">
                     <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.charity_email" type="email" class="form-control" />
@@ -43,10 +40,10 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Our Organization deals with</label>
+                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span></label>
                     <div class="position-relative icon-form-control">
                       <ul class="ks-cboxtags">
                         <li v-for="(category, index) in charityCategories" :key="category.id">
@@ -69,10 +66,10 @@
                   </div>
                 </div>
               </div>
-              <div class="row mt-3">
+              <div class="row">
                 <div class="row">
                   <div class="col">
-                    <label class="mb-1">Head Admin - Email</label>
+                    <label class="mb-1">Head Admin - Email <span class="text-danger">*</span></label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-at-sign position-absolute"></i>
                       <input v-model.trim="form.email" type="email" class="form-control" />
@@ -85,9 +82,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
                   <div class="col-12">
-                    <label class="mb-1">Password</label>
+                    <label class="mb-1">Password <span class="text-danger">*</span></label>
                     <div class="position-relative icon-form-control">
                       <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
                       <div class="mt-2">
@@ -129,7 +126,7 @@
                     </div>
                   </div>
                   <div class="col">
-                    <label class="mb-1">Confirm Password</label>
+                    <label class="mb-1">Confirm Password <span class="text-danger">*</span></label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-unlock position-absolute"></i>
                       <input v-model.trim="form.password_confirmation" type="password" class="form-control" />
@@ -187,16 +184,13 @@
           <div class="col-md-4">
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
-                <a href="index.html">
-                  <img src="img/logo.svg" alt="" />
-                </a>
                 <h5 class="fw-bold mt-3">Charity Creation Setup</h5>
                 <p class="text-muted">Step 2 - Additional NGO Information</p>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Organization Description</label>
+                    <label class="mb-1">Organization Description <span class="text-danger">*</span></label>
                     <div class="position-relative icon-form-control">
                       <i class="feather-user position-absolute"></i>
                       <textarea v-model="form.description" type="text" class="form-control" rows="6"></textarea>
@@ -207,7 +201,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Facebook Link</label>
                   <div class="position-relative icon-form-control">
@@ -219,7 +213,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Twitter Link</label>
                   <div class="position-relative icon-form-control">
@@ -231,7 +225,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Instagram Link</label>
                   <div class="position-relative icon-form-control">
@@ -243,7 +237,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Website Link</label>
                   <div class="position-relative icon-form-control">
@@ -256,16 +250,13 @@
                 </div>
               </div>
 
-                  <label class="pb-5">Organization Logo</label>
-                    <div v-if="this.image_file">
-                        <p>Uploaded File : </p>
-                         <div class="d-flex mx-auto">
-                            {{this.image_file}}
-                        </div>
+              <label class="pb-5">Organization Logo</label>
+                <div v-if="this.image_file">
+                    <p>Uploaded File : </p>
+                      <div class="d-flex mx-auto">
+                        {{this.image_file}}
                     </div>
-
-
-
+                </div>
                     <file-pond name="file"
                      class="h-50 mb-5"
                       v-model="file"
@@ -290,9 +281,6 @@
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
                     v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
-
-
-
             </div>
           </div>
           <div class="col-md-4 justify-content-center align-items-center d-flex vh-100">
@@ -335,14 +323,11 @@
           <div class="col-md-4">
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
-                <a href="index.html">
-                  <img src="img/logo.svg" alt="" />
-                </a>
                 <h5 class="fw-bold mt-3">Charity Creation Setup</h5>
                 <p class="text-muted">Step 3 - Upload Documents</p>
               </div>
               <div class="row">
-                    <label class="pb-5">Organization Logo</label>
+                <label class="pb-5">Documents <span class="text-danger">*</span></label>
                     <file-pond name="documentFile"
                      class="h-50 mb-5"
                       v-model="documentFile"

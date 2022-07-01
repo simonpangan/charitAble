@@ -17,7 +17,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">First name</label>
+                    <label class="mb-1">First name <span class="text-danger">*</span></label>
                       <input v-model.trim="form.first_name" type="text" class="form-control" />
                       <div v-if="form.errors.first_name" class="text-danger">
                         {{ form.errors.first_name }}
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Last name</label>
+                    <label class="mb-1">Last name <span class="text-danger">*</span></label>
                       <input v-model.trim="form.last_name" type="text" class="form-control" />
                       <div v-if="form.errors.last_name" class="text-danger">
                         {{ form.errors.last_name }}
@@ -34,18 +34,18 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
-                  <label class="mb-1">Email</label>
+                  <label class="mb-1">Email <span class="text-danger">*</span></label>
                     <input v-model.trim="form.email" type="email" class="form-control" />
                     <div class="text-danger" v-if="form.errors.email">
                       {{ form.errors.email }}
                     </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mt-2">
                 <div class="col">
-                  <label class="mb-1">Password</label>
+                  <label class="mb-1">Password <span class="text-danger">*</span></label>
                     <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
                     <div class="text-danger" v-if="form.errors.password">
                       {{ form.errors.password }}
@@ -90,7 +90,7 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <label class="mb-1">Confirm Password</label>
+                  <label class="mb-1">Confirm Password <span class="text-danger">*</span></label>
                     <input v-model.trim="form.password_confirmation" type="password" class="form-control" />
                 </div>
               </div>
@@ -130,7 +130,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Age</label>
+                    <label class="mb-1">Age <span class="text-danger">*</span></label>
                       <input v-model="form.age" type="number" class="form-control" />
                       <div v-if="form.errors.age" class="text-danger">
                         {{ form.errors.age }}
@@ -154,7 +154,7 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <label class="mb-1">City</label>
+                  <label class="mb-1">City <span class="text-danger">*</span></label>
                     <input
                       v-model="form.city"
                       type="text"
@@ -167,7 +167,7 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <label class="mb-1">Account Type</label>
+                  <label class="mb-1">Account Type <span class="text-danger">*</span></label>
                     <select class="form-select" v-model="form.account_type">
                       <option value="Personal">Personal Account</option>
                       <option value="Business">Business Account</option>
@@ -202,7 +202,7 @@
                 <img src="img/logo.svg" alt="" />
               </a>
               <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
-              <p class="text-muted"> Step 3 - What do you feel most passionate about? </p>
+              <p class="text-muted"> Step 3 - What do you feel most passionate about? <span class="text-danger">*</span></p>
             </div>
             <ul class="ks-cboxtags">
               <li v-for="(category, index) in charityCategories" :key="category.id">
