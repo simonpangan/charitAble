@@ -51,28 +51,6 @@ use App\Models\Charity\CharityVolunteerPost;
 */
 
 Route::middleware('verified:auth.verification.notice')->group(function () {
-
-    //CAN BE ACCESS BY ANY VERIFIED USER
-    Route::get('charity/profile/{id?}', [CharityProfileController::class, 'index'])
-        ->name('charity.profile.index')
-        ->where('id', '[0-9]+');
-
-    Route::controller(CharityProgramController::class)->group(function () {
-        Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
-        Route::get('charity/program/{id}', 'show')->name('charity.program.show');
-    });
-
-    Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
-        ->name('charity.post.index')
-        ->where('id', '[0-9]+');
-
-    Route::controller(CharityVolunteerPostController::class)->group(function () {
-        Route::get('charity/{id?}/volunteer-posts', 'index')->name('charity.volunteer.index')->where('id', '[0-9]+');
-        Route::get('charity/volunteer-posts/{id}', 'show')->name('charity.volunteer.show');
-    });
-
-    //-------------------------
-
     Route::group([
         'middleware' => 'role:ADMIN',
         'as' => 'admin.',
@@ -111,6 +89,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::controller(CharityPostsController::class)->group(function(){
             Route::get('post/create','create')->name('post.create');
             Route::post('post', 'store')->name('post.store');
+            Route::delete('post/{id}', 'destroy')->name('post.destroy');
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
         });
 
@@ -186,6 +165,33 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::put('/profile/update', [BenefactorProfileController::class, 'update'])
             ->name('profile.update');
     });
+
+
+
+
+
+
+
+      //CAN BE ACCESS BY ANY VERIFIED USER
+    Route::get('charity/profile/{id?}', [CharityProfileController::class, 'index'])
+        ->name('charity.profile.index')
+        ->where('id', '[0-9]+');
+
+    Route::controller(CharityProgramController::class)->group(function () {
+        Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
+        Route::get('charity/program/{id}', 'show')->name('charity.program.show');
+    });
+
+    Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
+        ->name('charity.post.index')
+        ->where('id', '[0-9]+');
+
+    Route::controller(CharityVolunteerPostController::class)->group(function () {
+        Route::get('charity/{id?}/volunteer-posts', 'index')->name('charity.volunteer.index')->where('id', '[0-9]+');
+        Route::get('charity/volunteer-posts/{id}', 'show')->name('charity.volunteer.show');
+    });
+
+  //-------------------------
 });
 
 
