@@ -50,24 +50,16 @@ class CharityVolunteerPostController
 
     public function store(CharityVolunteerPostRequest $request): RedirectResponse
     {
-        CharityVolunteerPost::create([
-            'charity_id' => auth()->user()->id,
-            'name' => $request['volunteer_work_name'],
-            'qualifications' => $request['volunteer_qualifications'],
-            'description' => 'asdsa',
-            'location' => $request['location'],
-            'incentives' => $request['volunteer_incentives'],
-            'status' => '1'
-        ]);
+        CharityVolunteerPost::create($request->validated());
 
-        return to_route('charity.profile.index');
+        return to_route('charity.volunteer.index', Auth::id());
     }
+
     public function create(): Response
     {
-        return Inertia::render('Charity/Volunteer-Posting/Create',[
-            'csrfToken' => csrf_token()
-        ]);
+        return Inertia::render('Charity/Volunteer-Posting/Create');
     }
+    
     public function show(int $id): InertiaResponse
     {
         return Inertia::render(
