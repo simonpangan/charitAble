@@ -65,9 +65,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         ->name('charity.post.index')
         ->where('id', '[0-9]+');
 
-    Route::get('charity/{id?}/volunteer-posts',  [CharityVolunteerPostController::class, 'index'])
-        ->name('charity.volunteer.index')
-        ->where('id', '[0-9]+');
+    Route::controller(CharityVolunteerPostController::class)->group(function () {
+        Route::get('charity/{id?}/volunteer-posts', 'index')->name('charity.volunteer.index')->where('id', '[0-9]+');
+        Route::get('charity/volunteer-posts/{id}', 'show')->name('charity.volunteer.show');
+    });
 
     //-------------------------
 
@@ -102,7 +103,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::controller(CharityVolunteerPostController::class)->group(function () {
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
-            Route::get('volunteer-posts/{id}', 'show')->name('volunteer.show');
             Route::get('volunteer-posts/{id}/edit', 'edit')->name('volunteer.edit');
             Route::put('volunteer-posts/{id}', 'update')->name('volunteer.update');
             Route::delete('volunteer-posts/{id}', 'destroy')->name('volunteer.destroy');

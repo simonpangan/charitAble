@@ -7,7 +7,9 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div v-for="volunteer_post in volunteerPost" :key="volunteer_post.id" class="col-md-6">
-                            <Link :href="'volunteer-posts/' + volunteer_post.id">
+                            <Link :href="$route('charity.volunteer.show', {
+                                'id': volunteer_post.id
+                            })">
                                 <div class="border job-item mb-3">
                                     <div class="d-flex align-items-center p-3 job-item-header">
                                         <div class="overflow-hidden me-2">
