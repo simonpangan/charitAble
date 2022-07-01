@@ -12,11 +12,21 @@
                                 </span>
                             </h1>
                         </div>
-                        <div class="profile-right ms-auto">
-                            <button v-if="this.$page.props.can.seeFollowOrUnfollow" type="button" class="btn btn-primary">
-                                <i class="far fa-plus"></i>
-                                {{ (this.$page.props.can.follow) ? 'Follow' : 'Unfollow' }} 
-                            </button>
+                        <div v-if="this.$page.props.can.seeFollowOrUnfollow" class="profile-right ms-auto">
+                            <Link v-if="this.$page.props.can.follow" :href="$route('benefactor.connections.charities.destroy', {
+                                    id: this.$page.props.charity.id
+                                })" 
+                                    method="delete" as="button" type="button"
+                                    class="btn btn-outline-primary btn-sm d-block w-100">
+                                Unfollow 
+                            </Link>
+                            <Link v-else :href="$route('benefactor.connections.charities.store', {
+                                    id: this.$page.props.charity.id
+                                })" 
+                                    method="post" as="button" type="button"
+                                    class="btn btn-outline-primary btn-sm d-block w-100">
+                                Follow 
+                            </Link>
                         </div>
                     </div>
                 </div>
