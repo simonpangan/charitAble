@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('location');
-            $table->json('goal');
+            $table->json('goals');
             $table->integer('total_donors')->default(0);
             $table->bigInteger('total_donation_amount')->default(0);
             $table->bigInteger('total_withdrawn_amount')->default(0);
