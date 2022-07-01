@@ -129,10 +129,15 @@ class CharityProgramController
 
     public function show(int $id): Response
     {
+        $program = CharityProgram::with('charity:id,name')->findOrFail($id);
+
         return Inertia::render(
             'Charity/Program/Show',
             [
-                'program' => CharityProgram::with('charity:id,name')->findOrFail($id),
+                'program' =>  $program,
+                'can' => [
+                    'modify' =>  $program->charity_id == Auth::id()
+                ]
             ]
         );
     }

@@ -15,7 +15,7 @@
 								A Program by {{$page.props.program.charity.name}}
 							</p>
                         </div>
-                       <div class="profile-right ms-auto">
+                       <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
                             <!-- <Link class="btn btn-success btn-lg" :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">Edit</Link> -->
                             <Link  @click="deletePost($page.props.program.id)"
                                 as="button" 
