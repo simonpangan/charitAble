@@ -8,6 +8,7 @@ use Inertia\Response;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Charity\CharityFollowers;
 use Inertia\Response as InertiaResponse;
 use App\Models\Charity\CharityVolunteerPost;
 use App\Http\Requests\Charity\CharityVolunteerPostRequest;
@@ -19,6 +20,19 @@ class CharityVolunteerPostController
         $charity = Charity::query()
             ->findOrFail($id);
 
+        $seeFollowOrUnfollow = false;
+        $canFollow = false;
+
+        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
+            $seeFollowOrUnfollow = true;
+
+            $canFollow = CharityFollowers::query()
+                ->where('charity_id', $id)
+                ->where('benefactor_id', Auth::id())
+                ->exists();
+        }
+            
+
         return Inertia::render('Charity/Volunteer-Posting/Index',[
             'volunteerPost'=> CharityVolunteerPost::where(
                     'charity_id', $id
@@ -26,7 +40,8 @@ class CharityVolunteerPostController
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
-                'seeFollowOrUnfollow' => Auth::user()->role_id == Role::USERS['BENEFACTOR'] 
+                'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
+                'follow' => $canFollow 
             ]
         ]);
     }

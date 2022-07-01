@@ -12,6 +12,7 @@ use App\Models\Charity\CharityPosts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
@@ -35,6 +36,19 @@ class CharityPostsController
             ->with('categories', 'officers')
             ->findOrFail($charityID);
 
+
+            $seeFollowOrUnfollow = false;
+        $canFollow = false;
+
+        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
+            $seeFollowOrUnfollow = true;
+
+            $canFollow = CharityFollowers::query()
+                ->where('charity_id', $id)
+                ->where('benefactor_id', Auth::id())
+                ->exists();
+        }
+
         return Inertia::render('Charity/Post/Index',[
             'posts'=> CharityPosts::where(
                     'charity_id', $charity->id
@@ -42,7 +56,8 @@ class CharityPostsController
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
-                'seeFollowOrUnfollow' => Auth::user()->role_id == Role::USERS['BENEFACTOR'] 
+                'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
+                'follow' => $canFollow 
             ]
         ]);
     }

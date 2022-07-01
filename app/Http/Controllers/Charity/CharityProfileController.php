@@ -8,6 +8,7 @@ use Inertia\Response;
 use App\Models\Charity\Charity;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Charity\CharityFollowers;
 
 class CharityProfileController extends Controller
 {
@@ -24,13 +25,26 @@ class CharityProfileController extends Controller
         $charity =  Charity::query()
             ->with('categories', 'officers')
             ->findOrFail($charityID);
+            
+        $seeFollowOrUnfollow = false;
+        $canFollow = false;
+
+        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
+            $seeFollowOrUnfollow = true;
+
+            $canFollow = CharityFollowers::query()
+                ->where('charity_id', $charityID)
+                ->where('benefactor_id', Auth::id())
+                ->exists();
+        }
 
         return Inertia::render(
             'Charity/Profile',[ 
                 'charity' => $charity,
                  'can' => [
                     'access' => Auth::id() ==  $charity->id,
-                    'seeFollowOrUnfollow' => Auth::user()->role_id == Role::USERS['BENEFACTOR'] 
+                    'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
+                    'follow' => $canFollow 
                  ]   
             ],
         );

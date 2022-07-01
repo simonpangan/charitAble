@@ -15,7 +15,7 @@
                         <div class="profile-right ms-auto">
                             <button v-if="this.$page.props.can.seeFollowOrUnfollow" type="button" class="btn btn-primary">
                                 <i class="far fa-plus"></i>
-                                Follow 
+                                {{ (this.$page.props.can.follow) ? 'Follow' : 'Unfollow' }} 
                             </button>
                         </div>
                     </div>

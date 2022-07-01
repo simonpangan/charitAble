@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityProgram;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityProgramRequest;
 
 class CharityProgramController
@@ -21,6 +22,18 @@ class CharityProgramController
         $charity =  Charity::query()
             ->findOrFail($id);
 
+        $seeFollowOrUnfollow = false;
+        $canFollow = false;
+
+        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
+            $seeFollowOrUnfollow = true;
+
+            $canFollow = CharityFollowers::query()
+                ->where('charity_id', $id)
+                ->where('benefactor_id', Auth::id())
+                ->exists();
+        }
+
         return Inertia::render('Charity/Program/Index',[
             'programs' => CharityProgram::where(
                     'charity_id', $id
@@ -28,7 +41,8 @@ class CharityProgramController
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
-                'seeFollowOrUnfollow' => Auth::user()->role_id == Role::USERS['BENEFACTOR'] 
+                'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
+                'follow' => $canFollow 
             ]
         ]);
     }
