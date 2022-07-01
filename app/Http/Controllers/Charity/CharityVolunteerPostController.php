@@ -59,7 +59,7 @@ class CharityVolunteerPostController
     {
         return Inertia::render('Charity/Volunteer-Posting/Create');
     }
-    
+
     public function show(int $id): InertiaResponse
     {
         return Inertia::render(
@@ -72,32 +72,26 @@ class CharityVolunteerPostController
     }
     public function edit(int $id): InertiaResponse
     {
-        $charity_id = CharityVolunteerPost::findOrFail($id)->charity_id;
-        return Inertia::render(
-            'Charity/Volunteer-Posting/Edit',
-            [
-                'volunteer_post' => CharityVolunteerPost::findOrFail($id)->toArray(),
-                'charity' => Charity::where('id',$charity_id)->get()->toArray(),
-            ]);
+        $post = CharityVolunteerPost::findOrFail($id);
 
+        abort_if($post->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+
+        return Inertia::render(
+                'Charity/Volunteer-Posting/Edit',
+                ['volunteerPost' => $post]
+            );
     }
 
     public function update(CharityVolunteerPostRequest $request, int $id): RedirectResponse
     {
-        CharityVolunteerPost::query()
-            ->findOrFail($id)
-            ->update(
-                ['charity_id' => auth()->user()->id,
-                 'name' => $request['name'],
-                  'qualifications' => $request['volunteer_qualifications'],
-                  'description' => $request['volunteer_description'],
-                  'location' => $request['location'],
-                  'incentives' => $request['volunteer_incentives'],
-                  ['status' => '1']]);
+        $program = CharityVolunteerPost::findOrFail($id);
+        
+        abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
+        $program->update($request->validated());
 
         return to_route('charity.volunteer.edit', $id)
-        ->with('message', 'Succesfully updated your profile');
+            ->with('message', 'Succesfully updated your volunteer posting');
     }
 
     public function destroy(int $id): RedirectResponse
