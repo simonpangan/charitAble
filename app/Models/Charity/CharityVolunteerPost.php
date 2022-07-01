@@ -5,6 +5,7 @@ namespace App\Models\Charity;
 use App\Traits\CharityID;
 use App\Models\Categories;
 use Illuminate\Support\Carbon;
+use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +25,11 @@ class CharityVolunteerPost extends Model
     public function getCreatedAtFormattedAttribute()
     {
         return (Carbon::parse($this->created_at)->diffForHumans());
+    }
+
+    public function charity()
+    {
+        return $this->belongsTo(Charity::class);
     }
 
     public function scopeFilterVolunteerPostBy($query, $name, $category)
