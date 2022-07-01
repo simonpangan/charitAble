@@ -129,12 +129,10 @@ class CharityProgramController
 
     public function show(int $id): Response
     {
-        $program = CharityProgram::with('charity:id,name')->findOrFail($id);
-
         return Inertia::render(
             'Charity/Program/Show',
             [
-                'program' =>  $program,
+                'program' => $program = CharityProgram::with('charity:id,name')->findOrFail($id),
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()
                 ]
@@ -144,19 +142,25 @@ class CharityProgramController
 
     public function edit(int $id): Response
     {
+        $program = CharityProgram::findOrFail($id);
+
+        abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+
         return Inertia::render(
-            '',
-            CharityProgram::findOrFail($id)->toArray()
+            'Charity/Program/Edit',
+            ['program' => $program]
         );
     }
 
     public function update(CharityProgramRequest $request, int $id): RedirectResponse
     {
-        CharityProgram::query()
-            ->findOrFail($id)
-            ->update($request->validated());
+        $program = CharityProgram::findOrFail($id);
 
-        return to_route('');
+        abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+
+        $program->update($request->validated());
+
+        return to_route('charity.program.index', Auth::id());
     }
 
     public function destroy(int $id): RedirectResponse
