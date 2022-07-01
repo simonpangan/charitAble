@@ -13,19 +13,13 @@
                             <div class="small text-gray-500"> {{post.created_at_formatted}}</div>
                         </div>
                         <span class="ms-auto small"></span>
-                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fal fa-ellipsis-v-alt"></i>
-                    </a>
-
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                </ul>
+                        <button v-if="can.access" class="btn btn-danger" @click="deletePost(post.id)">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
                     </div>
                     <div class="p-3 border-bottom osahan-post-body">
                         {{post.main_content_body}}
-                        <div class="div">
-                        <img class="img-fluid" v-bind:src="post.main_content_body_image" alt="">
-                        </div>
+                        <img class="img-fluid" v-bind:src="post.main_content_body_image" alt="post image">
                     </div>
                 </div>
             </div>
@@ -38,7 +32,44 @@ import CharityLayout from '../CharityLayout.vue';
 
 let props = defineProps({
     posts: Array,
-    charity: Object
+    charity: Object,
+    can: Array
 });
 
 </script>
+
+
+<script>
+import { Inertia } from '@inertiajs/inertia'
+
+export default {
+  methods: {
+    deletePost(id) {
+        this.$swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Inertia.delete(route('charity.post.destroy', {
+                    id: id 
+                }), {
+                    onSuccess: () => {
+                         this.$swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    },
+                });
+            }
+        })
+    },
+  },
+};
+</script>
+
