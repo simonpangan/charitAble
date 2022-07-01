@@ -76,8 +76,7 @@
               <div class="box-body p-3">
                 <form class="js-validate" novalidate="novalidate">
                   <div class="row">
-                    <!-- Input -->
-                    <div class="col-sm-6 mb-2">
+                    <div class="col-sm-12 mb-2">
                       <div class="js-form-message">
                         <label id="nameLabel" class="form-label">
                           Program Name
@@ -87,49 +86,29 @@
                           <input
                             type="text"
                             class="form-control"
-                            v-model="form.program_name"
+                            v-model="form.name"
                           />
                           <small class="form-text text-muted"
                             >Displayed on your public profile, notifications and
                             other places.</small
                           >
+                          <span v-if="form.errors.name" v-text="form.errors.name"
+                            class="invalid-feedback d-block" role="alert">
+                          </span>
                         </div>
                       </div>
                     </div>
-                    <!-- End Input -->
-                    <!-- Input -->
-                    <div class="col-sm-6 mb-2">
-                      <div class="js-form-message">
-                        <label id="usernameLabel" class="form-label">
-                          Program Type
-                          <span class="text-danger">*</span>
-                        </label>
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="form.program_type"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End Input -->
                   </div>
-
                   <div class="row">
                     <div class="col-sm-12 mb-2">
                       <label class="mb-1">Program Description</label>
                       <span class="text-danger">*</span>
                       <span class="text-danger">*</span>
                       <div class="position-relative">
-                        <textarea
-                          class="form-control"
-                          rows="4"
-                          v-model="form.program_description"
-                        >
-Write something for benefactors to know more about this wonderful program.
-                    </textarea
-                        >
+                        <textarea class="form-control" rows="4" v-model="form.description" />
+                        <span v-if="form.errors.description" v-text="form.errors.description"
+                            class="invalid-feedback d-block" role="alert">
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -146,6 +125,9 @@ Write something for benefactors to know more about this wonderful program.
                             class="form-control"
                             name="program_location"
                           />
+                          <span v-if="form.errors.location" v-text="form.errors.description"
+                            class="invalid-feedback d-block" role="alert">
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -166,19 +148,16 @@ Write something for benefactors to know more about this wonderful program.
                   <div class="col-sm-6 mb-4">
                     <label id="FROM" class="form-label">Goal</label>
                     <span class="text-danger">*</span>
-
-                    <!-- Input -->
-
                     <div v-for="key in count" :key="key">
                       <div class="input-group">
                         <input
                           type="text"
                           class="form-control mb-2"
                           v-model="goal_values[key]"
-                          placeholder="From"
-                          aria-label="FROM"
-                          aria-describedby="FROM"
                         />
+                        <span v-if="form.errors.location" v-text="form.errors.description"
+                            class="invalid-feedback d-block" role="alert">
+                        </span>
                       </div>
                     </div>
                     <div class="d-flex">
@@ -215,6 +194,9 @@ Write something for benefactors to know more about this wonderful program.
                           aria-label="FROM"
                           aria-describedby="FROM"
                         />
+                        <span v-if="form.errors.goals" v-text="form.errors.description"
+                            class="invalid-feedback d-block" role="alert">
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -234,21 +216,20 @@ Write something for benefactors to know more about this wonderful program.
                     <!-- Input -->
                     <div class="col-sm-12 mb-2">
                       <div class="js-form-message">
-                        <label id="nameLabel" class="form-label">
-                          Total Donation Amount<span class="text-danger"
-                            >*</span
-                          >
+                        <label id="nameLabel" class="form-label"> 
+                          Total Donation Amount
+                          <span class="text-danger">*</span>
                         </label>
                         <div class="form-group">
                           <input
                             type="number"
                             class="form-control"
-                            v-model="form.program_donation_total"
+                            v-model="form.total_needed_amount"
                           />
-                          <small class="form-text text-muted"
-                            >Displayed on your public profile, notifications and
-                            other places.</small
-                          >
+                          <span v-if="form.errors.total_needed_amount" 
+                            v-text="form.errors.total_needed_amount"
+                            class="invalid-feedback d-block" role="alert">
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -264,10 +245,7 @@ Write something for benefactors to know more about this wonderful program.
                           <input
                             type="text"
                             class="form-control mb-2"
-                            v-model="program_expenses[keyProgram]"
-                            placeholder="From"
-                            aria-label="FROM"
-                            aria-describedby="FROM"
+                            v-model="expenses[keyProgram]"
                           />
                         </div>
                       </div>
@@ -301,9 +279,6 @@ Write something for benefactors to know more about this wonderful program.
                             type="number"
                             class="form-control mb-2"
                             v-model="program_date_expenses[keyProgram]"
-                            placeholder="From"
-                            aria-label="FROM"
-                            aria-describedby="FROM"
                           />
                         </div>
                       </div>
@@ -353,14 +328,13 @@ export default {
   },
   setup() {
     let form = useForm({
-      program_name: null,
-      program_type: null,
-      program_description: null,
+      name: null,
+      description: null,
       location: null,
       goal: null,
-      program_expenses: null,
+      expenses: null,
       header: [],
-      program_donation_total: null,
+      total_needed_amount: null,
     });
 
     let submit = () => {
@@ -379,9 +353,9 @@ export default {
       countProgram: 1,
       goal_values: [],
       goal_date_values: [],
-      program_expenses: [],
+      expenses: [],
       program_date_expenses: [],
-      program_donation_total: null,
+      total_needed_amount: null,
     };
   },
   methods: {
@@ -421,13 +395,13 @@ export default {
         }
       }
 
-      for (let i = 0; i < this.program_expenses.length; i++) {
-        if (this.program_expenses[i] && this.program_date_expenses[i] != null) {
+      for (let i = 0; i < this.expenses.length; i++) {
+        if (this.expenses[i] && this.program_date_expenses[i] != null) {
           expenses.push({
-            program_expenses: this.program_expenses[i],
+            expenses: this.expenses[i],
             program_date_expenses: this.program_date_expenses[i],
           });
-          this.form.program_expenses = expenses;
+          this.form.expenses = expenses;
         }
       }
       this.form.post(route("charity.program.store"));
