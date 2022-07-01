@@ -13,9 +13,12 @@
                                 <div class="border job-item mb-3">
                                     <div class="d-flex align-items-center p-3 job-item-header">
                                         <div class="overflow-hidden me-2">
-                                            <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{volunteer_post.volunteer_work_name}}</h6>
+                                            <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{volunteer_post.name}}</h6>
                                             <div class="text-truncate text-primary">{{this.$page.props.charity.name}}</div>
-                                            <div class="small text-gray-500"><i class="feather-map-pin"></i>{{volunteer_post.location}}</div>
+                                            <div class="small text-gray-500">
+                                                <i class="fal fa-map-pin"></i>
+                                                {{volunteer_post.location}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
