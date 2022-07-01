@@ -220,11 +220,13 @@ import { reactive, computed,ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import axios from 'axios';
 import { loadScript } from "@paypal/paypal-js";
+
+import useVuelidate from "@vuelidate/core";
 let paypal;
 
 export default {
-  //add mo sa table ung tip_range, para meron sa dtabase ntn
   beforeMounted() {
+    //Pre load paypal
     this.PaypalSelected();
   },
 props: {
@@ -232,20 +234,21 @@ props: {
     program:Array
 },
   setup() {
-
+ 
   },
   data() {
     return {
-    payment_method : 'paypal',
+    payment_method : '',
     total_price : 0,
     price: 0,
     step: 0,
     tip_level: 5,
     tip_price: 0,
-    program_id : this.program.id
+    charity_program_id : this.program.id
     };
   },
   methods: {
+
     updateDonation: function(e){
     this.tip_price = (this.tip_level / 100) * this.price;
       this.total_price = parseFloat(this.price) + parseFloat(this.tip_price);
@@ -290,7 +293,6 @@ props: {
                         }
                 })
                 .then((response) => {
-                    console.log(response.data.id);
                     return response.data.id;
                 })
                 .catch((error) => {
@@ -300,21 +302,21 @@ props: {
 
             onApprove:(data,action) =>{
                 return action.order.capture()
-                .then(function(orderData) {
-             console.log(orderData.purchase_units[0].amount.value);
-            // const transaction = orderData.purchase_units[0].payments.captures[0];
-            // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-                    axios.post('paypal/order/capture/',{
-                         amount: orderData.purchase_units[0].amount.value,
-                        transaction_id:orderData.id,
-                        tip_price: orderData.purchase_units[0].description,
-                        charity_program_id: 1
-                    }).then((response)=>{
-                        let vm = this;
-
+                .then((orderData) =>{
+                    return axios({
+                    method: 'POST',
+                    headers: {},
+                    url: 'paypal/order/capture/',
+                    data: {
+                        'amount': orderData.purchase_units[0].amount.value,
+                        'transaction_id':orderData.id,
+                        'tip_price': orderData.purchase_units[0].description,
+                        'charity_program_id' : this.charity_program_id
+                        }
+                })
+                .then((response)=>{
                         Inertia.visit(route('charity.donate.success',
-
-                        {id: vm.program_id,transaction_id:orderData.id}))
+                        {id:orderData.id,transaction_id:orderData.id}))
                     })
                 });
             }
