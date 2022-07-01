@@ -41,9 +41,8 @@
                                     <h6 class="m-0">Qualifications and Responsibilities</h6>
                                 </div>
                                 <div class="box-body p-3">
-                                    <p v-for="(qualification, index) in volunteerPost.qualifications" :key="index">
-                                        {{ (index) + '. ' }}
-                                        {{ qualification }}
+                                    <p>
+                                        {{ volunteerPost.qualifications }}
                                     </p>
                                 </div>
                             </div>

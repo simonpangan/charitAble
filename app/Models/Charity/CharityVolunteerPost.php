@@ -15,11 +15,7 @@ class CharityVolunteerPost extends Model
     use HasFactory, CharityID;
 
     protected $guarded = ['id'];
-
-    protected $casts = [
-        'qualifications' => 'array',
-    ];
-
+    
     protected $appends = ['created_at_formatted'];
     
     public function getCreatedAtFormattedAttribute()

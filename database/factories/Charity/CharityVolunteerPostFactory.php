@@ -20,10 +20,7 @@ class CharityVolunteerPostFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->paragraph,
             'location' => $this->faker->word,  
-            'qualifications' => [
-                '1' => $this->faker->sentence, 
-                '2' => $this->faker->sentence, 
-            ],
+            'qualifications' => $this->faker->paragraph,
             'incentives' => $this->faker->sentence,  
             'is_active' => $this->faker->numberBetween(0,1),  
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
