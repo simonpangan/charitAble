@@ -10,7 +10,10 @@
                             <p>A Volunteer Posting by {{volunteerPost.charity.name}}</p>
                         </div>
                         <div class="profile-right ms-auto">
-                            <Link class="btn btn-success btn-lg" :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">Edit</Link>
+                            <Link class="btn btn-info btn-lg" 
+                                :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">
+                                <i class="fad fa-edit fa-1x"></i>
+                            </Link>
                             <Link  @click="deletePost(volunteerPost.id)"
                                 as="button" 
                                 class="btn btn-danger btn-lg ms-2" 
