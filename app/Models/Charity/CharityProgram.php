@@ -17,7 +17,7 @@ class CharityProgram extends Model
 
     protected $casts = [
         'goal' => 'array',
-        'program_expenses' => 'array',
+        'expenses' => 'array',
     ];
 
     protected $appends = ['created_at_formatted'];

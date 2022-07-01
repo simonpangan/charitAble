@@ -24,7 +24,7 @@ return new class extends Migration
             $table->bigInteger('total_donation_amount')->default(0);
             $table->bigInteger('total_withdrawn_amount')->default(0);
             $table->bigInteger('total_needed_amount')->default(0);
-            $table->json('program_expenses');
+            $table->json('expenses');
             $table->string('header');
             $table->timestamps();
         });
