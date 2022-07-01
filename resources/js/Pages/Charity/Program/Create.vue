@@ -17,6 +17,9 @@
             <div class="border rounded bg-white mb-3">
               <div class="box-title border-bottom p-3">
                 <h6 class="m-0">Program Image Header</h6>
+                  <span v-if="form.errors.header" v-text="form.errors.header"
+                    class="invalid-feedback d-block" role="alert">
+                  </span>
               </div>
               <div class="box-body">
                 <div class="p-3 border-bottom">
@@ -93,7 +96,6 @@
                     <div class="col-sm-12 mb-2">
                       <label class="mb-1">Program Description</label>
                       <span class="text-danger">*</span>
-                      <span class="text-danger">*</span>
                       <div class="position-relative">
                         <textarea class="form-control" rows="4" v-model="form.description" />
                         <span v-if="form.errors.description" v-text="form.errors.description"
@@ -131,14 +133,17 @@
               </div>
               <div class="box-body px-3 pt-3 pb-0">
                 <div class="row" v-for="(goal, index) in form.goals" :key="index">
-                  <div class="col-sm-6 mb-4">
+                  <div class="col-sm-6">
                     <label id="FROM" class="form-label">Goal</label>
                     <span class="text-danger">*</span>
                     <div class="input-group">
                         <input type="text" class="form-control mb-2" v-model="goal.name" />
+                        <span v-text="form.errors['goals.'+ (index) +'.name']" 
+                          v-if="form.errors['goals.'+ (index) +'.name']" class="invalid-feedback d-block" role="alert">
+                        </span>
                     </div>
                   </div>
-                  <div class="col-sm-6 mb-4">
+                  <div class="col-sm-6">
                     <label class="form-label">Date of Expected Completion</label>
                     <div class="input-group">
                       <input type="date" class="form-control mb-2" v-model="goal.date"/>
@@ -147,8 +152,15 @@
                           <i class="fad fa-trash"></i>
                       </button>
                     </div>
+                    <span  v-text="form.errors['goals.'+ (index) +'.date']" 
+                      v-if="form.errors['goals.'+ (index) +'.date']" class="invalid-feedback d-block" role="alert">
+                    </span>
                   </div>
                 </div>
+                <span v-if="form.errors.goals" 
+                    v-text="form.errors.goals"
+                    class="invalid-feedback d-block" role="alert">
+                </span>
                 <button class="btn btn-light d-inline-block u-text-muted mb-2" 
                     @click.stop.prevent="addGoal">
                     <i class="fad fa-plus"></i>
@@ -166,7 +178,7 @@
                     <div class="col-sm-12 mb-2">
                       <div class="js-form-message">
                         <label id="nameLabel" class="form-label"> 
-                          Total Donation Amount
+                          Total Needed Amount
                           <span class="text-danger">*</span>
                         </label>
                         <div class="form-group">
@@ -179,22 +191,31 @@
                       </div>
                     </div>
                   </div>
+                  <label class="mb-1">Program Expenses</label>
                   <div class="row" v-for="(expense, index) in form.expenses" :key="index">
                     <div class="col-sm-6 mb-4">
-                      <label id="FROM" class="form-label">Add Program Expenses</label>
+                      <label id="FROM" class="form-label">Expense name</label>
                         <div class="input-group">
                           <input type="text" class="form-control mb-2" v-model="expense.name" />
                         </div>
+                      <span v-if="form.errors['expenses.'+ (index) +'.name']" 
+                        v-text="form.errors['expenses.'+ (index) +'.name']"
+                        class="invalid-feedback d-block" role="alert">
+                      </span>
                     </div>
                     <div class="col-sm-6 mb-4">
-                      <label class="form-label">Date of Expected Completion</label>
+                      <label class="form-label">Amount</label>
                       <div class="input-group">
-                        <input type="date" class="form-control mb-2" v-model="expense.amount" />
+                        <input type="number" class="form-control mb-2" v-model="expense.amount" />
                         <button @click.stop.prevent="removeExpense(index)"
                           class="ms-2 py-0 btn btn-sm btn-danger" style="height: 35px">
                           <i class="fad fa-trash"></i>
                         </button>
                       </div>
+                      <span v-if="form.errors['expenses.'+ (index) +'.amount']" 
+                        v-text="form.errors['expenses.'+ (index) +'.amount']"
+                        class="invalid-feedback d-block" role="alert">
+                      </span>
                     </div>
                   </div>
                   <button class="btn btn-light d-inline-block u-text-muted" 
@@ -245,7 +266,7 @@ export default {
       description: null,
       location: null,
       goals: [{name: '', date: ''}],
-      expenses: [{name: '', amount: ''}],
+      expenses: [],
       header: [],
       total_needed_amount: null,
     });
