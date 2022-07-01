@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Charity;
 
+use App\Models\Role;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
@@ -23,10 +24,11 @@ class CharityProgramController
         return Inertia::render('Charity/Program/Index',[
             'programs' => CharityProgram::where(
                     'charity_id', $id
-                )->get(),
+                )->latest()->get(),
             'charity' => $charity,
             'can' => [
-                'access' => Auth::id() ==  $charity->id
+                'access' => Auth::id() ==  $charity->id,
+                'seeFollowOrUnfollow' => Auth::user()->role_id == Role::USERS['BENEFACTOR'] 
             ]
         ]);
     }
@@ -104,23 +106,19 @@ class CharityProgramController
                 'filename' => $filename,
                 'file_type' => 'program-header'
             ]);
-
-
         }
+
         return '500';
     }
 
-
     public function show(int $id): Response
     {
-        $charity_id = CharityProgram::findOrFail($id)->charity_id;
         return Inertia::render(
-            'Charity/Program/ViewProgram',
+            'Charity/Program/Show',
             [
-                'program' => CharityProgram::findOrFail($id)->toArray(),
-                'charity' => Charity::where('id',$charity_id)->get()->toArray(),
-            ]);
-
+                'program' => CharityProgram::with('charity:id,name')->findOrFail($id),
+            ]
+        );
     }
 
     public function edit(int $id): Response

@@ -13,8 +13,10 @@
                             </h1>
                         </div>
                         <div class="profile-right ms-auto">
-                            <button type="button" class="btn btn-light me-2"> <i class="feather-external-link"></i> Donate </button>
-                            <button type="button" class="btn btn-primary"> <i class="feather-plus"></i> Follow </button>
+                            <button v-if="this.$page.props.can.seeFollowOrUnfollow" type="button" class="btn btn-primary">
+                                <i class="far fa-plus"></i>
+                                Follow 
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -221,8 +223,11 @@
                                     <div class="small text-gray-500">Tree Planting Activity
                                     </div>
                                 </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-sm">Donate Now</button>
-                           </span>
+                                <span class="ms-auto">
+                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                        Donate Now
+                                    </button>
+                                </span>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
                                 <div class="dropdown-list-image me-3">

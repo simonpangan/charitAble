@@ -41,7 +41,8 @@ class CharityPostsController
                 )->latest()->get(),
             'charity' => $charity,
             'can' => [
-                'access' => Auth::id() ==  $charity->id
+                'access' => Auth::id() ==  $charity->id,
+                'seeFollowOrUnfollow' => Auth::user()->role_id == Role::USERS['BENEFACTOR'] 
             ]
         ]);
     }
