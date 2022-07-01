@@ -1,4 +1,5 @@
 <template>
+  <Head title="Create Post"></Head>
   <div class="container mt-4">
     <div class="row justify-content-center align-items-center d-flex h-75">
       <div class="col-md-6">

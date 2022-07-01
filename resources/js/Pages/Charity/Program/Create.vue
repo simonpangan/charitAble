@@ -1,4 +1,5 @@
 <template>
+  <Head title="Create Program"></Head>
   <form @submit.prevent="submit">
     <div class="py-4">
       <div class="container">
