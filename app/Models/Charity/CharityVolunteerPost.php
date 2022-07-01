@@ -17,6 +17,10 @@ class CharityVolunteerPost extends Model
     protected $guarded = ['id'];
     
     protected $appends = ['created_at_formatted'];
+
+    protected $casts = [
+        'is_virtual' => 'boolean',
+    ];
     
     public function getCreatedAtFormattedAttribute()
     {
