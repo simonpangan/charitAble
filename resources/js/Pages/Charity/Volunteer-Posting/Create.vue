@@ -1,9 +1,13 @@
 <template>
-  <Head title="Create Volunteer Posting"></Head>
+  <Head title="Create Volunteer Posting "></Head>
   <form @submit.prevent="submit">
     <div class="py-4">
       <div class="container">
-        <div class="row">
+        <Link class="fw-bold text-muted" v-on:click="goBack">
+          <i class="far fa-arrow-left me-2"></i>
+          Go Back
+        </Link>
+        <div class="row mt-2">
           <aside class="col-md-4">
             <div class="mb-3 border rounded bg-white profile-box text-center w-10">
               <div class="p-4 d-flex align-items-center">
@@ -221,7 +225,9 @@ export default {
 
   },
   methods: {
-
+    goBack() {
+      return window.history.back();
+    },
   },
 };
 </script>

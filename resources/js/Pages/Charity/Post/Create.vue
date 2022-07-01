@@ -3,9 +3,9 @@
   <div class="container mt-4">
     <div class="row justify-content-center align-items-center d-flex h-75">
       <div class="col-md-6">
-        <Link class="fw-bold text-muted" :href="$route('charity.profile.index')">
-            <i class="far fa-arrow-left me-2"></i>
-            Return to Profile
+        <Link class="fw-bold text-muted" v-on:click="goBack">
+          <i class="far fa-arrow-left me-2"></i>
+          Go Back
         </Link>
         <form @submit.prevent="submit">
         <div class="box shadow-sm border rounded bg-white mb-3 mt-3 osahan-post">
@@ -114,6 +114,9 @@ export default {
   },
   data() {},
   methods: {
+    goBack() {
+      return window.history.back();
+    },
     handleFilePondInit: function () {
       console.log("FilePond has initialized");
       // FilePond instance methods are available on `this.$refs.pond`
