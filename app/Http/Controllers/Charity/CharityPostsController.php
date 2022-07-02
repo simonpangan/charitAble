@@ -17,6 +17,7 @@ use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
+use Illuminate\Support\Facades\File;
 
 class CharityPostsController
 {
@@ -65,7 +66,9 @@ class CharityPostsController
 
     public function create(): Response
     {
-        return Inertia::render('Charity/Post/Create');
+        return Inertia::render('Charity/Post/Create',[
+            'csrfToken' => csrf_token()
+        ]);
     }
 
     public function store(CharityPostStoreRequest $request, ): RedirectResponse
@@ -85,8 +88,8 @@ class CharityPostsController
                 ->getRawOriginal();
 
             Storage::move(
-                "tmp/post/{$temporaryFile['folder']}/{$temporaryFile}['filename']", 
-                "public/charity/{$id}/post/{$filename}"
+                'tmp/post/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
+                'public/charity/'.$id.'/post'.'/'.$filename
             );
             Storage::deleteDirectory('tmp/post/'.$temporaryFile['folder']);
 
@@ -117,9 +120,8 @@ class CharityPostsController
         abort_if($post->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
         Auth::user()->createLog("You have deleted a post");
-
+        
         $post->delete();
-
         return to_route('charity.post.index', [
             'id' => Auth::id()
         ]);
@@ -155,9 +157,9 @@ class CharityPostsController
 
              Storage::deleteDirectory('/tmp/post/'.$folder);
 
-            return 'http://127.0.0.1:8000/storage/tmp/post/'.$folder;
+            return 200;
         }catch(\Exception $e){
-            return response($folder);
+            return 500;
         }
     }
 }

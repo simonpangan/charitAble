@@ -21,7 +21,7 @@
               </div>
               <file-pond
                 name="main_content_body_image"
-                class="h-50 mt-4 mb-2"
+                class="h-25 mt-4 mb-2"
                 v-model="main_content_body_image"
                 credits="false"
                 ref="main_content_body_image"
@@ -42,16 +42,19 @@
                 max-files="1"
                 allowDrop="true"
                 dropOnPage="true"
+                maxFileSize= "5MB"
                 labelIdle="Click Here To Upload File"
                 v-on:init="handleFilePondInit"
                 v-on:updatefiles="handleFilePondUpdateFiles"
                 v-on:removefile="handleRevertFilePond"
+                v-on:addfilestart="OnhandleOnAddFileStart"
+                v-on:processfile="onHandleaddfile"
               ></file-pond>
             </div>
             <div class="p-3 border-bottom osahan-post-footer">
               <div class="p-3 d-flex">
                 <span class="mx-auto">
-                  <button :disabled="form.processing" type="submit" class="btn btn-primary btn-lg rounded">
+                  <button :disabled="this.LoadingState == 'false' " type="submit" class="btn btn-primary btn-lg rounded">
                     Post
                     <i class="fad fa-share ms-1"></i>
                   </button>
@@ -66,7 +69,7 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive,computed } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import vueFilePond from "vue-filepond";
 // Import FilePond styles
@@ -76,12 +79,14 @@ import "filepond/dist/filepond.min.css";
 // Import image preview and file type validation plugins
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+
 import { useForm } from "@inertiajs/inertia-vue3";
 
 // Create component
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
-  FilePondPluginImagePreview
+  FilePondPluginImagePreview,FilePondPluginFileValidateSize
 );
 
 export default {
@@ -105,7 +110,8 @@ export default {
   },
   data() {
     return{
-    lastFileName : ''
+    lastFileName : '',
+    LoadingState : 'true'
     }
   },
   methods: {
@@ -133,17 +139,29 @@ export default {
        alert
       });
     },
+    OnhandleOnAddFileStart: function(){
+        this.LoadingState = 'false';
+    },
+    onHandleaddfile:function(){
+        this.LoadingState = 'true';
+    },
   },
+ 
+
 };
 </script>
 <style>
 @import "filepond/dist/filepond.css";
 
 .filepond--wrapper {
-  max-height: 300px;
+  height: 150px;
 }
 
 .filepond--drop-label {
+    background-color:white;
+    border-radius: 25px;
+    border: 2px solid #007bff;
+    padding: 20px;
 }
 @import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
 </style>
