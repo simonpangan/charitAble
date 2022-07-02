@@ -2,12 +2,13 @@
 
 namespace App\Models\Charity;
 
+use App\Models\User;
+use App\Models\Location;
 use App\Models\Categories;
 use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityOfficers;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Charity\CharityVolunteerPost;
-use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Charity extends Model
@@ -22,6 +23,11 @@ class Charity extends Model
     public $casts = [
         'created_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 
     public function officers()
     {
