@@ -9,7 +9,7 @@
                             <h3 class="font-weight-bold text-dark mb-1 mt-0"> {{volunteerPost.name}}</h3>
                             <p>A Volunteer Posting by {{volunteerPost.charity.name}}</p>
                         </div>
-                        <div class="profile-right ms-auto">
+                        <div v-if="can.modify" class="profile-right ms-auto">
                             <Link class="btn btn-info btn-lg" 
                                 :href="$route('charity.volunteer.edit', {id:volunteerPost.id})">
                                 <i class="fad fa-edit fa-1x"></i>
@@ -97,7 +97,8 @@
 
 <script setup>
 let props = defineProps({
-    volunteerPost: Object
+    volunteerPost: Object,
+    can: Array
 });
 </script>
 

@@ -64,9 +64,12 @@ class CharityVolunteerPostController
     {
         return Inertia::render(
             'Charity/Volunteer-Posting/Show', [
-                'volunteerPost' => CharityVolunteerPost::query()
+                'volunteerPost' => $post = CharityVolunteerPost::query()
                     ->with('charity:id,name')
                     ->findOrFail($id),
+                'can' => [
+                    'modify' =>  $post->charity_id == Auth::id()
+                ]
             ]
         );
     }
