@@ -78,8 +78,6 @@ class CharityPostsController
         //     'password' => Hash::make($data['password']),
         // ]);
 
-
-
         $id = auth()->user()->id;
         $filename = '';
         $link = '';
@@ -116,7 +114,7 @@ class CharityPostsController
             // $link = $charity_logo_file_path.$id.'/'.$filename;
         // Auth::user()->createLog("You have deleted program with id");
 
-        return to_route('charity.profile.index');
+        return to_route('charity.post.index');
     }
 
     public function destroy(int $id): RedirectResponse
@@ -134,8 +132,8 @@ class CharityPostsController
         ]);
     }
 
-    public function uploadPostPhoto(Request $request){
-
+    public function uploadPostPhoto(Request $request) 
+    {
         if($request->hasFile('main_content_body_image')){
             $file = $request->file('main_content_body_image');
             $filename = $file->getClientOriginalName();
@@ -150,6 +148,7 @@ class CharityPostsController
 
             return '200';
         }
+
         return '500';
     }
 }
