@@ -26,7 +26,7 @@ class CharityFactory extends Factory
             'facebook_link' => $this->faker->url, 
             'twitter_link' => $this->faker->url, 
             'instagram_link' => $this->faker->url, 
-            'is_pnc_accredited' => $this->faker->numberBetween(0, 1),
+            'permits' => 'PCNC, SEC',
             'charity_verified_at' => $this->faker->randomElement([now()->toDateTimeString(), null]),
             'followers' => $this->faker->numberBetween(0, 5000),
         ];
