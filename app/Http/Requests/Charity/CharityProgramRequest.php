@@ -26,9 +26,9 @@ class CharityProgramRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'location' => ['required', 'string'],
+            // 'location' => ['required', 'string'],
             'header' => ['nullable'],
-            'total_needed_amount' => ['required', 'string'],
+            'total_needed_amount' => ['required', 'int', 'min:0'],
 
             'goals' => ['required', 'array'],
             'goals.*' => [
@@ -58,7 +58,7 @@ class CharityProgramRequest extends FormRequest
     {
         return [
             'goals.*.name' => 'goal name',
-            'goals.*.date' => 'goal name',
+            'goals.*.date' => 'goal date',
             'expenses.*.name' => 'expense name',
             'expenses.*.amount' => 'expense amount',
         ];
