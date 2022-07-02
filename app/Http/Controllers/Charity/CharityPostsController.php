@@ -65,9 +65,7 @@ class CharityPostsController
 
     public function create(): Response
     {
-        return Inertia::render('Charity/Post/Create',[
-            'csrfToken' => csrf_token()
-        ]);
+        return Inertia::render('Charity/Post/Create');
     }
 
     public function store(CharityPostStoreRequest $request, ): RedirectResponse
