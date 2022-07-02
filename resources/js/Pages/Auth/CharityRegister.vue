@@ -18,33 +18,26 @@
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Organization Name <span class="text-danger">*</span></label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <input v-model="form.name" type="text" class="form-control" />
                       <div v-if="form.errors.name" class="text-danger">
                         {{ form.errors.name }}
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Organization Email <span class="text-danger">*</span></label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.charity_email" type="email" class="form-control" />
                     <div v-if="errors.charity_email" class="text-danger">
                       {{ errors.charity_email }}
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span></label>
-                    <div class="position-relative icon-form-control">
+                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span></label>                      
                       <ul class="ks-cboxtags">
                         <li v-for="(category, index) in charityCategories" :key="category.id">
                           <input
@@ -61,8 +54,10 @@
                         <div v-if="form.errors.categories" class="text-danger">
                           {{ form.errors['categories'] }}
                         </div>
-                      </ul>
-                    </div>
+                      </ul> 
+                      <small class="form-text text-muted">
+                            Select All that applies
+                      </small>
                   </div>
                 </div>
               </div>
@@ -70,8 +65,6 @@
                 <div class="row">
                   <div class="col">
                     <label class="mb-1">Head Admin - Email <span class="text-danger">*</span></label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-at-sign position-absolute"></i>
                       <input v-model.trim="form.email" type="email" class="form-control" />
                       <small class="form-text text-muted">
                         This is the email you are going to use in login.
@@ -79,51 +72,47 @@
                       <div v-if="errors.email" class="text-danger">
                         {{ errors.email }}
                       </div>
-                    </div>
                   </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-12">
                     <label class="mb-1">Password <span class="text-danger">*</span></label>
-                    <div class="position-relative icon-form-control">
                       <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
                       <div class="mt-2">
                         <small>
-                          <p class="text-danger nmb-1" v-if="v$.password.containsSpecial.$invalid"> &check; Passwords requires an special character. </p>
+                          <p class="text-danger nmb-1" v-if="v$.password.containsSpecial.$invalid"> &#10006; Passwords requires an special character. </p>
                         </small>
                         <small>
-                          <p style="color: green" class="nmb-1" v-if="!v$.password.containsSpecial.$invalid"> &check; Passwords requires an special character. </p>
+                          <p class="nmb-1 text-success" v-if="!v$.password.containsSpecial.$invalid"> &check; Passwords requires an special character. </p>
                         </small>
                         <small>
-                          <p style="color: orange" class="nmb-1" v-if="v$.password.containsSpecial.$invalid"> &#10006; Passwords requires an special character. </p>
+                          <p class="nmb-1 text-success" v-if="!v$.password.containsNumber.$invalid"> &check; Passwords requires an numerical character. </p>
                         </small>
                         <small>
-                          <p style="color: green" class="nmb-1" v-if="!v$.password.containsNumber.$invalid"> &check; Passwords requires an numerical character. </p>
+                          <p class="nmb-1 text-danger " v-if="v$.password.containsNumber.$invalid"> &#10006; Passwords requires an numerical character. </p>
                         </small>
                         <small>
-                          <p style="color: orange" class="nmb-1" v-if="v$.password.containsNumber.$invalid"> &#10006; Passwords requires an numerical character. </p>
+                          <p class="nmb-1 text-success" v-if="!v$.password.containsLowercase.$invalid"> &check; Passwords requires an lower case character. </p>
                         </small>
                         <small>
-                          <p style="color: green" class="nmb-1" v-if="!v$.password.containsLowercase.$invalid"> &check; Passwords requires an lower case character. </p>
+                          <p class="nmb-1 text-danger " v-if="v$.password.containsLowercase.$invalid"> &#10006; Passwords requires an lower case character. </p>
                         </small>
                         <small>
-                          <p style="color: orange" class="nmb-1" v-if="v$.password.containsLowercase.$invalid"> &#10006; Passwords requires an lower case character. </p>
+                          <p class="nmb-1 text-success" v-if="!v$.password.containsUppercase.$invalid"> &check; Passwords requires an upper case character. </p>
+                        </small>
+                         <small>
+                          <p class="nmb-1 text-danger" v-if="v$.password.containsUppercase.$invalid"> &#10006; Passwords requires an upper case character. </p>
                         </small>
                         <small>
-                          <p style="color: green" class="nmb-1" v-if="!v$.password.containsUppercase.$invalid"> &check; Passwords requires an upper case character. </p>
-                        </small>
-                        <small>
-                          <p style="color: orange" v-if="
+                          <p style="color: #de4437" v-if="
                             v$.password.minLength.$invalid ||
-                            form.password == ''
-                          "> &#10006; Passwords needs to have atlest 8 characters.</p>
-                          <p style="color: green" v-else> &check;  Passwords needs to have atlest 8 characters.</p>
+                            form.password == ''"> &#10006; Passwords needs to have atleast 8 characters.</p>
+                          <p style="color: #00c9a7" v-else> &check;  Passwords needs to have atleast 8 characters.</p>
                         </small>
                       </div>
                       <div v-if="errors.password" class="text-danger">
                         {{ errors.password }}
                       </div>
-                    </div>
                   </div>
                   <div class="col">
                     <label class="mb-1">Confirm Password <span class="text-danger">*</span></label>
@@ -136,7 +125,10 @@
               </div>
               <div class="row"></div>
               <div class="row">
-                <label class="mb-1 mt-2">You agree to the Osahanin <a href="#">User Agreement</a>, <a href="#">Privacy Policy</a>, and <a href="#">Cookie Policy</a>. </label>
+                <label class="mb-1 mt-2">By registering to our platform , you are now agreeing to the CharitAble
+                    <a href="/terms" target="_blank">Terms and User Agreement</a>,
+                    <a href="/privacy" target="_blank">Privacy Policy</a>.
+                </label>
               </div>
               <div class="text-center">
                 <button class="btn btn-primary text-uppercase mt-3 px-5" @click.prevent="nextStep"> Agree & Join </button>
@@ -191,66 +183,52 @@
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Organization Description <span class="text-danger">*</span></label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-user position-absolute"></i>
                       <textarea v-model="form.description" type="text" class="form-control" rows="6"></textarea>
                       <div v-if="errors.name" class="text-danger">
                         {{ errors.name }}
                       </div>
-                    </div>
+                      
                   </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Facebook Link</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.fb_link" type="email" class="form-control" />
                     <div v-if="errors.charity_email">
                       {{ errors.charity_email }}
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Twitter Link</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.twitter_link" type="email" class="form-control" />
                     <div v-if="errors.charity_email">
                       {{ errors.charity_email }}
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Instagram Link</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.ig_link" type="email" class="form-control" />
                     <div v-if="errors.charity_email">
                       {{ errors.charity_email }}
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Website Link</label>
-                  <div class="position-relative icon-form-control">
-                    <i class="feather-at-sign position-absolute"></i>
                     <input v-model.trim="form.website_link" type="email" class="form-control" />
                     <div v-if="errors.charity_email">
                       {{ errors.charity_email }}
                     </div>
-                  </div>
                 </div>
               </div>
 
-              <label class="pb-5">Organization Logo</label>
+              <label class="pb-0">Organization Logo</label>
                 <div v-if="this.image_file">
                     <p>Uploaded File : </p>
                       <div class="d-flex mx-auto">
@@ -258,7 +236,7 @@
                     </div>
                 </div>
                     <file-pond name="file"
-                     class="h-50 mb-5"
+                     class="h-25 mb-5"
                       v-model="file"
                        ref="file"
                         v-bind:files="file"
@@ -277,13 +255,16 @@
                     allow-multiple="false"
                     accepted-file-types="image/jpeg, image/png"
                     max-files="1"
+                    label="Click here to Upload Photo"
+                    required="true"
+                    credits="false"
                     allowDrop="true"
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
                     v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
             </div>
           </div>
-          <div class="col-md-4 justify-content-center align-items-center d-flex vh-100">
+          <div class="col-md-4  justify-content-center align-items-center d-flex vh-100">
             <div class="card card-custom bg-white border-white border-0">
               <div class="card-custom-img" style="
                 background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);
