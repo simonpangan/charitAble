@@ -19,7 +19,7 @@ class ProgramDonationSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $benefactor = Benefactor::find(2);
 
 
@@ -31,7 +31,9 @@ class ProgramDonationSeeder extends Seeder
         foreach ($program->random(20) as $program) {
             $benefactor->programDonations()->attach($program->id, [
                 'amount' => 100,
-                'donated_at' => $faker->dateTimeBetween('-5 years', 'now')
+                'donated_at' => $faker->dateTimeBetween('-5 years', 'now'),
+                'transaction_id' => 21312321,
+                'tip_price' => 15
             ]);
         }
     }
