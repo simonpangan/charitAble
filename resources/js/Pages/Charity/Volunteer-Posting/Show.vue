@@ -76,11 +76,14 @@
                     </div>
                 </main>
                 <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
-                    <a type="button" class="btn btn-block btn-lg btn-primary w-100 mb-3" 
-                        :href="'mailto:test@example.com?subject=Interested at' + volunteerPost.name +'&body=I am looking forward to join your cause!'">
-                        <i class="feather-plus"></i> 
+                     <div v-if="$page.props.flash.message" role="alert"
+                        class="alert alert-success w-80 mx-auto text-center">
+                            {{ $page.props.flash.message }}
+                    </div>
+                    <button type="button" class="btn btn-block btn-lg btn-primary w-100 mb-3" 
+                        data-bs-toggle="modal" data-bs-target="#joinNowModal">
                         Join Now 
-                    </a>
+                    </button>
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Text</h6>
@@ -90,23 +93,102 @@
                         </div>
                     </div>
                 </aside>
+                <!-- Modal -->
+                <div class="modal fade"
+                     id="joinNowModal" tabindex="-1" 
+                     aria-labelledby="joinNowModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" v-model="form.email">
+                                <small class="form-text text-muted">We are going to use your email address in your account if you did not put any.</small>
+                                 <div v-if="errors.email" class="text-danger d-block">
+                                    {{ errors.email }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">
+                                    Message  <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control" v-model="form.message" rows="3">
+                                </textarea>
+                                <div v-if="errors.message" class="text-danger d-block">
+                                    {{ errors.message }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" 
+                            :disabled="processing"
+                            @click="submit">
+                                <span v-if="! processing">
+                                    Send
+                                </span>
+                                <span v-else>
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    Sending...
+                                </span>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
-let props = defineProps({
-    volunteerPost: Object,
-    can: Array
-});
-</script>
-
 <script>
 import { Inertia } from '@inertiajs/inertia';
+import { Modal } from 'bootstrap';
 
 export default {
+    props: {
+        volunteerPost: Object,
+        can: Array,
+        errors: Object,
+    },
+    data() {
+        return {
+            form : {
+                email: null,
+                message: null,
+                id: this.volunteerPost.id
+            },
+            modal: null,
+            processing: false,
+        }
+    }, 
+    mounted() {
+        this.modal = new Modal(document.getElementById('joinNowModal'), {
+            keyboard: false
+        });
+    },
     methods: {
+        submit() {
+            this.processing = true;
+            Inertia.post(route('benefactor.sendEmail'), this.form, {
+                onSuccess: () => {
+                    this.modal.hide();
+                    this.processing = false;
+                    this.form = {
+                        email: null,
+                        message: null,
+                        id: this.volunteerPost.id
+                    }
+                },
+                onError: errors => {
+                    this.processing = false;
+                },
+            });
+        },
         deletePost (id)  {
             this.$swal.fire({
                 title: 'Are you sure?',
