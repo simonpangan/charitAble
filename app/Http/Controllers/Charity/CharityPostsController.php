@@ -16,7 +16,6 @@ use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
-use File;
 
 
 class CharityPostsController
@@ -38,10 +37,11 @@ class CharityPostsController
             ->findOrFail($charityID);
 
 
-            $seeFollowOrUnfollow = false;
+        $seeFollowOrUnfollow = false;
         $canFollow = false;
 
-        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) {
+        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) 
+        {
             $seeFollowOrUnfollow = true;
 
             $canFollow = CharityFollowers::query()
@@ -72,50 +72,44 @@ class CharityPostsController
 
     public function store(CharityPostStoreRequest $request, ): RedirectResponse
     {
-        // CharityPosts::create($request->validated());
-        // User::create([
-        //     'email' => $data['headAdminEmail'],
-        //     'role_id' => Role::USERS['CHARITY_SUPER_ADMIN'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
-
-        $id = auth()->user()->id;
+        $id = Auth::id();
         $filename = '';
-        $link = '';
+        $link = null;
 
-        if($request->hasFile('main_content_body_image')){
+        if($request->hasFile('main_content_body_image')) {
             $file = $request->file('main_content_body_image');
             $filename = $file[0]->getClientOriginalName();
 
-            $temporaryFile = TemporaryFile::where('filename',$filename)
-                            ->where('file_type','post-img')
-                            ->latest()
-                            ->first()
-                            ->getRawOriginal();
+            $temporaryFile = TemporaryFile::where('filename', $filename)
+                ->where('file_type','post-img')
+                ->latest()
+                ->first()
+                ->getRawOriginal();
 
-            Storage::move('tmp/post/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 'public/charity/'. $id .'/'.'post/'.$filename);
-            //this doesn't work
+            Storage::move(
+                "tmp/post/{$temporaryFile['folder']}/{$temporaryFile}['filename']", 
+                "public/charity/{$id}/post/{$filename}"
+            );
             Storage::deleteDirectory('tmp/post/'.$temporaryFile['folder']);
 
             TemporaryFile::where('filename',$filename)
-                            ->where('file_type','post-img')
-                            ->latest()
-                            ->first()
-                            ->delete();
+                ->where('file_type','post-img')
+                ->latest()
+                ->first()
+                ->delete();
 
-            $link = 'http://127.0.0.1:8000/storage/charity/' . $id . '/' .'post/' . $filename;
-            }
+            $link = "/storage/charity/{$id}/post/{$filename}";
+        }
 
-            CharityPosts::create([
-                'main_content_body' => $request['main_content_body'],
-                'main_content_body_image' => $link,
-                'charity_id' => $id
-            ]);
+        CharityPosts::create([
+            'main_content_body' => $request->main_content_body,
+            'main_content_body_image' => $link,
+            'charity_id' => $id
+        ]);
 
-            // $link = $charity_logo_file_path.$id.'/'.$filename;
-        // Auth::user()->createLog("You have deleted program with id");
+        Auth::user()->createLog("You have created a post");
 
-        return to_route('charity.post.index');
+        return to_route('charity.post.index', Auth::id());
     }
 
     public function destroy(int $id): RedirectResponse
@@ -135,7 +129,8 @@ class CharityPostsController
 
     public function uploadPostPhoto(Request $request) 
     {
-        if($request->hasFile('main_content_body_image')){
+        if($request->hasFile('main_content_body_image'))
+        {
             $file = $request->file('main_content_body_image');
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
@@ -147,27 +142,24 @@ class CharityPostsController
                 'file_type' => 'post-img'
             ]);
 
-
             return '200';
         }
 
         return '500';
     }
 
-    public function uploadPostPhotoRevert(Request $request){
-        
+    public function uploadPostPhotoRevert(Request $request)
+    {
         try{
-        $filename = $request['filename'];
-        $folder = TemporaryFile::where('filename',$filename)->pluck('folder')->first();
-        TemporaryFile::where('filename',$filename)->first()->delete();
+            $filename = $request['filename'];
+            $folder = TemporaryFile::where('filename',$filename)->pluck('folder')->first();
+            TemporaryFile::where('filename',$filename)->first()->delete();
 
-         Storage::deleteDirectory('/tmp/post/'.$folder);
+             Storage::deleteDirectory('/tmp/post/'.$folder);
 
-        return 'http://127.0.0.1:8000/storage/tmp/post/'.$folder;
-        
+            return 'http://127.0.0.1:8000/storage/tmp/post/'.$folder;
         }catch(\Exception $e){
             return response($folder);
         }
-       
     }
 }
