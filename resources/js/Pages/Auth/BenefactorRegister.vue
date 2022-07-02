@@ -11,8 +11,8 @@
             </Link>
             <div class="osahan-login py-4">
               <div class="text-center mb-4">
-                <h5 class="fw-bold mt-3">Creating A Better Tomorrow.</h5>
-                <p class="text-muted">Step 1</p>
+                <h5 class="fw-bold mt-3">Creating A Better Tomorrow</h5>
+                <p class="text-muted">Step 1. Personal Credentials</p>
               </div>
               <div class="row">
                 <div class="col">
@@ -96,10 +96,9 @@
               </div>
               <div class="row"></div>
               <div class="row">
-                <label class="mb-1 mt-2">You agree to the Osahanin 
-                  <Link :href="$route('terms')">User Agreement</Link>, 
-                  <Link :href="$route('privacy')">Privacy Policy</Link>, and 
-                  <Link :href="$route('terms')">Cookie Policy</Link>. 
+                  <label class="mb-1 mt-2">By registering to our platform , you are now agreeing to the CharitAble
+                    <a :href="$route('terms')" target="_blank">Terms and User Agreement</a>,
+                    <a :href="$route('privacy')" target="_blank">Privacy Policy</a>.
                 </label>
               </div>
               <div class="text-center">
