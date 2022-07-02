@@ -301,6 +301,25 @@ let removeGoal = (item) => {
   form.goals = temp;
 };
 
+let addExpense = () => {
+  let temp = Object.values(toRaw(form.expenses));
+
+  temp.push({
+    name:'',
+    amount: ''
+  });
+
+  form.expenses = temp;
+};
+
+let removeExpense = (item) => {
+  let temp = Object.values(toRaw(form.expenses));
+
+  temp.splice(item, 1);
+
+  form.expenses = temp;
+};
+
 let submit = () => {
   form.put(route("charity.program.update", {
     'id': props.program.id
