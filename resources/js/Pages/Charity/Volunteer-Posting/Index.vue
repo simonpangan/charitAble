@@ -21,11 +21,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
-                                        <span class="font-weight-bold text-success">
-                                            {{ (volunteer_post.is_active == 1) ? 'Active' : 'Inactive' }}
-                                        </span>
-                                    </div>
                                     <div class="p-3 job-item-footer">
                                         <small class="text-gray-500">
                                             <i class="fas fa-clock"></i>
