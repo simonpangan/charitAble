@@ -9,9 +9,9 @@
                     'id': program.id
                   })">
                     <div class="card overflow-hidden">
-                        <img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/04/a0004907/img/basic/a0004907_main.jpg?20210317142845&q=80&rw=750&rh=536" class="img-fluid" alt="Responsive image">
+                        <img :src="program.header" class="img-fluid" alt="Responsive image">
                         <div class="card-body">
-                            <h5 class="card-title nmb-1">{{program.program_name}}</h5>
+                            <h5 class="card-title nmb-1">{{program.name}}</h5>
                             <p class="card-text text-muted ">{{program.location}}</p>
                             <p class="card-text text-dark">
                               <i class="fas fa-clock"></i>
