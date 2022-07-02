@@ -83,59 +83,10 @@
                     </a>
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
-                            <h6 class="m-0">Recent Donations</h6>
+                            <h6 class="m-0">Text</h6>
                         </div>
                         <div class="box-body p-3">
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p4.png" alt="">
-                                </div>
-                                <div class="font-weight-bold me-2">
-                                    <div class="text-truncate">Volunter Post 1</div>
-                                    <div class="small text-gray-500">@Harvard
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p9.png" alt="">
-                                </div>
-                                <div class="font-weight-bold me-2">
-                                    <div class="text-truncate">Volunter Post 2</div>
-                                    <div class="small text-gray-500">Traveler
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p10.png" alt="">
-                                </div>
-                                <div class="font-weight-bold me-2">
-                                    <div class="text-truncate">Volunter Post 3</div>
-                                    <div class="small text-gray-500">Art Designer
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p11.png" alt="">
-                                </div>
-                                <div class="font-weight-bold me-2">
-                                    <div class="text-truncate">Volunter Post 4</div>
-                                    <div class="small text-gray-500">@Photography
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p12.png" alt="">
-                                </div>
-                                <div class="font-weight-bold me-2">
-                                    <div class="text-truncate">Volunter Post 5</div>
-                                    <div class="small text-gray-500">@Envato
-                                    </div>
-                                </div>
-                            </div>
+                            hello
                         </div>
                     </div>
                 </aside>
