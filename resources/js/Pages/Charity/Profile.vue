@@ -30,7 +30,7 @@
                             </tr>
                             <tr class="border-bottom">
                                 <th class="p-3">Permit/s</th>
-                                <td class="p-3">SEC Registered Non-Profit Organization</td>
+                                <td class="p-3">{{ charity.permits }}</td>
                             </tr>
                             <tr class="border-bottom" v-if="charity.website_link">
                                 <th class="p-3">Website</th>

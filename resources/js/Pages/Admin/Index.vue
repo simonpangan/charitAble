@@ -1,4 +1,5 @@
 <template>
+    <Head title="Home" />
     <main>
       <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
         <div class="container-xl px-4">
@@ -31,11 +32,11 @@
               <div class="dataTable-container">
                 <card id="datatablesSimple" class="dataTable-table">
                   <thead>
-                    <tr>
+                  <tr>
                       <th width="10%" class="text-center">
                         #
                       </th>
-                      <th width="30%" class="text-center">
+                      <th width="20%" class="text-center">
                         Name
                       </th>
                       <th width="20%" class="text-center"
@@ -47,17 +48,20 @@
                           Created At
                         </Link>
                       </th>
-                    <th width="10%" class="text-center"
-                        :class="(status == 'pending') ? 'asc' : 'desc'">
-                        <Link :href="$route('admin.home.index', {
-                          'status' : (status == 'pending') ? 'approved' : 'pending',
-                          })" class="dataTable-sorter">
-                          Status
-                        </Link>
-                    </th>
-                    <th width="10%" class="text-center">
-                        Action
-                    </th>
+                      <th width="10%" class="text-center"
+                          :class="(status == 'pending') ? 'asc' : 'desc'">
+                          <Link :href="$route('admin.home.index', {
+                            'status' : (status == 'pending') ? 'approved' : 'pending',
+                            })" class="dataTable-sorter">
+                            Status
+                          </Link>
+                      </th>
+                      <th width="20%" class="text-center">
+                          Permits
+                      </th>
+                      <th width="10%" class="text-center">
+                          Action
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -69,6 +73,11 @@
                          <div v-if="charity.charity_verified_at" 
                           class="badge bg-success text-white rounded-pill">Approve</div>
                           <div v-else class="badge bg-warning rounded-pill">Pending</div>
+                      </td>
+                      <td>
+                        <input type="email" class="form-control" 
+                        :value="charity.permits"
+                        v-on:keyup.enter="savePermit($event, charity.id)">
                       </td>
                        <td class="d-flex justify-content-evenly">
                         <Link class="btn btn-danger" v-if="charity.charity_verified_at"
@@ -84,15 +93,21 @@
                           method="post" as="button" type="button">
                           <i class="fas fa-badge-check"></i>
                         </Link>
-                        <Link class="btn btn-info d-inline" :href="$route('admin.home.show', {
+                        <a class="btn btn-info d-inline" :href="$route('admin.home.download', {
                           'id': charity.id
                         })">
                           <i class="fad fa-download"></i>
+                        </a>
+                        <Link class="btn btn-light"
+                          :href="$route('charity.profile.index', {
+                              id: charity.id
+                          })" >
+                          <i class="far fa-eye"></i>
                         </Link>
                       </td>
                     </tr>
                     <tr v-if="charities.data.length == 0">
-                      <td class="dataTables-empty" colspan="3" width="1300">
+                      <td class="dataTables-empty" colspan="5" width="1300">
                         No results match your search query
                       </td>
                     </tr>
@@ -131,6 +146,7 @@
 
 <script setup>
 import debounce from 'lodash/debounce';
+import Swal from 'sweetalert2'
 import {
     ref,
     watch,
@@ -157,6 +173,38 @@ watch(search, debounce((value) => {
       }
     );
 }, 300));
+
+let savePermit = (e, charityID) => {
+  Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, update it!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+         Inertia.post(
+            route('admin.approval.permits'), { 
+              permits: e.target.value, 
+              charityID: charityID, 
+              }, {
+              preserveState: true,
+              replace: true,
+              onSuccess: () => {
+                    Swal.fire(
+                      'Updated!',
+                      'Charity Permit updated.',
+                      'success'
+                  )
+              },
+            }
+          );
+      } else {
+        e.target.reset();
+      }
+  });
+}
 
 </script>
 
