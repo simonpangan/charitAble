@@ -19,6 +19,10 @@ class Charity extends Model
 
     protected $guarded = [];
 
+    public $casts = [
+        'created_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
+    ];
+
     public function officers()
     {
         return $this->hasMany(CharityOfficers::class);
