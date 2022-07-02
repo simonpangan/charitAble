@@ -36,7 +36,7 @@ use App\Http\Controllers\Admin\ {
     AdminApprovalController
 };
 
-use App\Http\Controllers\BenefactorDonationController;
+use App\Http\Controllers\Benefactor\BenefactorDonationController;
 use App\Http\Controllers\PaymongoController;
 use App\Http\Controllers\PaypalPaymentController;
 use App\Models\Charity\CharityVolunteerPost;
@@ -91,6 +91,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::post('post', 'store')->name('post.store');
             Route::delete('post/{id}', 'destroy')->name('post.destroy');
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
+            Route::post('uploadPostPhoto/revert','uploadPostPhotoRevert')->name('post.revert.image');
+
         });
 
         Route::controller(CharityOfficerController::class)->group(function(){
@@ -101,8 +103,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
         });
 
-        Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');
-        Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
+        // Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');
+        // Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
 
         Route::group(['prefix'=>'payment/paypal'], function(){
             Route::post('/order/create',[PaypalPaymentController::class,'create']);

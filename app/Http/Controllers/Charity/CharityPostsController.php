@@ -16,6 +16,7 @@ use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
+use File;
 
 
 class CharityPostsController
@@ -146,9 +147,27 @@ class CharityPostsController
                 'file_type' => 'post-img'
             ]);
 
+
             return '200';
         }
 
         return '500';
+    }
+
+    public function uploadPostPhotoRevert(Request $request){
+        
+        try{
+        $filename = $request['filename'];
+        $folder = TemporaryFile::where('filename',$filename)->pluck('folder')->first();
+        TemporaryFile::where('filename',$filename)->first()->delete();
+
+         Storage::deleteDirectory('/tmp/post/'.$folder);
+
+        return 'http://127.0.0.1:8000/storage/tmp/post/'.$folder;
+        
+        }catch(\Exception $e){
+            return response($folder);
+        }
+       
     }
 }
