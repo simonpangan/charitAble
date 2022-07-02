@@ -41,7 +41,6 @@ class CharityRegisterController extends Controller
         }
 
         $link = '';
-        $charityDocumentLink = '';
 
         $user = $this->createUser(
             $request->only(['email', 'password'])
@@ -52,7 +51,6 @@ class CharityRegisterController extends Controller
 
         if ($request->hasFile('file'))
         {
-            $charity_logo_file_path = 'charity/logo/';
             $file = $request->file('file');
             $filename = $file->getClientOriginalName();
 
@@ -81,7 +79,7 @@ class CharityRegisterController extends Controller
 
         $documentFile = $request->only('documentFile');
 
-        $this->createCharityWithPreferences($user, $request->except(['email', 'password']), $link);
+        $this->createCharityWithCategories($user, $request->except(['email', 'password']), $link);
         
         foreach($documentFile['documentFile'] as $document) {
             $documentFileName = $document->getClientOriginalName();
@@ -100,7 +98,7 @@ class CharityRegisterController extends Controller
         event(new Registered($user));
 
         $this->guard()->login($user);
-        // dd($request->all());
+        
         return redirect($this->redirectPath());
     }
 
@@ -113,7 +111,7 @@ class CharityRegisterController extends Controller
         ]);
     }
 
-    private function createCharityWithPreferences(User $user, array $data, $link): void
+    private function createCharityWithCategories(User $user, array $data, $link): void
     {
          $charity = $user->charity()->create([
             'name' => $data['name'],
