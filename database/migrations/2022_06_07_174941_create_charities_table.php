@@ -17,17 +17,17 @@ return new class extends Migration
             $table->foreignId('id')->constrained('users');
             $table->primary('id');
 
-            $table->string('name')->nullable();
-            $table->text('about')->nullable();
-            $table->string('charity_email')->nullable();
-            $table->string('logo')->nullable();
+            $table->string('name');
+            $table->text('about');
+            $table->string('charity_email');
+            $table->string('logo');
 
             $table->string('website_link')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('twitter_link')->nullable();
             $table->string('instagram_link')->nullable();
 
-            $table->boolean('is_pnc_accredited')->nullable();
+            $table->string('permits')->nullable();
             $table->timestamp('charity_verified_at')->nullable();
 
             $table->integer('followers')->default(0);
