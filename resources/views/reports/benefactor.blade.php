@@ -72,7 +72,7 @@
             <td>{{ $loop->index + 1}}</td>
             <td>{{ $donation->name }}</td>
             <td>{{ $donation->pivot->amount }}</td>
-            <td>{{ $donation->pivot->created_at->toDayDateTimeString() }}</td>
+            <td class="text-center">{{ $donation->pivot->donated_at_formatted }}</td>
         </tr>
         @endforeach
     </table>
