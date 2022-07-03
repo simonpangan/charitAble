@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Charity\CharityProgram;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Charity\CharityFollowers;
-use App\Models\Charity\CharityProgram;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -50,6 +51,11 @@ class Benefactor extends Model
     public static function auth()
     {
         return Benefactor::find(Auth::id());   
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function followingCharities()        
