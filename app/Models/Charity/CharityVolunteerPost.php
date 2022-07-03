@@ -38,7 +38,8 @@ class CharityVolunteerPost extends Model
     {
         return $this->belongsToMany(Benefactor::class, 'volunteer_post_interests')
             ->using(VolunteerPostInterest::class)
-            ->withPivot('message','created_at');
+            ->withPivot('message','created_at')
+            ->latest();
     }
 
     public function lastFiveInterest()
