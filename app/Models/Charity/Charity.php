@@ -61,9 +61,4 @@ class Charity extends Model
             'charity_id', 'category_id'
         );
     }
-
-    public function locations()
-    {
-        return $this->belongsToMany(Location::class);
-    }
 }

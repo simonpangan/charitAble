@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Carbon\Carbon;
 use App\Models\Role;
+use App\Models\Location;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,11 +22,14 @@ class UserFactory extends Factory
     public function definition()
     {
         $userRoles = collect(Role::USERS);
+        $locations = Location::all('id')->pluck('id');
 
         return [
             'email' => $this->faker->unique()->email,
             'role_id' => $this->faker->numberBetween($userRoles->first(), $userRoles->last()),
             'email_verified_at' => Carbon::now(config('app.timezone'))->toDateString(),
+            'address' => $this->faker->address,
+            'location_id' => $locations->random(),
             'password' => $this->faker->password,
             'remember_token' => null,
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')

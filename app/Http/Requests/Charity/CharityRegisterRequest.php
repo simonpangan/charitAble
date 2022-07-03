@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Charity;
 
 use App\Models\Categories;
+use App\Models\Location;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,6 +40,8 @@ class CharityRegisterRequest extends FormRequest
             'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'address' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', Rule::in(Location::all()->pluck('id'))],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'categories' => ['array', 'required'],
             'categories.*' => [
