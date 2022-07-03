@@ -80,10 +80,12 @@
                         class="alert alert-success w-80 mx-auto text-center">
                             {{ $page.props.flash.message }}
                     </div>
-                    <button type="button" class="btn btn-block btn-lg btn-primary w-100 mb-3" 
-                        data-bs-toggle="modal" data-bs-target="#joinNowModal">
+                    <a :href="$route('charity.volunteer.report', {
+                        'id': volunteerPost.id
+                    })"  
+                        class="btn btn-block btn-lg btn-primary w-100 mb-3">
                         Download Report<i class="fad fa-download ms-2"></i> 
-                    </button>
+                    </a>
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Recent Emails</h6>

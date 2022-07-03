@@ -29,7 +29,8 @@ use App\Http\Controllers\Charity\{
     CharityProfileController,
     CharityProgramController,
     CharityVolunteerPostController,
-    CharityOfficerController
+    CharityOfficerController,
+    CharityVolunteerPostReportController
 };
 
 use App\Http\Controllers\Admin\ {
@@ -86,6 +87,11 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::get('volunteer-posts/{id}/edit', 'edit')->name('volunteer.edit');
             Route::put('volunteer-posts/{id}', 'update')->name('volunteer.update');
             Route::delete('volunteer-posts/{id}', 'destroy')->name('volunteer.destroy');
+        });
+
+        Route::controller(CharityVolunteerPostReportController::class)->group(function () {
+            Route::get('volunteer-posts/{id}/report', 'redirectToGeneratedReport')->name('volunteer.report');
+            Route::get('volunteer-posts/{id}/generate', 'generate')->name('volunteer.download');
         });
 
         Route::controller(CharityPostsController::class)->group(function(){
