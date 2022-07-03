@@ -23,7 +23,7 @@ class CharityProfileController extends Controller
         }
 
         $charity =  Charity::query()
-            ->with('categories', 'officers', 'user')
+        ->with('categories', 'officers', 'user:id,address,location_id', 'user.location')
             ->findOrFail($charityID);
             
         $seeFollowOrUnfollow = false;

@@ -35,7 +35,11 @@
                             <tr class="border-bottom" v-if="charity.website_link">
                                 <th class="p-3">Location</th>
                                 <td class="p-3">
-                                    {{ charity.user.address }}
+                                    {{ charity.user.address }}, 
+                                    {{ 
+                                        (charity.user.location.name == 'Quezon City') ? 
+                                        'Quezon City' : charity.user.location.name + ' City'
+                                     }}
                                 </td>
                             </tr>
                             <tr class="border-bottom" v-if="charity.website_link">
