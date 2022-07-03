@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Benefactor;
 
-use App\Models\Charity\CharityProgram;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Charity\Charity;
 use App\Models\ProgramDonation;
+use App\Models\Charity\CharityProgram;
 
-class BenefactorDonationController extends Controller
+class BenefactorDonationController
 {
     public function index(int $id): Response
     {
