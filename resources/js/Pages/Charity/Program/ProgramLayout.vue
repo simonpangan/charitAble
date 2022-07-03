@@ -52,18 +52,26 @@
                     </div>
                 </main>
                 <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+                    <div v-if="this.$page.props.can.modify">
+                        <a :href="$route('charity.volunteer.report', {
+                            'id': 1
+                        })"  
+                            class="btn btn-block btn-lg btn-primary w-100 mb-3">
+                            Download Report
+                            <i class="fad fa-download ms-2"></i> 
+                        </a>
+                    </div>
                     <div class="box shadow-sm border rounded bg-white mb-3">
-                        <div class="box-title border-bottom p-3">
+                        <div class="box-title border-bottom p-3 mt-2">
                             <h6 class="m-0">Donations</h6>
                         </div>
                         <div class="box-body p-3">
                             <div class="progress">
-                                <!-- donationPercentage -->
-                                <div class="progress-bar" role="progressbar" 
-                                    :style="{ width: donationPercentage + '%' }"
-                                    :aria-valuenow="donationPercentage" aria-valuemin="0" aria-valuemax="100">
-                                        {{ donationPercentage }} %
-                                    </div>
+                            <div class="progress-bar" role="progressbar" 
+                                :style="{ width: donationPercentage + '%' }"
+                                :aria-valuenow="donationPercentage" aria-valuemin="0" aria-valuemax="100">
+                                    {{ donationPercentage }} %
+                            </div>
                             </div>
                             <div>
                                 <h3 class="mx-auto nmb-1">{{$page.props.program.total_donation_amount}}</h3>
@@ -78,6 +86,7 @@
                                 <p class="text-muted">Total Donors</p>
                             </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
+                                v-if="$page.props.auth.user.roleID == 4"
                                 :href="$route('charity.donate.create', {
                                     'id': $page.props.program.id
                              })">
