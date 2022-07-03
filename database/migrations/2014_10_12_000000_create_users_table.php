@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->unsignedTinyInteger('role_id');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedTinyInteger('location_id')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken()->nullable();
             $table->dateTime('last_generate_report')->nullable();
