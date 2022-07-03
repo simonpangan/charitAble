@@ -41,8 +41,8 @@ class BenefactorCharitySearchLocationController
                 $query->where('charities.name', 'like', '%'.$value.'%'); 
             })
             ->when(($location && ! is_null($locationDB)), function($query) use ($locationDB) {
-                $query->join('charity_location', 'charity_location.charity_id', '=', 'charities.id');
-                $query->where('charity_location.location_id', $locationDB->id);
+                $query->join('users', 'users.id', '=', 'charities.id');
+                $query->where('users.location_id', $locationDB->id);
             })
             ->paginate(20)
             ->withQueryString();
