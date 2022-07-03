@@ -17,6 +17,11 @@ return new class extends Migration
             $table->tinyIncrements('id');
             $table->string('name');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('location_id')->references('id')->on('locations');
+        });
+
     }
 
     /**
