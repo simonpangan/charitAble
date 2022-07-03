@@ -37,13 +37,18 @@
                     <div class="box shadow-sm rounded bg-white mb-3 overflow-hidden">
                         <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Program Description</a>
+                                <Link class="nav-link" 
+                                :class="{ 'active': $page.component === 'Charity/Program/Show' }"
+                                :href="$route('charity.program.show', {
+                                    'id': this.$page.props.program.id
+                                })">Program Description</Link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Supporters</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="type-tab" data-bs-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Program History</a>
+                                <Link class="nav-link" 
+                                :class="{ 'active': $page.component === 'Charity/Program/Supports' }"
+                                :href="$route('charity.program.supporters', {
+                                    'id': this.$page.props.program.id
+                                })">Supporters</Link>
                             </li>
                         </ul>
                     </div>
@@ -53,7 +58,7 @@
                 </main>
                 <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                     <div v-if="this.$page.props.can.modify">
-                        <a :href="$route('charity.volunteer.report', {
+                        <a :href="$route('charity.program.report', {
                             'id': 1
                         })"  
                             class="btn btn-block btn-lg btn-primary w-100 mb-3">
