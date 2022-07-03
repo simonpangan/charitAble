@@ -38,6 +38,13 @@ class CharityVolunteerPost extends Model
         return $this->hasMany(VolunteerPostInterest::class);
     }
 
+    public function lastFiveInterest()
+    {
+        return $this->hasMany(VolunteerPostInterest::class)
+            ->limit(5)
+            ->latest();
+    }
+
     public function scopeFilterVolunteerPostBy($query, $name, $category)
     {
         //name is only in the query

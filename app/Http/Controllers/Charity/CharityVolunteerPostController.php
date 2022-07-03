@@ -13,7 +13,6 @@ use Inertia\Response as InertiaResponse;
 use App\Models\Charity\CharityVolunteerPost;
 use App\Http\Requests\Charity\CharityVolunteerPostRequest;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class CharityVolunteerPostController
 {
@@ -65,7 +64,7 @@ class CharityVolunteerPostController
         return Inertia::render(
             'Charity/Volunteer-Posting/Show', [
                 'volunteerPost' => $post = CharityVolunteerPost::query()
-                    ->with('charity:id,name')
+                    ->with('charity:id,name', 'lastFiveInterest')
                     ->findOrFail($id),
                 'can' => [
                     'modify' =>  $post->charity_id == Auth::id()

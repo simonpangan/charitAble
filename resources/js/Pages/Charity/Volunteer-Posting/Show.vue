@@ -75,7 +75,34 @@
                         </div>
                     </div>
                 </main>
-                <aside v-if="$page.props.auth.user.roleID == 4" class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+                <aside v-if="can.modify" class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+                     <div v-if="$page.props.flash.message" role="alert"
+                        class="alert alert-success w-80 mx-auto text-center">
+                            {{ $page.props.flash.message }}
+                    </div>
+                    <button type="button" class="btn btn-block btn-lg btn-primary w-100 mb-3" 
+                        data-bs-toggle="modal" data-bs-target="#joinNowModal">
+                        Download Report<i class="fad fa-download ms-2"></i> 
+                    </button>
+                    <div class="box shadow-sm border rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Recent Emails</h6>
+                        </div>
+                        <div class="box-body">
+                            <ol class="list-group">
+                                <li v-for="interest in volunteerPost.last_five_interest" :key="interest.id" 
+                                    class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Subheading</div>
+                                    Content for list item
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{interest.created_at_formatted}}</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </aside>
+                <aside v-else class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                      <div v-if="$page.props.flash.message" role="alert"
                         class="alert alert-success w-80 mx-auto text-center">
                             {{ $page.props.flash.message }}
@@ -92,54 +119,54 @@
                             hello
                         </div>
                     </div>
-                </aside>
-                <!-- Modal -->
-                <div class="modal fade" v-if="$page.props.auth.user.roleID == 4"
-                     id="joinNowModal" tabindex="-1" 
-                     aria-labelledby="joinNowModal" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" v-model="form.email">
-                                <small class="form-text text-muted">We are going to use your email address in your account if you did not put any.</small>
-                                 <div v-if="errors.email" class="text-danger d-block">
-                                    {{ errors.email }}
+                    <!-- Modal -->
+                    <div class="modal fade"
+                        id="joinNowModal" tabindex="-1" 
+                        aria-labelledby="joinNowModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" v-model="form.email">
+                                    <small class="form-text text-muted">We are going to use your email address in your account if you did not put any.</small>
+                                    <div v-if="errors.email" class="text-danger d-block">
+                                        {{ errors.email }}
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">
+                                        Message  <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea class="form-control" v-model="form.message" rows="3">
+                                    </textarea>
+                                    <div v-if="errors.message" class="text-danger d-block">
+                                        {{ errors.message }}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">
-                                    Message  <span class="text-danger">*</span>
-                                </label>
-                                <textarea class="form-control" v-model="form.message" rows="3">
-                                </textarea>
-                                <div v-if="errors.message" class="text-danger d-block">
-                                    {{ errors.message }}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" 
+                                :disabled="processing"
+                                @click="submit">
+                                    <span v-if="! processing">
+                                        Send
+                                    </span>
+                                    <span v-else>
+                                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                        Sending...
+                                    </span>
+                                </button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" 
-                            :disabled="processing"
-                            @click="submit">
-                                <span v-if="! processing">
-                                    Send
-                                </span>
-                                <span v-else>
-                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                    Sending...
-                                </span>
-                            </button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </aside>
             </div>
         </div>
     </div>
@@ -167,9 +194,11 @@ export default {
         }
     }, 
     mounted() {
-        this.modal = new Modal(document.getElementById('joinNowModal'), {
-            keyboard: false
-        });
+        if(! this.can.modify) {
+            this.modal = new Modal(document.getElementById('joinNowModal'), {
+                keyboard: false
+            });
+        }
     },
     methods: {
         submit() {
