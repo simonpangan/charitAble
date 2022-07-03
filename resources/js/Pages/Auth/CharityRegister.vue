@@ -179,7 +179,7 @@
                 <h5 class="fw-bold mt-3">Charity Creation Setup</h5>
                 <p class="text-muted">Step 2 - Additional NGO Information</p>
               </div>
-              <div class="row">
+              <div class="row mb-1">
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Organization Description <span class="text-danger">*</span></label>
@@ -188,6 +188,20 @@
                         {{ errors.name }}
                       </div>
                       
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <label class="mb-1">Address <span class="text-danger">*</span></label>
+                  <div class="input-group mb-3">
+                    <input type="text" v-model="form.address" class="form-control">
+                    <select v-model="form.location" class="form-select" id="inputGroupSelect02">
+                      <option selected>Select City</option>
+                      <option v-for="location in locations" :key="location.id" :value="location.id">
+                        {{ location.name }}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -410,6 +424,8 @@
         password: null,
         password_confirmation: null,
         description: null,
+        address: null,
+        location: null,
         fb_link: null,
         twitter_link: null,
         ig_link: null,
@@ -450,7 +466,8 @@
     props: {
       errors: Object,
       csrfToken: String,
-      charityCategories: Array
+      charityCategories: Array,
+      locations: Array
     },
     data() {
       return {
