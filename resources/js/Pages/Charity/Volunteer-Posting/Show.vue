@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </main>
-                <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+                <aside v-if="$page.props.auth.user.roleID == 4" class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                      <div v-if="$page.props.flash.message" role="alert"
                         class="alert alert-success w-80 mx-auto text-center">
                             {{ $page.props.flash.message }}
@@ -94,7 +94,7 @@
                     </div>
                 </aside>
                 <!-- Modal -->
-                <div class="modal fade"
+                <div class="modal fade" v-if="$page.props.auth.user.roleID == 4"
                      id="joinNowModal" tabindex="-1" 
                      aria-labelledby="joinNowModal" aria-hidden="true">
                     <div class="modal-dialog">
