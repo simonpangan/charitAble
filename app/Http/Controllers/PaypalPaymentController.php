@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProgramDonations;
+use App\Models\ProgramDonation;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class PaypalPaymentController extends Controller
     {
 
         try{
-            ProgramDonations::create([
+            ProgramDonation::create([
                 'benefactor_id' =>  2,
                 'charity_program_id' => $request['charity_program_id'],
                 'amount' => $request['amount'],

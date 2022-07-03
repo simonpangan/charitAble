@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('donated_at');
             $table->string('transaction_id');
             $table->string('tip_price');
+            $table->string('message')->nullable();
             $table->index(['charity_program_id', 'benefactor_id']);
             $table->index(['benefactor_id', 'charity_program_id']);
         });

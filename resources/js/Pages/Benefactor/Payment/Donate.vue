@@ -315,8 +315,14 @@ props: {
                         }
                 })
                 .then((response)=>{
+
+                    //Web3
+
+                    //Axios post
+
+                    
                         Inertia.visit(route('charity.donate.success',
-                        {id:orderData.id,transaction_id:orderData.id}))
+                        {id:this.charity_program_id,transaction_id:orderData.id}))
                     })
                 });
             }
