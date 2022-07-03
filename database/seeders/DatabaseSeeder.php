@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             CategoriesSeeder::class,
             UsersSeeder::class,
+            BenefactorSeeder::class,
             LogSeeder::class,
             CharitySeeder::class,
             CharityFollowersSeeder::class,
