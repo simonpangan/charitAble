@@ -36,7 +36,6 @@
                                                     {{ program.location }}
                                                 </div>
                                                 </div>
-                                                <img class="img-fluid ml-auto" src="img/l1.png" alt="">
                                             </div>
                                             <div class="p-3 job-item-footer">
                                                 <small class="text-gray-500">
