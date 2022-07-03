@@ -30,6 +30,7 @@ use App\Http\Controllers\Charity\{
     CharityProgramController,
     CharityVolunteerPostController,
     CharityOfficerController,
+    CharityProgramReportController,
     CharityVolunteerPostReportController
 };
 
@@ -81,6 +82,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('program/{id}', 'destroy')->name('program.destroy');
         });
 
+        Route::get('program/{id}/report', [CharityProgramReportController::class, 'redirect'])->name('program.report');
+        Route::get('program/{id}/download', [CharityProgramReportController::class, 'generate'])->name('program.download');
+
+
         Route::controller(CharityVolunteerPostController::class)->group(function () {
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
@@ -111,8 +116,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
         });
 
-        // Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');
-        // Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
+        Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');
+        Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
 
         Route::group(['prefix'=>'payment/paypal'], function(){
             Route::post('/order/create',[PaypalPaymentController::class,'create']);
@@ -191,6 +196,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
     Route::controller(CharityProgramController::class)->group(function () {
         Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
         Route::get('charity/program/{id}', 'show')->name('charity.program.show');
+        Route::get('charity/program/{id}/supporters', 'supporters')->name('charity.program.supporters');
     });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])

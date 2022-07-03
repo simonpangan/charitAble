@@ -59,9 +59,8 @@
                 <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                     <div v-if="this.$page.props.can.modify">
                         <a :href="$route('charity.program.report', {
-                            'id': 1
-                        })"  
-                            class="btn btn-block btn-lg btn-primary w-100 mb-3">
+                            'id': this.$page.props.program.id
+                        })" class="btn btn-block btn-lg btn-primary w-100 mb-3">
                             Download Report
                             <i class="fad fa-download ms-2"></i> 
                         </a>
