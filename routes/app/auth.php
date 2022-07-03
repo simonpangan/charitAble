@@ -12,6 +12,7 @@ use App\Http\Controllers\Benefactor\{
     BenefactorHomeController,
     BenefactorReportController,
     BenefactorProfileController,
+    BenfactorSendEmailController,
     BenefactorDashboardController,
     BenefactorCharitySearchController,
     BenefactorConnectionsProgramController,
@@ -58,6 +59,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
     ], function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home.index');
         Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->name('home.download');
+        Route::post('/approval/permits', [AdminApprovalController::class, 'permits'])->name('approval.permits');
         Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
         Route::post('/approval/disapprove', [AdminApprovalController::class, 'disApprove'])->name('approval.disapprove');
     });
@@ -155,7 +157,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/charity-search/volunteer', BenefactorCharitySearchVolunteerController::class)
             ->name('charity-search.volunteer');
 
-
+        Route::post('/volunteer-posts/email', BenfactorSendEmailController::class)
+            ->name('sendEmail');
 
         Route::get('/dashboard', [BenefactorDashboardController::class, 'index'])
             ->name('dashboard.index');
