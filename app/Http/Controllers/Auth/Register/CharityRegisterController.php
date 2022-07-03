@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Charity\CharityDocuments;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\Charity\CharityRegisterRequest;
+use App\Models\Location;
 
 class CharityRegisterController extends Controller
 {
@@ -25,6 +26,7 @@ class CharityRegisterController extends Controller
     {
         return Inertia::render('Auth/CharityRegister',[
             'csrfToken' => csrf_token(),
+            'locations' => Location::all(),
             'charityCategories'=> Categories::all()
         ]);
     }
@@ -43,7 +45,7 @@ class CharityRegisterController extends Controller
         $link = '';
 
         $user = $this->createUser(
-            $request->only(['email', 'password'])
+            $request->only(['email', 'password','address'])
         );
         $id = $user->id;
 
@@ -79,7 +81,7 @@ class CharityRegisterController extends Controller
 
         $documentFile = $request->only('documentFile');
 
-        $this->createCharityWithCategories($user, $request->except(['email', 'password']), $link);
+        $this->createCharityWithCategories($user, $request->except(['email', 'password','address']), $link);
         
         foreach($documentFile['documentFile'] as $document) {
             $documentFileName = $document->getClientOriginalName();
@@ -108,6 +110,7 @@ class CharityRegisterController extends Controller
             'email' => $data['email'],
             'role_id' => Role::USERS['CHARITY_SUPER_ADMIN'],
             'password' => Hash::make($data['password']),
+            'address' => Hash::make($data['address']),
         ]);
     }
 
@@ -125,6 +128,8 @@ class CharityRegisterController extends Controller
         ]);
 
         $charity->categories()->attach($data['categories']);
+
+        $charity->locations()->attach($data['location']);
     }
 
     public function uploadPhoto(Request $request)
