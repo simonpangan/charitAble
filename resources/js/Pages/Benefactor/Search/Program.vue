@@ -23,7 +23,9 @@
                             <div class="p-3 w-100">
                                  <div class="row">
                                     <div v-for="program in programs.data" :key="program.id" class="col-md-3">
-                                        <a href="job-profile.html">
+                                     <Link :href="$route('charity.program.show', {
+                                            'id': program.id
+                                        })">
                                             <div class="border job-item mb-3">
                                             <div class="d-flex align-items-center p-3 job-item-header">
                                                 <div class="overflow-hidden mr-2">
@@ -41,7 +43,7 @@
                                                 <i class="feather-clock"></i> Posted {{ program.created_at_formatted }} </small>
                                             </div>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
