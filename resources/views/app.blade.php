@@ -21,6 +21,7 @@
   
     <script>
         window.domain = "{{ env('APP_URL') }}";
+        window.csrf =  "{{ csrf_token() }}";
     </script>
 
     <script src="{{ mix('/js/manifest.js') }}" defer></script>
