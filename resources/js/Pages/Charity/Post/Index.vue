@@ -19,7 +19,10 @@
                     </div>
                     <div class="p-3 border-bottom osahan-post-body">
                         {{post.main_content_body}}
-                        <img class="img-fluid" v-bind:src="post.main_content_body_image" alt="post image">
+                        <img v-if="post.main_content_body_image" 
+                            v-bind:src="post.main_content_body_image"
+                            class="img-fluid"  alt="post image"
+                        >
                     </div>
                 </div>
             </div>
