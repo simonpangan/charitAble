@@ -24,7 +24,6 @@ class BenefactorFactory extends Factory
             'last_name' => $this->faker->lastName,
             'gender' => Arr::random(['Male', 'Female', 'LGBT', 'Others']),
             'city' => $this->faker->city,  //to be fix
-            'account_type' => Arr::random(['Personal', 'Business']),
             'age' =>$this->faker->numberBetween(18, 100),
             'preferences' => ['1','2','3'], 
             'total_donation' =>$this->faker->numberBetween(10, 50000),
