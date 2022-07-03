@@ -44,6 +44,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Log::class);
     }
 
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
     public function createLog(String $activity): void
     {
         $this->logs()->save(
