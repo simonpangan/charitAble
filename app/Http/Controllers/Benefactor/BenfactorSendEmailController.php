@@ -8,6 +8,7 @@ use \App\Mail\VolunteerJoinMail;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Charity\CharityProgram;
 use App\Models\Charity\CharityVolunteerPost;
+use App\Models\VolunteerPostInterest;
 
 class BenfactorSendEmailController
 {
@@ -27,6 +28,12 @@ class BenfactorSendEmailController
 
         \Mail::to($post->charity->user->email)
             ->send(new VolunteerJoinMail($post, $user, $request->only('email','message')));
+
+        
+        $post->interests()->create([
+            'benefactor_id' => Auth::id(),
+            'message' => $request->message
+        ]);
 
         to_route('charity.volunteer.show', 163)
             ->with('message', 'Succesfully send your email');
