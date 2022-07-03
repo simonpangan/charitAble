@@ -14,6 +14,8 @@ class VolunteerPostInterest extends Pivot
 
     protected $guarded = [];
 
+    protected $table = 'volunteer_post_interests';
+
     protected $appends = ['created_at_formatted'];
     
     public function getCreatedAtFormattedAttribute()
