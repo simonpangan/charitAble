@@ -10,7 +10,9 @@
                 <div class="p-3">
                   <div class="row">
                     <div v-for="post in followingCharitiesVolunteerPost.data" :key="post.id" class="col-md-6">
-                      <a href="job-profile.html">
+                      <Link :href="$route('charity.volunteer.show', {
+                          'id': post.id
+                      })">
                         <div class="border job-item mb-3">
                           <div class="d-flex align-items-center p-3 job-item-header">
                             <div class="overflow-hidden mr-2">
@@ -27,7 +29,7 @@
                               <i class="feather-clock"></i> Posted {{ post.created_at_formatted }} </small>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
