@@ -22,7 +22,7 @@ class VolunteerPostInterestSeeder extends Seeder
                 'charity_volunteer_post_id' => $post->id,
             ]);
     
-            $post->interests()->createMany($posts);
+            VolunteerPostInterest::insert($posts);
         });
     }
 }
