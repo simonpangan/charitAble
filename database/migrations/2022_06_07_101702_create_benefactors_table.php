@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('last_name');
             $table->string('gender');
             $table->smallInteger('age');
-            $table->string('address');
             $table->string('city');
             $table->string('preferences');
             $table->text('total_donation');

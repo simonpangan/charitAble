@@ -66,7 +66,6 @@ class UsersSeeder extends Seeder
             'age' => '22',
             'city' => 'Valenzuela',
             'preferences' => [ 1, 2, 3 ,4 ,5],
-            'account_type' => 'Personal',
             'total_donation' => 10000,
             'total_charities_donated' => 10,
             'total_charities_followed' => 5,
