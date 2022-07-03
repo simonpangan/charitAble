@@ -26,7 +26,6 @@ class CharityVolunteerPostReportController extends Controller
                 'interests:id,first_name,last_name', 
                 'interests.user:id,email'
             )
-            ->latest()
             ->findOrFail($id);
 
         abort_if($post->charity_id != $user->id, 403);
