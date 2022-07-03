@@ -2,9 +2,11 @@
 
 namespace App\Models\Charity;
 
+use App\Models\Benefactor;
 use App\Traits\CharityID;
 use App\Models\Categories;
 use Illuminate\Support\Carbon;
+use App\Models\ProgramDonation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +28,22 @@ class CharityProgram extends Model
     public function charity()
     {
         return $this->belongsTo(Charity::class);
+    }
+
+    public function benefactor()
+    {
+        return $this->belongsTo(Benefactor::class);
+    }
+
+    public function donations()
+    {
+        return $this->belongsToMany(
+                CharityProgram::class, 
+                'program_donations', 
+                'charity_program_id',
+                'benefactor_id', 
+            )
+            ->using(ProgramDonation::class);
     }
     
     public function getCreatedAtFormattedAttribute()
