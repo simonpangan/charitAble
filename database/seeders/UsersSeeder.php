@@ -70,6 +70,9 @@ class UsersSeeder extends Seeder
             'total_number_donations' => 10,
         ]);
 
+
+
+        
         
         $charity = User::firstOrCreate(
             ['email' => 'charity@gmail.com'],
