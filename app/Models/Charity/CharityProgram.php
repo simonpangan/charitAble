@@ -43,9 +43,18 @@ class CharityProgram extends Model
                 'charity_program_id',
                 'benefactor_id', 
             )
-            ->using(ProgramDonation::class);
+            ->using(ProgramDonation::class)
+            ->withPivot(
+                'amount', 'transaction_id',
+                'tip_price', 'message',
+            );
     }
-    
+
+    public function supporters()
+    {
+        return $this->hasMany(ProgramDonation::class)->latest('donated_at');
+    }
+
     public function getCreatedAtFormattedAttribute()
     {
         return (Carbon::parse($this->created_at)->diffForHumans());

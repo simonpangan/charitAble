@@ -141,6 +141,25 @@ class CharityProgramController
         return to_route('charity.program.index', Auth::id());
     }
 
+    public function supporters(int $id)
+    {
+        $program = CharityProgram::query()
+            ->with('charity:id,name', 
+                'supporters:id,charity_program_id,benefactor_id,amount,donated_at', 
+                'supporters.benefactor:id,first_name,last_name')
+            ->findOrFail($id);
+
+        return Inertia::render(
+            'Charity/Program/Supports',
+            [
+                'program' => $program,
+                'can' => [
+                    'modify' =>  $program->charity_id == Auth::id()
+                ]
+            ]
+        );
+    }
+
     public function uploadProgramPhoto(Request $request){
 
         if($request->hasFile('file')){
