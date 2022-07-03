@@ -33,6 +33,12 @@
                                 <td class="p-3">{{ charity.permits }}</td>
                             </tr>
                             <tr class="border-bottom" v-if="charity.website_link">
+                                <th class="p-3">Location</th>
+                                <td class="p-3">
+                                    {{ charity.user.address }}
+                                </td>
+                            </tr>
+                            <tr class="border-bottom" v-if="charity.website_link">
                                 <th class="p-3">Website</th>
                                 <td class="p-3">
                                     <a :href="charity.website_link" class="text-dark" target="_blank">
