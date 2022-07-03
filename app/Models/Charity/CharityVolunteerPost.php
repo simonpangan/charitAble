@@ -7,6 +7,7 @@ use App\Models\Categories;
 use Illuminate\Support\Carbon;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VolunteerPostInterest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -30,6 +31,11 @@ class CharityVolunteerPost extends Model
     public function charity()
     {
         return $this->belongsTo(Charity::class);
+    }
+
+    public function interests()
+    {
+        return $this->hasMany(VolunteerPostInterest::class);
     }
 
     public function scopeFilterVolunteerPostBy($query, $name, $category)
