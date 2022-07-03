@@ -2,6 +2,7 @@
 
 namespace App\Models\Charity;
 
+use App\Models\Benefactor;
 use App\Traits\CharityID;
 use App\Models\Categories;
 use Illuminate\Support\Carbon;
@@ -35,14 +36,14 @@ class CharityVolunteerPost extends Model
 
     public function interests()
     {
-        return $this->hasMany(VolunteerPostInterest::class);
+        return $this->belongsToMany(Benefactor::class, 'volunteer_post_interests')
+            ->using(VolunteerPostInterest::class)
+            ->withPivot('message','created_at');
     }
 
     public function lastFiveInterest()
-    {
-        return $this->hasMany(VolunteerPostInterest::class)
-            ->limit(5)
-            ->latest();
+    {   
+        return $this->interests()->limit(5)->latest();
     }
 
     public function scopeFilterVolunteerPostBy($query, $name, $category)

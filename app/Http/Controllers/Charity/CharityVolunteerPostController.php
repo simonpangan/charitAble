@@ -64,7 +64,7 @@ class CharityVolunteerPostController
         return Inertia::render(
             'Charity/Volunteer-Posting/Show', [
                 'volunteerPost' => $post = CharityVolunteerPost::query()
-                    ->with('charity:id,name', 'lastFiveInterest')
+                    ->with('charity:id,name', 'lastFiveInterest:id,first_name,last_name')
                     ->findOrFail($id),
                 'can' => [
                     'modify' =>  $post->charity_id == Auth::id()

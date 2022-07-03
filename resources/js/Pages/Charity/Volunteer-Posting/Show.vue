@@ -93,10 +93,10 @@
                                 <li v-for="interest in volunteerPost.last_five_interest" :key="interest.id" 
                                     class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
-                                    <div class="fw-bold">Subheading</div>
-                                    Content for list item
+                                    <div class="fw-bold">{{ interest.first_name + ' ' + interest.last_name}}</div>
+                                    {{ interest.pivot.message }}
                                     </div>
-                                    <span class="badge bg-primary rounded-pill">{{interest.created_at_formatted}}</span>
+                                    <span class="badge bg-primary rounded-pill">{{interest.pivot.created_at_formatted}}</span>
                                 </li>
                             </ol>
                         </div>
