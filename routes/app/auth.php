@@ -116,14 +116,18 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
         });
 
-      
-
         Route::group(['prefix'=>'payment/paypal'], function(){
             Route::post('/order/create',[PaypalPaymentController::class,'create']);
             Route::post('/order/capture/',[PaypalPaymentController::class,'capture']);
         });
 
     });
+
+    Route::get('charity/program/{id}/donate',[BenefactorDonationController::class,'index'])
+        ->name('charity.donate.create');
+    Route::get('charity/program/{id}/donate/success',[BenefactorDonationController::class,'successIndex'])
+        ->name('charity.donate.success');
+
 
     Route::group([
         'middleware' => 'role:BENEFACTOR',
@@ -179,9 +183,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::put('/profile/update', [BenefactorProfileController::class, 'update'])
             ->name('profile.update');
-
-            Route::get('/payment/{id}',[BenefactorDonationController::class,'index'])->name('donate.create');
-            Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
     });
 
 
@@ -257,4 +258,3 @@ Route::get('/paymongo/callback-grab/failed', [PaymongoController::class, 'grabPa
 
 Route::get('/paymongo/search', [PaymongoController::class, 'search']);
 Route::get('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent']);
-
