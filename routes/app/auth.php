@@ -117,14 +117,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
     });
 
-    Route::group(['prefix'=>'payment/paypal'], function(){
-        Route::post('/order/create',[PaypalPaymentController::class,'create'])->name('paypal.create');
-        Route::post('/order/capture/',[PaypalPaymentController::class,'capture'])->name('paypal.capture');
-    });
-
     Route::get('charity/program/{id}/donate',[BenefactorDonationController::class,'index'])
         ->name('charity.donate.create');
-    Route::get('charity/program/{id}/donate/success',[BenefactorDonationController::class,'successIndex'])
+    Route::get('charity/program/{id}/{transaction_id}/donate/success',[BenefactorDonationController::class,'successIndex'])
         ->name('charity.donate.success');
 
 
@@ -257,3 +252,8 @@ Route::get('/paymongo/callback-grab/failed', [PaymongoController::class, 'grabPa
 
 Route::get('/paymongo/search', [PaymongoController::class, 'search']);
 Route::get('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent']);
+
+Route::group(['prefix'=>'payment/paypal'], function(){
+    Route::post('/order/create',[PaypalPaymentController::class,'create'])->name('paypal.create');
+    Route::post('/order/capture/',[PaypalPaymentController::class,'capture'])->name('paypal.capture');
+});

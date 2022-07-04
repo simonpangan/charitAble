@@ -44,11 +44,12 @@
             <div class="border-top osahan-post-footer">
               <div class="d-flex">
                 <span class="">
+                    <i class="fab fa-twitter me-3"></i>
                   <a
                     href="https://twitter.com/share?ref_src=twsrc%5Etfw"
                     class="twitter-share-button"
                     data-show-count="false"
-                    >Tweet</a>
+                    >Share this donation to Twitter</a>
                 </span>
               </div>
             </div>

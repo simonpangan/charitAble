@@ -8,6 +8,8 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Exceptions;
+use App\Http\Requests\Benefactor\BenefactorPaymentRequest;
+use App\Models\Charity\Charity;
 
 class PaypalPaymentController extends Controller
 {
@@ -17,7 +19,7 @@ class PaypalPaymentController extends Controller
     }
 
 
-    public function create(Request $request)
+    public function create(BenefactorPaymentRequest $request)
     {
         $tip_level = $request->input('tip_level');
         $tip_price = $request->input('tip_price');
@@ -51,13 +53,16 @@ class PaypalPaymentController extends Controller
 
         try{
             ProgramDonation::create([
-                'benefactor_id' =>  2,
+                'benefactor_id' =>  Auth::user()->id,
                 'charity_program_id' => $request['charity_program_id'],
                 'amount' => $request['amount'],
                 'transaction_id' => $request['transaction_id'],
                 'tip_price' => $request['tip_price'],
                 'donated_at' => Carbon::now()
             ]);
+
+            // $charity_name = Charity::where('id',$request['charity_program_id'])->pluck('name')->get();
+            Auth::user()->createLog("Donated to a charity" . "with the amount of " . $request['amount']);
 
             return "Status 500";
         }catch(\Exception $e){
