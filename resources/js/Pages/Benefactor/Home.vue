@@ -26,14 +26,6 @@
                   <img class="img-fluid" v-bind:src="post.main_content_body_image" alt="">
                 </div>
               </div>
-              <div class="p-3 border-bottom osahan-post-footer">
-                <a href="#" class="me-3 text-secondary">
-                  <i class="feather-heart text-danger"></i> 16 </a>
-                <a href="#" class="me-3 text-secondary">
-                  <i class="feather-message-square"></i> 8 </a>
-                <a href="#" class="me-3 text-secondary">
-                  <i class="feather-share-2"></i> 2 </a>
-              </div>
             </div>
           </div>
           <div v-if="! userFollowsAtleastOneCharity">
