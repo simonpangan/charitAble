@@ -115,12 +115,11 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::put('officer','edit')->name('officer.edit');
             Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
         });
+    });
 
-        Route::group(['prefix'=>'payment/paypal'], function(){
-            Route::post('/order/create',[PaypalPaymentController::class,'create']);
-            Route::post('/order/capture/',[PaypalPaymentController::class,'capture']);
-        });
-
+    Route::group(['prefix'=>'payment/paypal'], function(){
+        Route::post('/order/create',[PaypalPaymentController::class,'create'])->name('paypal.create');
+        Route::post('/order/capture/',[PaypalPaymentController::class,'capture'])->name('paypal.capture');
     });
 
     Route::get('charity/program/{id}/donate',[BenefactorDonationController::class,'index'])

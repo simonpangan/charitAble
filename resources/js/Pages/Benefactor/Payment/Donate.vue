@@ -157,7 +157,7 @@
               return axios({
                 method: 'POST',
                 headers: {},
-                url: 'paypal/order/create',
+                url: route('paypal.create'),
                 data: {
                   'tip_level': this.tip_level,
                   'tip_price': this.tip_price,
@@ -174,7 +174,7 @@
                 return axios({
                   method: 'POST',
                   headers: {},
-                  url: 'paypal/order/capture/',
+                  url: route('paypal.capture'),
                   data: {
                     'amount': orderData.purchase_units[0].amount.value,
                     'transaction_id': orderData.id,
