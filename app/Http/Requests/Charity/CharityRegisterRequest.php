@@ -37,11 +37,13 @@ class CharityRegisterRequest extends FormRequest
     private function stepOneRules() : array
     {
         return [
-            'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
+            //'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
+            'name' => ['required', 'string', 'min:5', 'max:100',  "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/"],
+
             'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'address' => ['required', 'string', 'max:255'],
-            'location' => ['required', 'string', Rule::in(Location::all()->pluck('id'))],
+            // 'address' => ['required', 'string', 'max:255'],
+            // 'location' => ['required', 'string', Rule::in(Location::all()->pluck('id'))],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'categories' => ['array', 'required'],
             'categories.*' => [
@@ -55,6 +57,7 @@ class CharityRegisterRequest extends FormRequest
         return [
             'charity_email.required' => 'The organization email field is required.',
             'email.required' => 'The head admin email field is required.',
+            'name.regex' => 'Charity name has an illegal special characters ( ! , @ , # , ^ , % , * , < , > , \ , / , { , } , ? , | , ~)'
         ];
     }
 }
