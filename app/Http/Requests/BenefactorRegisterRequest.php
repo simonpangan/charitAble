@@ -58,7 +58,6 @@ class BenefactorRegisterRequest extends FormRequest
             'age' => ['required', 'numeric', 'min:18', 'max:100'],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
             'city' => ['required', 'string', 'max:50'],
-            'account_type' => ['required', 'string', Rule::in(['Personal', 'Business'])],
         ]);
     }
 

@@ -70,7 +70,6 @@ use App\Models\Categories;
                 'city' => $data['city'],
                 'age' => $data['age'],
                 'preferences' => $data['preferences'],
-                'account_type' => $data['account_type'],
                 'total_donation' => 0,
                 'total_charities_donated' => 0,
                 'total_charities_followed' => 0,

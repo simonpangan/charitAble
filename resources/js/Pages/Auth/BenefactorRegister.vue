@@ -164,18 +164,6 @@
                     </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col">
-                  <label class="mb-1">Account Type <span class="text-danger">*</span></label>
-                    <select class="form-select" v-model="form.account_type">
-                      <option value="Personal">Personal Account</option>
-                      <option value="Business">Business Account</option>
-                    </select>
-                    <div v-if="form.errors.account_type" class="text-danger">
-                      {{ form.errors.account_type }}
-                    </div>
-                </div>
-              </div>
               <div class="row mt-2">
                 <small class="text-muted">For users that are under corporate organization and business, please select Business Account Type</small>
               </div>
@@ -260,7 +248,6 @@
         password_confirmation: null,
         age: null,
         gender: null,
-        account_type: null,
         city: null,
         preferences: [],
       });
