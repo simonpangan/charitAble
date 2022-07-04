@@ -92,13 +92,19 @@
                         </div>
                         <div class="box-body">
                             <ol class="list-group">
-                                <li v-for="interest in volunteerPost.last_five_interest" :key="interest.id" 
+                                <li v-if="volunteerPost.last_five_interest.length != 0" 
+                                    v-for="interest in volunteerPost.last_five_interest" :key="interest.id" 
                                     class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                     <div class="fw-bold">{{ interest.first_name + ' ' + interest.last_name}}</div>
                                     {{ interest.pivot.message }}
                                     </div>
                                     <span class="badge bg-primary rounded-pill">{{interest.pivot.created_at_formatted}}</span>
+                                </li>
+                                <li v-else class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <span class="text-center">No recent email</span>
+                                    </div>
                                 </li>
                             </ol>
                         </div>

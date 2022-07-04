@@ -141,7 +141,7 @@
                                     <div class="text-truncate">Create Program</div>
                                 </div>
                                 <span class="ms-auto">
-                                    <Link href="program" class="btn btn-outline-primary btn-sm">
+                                    <Link :href="$route('charity.program.create')" class="btn btn-outline-primary btn-sm">
                                         Create
                                     </Link>
                                </span>
@@ -149,7 +149,6 @@
                         </div>
                     </div>
                 </aside>
-
 
                 <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="box shadow-sm border rounded bg-white mb-3">
