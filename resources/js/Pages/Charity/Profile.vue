@@ -22,32 +22,31 @@
                                     <i class="fad fa-users-class fa-2x"></i>
                                 </th>
                                 <td class="p-3">
-                                    <p>
-                                        <template v-for="(category, index) in charity.categories" :key="category.id">
-                                            <template v-if="index == 0">
-                                                {{ category.name }}
-                                            </template>
-                                            <template v-else> | {{ category.name }}</template>
+                                    <template v-for="(category, index) in charity.categories" :key="category.id">
+                                        <template v-if="index == 0">
+                                            {{ category.name }}
                                         </template>
-                                    </p>
+                                        <template v-else> | {{ category.name }}</template>
+                                    </template>
                                 </td>
                             </tr>
                             <tr class="border-bottom">
                                 <th class="p-3 text-center">
                                     <i class="fad fa-certificate fa-2x"></i>
                                 </th>
-                                <td class="p-3">{{ charity.permits }}</td>
+                                <td class="p-3">
+                                    {{ charity.permits }}
+                                </td>
                             </tr>
                             <tr class="border-bottom">
                                 <th class="p-3 text-center">
                                     <i class="fas fa-map-marker-alt fa-2x text-danger"></i>
                                 </th>
                                 <td class="p-3">
-                                    {{ charity.user.address }}, 
-                                    {{ 
-                                        (charity.user.location.name == 'Quezon City') ? 
-                                        'Quezon City' : charity.user.location.name + ' City'
-                                    }} 
+                                    <a :href="'https://maps.google.com/?q=' + completeAddress"
+                                        target="_blank">
+                                        {{ completeAddress }}
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -141,5 +140,14 @@ export default {
         })
     },
   },
+  computed : {
+    completeAddress() {
+        const addess = this.charity.user.address;
+        const city =  (this.charity.user.location.name == 'Quezon City') ? 
+            'Quezon City' : 
+            ''  + this.charity.user.location.name + ' City';
+         return  addess.concat(' ' + city);  
+    }
+  }
 };
 </script>
