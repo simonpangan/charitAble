@@ -1,4 +1,5 @@
 <template>
+  <Head title="Program Donate" />
   <div class="pb-4 pt-5">
     <div class="container">
       <div class="row d-flex justify-content-center">
