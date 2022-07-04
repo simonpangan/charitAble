@@ -40,7 +40,7 @@
                             </tr>
                             <tr class="border-bottom">
                                 <th class="p-3 text-center">
-                                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                                    <i class="fas fa-map-marker-alt fa-2x text-danger"></i>
                                 </th>
                                 <td class="p-3">
                                     {{ charity.user.address }}, 
@@ -67,7 +67,7 @@
                 <div class="box-body">
                     <table class="table table-borderless mb-0 ">
                         <thead>
-                            <tr class="text-center table-info">
+                            <tr class="text-center table-">
                                 <th scope="col">Name</th>
                                 <th scope="col">Position</th>
                                 <th scope="col">Since</th>
