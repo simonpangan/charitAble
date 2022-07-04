@@ -8,22 +8,26 @@
           <div v-for="(post, index) in allPosts" :key="index">
             <div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
               <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
-                <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" 
-                    :src="post.charity_logo"
-                    alt="charity logo"
-                  >
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="fw-bold">
-                  <div class="text-truncate">{{ post.charity_name }}</div>
-                </div>
+                <Link :href="$route('charity.profile.index', {
+                  'id' : post.charity_id
+                })">
+                  <div class="dropdown-list-image me-3 d-inline">
+                    <img class="rounded-circle" 
+                      :src="post.charity_logo"
+                      alt="charity logo"
+                    >
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="fw-bold text-truncate text-black d-inline">
+                    {{ post.charity_name }}
+                  </div>
+                </Link>
                 <span class="ms-auto small">{{ post.created_at_formatted }}</span>
               </div>
               <div class="p-3 border-bottom osahan-post-body">
                 <p class="mb-0"> {{post.main_content_body}}</p>
-                <div class="div">
-                  <img class="img-fluid" v-bind:src="post.main_content_body_image" alt="">
+                <div class="div mt-2" v-if="post.main_content_body_image">
+                  <img class="img-fluid" v-bind:src="post.main_content_body_image" alt="post image">
                 </div>
               </div>
             </div>
@@ -65,7 +69,9 @@
         <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
         <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
           <div class="py-4 px-3 border-bottom">
-            <h5 class="font-weight-bold text-dark mb-1 mt-4">{{ benefactor.first_name + benefactor.last_name }}</h5>
+            <h5 class="font-weight-bold text-dark mb-1 mt-4">
+              {{ benefactor.first_name + " "  + benefactor.last_name }}
+            </h5>
           </div>
           <div class="d-flex">
             <div class="col-6 border-right p-3">
@@ -87,13 +93,22 @@
             <div class="box-body p-3">
               <div v-for="charity in randomCharity" :key="charity.id"
                 class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                <div class="dropdown-list-image me-3">
-                  <img class="rounded-circle" :src="charity.logo" alt="charity logo">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="fw-bold me-2">
-                  <div class="text-truncate"> {{ charity.name }} </div>
-                </div>
+                <Link :href="$route('charity.profile.index', {
+                  'id' : charity.id
+                })">
+                  <div class="dropdown-list-image me-3 d-inline">
+                    <img class="rounded-circle" 
+                      :src="charity.logo"
+                      alt="charity logo"
+                    >
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div class="fw-bold text-black d-inline-block align-middle">
+                    <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                      {{ charity.name }}
+                    </span>
+                  </div>
+                </Link>
                 <span class="ms-auto">
                   <button  @click="followCharity(charity.id)" class="btn btn-light btn-sm text-nowrap">
                     <i class="feather-plus"></i>  
