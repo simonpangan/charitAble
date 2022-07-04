@@ -45,7 +45,7 @@ class CharityRegisterController extends Controller
         $link = '';
 
         $user = $this->createUser(
-            $request->only(['email', 'password','address'])
+            $request->only(['email', 'password','address','location'])
         );
         $id = $user->id;
 
@@ -110,7 +110,8 @@ class CharityRegisterController extends Controller
             'email' => $data['email'],
             'role_id' => Role::USERS['CHARITY_SUPER_ADMIN'],
             'password' => Hash::make($data['password']),
-            'address' => Hash::make($data['address']),
+            'address' => $data['address'],
+            'location_id' => $data['location'],
         ]);
     }
 
@@ -128,8 +129,6 @@ class CharityRegisterController extends Controller
         ]);
 
         $charity->categories()->attach($data['categories']);
-
-        $charity->locations()->attach($data['location']);
     }
 
     public function uploadPhoto(Request $request)
