@@ -257,4 +257,3 @@ Route::get('/paymongo/callback-grab/failed', [PaymongoController::class, 'grabPa
 
 Route::get('/paymongo/search', [PaymongoController::class, 'search']);
 Route::get('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent']);
-
