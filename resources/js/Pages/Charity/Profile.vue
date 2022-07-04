@@ -18,60 +18,36 @@
                     <table class="table table-borderless mb-0">
                         <tbody>
                             <tr class="border-bottom">
-                                <th class="p-3">Category</th>
+                                <th class="p-3 text-center6">
+                                    <i class="fad fa-users-class fa-2x"></i>
+                                </th>
                                 <td class="p-3">
-                                    <template v-for="(category, index) in charity.categories" :key="category.id">
-                                        <span v-if="index == 0">
-                                            {{ category.name }}
-                                        </span>
-                                        <span v-else> | {{ category.name }}</span>
-                                    </template>
+                                    <p>
+                                        <template v-for="(category, index) in charity.categories" :key="category.id">
+                                            <template v-if="index == 0">
+                                                {{ category.name }}
+                                            </template>
+                                            <template v-else> | {{ category.name }}</template>
+                                        </template>
+                                    </p>
                                 </td>
                             </tr>
                             <tr class="border-bottom">
-                                <th class="p-3">Permit/s</th>
+                                <th class="p-3 text-center">
+                                    <i class="fad fa-certificate fa-2x"></i>
+                                </th>
                                 <td class="p-3">{{ charity.permits }}</td>
                             </tr>
-                            <tr class="border-bottom" v-if="charity.website_link">
-                                <th class="p-3">Location</th>
+                            <tr class="border-bottom">
+                                <th class="p-3 text-center">
+                                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                                </th>
                                 <td class="p-3">
                                     {{ charity.user.address }}, 
                                     {{ 
                                         (charity.user.location.name == 'Quezon City') ? 
                                         'Quezon City' : charity.user.location.name + ' City'
-                                     }}
-                                </td>
-                            </tr>
-                            <tr class="border-bottom" v-if="charity.website_link">
-                                <th class="p-3">Website</th>
-                                <td class="p-3">
-                                    <a :href="charity.website_link" class="text-dark" target="_blank">
-                                        {{ charity.website_link }}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-bottom" v-if="charity.facebook_link">
-                                <th class="p-3">Facebook</th>
-                                <td class="p-3">
-                                      <a :href="charity.facebook_link" class="text-dark" target="_blank">
-                                        {{ charity.facebook_link }}
-                                    </a>
-                                </td>
-                            </tr>
-                             <tr class="border-bottom" v-if="charity.twitter_link">
-                                <th class="p-3">Twitter</th>
-                                <td class="p-3">
-                                    <a :href="charity.twitter_link" class="text-dark" target="_blank">
-                                        {{ charity.twitter_link }}
-                                    </a>
-                                </td>
-                            </tr>
-                             <tr class="border-bottom" v-if="charity.instagram_link">
-                                <th class="p-3">Instagram</th>
-                                <td class="p-3">
-                                    <a :href="charity.instagram_link" class="text-dark" target="_blank">
-                                        {{ charity.instagram_link }}
-                                    </a>
+                                    }} 
                                 </td>
                             </tr>
                         </tbody>
@@ -90,40 +66,33 @@
                 </div>
                 <div class="box-body">
                     <table class="table table-borderless mb-0 ">
+                        <thead>
+                            <tr class="text-center table-info">
+                                <th scope="col">Name</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Since</th>
+                                <th scope="col" v-if="can.access">Actions</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <div class="border-bottom" v-for="officer in charity.officers" :key="officer.id">
-                                <tr class="nmb-1">
-                                    <th class="p-3">Name</th>
-                                    <td class="p-3">{{officer.first_name + ' ' + officer.last_name}} </td>
-                                </tr>
-                                <tr class="nmb-1">
-                                    <th class="p-3">Position</th>
-                                    <td class="p-3">{{officer.position}}</td>
-                                </tr>
-                                <tr class="nmb-1">
-                                    <th class="p-3">Officer Since</th>
-                                    <td class="p-3">{{officer.officer_since}}</td>
-                                </tr>
-                                <tr class="nmb-1" v-if="can.access">
-                                    <th class="p-3">Actions: </th>
-                                    <td class="p-3">
-                                        <Link 
-                                            :href="$route('charity.officer.show', {
-                                                id: officer.id
-                                            })"
-                                            class="btn btn-success btn-sm"
-                                        >
-                                            <i class="fas fa-edit"></i>
-                                        </Link> 
-                                        <Link 
-                                            @click="officerDelete(officer.id)"
-                                            as="button" 
-                                            class="btn btn-danger btn-sm ms-2">
-                                            <i class="fad fa-trash"></i>
-                                        </Link>
-                                    </td>
-                                </tr>
-                            </div>
+                            <tr class="nmb-1 border-bottom text-center" v-for="officer in charity.officers" :key="officer.id">
+                                <td class="p-3">{{officer.first_name + ' ' + officer.last_name}} </td>
+                                <td class="p-3">{{officer.position}}</td>
+                                <td class="p-3">{{officer.officer_since}}</td>
+                                <td class="nmb-1" v-if="can.access">
+                                    <Link  :href="$route('charity.officer.show', {
+                                                 id: officer.id 
+                                             })" 
+                                        class="btn btn-success btn-sm"> 
+                                            <i class="fas fa-edit"></i> 
+                                        </Link>  
+                                        <Link @click="officerDelete(officer.id)" 
+                                        as="button"
+                                        class="btn btn-danger btn-sm ms-2">
+                                        <i class="fad fa-trash"></i>
+                                    </Link> 
+                                </td>                 
+                            </tr>       
                         </tbody>
                     </table>
                 </div>
