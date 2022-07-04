@@ -5,7 +5,7 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h1 class="font-weight-bold text-dark mb-1 mt-0">
+                            <h1 class="fw-bold text-dark mb-1 mt-0">
                                 {{this.$page.props.charity.name}} 
                                 <span class="text-info">
                                     <i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i>
@@ -79,32 +79,48 @@
                     </div>
                 </main>
                 <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
-                    <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
+                    <div class="box mb-3 shadow-sm border rounded bg-white profile-box">
                         <div class="p-5">
                             <img v-bind:src="this.$page.props.charity.logo" class="img-fluid" alt="Responsive image">
                         </div>
                         <div class="p-3 border-top border-bottom">
-                                <div class="d-flex align-items-top">
-                                <p class="mb-0 text-dark font-weight-bold">Total Followers</p>
-                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">{{this.$page.props.charity.followers}}</p>
+                            <div class="d-flex align-items-top">
+                                <p class="mb-0 text-dark fw-bold">Total Followers</p>
+                                <p class="mb-0 mt-0 ms-auto">
+                                    {{this.$page.props.charity.followers}}
+                                </p>
                             </div>
                         </div>
-
                         <div class="p-3 border-bottom">
-                                <div class="d-flex align-items-top">
-                                <p class="mb-0 text-dark font-weight-bold">Email Address</p>
-                                <p class="font-weight-bold  mb-0 mt-0 ms-auto">
+                            <div class="d-flex align-items-top">
+                                <p class="mb-0 text-dark fw-bold">Email Address</p>
+                                <p class="mb-0 mt-0 ms-auto">
                                     {{this.$page.props.charity.charity_email}}
                                 </p>
                             </div>
                         </div>
-                        <div class="p-3">
-                            <div class="mt-2 mb-2">
-                            <a href="#"><i class="feather-facebook me-3"></i></a>
-                            <a href="#"><i class="feather-twitter mx-3"></i></a>
-                            <a href="#"><i class="feather-instagram mx-3"></i></a>
-                            <a href="#"><i class="feather-globe mx-3"></i></a>
-                            </div>
+                        <div class="p-3 d-flex justify-content-around">
+                             <a :href="this.$page.props.charity.website_link"
+                                v-if="this.$page.props.charity.website_link" 
+                                class="text-dark" target="_blank">
+                                <i class="far fa-globe fa-2x"></i>
+                            </a>
+                            <a :href="this.$page.props.charity.facebook_link"
+                                v-if="this.$page.props.charity.facebook_link"
+                                class="text-dark" target="_blank">
+                                <i class="fab fa-facebook fa-2x"></i>
+                            </a>
+                            <a :href="this.$page.props.charity.instagram_link"
+                                v-if="this.$page.props.charity.instagram_link"
+                                class="d-flex justify-content-between" target="_blank">
+                                <i class="fab fa-instagram fa-2x"></i>
+                            </a>
+                            <a  class="ms-2" target="_blank"
+                                :href="this.$page.props.charity.twitter_link"
+                                v-if="this.$page.props.charity.twitter_link"
+                                >
+                                 <i class="fab fa-twitter fa-2x"></i>
+                            </a>
                         </div>
                     </div>
                     <div v-if="$page.props.can.access" class="box shadow-sm border rounded bg-white mb-3">
@@ -114,7 +130,7 @@
                         <div class="box-body p-3">
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
 
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Create Posts</div>
 
                                 </div>
@@ -125,7 +141,7 @@
                                 </Link>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                 <div class="text-truncate">Create Volunteer Posting</div>
 
                                 </div>
@@ -137,7 +153,7 @@
                                 </span>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Create Program</div>
                                 </div>
                                 <span class="ms-auto">
@@ -160,7 +176,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/l1.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Charity 1</div>
                                     <div class="small text-gray-500">Charity Category
                                     </div>
@@ -172,7 +188,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/l2.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Charity 2</div>
                                     <div class="small text-gray-500">Charity Category
                                     </div>
@@ -184,7 +200,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/l3.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Charity 3</div>
                                     <div class="small text-gray-500">Charity Category
                                     </div>
@@ -196,7 +212,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/l4.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Charity 4</div>
                                     <div class="small text-gray-500">Charity Category
                                     </div>
@@ -208,7 +224,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/l5.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Charity 5</div>
                                     <div class="small text-gray-500">Charity Category
                                     </div>
@@ -227,7 +243,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/p4.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Programs 1</div>
                                     <div class="small text-gray-500">Tree Planting Activity
                                     </div>
@@ -242,7 +258,7 @@
                                 <div class="dropdown-list-image me-3">
                                     <img class="rounded-circle" src="img/p9.png" alt="">
                                 </div>
-                                <div class="font-weight-bold me-2">
+                                <div class="fw-bold me-2">
                                     <div class="text-truncate">Programs 2</div>
                                     <div class="small text-gray-500">Feeding Program
                                     </div>
