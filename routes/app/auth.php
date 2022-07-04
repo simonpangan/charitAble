@@ -116,8 +116,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
         });
 
-        Route::get('/payment/{id}',[BenefactorDonationController::class,'show'])->name('donate.create');
-        Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
+      
 
         Route::group(['prefix'=>'payment/paypal'], function(){
             Route::post('/order/create',[PaypalPaymentController::class,'create']);
@@ -180,6 +179,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
         Route::put('/profile/update', [BenefactorProfileController::class, 'update'])
             ->name('profile.update');
+
+            Route::get('/payment/{id}',[BenefactorDonationController::class,'index'])->name('donate.create');
+            Route::get('/payment/success',[BenefactorDonationController::class,'successIndex'])->name('donate.success');
     });
 
 
