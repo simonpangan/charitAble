@@ -30,32 +30,40 @@
                   <div class="alert alert-light" role="alert">
                     <br /> Charitable provides 0% platform fee for benefactors, but providing a percentage tip on your contributions will be a long way on continuing our services.
                   </div>
+                  <div v-if="$page.props.errors.paymongo" role="alert"
+                    class="alert alert-danger w-80 mx-auto text-center">
+                      {{ $page.props.errors.paymongo }}
+                  </div>
+                  <div v-if="$page.props.flash.message" role="alert"
+                    class="alert alert-success w-80 mx-auto text-center">
+                      {{ $page.props.flash.message }}
+                  </div>
                   <button type="button" class="btn btn-lg btn-primary mb-4" v-on:click="ChoosePaymentSection">
                     <i class="feather-plus"></i> Continue </button>
                   <section v-if="step == 1">
                     <div class="card border-bottom">
                       <div class="card-body border-bottom">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" v-on:change="PaypalSelected" />
+                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaypalSelected" />
                           <label class="form-check-label" for="flexRadioDefault1"> Paypal </label>
                         </div>
                       </div>
                       <div class="card-body">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" v-on:change="PaymongoSelected" />
+                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaymongoSelected('creditCard')" />
                           <label class="form-check-label" for="flexRadioDefault1"> Credit Card </label>
                         </div>
                       </div>
                       <div class="card-body border-top">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaymongoSelected('gCash')"/>
                           <label class="form-check-label" for="flexRadioDefault1"> GCash </label>
                         </div>
                       </div>
                       <div class="card-body border-top">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                          <label class="form-check-label" for="flexRadioDefault1"> Anything else (7/11?) </label>
+                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaymongoSelected('grabPay')"/>
+                          <label class="form-check-label" for="flexRadioDefault1"> Grab Pay </label>
                         </div>
                       </div>
                     </div>
@@ -65,6 +73,9 @@
                       <label class="form-check-label" for="flexCheckDefault"> Please don't show my name publicly in the donations. </label>
                     </div>
                     <div id="paypal-button-container" v-on:click.prevent.self="PaypalTransaction" v-if="this.payment_method == 'paypal'"></div>
+                    <div  v-if="isPaymongoTransaction">
+                      <button class="btn btn-warning me-auto" v-on:click.prevent.self="paymongoTransaction">Proceed</button>
+                    </div>
                   </section>
                 </div>
               </div>
@@ -106,12 +117,16 @@
 
   export default {
     beforeMounted() {
-      //Pre load paypal
       this.PaypalSelected();
+    },
+    mounted() {
+      
+      console.log(this.hasPaymongoTransacion);
     },
     props: {
       charity: Array,
-      program: Array
+      program: Array,
+      hasPaymongoTransacion: String
     },
     data() {
       return {
@@ -142,8 +157,8 @@
           this.step++;
         }
       },
-      PaymongoSelected: function() {
-        this.payment_method = 'gcash';
+      PaymongoSelected: function(type) {
+        this.payment_method = type;
       },
       PaypalSelected: function() {
         this.payment_method = 'paypal';
@@ -198,13 +213,49 @@
           console.error("failed to load the PayPal JS SDK script", error);
         });
       },
+      paymongoTransaction() {
+        if(this.payment_method == 'gCash') {
+          Inertia.get(route('paymongo.gCash'), {
+            'total_price' : this.total_price,
+            'program_id' : this.program.id 
+          }, {
+            onSuccess: () => {
+              alert('sucess');
+            },
+            onError: () => {
+              alert('error');
+            },
+          });
+
+          //  axios.get(route('paymongo.gCash'), {
+            // 'total_price' : this.total_price
+          // }).then(response => {
+            // alert(response.data);
+          // });
+        }
+        //  total_price: 0,
+        // price: 0,
+        // step: 0,
+        // tip_level: 5,
+        // tip_price: 0,
+
+         if(this.payment_method == 'grabPay') {
+          Inertia.get(route('paymongo.grabPay'), {
+            'total_price' : this.total_price,
+            'program_id' : this.program.id 
+          });
+         }
+      }
     },
     computed: {
       total_price() {
-        return this.price * this.tip_price()
+        return this.price * this.tip_price();
       },
       tip_price() {
-        return this.price = (this.tip_level / 100) * this.price
+        return this.price = (this.tip_level / 100) * this.price;
+      },
+      isPaymongoTransaction() {
+        return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay' || this.payment_method == 'creditCard';
       }
     }
   };

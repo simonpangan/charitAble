@@ -40,7 +40,7 @@ use App\Http\Controllers\Admin\ {
 };
 
 use App\Http\Controllers\Benefactor\BenefactorDonationController;
-use App\Http\Controllers\PaymongoController;
+use App\Http\Controllers\Payment\PaymongoController;
 use App\Http\Controllers\PaypalPaymentController;
 use App\Models\Charity\CharityVolunteerPost;
 
@@ -245,11 +245,11 @@ Route::name('auth.')->group(function () {
 |
 */
 
-Route::get('/paymongo/gcash', [PaymongoController::class, 'gcash']);
+Route::get('/paymongo/gcash', [PaymongoController::class, 'gcash'])->name('paymongo.gCash');
 Route::get('/paymongo/callback-gcash', [PaymongoController::class, 'gcashCallback']);
 Route::get('/paymongo/callback-gcash/failed', [PaymongoController::class, 'gcashFailed']);
 
-Route::get('/paymongo/grab', [PaymongoController::class, 'grabPay']);
+Route::get('/paymongo/grab', [PaymongoController::class, 'grabPay'])->name('paymongo.grabPay');
 Route::get('/paymongo/callback-grab', [PaymongoController::class, 'grabPayCallback']);
 Route::get('/paymongo/callback-grab/failed', [PaymongoController::class, 'grabPayFailed']);
 
