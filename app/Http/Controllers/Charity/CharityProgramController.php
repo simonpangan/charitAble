@@ -86,7 +86,13 @@ class CharityProgramController
         }
 
         CharityProgram::create(
-           array_merge($request->validated(), ['header' => $link])
+           array_merge(
+            $request->validated(), 
+            [
+                'header' => $link,
+                'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum() 
+            ]
+           )
         );
 
         return to_route('charity.program.index', Auth::id());

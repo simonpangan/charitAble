@@ -28,7 +28,6 @@ class CharityProgramRequest extends FormRequest
             'description' => ['required', 'string'],
             // 'location' => ['required', 'string'],
             'header' => ['nullable'],
-            'total_needed_amount' => ['required', 'int', 'min:0'],
 
             'goals' => ['required', 'array'],
             'goals.*' => [
@@ -46,7 +45,7 @@ class CharityProgramRequest extends FormRequest
                 'required', 'string'
             ],
             'expenses.*.amount' => [
-                'required', 'int'
+                'required', 'int', 'min:0'
             ],
             'expenses.*' => [
                 'required',
