@@ -30,9 +30,13 @@
                   <div class="alert alert-light" role="alert">
                     <br /> Charitable provides 0% platform fee for benefactors, but providing a percentage tip on your contributions will be a long way on continuing our services.
                   </div>
-                   <div v-if="$page.props.errors.paymongo" role="alert"
+                  <div v-if="$page.props.errors.paymongo" role="alert"
                     class="alert alert-danger w-80 mx-auto text-center">
                       {{ $page.props.errors.paymongo }}
+                  </div>
+                  <div v-if="$page.props.flash.message" role="alert"
+                    class="alert alert-success w-80 mx-auto text-center">
+                      {{ $page.props.flash.message }}
                   </div>
                   <button type="button" class="btn btn-lg btn-primary mb-4" v-on:click="ChoosePaymentSection">
                     <i class="feather-plus"></i> Continue </button>
@@ -115,9 +119,14 @@
     beforeMounted() {
       this.PaypalSelected();
     },
+    mounted() {
+      
+      console.log(this.hasPaymongoTransacion);
+    },
     props: {
       charity: Array,
-      program: Array
+      program: Array,
+      hasPaymongoTransacion: String
     },
     data() {
       return {
@@ -207,7 +216,15 @@
       paymongoTransaction() {
         if(this.payment_method == 'gCash') {
           Inertia.get(route('paymongo.gCash'), {
-            'total_price' : this.total_price
+            'total_price' : this.total_price,
+            'program_id' : this.program.id 
+          }, {
+            onSuccess: () => {
+              alert('sucess');
+            },
+            onError: () => {
+              alert('error');
+            },
           });
 
           //  axios.get(route('paymongo.gCash'), {
@@ -224,7 +241,8 @@
 
          if(this.payment_method == 'grabPay') {
           Inertia.get(route('paymongo.grabPay'), {
-            'total_price' : this.total_price
+            'total_price' : this.total_price,
+            'program_id' : this.program.id 
           });
          }
       }
