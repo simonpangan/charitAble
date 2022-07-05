@@ -129,7 +129,16 @@ class CharityProgramController
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
-        $program->update($request->validated());
+        $program->update(
+            array_merge(
+                $request->validated(), 
+                [ 
+                    'total_needed_amount' => collect($request->expenses)
+                        ->pluck('amount')
+                        ->sum() 
+                ]
+            )
+        );
 
         return to_route('charity.program.index', Auth::id());
     }

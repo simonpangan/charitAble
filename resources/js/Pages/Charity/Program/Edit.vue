@@ -219,11 +219,21 @@
                       </span>
                     </div>
                   </div>
-                  <button class="btn btn-light d-inline-block u-text-muted" 
-                    @click.stop.prevent="addExpense">
-                    <i class="fad fa-plus"></i>
-                    Add Program Expenses
-                  </button>
+                     <div class="d-flex justify-content-between">
+                      <button class="btn btn-light d-inline-block u-text-muted" 
+                        @click.stop.prevent="addExpense">
+                        <i class="fad fa-plus"></i>
+                        Add Program Expenses
+                      </button>
+                      <div class="align-items-center">
+                        <span class="fw-bold">
+                          Total: 
+                        </span>
+                        <span class="fa-1x text-gray-300">₱</span>
+                        {{ expenseTotal }}
+                      </div>
+                      <div></div> 
+                  </div>                  
                 </form>
               </div>
             </div>
@@ -246,7 +256,7 @@
 
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
-import { reactive, toRaw } from 'vue';
+import { computed, toRaw } from 'vue';
 
 
 import vueFilePond from "vue-filepond";
@@ -319,6 +329,17 @@ let removeExpense = (item) => {
 
   form.expenses = temp;
 };
+
+let expenseTotal = computed({
+  get() {
+    var total = 0;
+      form.expenses.forEach((item, index) => {
+        total += item['amount'];
+      });
+
+      return total;
+  }
+});
 
 let submit = () => {
   form.put(route("charity.program.update", {
