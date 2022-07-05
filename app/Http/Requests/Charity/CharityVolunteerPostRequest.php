@@ -26,10 +26,19 @@ class CharityVolunteerPostRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'location' => ['required', 'string'],
-            'is_virtual' => ['required', 'boolean'],
+            'is_face_to_face' => ['required', 'boolean'],
+            'location' => ['nullable', 'string', 
+                'required_if:is_face_to_face,true'
+            ],
             'qualifications' => ['required', 'string'],
             'incentives' => ['required', 'string'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'location.required_if' => 'Location is required when it is face to face.',
         ];
     }
 }

@@ -45,11 +45,7 @@
                                     <div class="border-top mt-2">
                                         <p class="text-strong">
                                             <span class="fw-bold">Location</span> : 
-                                            {{volunteerPost.location}} 
-                                        </p>
-                                        <p class="text-strong">
-                                            <span class="fw-bold">Medium</span> : 
-                                            {{(volunteerPost.is_virtual) ? 'Virtual' : 'Face to Face'}} 
+                                            {{ volunteerPost.location }} 
                                         </p>
                                     </div>
                                 </div>

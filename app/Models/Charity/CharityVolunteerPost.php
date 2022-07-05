@@ -2,14 +2,15 @@
 
 namespace App\Models\Charity;
 
-use App\Models\Benefactor;
 use App\Traits\CharityID;
+use App\Models\Benefactor;
 use App\Models\Categories;
 use Illuminate\Support\Carbon;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use App\Models\VolunteerPostInterest;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CharityVolunteerPost extends Model
@@ -27,6 +28,13 @@ class CharityVolunteerPost extends Model
     public function getCreatedAtFormattedAttribute()
     {
         return (Carbon::parse($this->created_at)->diffForHumans());
+    }
+
+    protected function location(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $this->is_face_to_face == false ? 'Virtual' : $value,
+        );
     }
 
     public function charity()
