@@ -11,18 +11,28 @@
                                     <div class="row">
                                         <div class="col-md-4" v-for="(following, index) in followingList" :key="index">
                                             <div class="border network-item rounded mb-3">
-                                                <Link :href="$route('charity.profile.index', {
-                                                    'id' : following.id
+                                               <Link :href="$route('charity.profile.index', {
+                                                'id' : following.id
                                                 })">
-                                                    <div class="p-3 d-flex align-items-center network-item-header">
-                                                        <div class="dropdown-list-image me-3">
-                                                            <img class="rounded-circle" :src="following.logo" alt="charity logo">
-                                                        </div>
-                                                        <div class="fw-bold">
-                                                            <h6 class="fw-bold text-dark mb-0">{{ following.name }}</h6>
+                                                <div class="p-3 d-flex align-items-center network-item-header">
+                                                    <div class="dropdown-list-image me-3 d-inline w-25">
+                                                        <img class="rounded-circle" :src="following.logo" alt="charity logo" />
+                                                    </div>
+                                                    <div class="ms-2 w-75 align-middle d-inline">
+                                                        <span class="h6 font-weight-bold 
+                                                            d-inline-block text-truncate 
+                                                            text-dark mb-0 w-100">
+                                                            {{ following.name }}
+                                                        </span>
+                                                        <div class="small text-black-50">
+                                                            {{ following.followers }} Followers
                                                         </div>
                                                     </div>
+                                                </div>
                                                 </Link>
+                                                <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
+                                                    <span class="fw-bold small text-primary text-truncate">{{ following.about }}</span>
+                                                </div>
                                                 <div class="network-item-footer py-3 d-flex text-center">
                                                     <div class="col-6 ps-3 pe-1">
                                                             <Link class="btn btn-primary btn-sm d-block w-100"
