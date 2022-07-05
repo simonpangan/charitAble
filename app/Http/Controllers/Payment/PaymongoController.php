@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Payment;
 
+use App\Models\Charity\CharityProgram;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -27,7 +28,8 @@ class PaymongoController
                 
         session(['payment_details' => [
             'program_id' => $request->program_id,
-            'total_price' => $request->total_price
+            'total_price' => $request->total_price,
+            'tip_price' => 100,
         ]]);
 
         session(['payment_id' => $gCash->id]);
@@ -61,6 +63,12 @@ class PaymongoController
             'tip_price' => 0,
         ]);
 
+        $program = CharityProgram::find($paymentDetails['program_id']);
+
+        Auth::user()->createLog(
+            'You have donated an amount of ' . $payment->amount . ' to program \'' .
+            $program->name . '\' with a tip price of ' . $paymentDetails['tip_price'] . '.' 
+        );
         
         Paymongo::payment()->find($payment->id);
 
