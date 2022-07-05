@@ -1,5 +1,5 @@
 <template>
-  <Head title="Charity Register" />
+  <Head title="Charity Register"/>
   <div class="container mb-4 mt-4">
     <form @submit.prevent="submit">
       <section v-if="step == 1">
@@ -37,7 +37,7 @@
               <div class="row mt-2">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span></label>                      
+                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span> <small><span class="text-muted">(Please select at least one)</span></small></label>                      
                       <ul class="ks-cboxtags">
                         <li v-for="(category, index) in charityCategories" :key="category.id">
                           <input
@@ -55,9 +55,7 @@
                           {{ form.errors['categories'] }}
                         </div>
                       </ul> 
-                      <small class="form-text text-muted">
-                            Select All that applies
-                      </small>
+                  
                   </div>
                 </div>
               </div>
@@ -116,10 +114,7 @@
                   </div>
                   <div class="col">
                     <label class="mb-1">Confirm Password <span class="text-danger">*</span></label>
-                    <div class="position-relative icon-form-control">
-                      <i class="feather-unlock position-absolute"></i>
                       <input v-model.trim="form.password_confirmation" type="password" class="form-control" />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -151,7 +146,7 @@
                   <ul class="StepProgress">
                     <li class="StepProgress-item current">
                       <strong>Step One - Organization Information</strong>
-                      <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
+                      <p>Enter your organization information. Please make sure all inputs are correct.</p>
                     </li>
                     <li class="StepProgress-item">
                       <strong>Step Two - Additional Organization Information</strong>

@@ -64,6 +64,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::post('/approval/permits', [AdminApprovalController::class, 'permits'])->name('approval.permits');
         Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
         Route::post('/approval/disapprove', [AdminApprovalController::class, 'disApprove'])->name('approval.disapprove');
+        Route::post('/checkEthAddress',[AdminApprovalController::class,'checkIfEthAddressExists'])->name('eth.check');
+        Route::post('/createEthAddress',[AdminApprovalController::class,'createEthAddress'])->name('eth.create');
+
     });
 
 

@@ -74,35 +74,47 @@
                           class="badge bg-success text-white rounded-pill">Approve</div>
                           <div v-else class="badge bg-warning rounded-pill">Pending</div>
                       </td>
+
+
                       <td>
+                     
+
+                        <div class="input-group mb-3">
                         <input type="email" class="form-control" 
-                        :value="charity.permits"
-                        v-on:keyup.enter="savePermit($event, charity.id)">
+                        :value="charity.permits">
+                        <button class="input-group-text" v-on:click.prevent="savePermit($event, charity.id)"><i class="far fa-plus me-1"></i> Add </button>
+                        </div>
+
                       </td>
+
+
                        <td class="d-flex justify-content-evenly">
                         <Link class="btn btn-danger" v-if="charity.charity_verified_at"
                            :href="$route('admin.approval.disapprove')" 
                            method="post" 
                            :data="{ id: charity.id }" 
-                           as="button" type="button">
+                           as="button" type="button" title="Approve or Reject Charity Verification Application"
+                           >
                            <i class="fas fa-times-circle"></i>
                         </Link>
                         <Link class="btn btn-primary" v-else 
                           :href="$route('admin.approval.approve')" 
                            :data="{ id: charity.id }" 
-                          method="post" as="button" type="button">
+                          method="post" as="button" type="button"
+                          v-on:click.prevent="createEthAddress(charity.id)">
                           <i class="fas fa-badge-check"></i>
                         </Link>
-                        <a class="btn btn-info d-inline" :href="$route('admin.home.download', {
+                        <a class="btn btn-info d-inline"  title="Download Charity Documents" :href="$route('admin.home.download', {
                           'id': charity.id
                         })">
+
                           <i class="fad fa-download"></i>
                         </a>
                         <Link class="btn btn-light"
                           :href="$route('charity.profile.index', {
                               id: charity.id
-                          })" >
-                          <i class="far fa-eye"></i>
+                          })" title="Look Up Charity">
+                            <i class="far fa-search"></i>
                         </Link>
                       </td>
                     </tr>
@@ -153,6 +165,8 @@ import {
   } from 'vue';
 
 import {Inertia} from '@inertiajs/inertia';
+import web3 from "~blockchain/web3.js";
+import axios from 'axios';
 
 let props = defineProps({
   charities: Object,
@@ -175,6 +189,7 @@ watch(search, debounce((value) => {
 }, 300));
 
 let savePermit = (e, charityID) => {
+
   Swal.fire({
       title: 'Are you sure?',
       icon: 'warning',
@@ -206,6 +221,49 @@ let savePermit = (e, charityID) => {
   });
 }
 
+let createEthAddress = (charityID)=>{
+    alert(charityID);
+    try{
+    //    var createdAccount = web3.eth.accounts.create();
+    //    console.log(createdAccount.address);
+    return axios({
+                method: 'POST',
+                url: route('admin.eth.check'),
+                data: {
+                  'charityId': charityID,
+                }
+              }).then((response) => {
+                    if(response.data == 'empty'){
+                        let createdAccount = web3.eth.accounts.create();
+                        alert(createdAccount.address); 
+                        axios({
+                            method: 'POST',
+                            url: route('admin.eth.create'),
+                            data:{
+                                'charityId': charityID,
+                                'ethAddress' : createdAccount.address
+                            }
+                        }).then((response) => {
+                            Swal.fire(
+                                'Success!',
+                                'Ethereum Address created.',
+                                'success'
+                            )
+                        }).catch((error)=>{
+                            console.log(error);
+                        })
+                    };
+                return response;
+                
+              }).catch((error) => {
+                console.log(error);
+              });
+
+
+    }catch(e){
+        console.log(e);
+    }
+}
 </script>
 
 <script> 
