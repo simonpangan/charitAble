@@ -93,9 +93,8 @@
               <div class="row">
                 <div class="col-sm-12 mb-2">
                   <label class="mb-1">Potential Incentives or Reward</label>
-                  <span class="text-danger">*</span>
                   <div class="position-relative">
-                    <textarea class="form-control" rows="4" name="text" v-model="form.incentives" placeholder="Enter Bio"></textarea>
+                    <textarea class="form-control" rows="4" name="text" v-model="form.incentives"></textarea>
                     <small class="form-text text-muted">
                       From allowance incentives upto recognition or medal awards, the potential incentives are endless.
                     </small>
