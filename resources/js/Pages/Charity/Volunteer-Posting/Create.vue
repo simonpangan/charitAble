@@ -32,7 +32,7 @@
                     </textarea>
                 </div>
               </div>
-              <div class="mb-3">
+              <div class="mb-3" v-if="is_virtual == true">
                 <div class="js-form-message">
                   <label id="locationLabel" class="form-label">
                     Location
@@ -48,7 +48,7 @@
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" v-model="form.is_virtual">
                     <label class="form-check-label" for="flexCheckDefault">
-                      Is it virtual?
+                      Is it face to face?
                     </label>
                     <span v-if="form.errors.is_virtual" v-text="form.errors.is_virtual"
                       class="invalid-feedback d-block" role="alert">
@@ -123,16 +123,20 @@
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/inertia-vue3"
+import { useForm } from "@inertiajs/inertia-vue3";
+import { reactive } from 'vue';
+
 
 let form = useForm({
   name: null,
   description: null,
-  is_virtual: null,
+  is_virtual: false,
   location: null,
   qualifications: null,
   incentives: null,
 });
+
+let is_virtual = reactive(form.is_virtual);
 
 let submit = () => {
   form.post(route('charity.volunteer.store'));
