@@ -216,8 +216,6 @@ let savePermit = (e, charityID) => {
 
 let createEthAddress = (charityID)=>{
     try{
-    //    var createdAccount = web3.eth.accounts.create();
-    //    console.log(createdAccount.address);
     return axios({
                 method: 'POST',
                 url: route('admin.eth.check'),
