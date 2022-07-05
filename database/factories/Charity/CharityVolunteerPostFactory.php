@@ -21,7 +21,6 @@ class CharityVolunteerPostFactory extends Factory
             'description' => $this->faker->paragraph(2),
             'location' => $this->faker->word,  
             'qualifications' => $this->faker->paragraph,
-            'is_face_to_face' => $this->faker->numberBetween(0,1),  
             'incentives' => $this->faker->sentence,  
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
         ];
