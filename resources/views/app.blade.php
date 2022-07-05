@@ -5,8 +5,8 @@
 
     <link href="{{ mix('/css/vendor.css') }}" rel="stylesheet" />
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-    
     @inertiaHead
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"  type='image/x-icon'>
   </head>
   <body>
 
