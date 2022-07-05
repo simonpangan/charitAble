@@ -14,8 +14,17 @@ use Luigel\Paymongo\Facades\Paymongo;
 
 class PaymongoController
 {
+    public function rules () {
+        return [
+            'price' => ['required'], 
+            'tip_level' => ['required'], 
+        ];
+    }
+
     public function gcash(Request $request)
     {
+        $request->validate($this->rules());
+
         $gCash = Paymongo::source()->create([
             'type' => 'gcash',
             'amount' => $request->total_price,

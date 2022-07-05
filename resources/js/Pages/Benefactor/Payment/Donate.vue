@@ -14,8 +14,12 @@
                       <label class="sr-only mb-2" for="">Enter your donation: </label>
                       <div class="input-group input-group-lg">
                         <span class="input-group-text" id="inputGroup-sizing-lg">PHP : </span>
-                        <input type="text" class="form-control" v-model="this.price" @input="updateDonation" />
+                        <input type="number" class="form-control" v-model="this.price" @input="updateDonation" />
                         <span class="input-group-text">.00</span>
+                        <span v-if="errors.price"
+                                v-text="errors.price"
+                            class="invalid-feedback d-block" role="alert">
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -26,6 +30,10 @@
                   </p>
                   <label for="customRange3" class="form-label mt-5">Enter tip</label>
                   <input type="range" min="0" max="30" step="5" v-model="tip_level" @input="updateSlider" :style="{backgroundSize: backgroundSize}" />
+                  <span v-if="errors.tip_level"
+                        v-text="errors.tip_level"
+                    class="invalid-feedback d-block" role="alert">
+                  </span>
                   <div class="data">Tip Level: {{this.tip_level }}%</div>
                   <div class="alert alert-light" role="alert">
                     <br /> Charitable provides 0% platform fee for benefactors, but providing a percentage tip on your contributions will be a long way on continuing our services.
@@ -126,7 +134,8 @@
     props: {
       charity: Array,
       program: Array,
-      hasPaymongoTransacion: String
+      hasPaymongoTransacion: String,
+      errors: Array,
     },
     data() {
       return {
@@ -216,28 +225,11 @@
       paymongoTransaction() {
         if(this.payment_method == 'gCash') {
           Inertia.get(route('paymongo.gCash'), {
-            'total_price' : this.total_price,
-            'program_id' : this.program.id 
-          }, {
-            onSuccess: () => {
-              alert('sucess');
-            },
-            onError: () => {
-              alert('error');
-            },
+            'program_id' : this.program.id, 
+            'price' : this.price,
+            'tip_level': this.tip_level,
           });
-
-          //  axios.get(route('paymongo.gCash'), {
-            // 'total_price' : this.total_price
-          // }).then(response => {
-            // alert(response.data);
-          // });
         }
-        //  total_price: 0,
-        // price: 0,
-        // step: 0,
-        // tip_level: 5,
-        // tip_price: 0,
 
          if(this.payment_method == 'grabPay') {
           Inertia.get(route('paymongo.grabPay'), {
