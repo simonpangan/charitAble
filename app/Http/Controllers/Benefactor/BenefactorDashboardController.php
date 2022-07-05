@@ -42,4 +42,8 @@ class BenefactorDashboardController extends Controller
 
         return Charity::whereIn('id', $charityID)->paginate(10);
     }
+
+    private function getTotalDonation(){
+        return dd();
+    }
 }
