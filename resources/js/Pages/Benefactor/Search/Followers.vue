@@ -24,21 +24,28 @@
                             <div class="p-3 w-100">
                                 <div class="row">
                                     <div v-for="charity in charities.data" :key="charity.id" class="col-md-3">
-                                        <div class="border network-item rounded mb-3">
+                                        <div class="border network-item rounded mb-3"> 
                                             <Link :href="$route('charity.profile.index', {
                                                 'id' : charity.id
                                             })">
-                                                <div class="p-3 d-flex align-items-center network-item-header">
-                                                    <div class="dropdown-list-image me-3">
-                                                        <img class="rounded-circle" :src="charity.logo" alt="charity logo">
+                                            <div class="p-3 d-flex align-items-center network-item-header">
+                                                    <div class="dropdown-list-image me-3 d-inline w-25">
+                                                        <img class="rounded-circle" :src="charity.logo" alt="charity logo" />
                                                     </div>
-                                                    <div class="fw-bold">
-                                                        <h6 class="fw-bold text-dark mb-0">{{ charity.name }}</h6>
+                                                    <div class="ms-2 w-75 align-middle d-inline">
+                                                        <span class="h6 font-weight-bold 
+                                                            d-inline-block text-truncate 
+                                                            text-dark mb-0 w-100">
+                                                            {{ charity.name }}
+                                                        </span>
+                                                        <div class="small text-black-50">
+                                                            {{ charity.followers }} Followers
+                                                        </div>
                                                     </div>
-                                                </div>
+                                            </div>
                                             </Link>
                                             <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                <span class="fw-bold small text-primary">{{ charity.followers }} Followers</span>
+                                                <span class="fw-bold small text-primary text-truncate">{{ charity.about }}</span>
                                             </div>
                                             <div class="network-item-footer py-3 d-flex text-center">
                                                 <div class="col-6 ps-3 pe-1">
