@@ -54,14 +54,6 @@
                   </div>
                   <div class="form-group mb-0"></div>
                 </div>
-                <div class="overflow-hidden text-center p-3">
-                  <a
-                    class="font-weight-bold btn btn-light rounded p-3 d-block"
-                    href="#"
-                  >
-                    SAVE
-                  </a>
-                </div>
               </div>
             </div>
           </aside>
