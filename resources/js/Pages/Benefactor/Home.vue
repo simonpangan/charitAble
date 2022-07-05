@@ -86,7 +86,7 @@
         </div>
        </aside>
         <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
-          <div class="box shadow-sm border rounded bg-white mb-3 sticky-md-top z-1">
+          <div class="box shadow-sm border rounded bg-white mb-3 sticky-md-top">
             <div class="box-title border-bottom p-3">
               <h6 class="m-0">Charities You Might Like</h6>
             </div>
@@ -101,7 +101,6 @@
                       :src="charity.logo"
                       alt="charity logo"
                     >
-                    <div class="status-indicator"></div>
                   </div>
                   <div class="fw-bold text-black d-inline-block align-middle">
                     <span class="d-inline-block text-truncate" style="max-width: 150px;">
