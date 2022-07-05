@@ -29,7 +29,7 @@ return new class extends Migration
 
             $table->string('permits')->nullable();
             $table->timestamp('charity_verified_at')->nullable();
-            $table->string('eth_address')
+            $table->string('eth_address');
             $table->integer('followers')->default(0);
         });
     }
