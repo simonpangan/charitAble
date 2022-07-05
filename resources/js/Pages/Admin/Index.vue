@@ -74,20 +74,13 @@
                           class="badge bg-success text-white rounded-pill">Approve</div>
                           <div v-else class="badge bg-warning rounded-pill">Pending</div>
                       </td>
-
-
                       <td>
-                     
-
                         <div class="input-group mb-3">
                         <input type="email" class="form-control" 
                         :value="charity.permits">
                         <button class="input-group-text" v-on:click.prevent="savePermit($event, charity.id)"><i class="far fa-plus me-1"></i> Add </button>
                         </div>
-
                       </td>
-
-
                        <td class="d-flex justify-content-evenly">
                         <Link class="btn btn-danger" v-if="charity.charity_verified_at"
                            :href="$route('admin.approval.disapprove')" 
@@ -222,7 +215,6 @@ let savePermit = (e, charityID) => {
 }
 
 let createEthAddress = (charityID)=>{
-    alert(charityID);
     try{
     //    var createdAccount = web3.eth.accounts.create();
     //    console.log(createdAccount.address);
@@ -235,7 +227,6 @@ let createEthAddress = (charityID)=>{
               }).then((response) => {
                     if(response.data == 'empty'){
                         let createdAccount = web3.eth.accounts.create();
-                        alert(createdAccount.address); 
                         axios({
                             method: 'POST',
                             url: route('admin.eth.create'),
