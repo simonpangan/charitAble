@@ -221,7 +221,12 @@
         // step: 0,
         // tip_level: 5,
         // tip_price: 0,
-        
+
+         if(this.payment_method == 'grabPay') {
+          Inertia.get(route('paymongo.grabPay'), {
+            'total_price' : this.total_price
+          });
+         }
       }
     },
     computed: {

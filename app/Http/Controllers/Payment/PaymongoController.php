@@ -48,6 +48,8 @@ class PaymongoController
 
     public function gcashFailed(Request $request)
     {
+        session()->forget('payment_id');
+
         return to_route('charity.donate.create', $request->get('program_id'))->withErrors(
             new MessageBag(['paymongo' => 'Invalid Gcash Transaction'])
         );
@@ -61,13 +63,13 @@ class PaymongoController
             'currency' => 'PHP',
             'redirect' => [
                 'success' => env('APP_URL') . 'paymongo/callback-grab',
-                'failed' => env('APP_URL') . 'paymongo/callback-grab/failed',
+                'failed' => env('APP_URL') . 'paymongo/callback-grab/failed?program_id=99',
             ]
         ]);
 
         session(['payment_id' => $grab->id]);
 
-        return redirect()->away($grab->redirect['checkout_url']);
+        return Inertia::location($grab->redirect['checkout_url']);
     }
 
     public function grabPayCallback(Request $request): void
@@ -89,9 +91,13 @@ class PaymongoController
         dd($loww);
     }
 
-    public function grabPayFailed(): void
+    public function grabPayFailed(Request $request)
     {
-        dd('failed');
+        session()->forget('payment_id');
+
+        return to_route('charity.donate.create', $request->get('program_id'))->withErrors(
+            new MessageBag(['paymongo' => 'Invalid Grab Pay Transaction'])
+        );
     }
 
 
