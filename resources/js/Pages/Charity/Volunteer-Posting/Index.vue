@@ -15,7 +15,9 @@
                                         <div class="d-flex align-items-center p-3 job-item-header">
                                             <div class="overflow-hidden me-2">
                                                 <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{volunteer_post.name}}</h6>
-                                                <div class="text-truncate text-primary">{{this.$page.props.charity.name}}</div>
+                                                <div class="text-truncate text-primary">
+                                                    {{volunteer_post.description}}
+                                                </div>
                                                 <div class="small text-gray-500">
                                                     <i class="fal fa-map-pin"></i>
                                                     {{volunteer_post.location}}
