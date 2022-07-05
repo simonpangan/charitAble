@@ -24,6 +24,9 @@
                                 <div class="row">
                                     <div v-for="charity in charities.data" :key="charity.id" class="col-md-3">
                                         <div class="border network-item rounded mb-3">
+                                             <Link :href="$route('charity.profile.index', {
+                                                'id' : charity.id
+                                            })">
                                             <div class="p-3 d-flex align-items-center network-item-header">
                                                 <div class="dropdown-list-image me-3">                                                                                                           
                                                     <img class="rounded-circle" :src="charity.logo" alt="charity logo">
@@ -32,6 +35,7 @@
                                                     <h6 class="fw-bold text-dark mb-0">{{ charity.name }}</h6>
                                                 </div>
                                             </div>
+                                            </Link>
                                             <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
                                                 <span class="fw-bold small text-primary">{{ charity.followers }} Followers</span>
                                             </div>
