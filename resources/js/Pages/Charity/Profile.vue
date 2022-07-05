@@ -131,7 +131,7 @@ export default {
                     onSuccess: () => {
                          this.$swal.fire(
                             'Deleted!',
-                            'Your file has been deleted.',
+                            'Officer has been deleted.',
                             'success'
                         )
                     },
