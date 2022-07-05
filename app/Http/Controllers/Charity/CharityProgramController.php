@@ -100,10 +100,20 @@ class CharityProgramController
 
     public function show(int $id): Response
     {
+        $program = CharityProgram::with('charity:id,name')->findOrFail($id);
+
+        $donation = ProgramDonation::query()
+            ->selectRaw("sum(amount) as total_donation")
+            ->selectRaw('count(distinct benefactor_id) as total_donors')
+                ->where('charity_program_id', $id)
+            ->first()
+            ->toArray();
+
         return Inertia::render(
             'Charity/Program/Show',
             [
-                'program' => $program = CharityProgram::with('charity:id,name')->findOrFail($id),
+                'program' => $program,
+                'stats' => $donation,
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()
                 ]
