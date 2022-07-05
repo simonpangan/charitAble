@@ -86,7 +86,7 @@
         </div>
        </aside>
         <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
-          <div class="box shadow-sm border rounded bg-white mb-3 sticky-md-top z-1">
+          <div class="box shadow-sm border rounded bg-white mb-3 sticky-md-top z-0">
             <div class="box-title border-bottom p-3">
               <h6 class="m-0">Charities You Might Like</h6>
             </div>
@@ -95,7 +95,7 @@
                 class="d-flex align-items-center osahan-post-header mb-3 people-list">
                 <Link :href="$route('charity.profile.index', {
                   'id' : charity.id
-                })">
+                })" class="position-relative">
                   <div class="dropdown-list-image me-3 d-inline">
                     <img class="rounded-circle" 
                       :src="charity.logo"
@@ -109,7 +109,7 @@
                   </div>
                 </Link>
                 <span class="ms-auto">
-                  <button  @click="followCharity(charity.id)" class="btn btn-light btn-sm text-nowrap">
+                  <button  @click="followCharity(charity.id)" class="btn btn-light btn-sm text-nowrap position-relative">
                     <i class="feather-plus"></i>  
                         Follow
                   </button>
