@@ -139,14 +139,6 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" v-model="form.email">
-                                    <small class="form-text text-muted">We are going to use your email address in your account if you did not put any.</small>
-                                    <div v-if="errors.email" class="text-danger d-block">
-                                        {{ errors.email }}
-                                    </div>
-                                </div>
-                                <div class="mb-3">
                                     <label for="exampleFormControlTextarea1" class="form-label">
                                         Message  <span class="text-danger">*</span>
                                     </label>
@@ -193,7 +185,6 @@ export default {
     data() {
         return {
             form : {
-                email: null,
                 message: null,
                 id: this.volunteerPost.id
             },

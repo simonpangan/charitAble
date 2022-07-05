@@ -15,7 +15,6 @@ class BenfactorSendEmailController
     public function __invoke(Request $request)
     {
         $request->validate([
-            'email' => 'nullable|email|string',
             'message' => 'required|max:255|string', 
         ]);
 
@@ -27,7 +26,7 @@ class BenfactorSendEmailController
 
 
         \Mail::to($post->charity->user->email)
-            ->send(new VolunteerJoinMail($post, $user, $request->only('email','message')));
+            ->send(new VolunteerJoinMail($post, $user, $request->only('message')));
 
         VolunteerPostInterest::create([
             'charity_volunteer_post_id' => $post->id,

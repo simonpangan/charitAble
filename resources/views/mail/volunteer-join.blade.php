@@ -10,7 +10,7 @@
 
 <p>
     You can email {{ (($user->benefactor->gender) == 'Male') ? 'him' : 'her' }}  
-    via email : <b>{{ ($inputs['email'] == null) ? $user->email : $inputs['email']}}</b>
+    via email : <b>{{ $user->email }}</b>
 </p> 
 
 Thanks,<br>
