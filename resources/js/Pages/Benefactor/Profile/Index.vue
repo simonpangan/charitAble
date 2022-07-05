@@ -144,23 +144,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row"> 
-                <div class="col-sm-6 mb-2">
-                  <div class="js-form-message">
-                    <label id="phoneNumberLabel" class="form-label"> Account Type <span class="text-danger">*</span>
-                    </label>
-                    <div class="form-group">
-                      <select  :disabled="type != 'edit'" class="form-control custom-select" v-model="form.account_type">
-                        <option value="Personal">Personal Account</option>
-                        <option value="Business">Business Account</option>
-                      </select>
-                      <div v-if="form.errors.account_type" class="text-danger">
-                        {{ form.errors.account_type }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </form>
           </div>
         </div>
@@ -189,7 +172,6 @@ let form = useForm({
     age: props.benefactor.age,
     city: props.benefactor.city,
     gender: props.benefactor.gender,
-    account_type: props.benefactor.account_type,
     preferences: props.benefactor.preferences, 
  })
 
