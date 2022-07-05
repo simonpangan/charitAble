@@ -13,7 +13,7 @@
                       <img :src="program.header" class="img-fluid" alt="Responsive image">
                       <div class="card-body">
                           <h5 class="card-title nmb-1">{{program.name}}</h5>
-                          <p class="card-text text-muted ">{{program.location}}</p>
+                          <p class="card-text text-muted text-truncate">{{program.description}}??</p>
                           <p class="card-text text-dark">
                             <i class="fas fa-clock"></i>
                             {{program.created_at_formatted}}
