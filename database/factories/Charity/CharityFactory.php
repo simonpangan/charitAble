@@ -27,6 +27,7 @@ class CharityFactory extends Factory
             'twitter_link' => $this->faker->url, 
             'instagram_link' => $this->faker->url, 
             'permits' => 'PCNC, SEC',
+            'eth_address' => $this->faker->password,
             'charity_verified_at' => $this->faker->randomElement([now()->toDateTimeString(), null]),
             'followers' => $this->faker->numberBetween(0, 5000),
         ];
