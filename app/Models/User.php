@@ -82,6 +82,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function getIsAllowedToDownloadAttribute() {
-        return (now()->diffInMinutes($this->last_generate_report)) > 5 ? true : false;
+        return (now()->diffInMinutes($this->last_generate_report) > 5 ||
+            $this->last_generate_report == null
+        )  ? true : false;
     }
 }

@@ -38,6 +38,17 @@
                 </div>
               </div>
               <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="form.is_face_to_face">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Is it face to face?
+                    </label>
+                    <span v-if="form.errors.is_face_to_face" v-text="form.errors.is_face_to_face"
+                      class="invalid-feedback d-block" role="alert">
+                    </span>
+                </div>
+              </div>
+              <div class="mb-3" v-if="form.is_face_to_face == true">
                 <div class="js-form-message">
                   <label id="locationLabel" class="form-label">
                     Location
@@ -47,17 +58,6 @@
                   <span v-if="form.errors.location" v-text="form.errors.location"
                     class="invalid-feedback d-block" role="alert">
                   </span>
-                </div>
-              </div>
-               <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" v-model="form.is_virtual">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Is it virtual?
-                    </label>
-                    <span v-if="form.errors.is_virtual" v-text="form.errors.is_virtual"
-                      class="invalid-feedback d-block" role="alert">
-                    </span>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@ let form = useForm({
    name: props.volunteerPost.name,
    description: props.volunteerPost.description,
    location: props.volunteerPost.location,
-   is_virtual: props.volunteerPost.is_virtual,
+   is_face_to_face: props.volunteerPost.is_face_to_face,
    qualifications: props.volunteerPost.qualifications,
    incentives: props.volunteerPost.incentives
  })

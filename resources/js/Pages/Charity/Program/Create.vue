@@ -54,14 +54,6 @@
                   </div>
                   <div class="form-group mb-0"></div>
                 </div>
-                <div class="overflow-hidden text-center p-3">
-                  <a
-                    class="font-weight-bold btn btn-light rounded p-3 d-block"
-                    href="#"
-                  >
-                    SAVE
-                  </a>
-                </div>
               </div>
             </div>
           </aside>
@@ -174,24 +166,7 @@
               </div>
               <div class="box-body p-3">
                 <form class="js-validate" novalidate="novalidate">
-                  <div class="row">
-                    <div class="col-sm-12 mb-2">
-                      <div class="js-form-message">
-                        <label id="nameLabel" class="form-label"> 
-                          Total Needed Amount
-                          <span class="text-danger">*</span>
-                        </label>
-                        <div class="form-group">
-                          <input type="number" class="form-control" v-model="form.total_needed_amount" />
-                          <span v-if="form.errors.total_needed_amount" 
-                            v-text="form.errors.total_needed_amount"
-                            class="invalid-feedback d-block" role="alert">
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <label class="mb-1">Program Expenses</label>
+                  <label class="mb-1">Program Expenses <span class="text-danger">*</span></label>
                   <div class="row" v-for="(expense, index) in form.expenses" :key="index">
                     <div class="col-sm-6 mb-4">
                       <label id="FROM" class="form-label">Expense name</label>
@@ -218,11 +193,21 @@
                       </span>
                     </div>
                   </div>
-                  <button class="btn btn-light d-inline-block u-text-muted" 
-                    @click.stop.prevent="addExpense">
-                    <i class="fad fa-plus"></i>
-                    Add Program Expenses
-                  </button>
+                  <div class="d-flex justify-content-between">
+                      <button class="btn btn-light d-inline-block u-text-muted" 
+                        @click.stop.prevent="addExpense">
+                        <i class="fad fa-plus"></i>
+                        Add Program Expenses
+                      </button>
+                      <div class="align-items-center">
+                        <span class="fw-bold">
+                          Total: 
+                        </span>
+                        <span class="fa-1x text-gray-300">₱</span>
+                        {{ expenseTotal }}
+                      </div>
+                      <div></div> 
+                  </div>
                 </form>
               </div>
             </div>
@@ -266,7 +251,7 @@ export default {
       description: null,
       location: null,
       goals: [{name: '', date: ''}],
-      expenses: [],
+      expenses: [{name: '', amount: 0}],
       header: [],
       total_needed_amount: null,
     });
@@ -287,7 +272,7 @@ export default {
     addExpense(){
       this.form.expenses.push({
         name:'',
-        amount: ''
+        amount: 0
       })
     },
     removeExpense(item){
@@ -306,6 +291,16 @@ export default {
       this.form.header = file[0].file;
     },
   },
+  computed: {
+    expenseTotal() {
+      var total = 0;
+      this.form.expenses.forEach((item, index) => {
+        total += item['amount'];
+      });
+
+      return total;
+    }
+  }
 };
 </script>
 

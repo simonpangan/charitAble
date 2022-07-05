@@ -86,7 +86,13 @@ class CharityProgramController
         }
 
         CharityProgram::create(
-           array_merge($request->validated(), ['header' => $link])
+           array_merge(
+            $request->validated(), 
+            [
+                'header' => $link,
+                'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum() 
+            ]
+           )
         );
 
         return to_route('charity.program.index', Auth::id());
@@ -94,10 +100,20 @@ class CharityProgramController
 
     public function show(int $id): Response
     {
+        $program = CharityProgram::with('charity:id,name')->findOrFail($id);
+
+        $donation = ProgramDonation::query()
+            ->selectRaw("sum(amount) as total_donation")
+            ->selectRaw('count(distinct benefactor_id) as total_donors')
+                ->where('charity_program_id', $id)
+            ->first()
+            ->toArray();
+
         return Inertia::render(
             'Charity/Program/Show',
             [
-                'program' => $program = CharityProgram::with('charity:id,name')->findOrFail($id),
+                'program' => $program,
+                'stats' => $donation,
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()
                 ]
@@ -123,7 +139,16 @@ class CharityProgramController
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
-        $program->update($request->validated());
+        $program->update(
+            array_merge(
+                $request->validated(), 
+                [ 
+                    'total_needed_amount' => collect($request->expenses)
+                        ->pluck('amount')
+                        ->sum() 
+                ]
+            )
+        );
 
         return to_route('charity.program.index', Auth::id());
     }
@@ -149,10 +174,18 @@ class CharityProgramController
                 'supporters.benefactor:id,first_name,last_name')
             ->findOrFail($id);
 
+        $donation = ProgramDonation::query()
+            ->selectRaw("sum(amount) as total_donation")
+            ->selectRaw('count(distinct benefactor_id) as total_donors')
+                ->where('charity_program_id', $id)
+            ->first()
+            ->toArray();
+
         return Inertia::render(
             'Charity/Program/Supports',
             [
                 'program' => $program,
+                'stats' => $donation,
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()
                 ]

@@ -22,6 +22,8 @@ class BenefactorReportController
     {
         $user = Auth::user();
 
+        abort_if(! $user->is_allowed_to_download, 403);
+
         $donations =  $user->benefactor->programDonations()
             ->latest('donated_at')
             ->get(['name', 'charity_id','program_donations.amount']);
