@@ -15,7 +15,7 @@ class BenefactorCharitySearchLocationController
     public function __invoke(): Response
     {
         return Inertia::render('Benefactor/Search/Location', [
-            'locations'=> fn() => Location::all(),
+            'locations'=> Location::all()->sortBy('name')->values(),
             'charities' => $this->getCharities(
                 request()->get('name'), request()->get('location')
             )
