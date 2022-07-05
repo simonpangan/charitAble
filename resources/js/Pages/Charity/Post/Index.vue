@@ -75,7 +75,7 @@ export default {
                     onSuccess: () => {
                          this.$swal.fire(
                             'Deleted!',
-                            'Your file has been deleted.',
+                            'Your post has been deleted.',
                             'success'
                         )
                     },
