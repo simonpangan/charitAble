@@ -29,7 +29,7 @@ class ProgramDonationSeeder extends Seeder
 
         foreach ($programs->random(20) as $program) {
             $benefactor->programDonations()->attach($program->id, [
-                'amount' => $faker->numberBetween($min = 1000, $max = 9000),
+                'amount' => $faker->numberBetween($min = 100, $max = 1000),
                 'donated_at' => $faker->dateTimeBetween('-5 years', 'now'),
                 'transaction_id' => 21312321,
                 'tip_price' => 15
