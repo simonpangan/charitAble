@@ -58,8 +58,6 @@ class BenefactorConnectionsCharitiesController
             ->followingCharities()
             ->attach($request->only('id'));
         
-        $benefactor->update(['total_charities_followed' => ($benefactor->total_charities_followed + 1)]);
-
         return back();        
     }
 
@@ -70,8 +68,6 @@ class BenefactorConnectionsCharitiesController
         $benefactor
             ->followingCharities()
             ->detach($id);
-
-        $benefactor->update(['total_charities_followed' => ($benefactor->total_charities_followed - 1)]);
 
         return back();
     }

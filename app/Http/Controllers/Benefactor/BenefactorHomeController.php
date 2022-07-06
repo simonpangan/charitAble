@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Charity\CharityFollowers;
 use App\Models\Charity\CharityCategories;
 use App\Models\Charity\CharityVolunteerPost;
+use App\Models\ProgramDonation;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 
 
@@ -24,8 +25,20 @@ class BenefactorHomeController
             'benefactor' => fn () => Benefactor::auth(),
             'posts' => $this->getCharityPostsByFollowing(),
             'randomCharity' => fn () => $this->getRandomCharity(),
+            'userFollowingCount' => fn () => $this->getFollowingCount(),
+            'totalDonation' => fn () => $this->getDonationCount(),
             'userFollowsAtleastOneCharity' => fn () => $this->userHasFollowing(),
         ]);
+    }
+
+    private function getFollowingCount()
+    {
+        return CharityFollowers::where('benefactor_id', Auth::id())->count();
+    }
+
+    private function getDonationCount()
+    {
+        return ProgramDonation::where('benefactor_id', Auth::id())->sum('amount');
     }
 
     private function userHasFollowing()   

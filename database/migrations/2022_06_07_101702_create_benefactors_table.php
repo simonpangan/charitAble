@@ -23,10 +23,6 @@ return new class extends Migration
             $table->smallInteger('age');
             $table->string('city');
             $table->string('preferences');
-            $table->text('total_donation');
-            $table->text('total_charities_donated');
-            $table->text('total_charities_followed');
-            $table->text('total_number_donations');
         });
     }
 

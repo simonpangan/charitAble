@@ -75,11 +75,11 @@
           </div>
           <div class="d-flex">
             <div class="col-6 border-right p-3">
-              <h6 class="font-weight-bold text-dark mb-1">{{ benefactor.total_charities_followed }}</h6>
+              <h6 class="font-weight-bold text-dark mb-1">{{ userFollowingCount }}</h6>
               <p class="mb-0 text-black-50 small">Connections</p>
             </div>
             <div class="col-6 p-3">
-              <h6 class="font-weight-bold text-dark mb-1"> ₱ {{ benefactor.total_donation }}</h6>
+              <h6 class="font-weight-bold text-dark mb-1"> ₱ {{ totalDonation }}</h6>
               <p class="mb-0 text-black-50 small">Donations</p>
             </div>
           </div>
@@ -130,13 +130,16 @@
 </template>
 
 <script>
+import { integer } from '@vuelidate/validators';
   export default {
     props: {
         posts: Array,
         benefactor: Array,
         volunteer_post: Array,
         randomCharity: Array,
-        userFollowsAtleastOneCharity: Boolean
+        userFollowsAtleastOneCharity: Boolean,
+        userFollowingCount: Number,
+        totalDonation: Number,
     },
    data() {
         return {
