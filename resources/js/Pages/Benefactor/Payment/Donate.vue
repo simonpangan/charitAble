@@ -113,7 +113,7 @@
           <div class="card mb-4">
             <div class="card-header py-3">
               <h5 class="mb-0">Biling details</h5>
-            </div>s
+            </div>
             <div class="card-body">
               <form @submit.prevent="paymongoCardTransaction">
                 <div class="form-outline mb-4">
@@ -185,6 +185,7 @@
   import { Inertia } from "@inertiajs/inertia";
   import axios from 'axios';
   import { loadScript } from "@paypal/paypal-js";
+  import NProgress from 'nprogress'
 
   let paypal;
 
@@ -314,6 +315,8 @@
           });
       },
       paymongoCardTransaction() {
+        NProgress.start();
+
          axios.post(route('paymongo.payment_intent'), {
             'program_id' : this.program.id, 
             'price' : this.price,
@@ -351,7 +354,8 @@
                                   username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
                                 },
                               }).then(finalResponse => {
-                                console.log(finalResponse);
+
+                                NProgress.done();
                               });
                       })
                       .catch(error => {
