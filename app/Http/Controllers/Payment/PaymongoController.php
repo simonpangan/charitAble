@@ -119,6 +119,7 @@ class PaymongoController
 
     public function createPaymentIntent()   
     {
+        // $request->validate($this->rules());
         $paymentIntent = Paymongo::paymentIntent()->create([
             'amount' => 100,
             'payment_method_allowed' => [
@@ -134,38 +135,7 @@ class PaymongoController
             'currency' => "PHP",
         ]);
         
-
-        session(['client_key' => $paymentIntent->client_key]);
-
-        $paymentMethod = Paymongo::paymentMethod()->create([
-            'type' => 'card',
-            'details' => [
-                'card_number' => '4343434343434345',
-                'exp_month' => 12,
-                'exp_year' => 25,
-                'cvc' => "123",
-            ],
-            'billing' => [
-                'address' => [
-                    'line1' => 'Somewhere there',
-                    'city' => 'Cebu City',
-                    'state' => 'Cebu',
-                    'country' => 'PH',
-                    'postal_code' => '6000',
-                ],
-                'name' => 'Rigel Kent Carbonel',
-                'email' => 'rigel20.kent@gmail.com',
-                'phone' => '0935454875545'
-            ],
-        ]);
-
-        $paymentIntent = Paymongo::paymentIntent()->find($paymentIntent->id);
-        // Attached the payment method to the payment intent
-        $successfulPayment = $paymentIntent->attach($paymentMethod->id);
-
-        dd($paymentMethod);
-
-        return $paymentIntent;
+        return $paymentIntent->id;
     }
 
     public function search(Request $request): void

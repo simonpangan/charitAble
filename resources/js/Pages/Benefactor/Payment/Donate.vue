@@ -82,7 +82,7 @@
                     </div>
                     <div id="paypal-button-container" v-on:click.prevent.self="PaypalTransaction" v-if="this.payment_method == 'paypal'"></div>
                     <div  v-if="isPaymongoTransaction">
-                      <button class="btn btn-warning me-auto" v-on:click.prevent.self="paymongoTransaction">Proceed</button>
+                      <button class="btn btn-warning me-auto" v-on:click.prevent.self="paymongoEWalletTransaction">Proceed</button>
                     </div>
                   </section>
                 </div>
@@ -110,6 +110,71 @@
             </div>
           </div>
           <div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center"></div>
+          <div class="card mb-4">
+            <div class="card-header py-3">
+              <h5 class="mb-0">Biling details</h5>
+            </div>s
+            <div class="card-body">
+              <form @submit.prevent="paymongoCardTransaction">
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form6Example3">Name</label>
+                  <input type="text" id="form6Example3" class="form-control" v-model="card.attributes.billing.name"/>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form6Example5">Email</label>
+                  <input type="email" id="form6Example5" class="form-control" v-model="card.attributes.billing.email" />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form6Example6">Phone #</label>
+                  <input type="number" id="form6Example6" class="form-control" v-model="card.attributes.billing.phone"/>
+                </div>
+
+                <hr class="my-4" />
+                <h5 class="mb-4">Address</h5>
+
+                 <div class="form-outline mb-4">
+                  <label class="control-label" for="textinput">Line 1</label>
+                  <input type="text" class="form-control" v-model="card.attributes.billing.address.line1">
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="control-label" for="textinput">City</label>
+                    <input type="text" class="form-control" v-model="card.attributes.billing.address.city">
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="control-label" for="textinput">Postal Code</label>
+                  <input type="text" class="form-control" v-model="card.attributes.billing.address.postal_code" />
+                </div>
+
+                <hr class="my-4" />
+                <h5 class="mb-4">Payment</h5>
+
+                <div class="form-outline">
+                  <input type="text" id="formCardNumber" class="form-control" v-model="card.attributes.details.card_number"/>
+                  <label class="form-label" for="formCardNumber">Credit card number</label>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-3">
+                    <div class="form-outline">
+                      <input type="text" id="formExpiration" class="form-control" v-model="card.attributes.details.exp_year"/>
+                      <label class="form-label" for="formExpiration">Expiration</label>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-outline">
+                      <input type="text" id="formCVV" class="form-control" v-model="card.attributes.details.cvc"/>
+                      <label class="form-label" for="formCVV">CVC</label>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit">
+                  Continue to checkout
+                </button>
+              </form>
+            </div>
+          </div>
         </aside>
       </div>
     </div>
@@ -128,7 +193,6 @@
       this.PaypalSelected();
     },
     mounted() {
-      
       console.log(this.hasPaymongoTransacion);
     },
     props: {
@@ -145,7 +209,29 @@
         tip_level: 5,
         tip_price: 0,
         charity_program_id: this.program.id,
-        is_anonymous: false
+        is_anonymous: false,
+        card: {
+            "attributes": {
+                'details' :  {
+                'card_number' : '4343434343434345',
+                  'exp_month' : 12,
+                  'exp_year' : 25,
+                  'cvc' : "123",
+              },
+              'billing' : {
+                'address' : {
+                    'line1' : 'Somewhere there',
+                    'city' : 'Cebu City',
+                    'country' : 'PH',
+                    'postal_code' : '6000',
+                },
+                'name' : 'Rigel Kent Carbonel',
+                'email' : 'rigel20.kent@gmail.com',
+                'phone' : '0935454875545'
+              },
+              "type": "card"
+            } 
+          },
       };
     },
     methods: {
@@ -218,7 +304,7 @@
       PaymongoSelected: function(type) {
         this.payment_method = type;
       },
-      paymongoTransaction() {
+      paymongoEWalletTransaction() {
           Inertia.get(route('paymongo'), {
             'program_id' : this.program.id, 
             'price' : this.price,
@@ -226,6 +312,47 @@
             'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY',
             'is_anonymous' : this.is_anonymous
           });
+      },
+      paymongoCardTransaction() {
+         axios.get(route('paymongo.payment_intent'))
+              .then(paymentIntentResponse => {
+
+                  console.log(paymentIntentResponse);
+                  
+                  axios.post('https://api.paymongo.com/v1/payment_methods', {
+                        data: this.card
+                      },
+                      {
+                          auth: {
+                          username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
+                        },
+                        Accept: 'application/json', 
+                        'Content-Type': 'application/json'
+                      })
+                      .then(methodResponse => {
+                              var paymentMethod = methodResponse.data.data;
+                              var paymentIntentID = paymentIntentResponse.data;
+
+                              axios.post(`https://api.paymongo.com/v1/payment_intents/${paymentIntentID}/attach`,{
+                                 "data": {
+                                      "attributes": {
+                                          "payment_method": paymentMethod.id,
+                                          "client_key": "pk_test_3iPrAbFgvFQBnKsUkkFKpfUm",
+                                      }
+                                }
+                              }, {
+                                Accept: 'application/json', 
+                                'Content-Type': 'application/json',
+                                 auth: {
+                                  username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
+                                },
+                              })
+                      })
+                      .catch(error => {
+                        console.log(error);
+                      })
+              }
+          )
       }
     },
     computed: {
@@ -236,7 +363,7 @@
         return this.price * (this.tip_level / 100);
       },
       isPaymongoTransaction() {
-        return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay' || this.payment_method == 'creditCard';
+        return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay';
       }
     }
   };
