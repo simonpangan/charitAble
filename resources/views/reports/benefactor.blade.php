@@ -7,10 +7,15 @@
         .page-break {
             page-break-after: always;
         }
+    
     </style>
         
 </head>
 <body>
+    {{-- <header>
+        <img src="{{ asset('logo/logo-only.png') }}" width="100%" height="100%"/>
+    </header> --}}
+
     <h1 class="text-center">{{ $title }}</h1>
     <p>Date: {{ $date }}</p>
     <p>
@@ -50,10 +55,10 @@
             <th>Total Number of Donations</th>
         </tr>
         <tr>
-            <td>{{ $user->benefactor->total_donation }}</td>
-            <td>{{ $user->benefactor->total_charities_donated }}</td>
-            <td>{{ $user->benefactor->total_charities_followed }}</td>
-            <td>{{ $user->benefactor->total_number_donations }}</td>
+            <td>{{ $benefactor['total_donation'] }}</td>
+            <td>{{ $benefactor['total_charities_donated'] }}</td>
+            <td>{{ $benefactor['total_charities_followed'] }}</td>
+            <td>{{ $benefactor['total_number_donations'] }}</td>
         </tr>
     </table>
 	<br />

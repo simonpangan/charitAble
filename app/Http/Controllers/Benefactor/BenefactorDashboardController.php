@@ -7,6 +7,8 @@ use Inertia\Response;
 use App\Models\Benefactor;
 use App\Models\Charity\Charity;
 use App\Http\Controllers\Controller;
+use App\Models\Charity\CharityFollowers;
+use App\Models\ProgramDonation;
 use Illuminate\Support\Facades\Auth;
 
 class BenefactorDashboardController extends Controller
@@ -14,11 +16,34 @@ class BenefactorDashboardController extends Controller
     public function index(): Response
     {
         return Inertia::render('Benefactor/Dashboard', [
-            'benefactor' => fn() => $this->getBenefactorAuth(),
+            'benefactor' => fn() => $this->getBenefactorStats(),
             'programDonations'=> fn() => $this->getProgramDonations(),
             'charities' => fn () => $this->getCharities(),
             'canDownload' => Auth::user()->is_allowed_to_download
         ]);
+    }
+
+    private function getBenefactorStats() {
+        $donationStats =  ProgramDonation::query()
+            ->selectRaw("sum(amount) as total_donation")
+            ->selectRaw("count(*) as total_number_donations")
+            ->where('benefactor_id' , Auth::id())
+            ->first()
+            ->getAttributes();
+
+        $charityFollowing = CharityFollowers::where('benefactor_id', Auth::id())->count();
+
+        $totalCharitiesDonated = $this->getBenefactorAuth()->programDonations()
+            ->latest('donated_at')
+            ->get(['charity_id'])
+            ->pluck('charity_id')
+            ->unique()
+            ->count();
+
+        return array_merge($donationStats, 
+            ['total_charities_followed' => $charityFollowing] + 
+            ['total_charities_donated' => $totalCharitiesDonated]
+        );
     }
 
     private function getBenefactorAuth()
