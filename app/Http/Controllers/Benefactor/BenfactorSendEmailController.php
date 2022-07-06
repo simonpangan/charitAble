@@ -33,7 +33,8 @@ class BenfactorSendEmailController
             'benefactor_id' => Auth::id(),
             'message' => $request->message
         ]);
-        
+
+        Auth::user()->createLog('You have send a message to ' . $post->charity->name); 
 
         to_route('charity.volunteer.show', 163)
             ->with('message', 'Succesfully send your email');
