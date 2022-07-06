@@ -161,9 +161,6 @@
           this.step++;
         }
       },
-      PaymongoSelected: function(type) {
-        this.payment_method = type;
-      },
       PaypalSelected: function() {
         this.payment_method = 'paypal';
         this.$forceUpdate();
@@ -216,6 +213,9 @@
         }).catch((error) => {
           console.error("failed to load the PayPal JS SDK script", error);
         });
+      },
+      PaymongoSelected: function(type) {
+        this.payment_method = type;
       },
       paymongoTransaction() {
           Inertia.get(route('paymongo'), {

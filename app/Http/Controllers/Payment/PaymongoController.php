@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Payment;
 
-use App\Models\Charity\CharityProgram;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\ProgramDonation;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use Luigel\Paymongo\Facades\Paymongo;
+use App\Models\Charity\CharityProgram;
 
 
 class PaymongoController
@@ -30,8 +31,9 @@ class PaymongoController
                 
         session(['payment_details' => [
             'program_id' => $request->program_id,
-            'tip_price' => $request->tip_level,
-            'wallet' => $request->wallet
+            'tip_level' => $request->tip_level,
+            'wallet' => $request->wallet,
+            'price' => $request->price
         ]]);
 
         session(['payment_id' => $gCash->id]);
@@ -42,7 +44,8 @@ class PaymongoController
     public function rules () {
         return [
             'price' => ['required'], 
-            'tip_level' => ['required'], 
+            'tip_level' => ['required', 'int', 'min:0', 'max:30'], 
+            'wallet' => ['required' , Rule::in(['G-CASH', 'GRAB PAY']),], 
         ];
     }
 
@@ -51,13 +54,20 @@ class PaymongoController
         $paymentDetails = session()->pull('payment_details');
         $paymentID =  session()->pull('payment_id');
 
+        $program = CharityProgram::findOrFail($paymentDetails['program_id']);
+
+        $message =  'Paid an amount for ' . $paymentDetails['price'] . ' to ' .
+        $program->name . ' with a tip level of ' . $paymentDetails['tip_level'] . '%.';
+        
+        $charitableTip = $paymentDetails['price'] * ($paymentDetails['tip_level'] / 100);
+
         try {
             $payment = Paymongo::payment()
                 ->create([
-                    'amount' => $paymentDetails['total_price'],
+                    'amount' => $paymentDetails['price'],
                     'currency' => 'PHP',
-                    'description' => 'TEST',
-                    'statement_descriptor' => 'Test Paymongo',
+                    'description' => $message,
+                    'statement_descriptor' => $message,
                     'source' => [
                         'id' => $paymentID,
                         'type' => 'source'
@@ -66,22 +76,20 @@ class PaymongoController
         } catch (\Throwable $th) {
             abort(403);
         }
-    
+        
+
+        $totalDonation = ($payment->net_amount / 100) - $charitableTip; 
+
         ProgramDonation::create([
             'benefactor_id' => Auth::id(),
             'charity_program_id' => $paymentDetails['program_id'],
-            'amount' => $payment->amount,
+            'amount' => $totalDonation,
             'donated_at' => Carbon::createFromTimestamp($payment->created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP'),
             'transaction_id' => $payment->id,
-            'tip_price' => 0,
+            'tip_price' => $charitableTip,
         ]);
 
-        $program = CharityProgram::find($paymentDetails['program_id']);
-
-        Auth::user()->createLog(
-            'You have donated an amount of ' . $payment->amount . ' to program \'' .
-            $program->name . '\' with a tip price of ' . $paymentDetails['tip_price'] . '.' 
-        );
+        Auth::user()->createLog($message);
         
         Paymongo::payment()->find($payment->id);
 
@@ -159,7 +167,12 @@ class PaymongoController
 
     public function search(Request $request): void
     {
-        $loww = Paymongo::payment()->find('pay_6K3Kaasn4tLRzstFsQCzx8AKS');
+        $loww = Paymongo::payment()->find('pay_PBNfyqR46QKa6UV5CL52V5gU');
+
+
+        // $charitableTip = $paymentDetails['price'] * ($paymentDetails['tip_level'] / 100);
+        // $totalDonation = $payment->net_amount - $charitableTip; 
+
         dd($loww);
         $date = Carbon::createFromTimestamp($loww->created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP');  
     }
