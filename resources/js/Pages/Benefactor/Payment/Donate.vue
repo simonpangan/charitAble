@@ -14,7 +14,7 @@
                       <label class="sr-only mb-2" for="">Enter your donation: </label>
                       <div class="input-group input-group-lg">
                         <span class="input-group-text" id="inputGroup-sizing-lg">PHP : </span>
-                        <input type="number" class="form-control" v-model="this.price" @input="updateDonation" />
+                        <input type="number" class="form-control" v-model="price" />
                         <span class="input-group-text">.00</span>
                         <span v-if="errors.price"
                                 v-text="errors.price"
@@ -34,7 +34,7 @@
                         v-text="errors.tip_level"
                     class="invalid-feedback d-block" role="alert">
                   </span>
-                  <div class="data">Tip Level: {{this.tip_level }}%</div>
+                  <div class="data">Tip Level: {{this.tip_level }}</div>
                   <div class="alert alert-light" role="alert">
                     <br /> Charitable provides 0% platform fee for benefactors, but providing a percentage tip on your contributions will be a long way on continuing our services.
                   </div>
@@ -96,16 +96,16 @@
               <p>Your Donation</p>
               <div class="d-flex">
                 <p>Your Donation</p>
-                <p class="text-muted ms-auto">{{this.price}}</p>
+                <p class="text-muted ms-auto">{{price}}</p>
               </div>
               <div class="d-flex">
                 <p>Charitable Tip</p>
-                <p class="text-muted ms-auto">{{this.tip_level}}%</p>
+                <p class="text-muted ms-auto">{{charitable_tip}}</p>
               </div>
               <hr />
               <div class="d-flex">
                 <p class="text-dark">Total Contribution</p>
-                <p class="text-dark ms-auto">{{this.total_price}}</p>
+                <p class="text-dark ms-auto">{{total_price}}</p>
               </div>
             </div>
           </div>
@@ -140,7 +140,6 @@
     data() {
       return {
         payment_method: '',
-        total_price: 0,
         price: 0,
         step: 0,
         tip_level: 5,
@@ -149,10 +148,6 @@
       };
     },
     methods: {
-      updateDonation: function(e) {
-        this.tip_price = (this.tip_level / 100) * this.price;
-        this.total_price = parseFloat(this.price) + parseFloat(this.tip_price);
-      },
       updateSlider: function(e) {
         let clickedElement = e.target,
           min = clickedElement.min,
@@ -233,10 +228,10 @@
     },
     computed: {
       total_price() {
-        return this.price * this.tip_price();
+        return this.price - (this.price * (this.tip_level / 100));  
       },
-      tip_price() {
-        return this.price = (this.tip_level / 100) * this.price;
+      charitable_tip() {
+        return this.price * (this.tip_level / 100);
       },
       isPaymongoTransaction() {
         return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay' || this.payment_method == 'creditCard';
