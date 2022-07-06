@@ -164,9 +164,7 @@
                     </div>
                 </div>
               </div>
-              <div class="row mt-2">
-                <small class="text-muted">For users that are under corporate organization and business, please select Business Account Type</small>
-              </div>
+             
               <div class="d-flex justify-content-end">
                 <button class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="prevStep"> Previous currentStep </button>
                 <button :disabled="form.processing" class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="secondNextStep"> 
