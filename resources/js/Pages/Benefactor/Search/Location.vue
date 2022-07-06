@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div v-for="charity in charities.data" :key="charity.id" class="col-md-3">
                                         <div class="border network-item rounded mb-3">
-                                            <Link :href="$route('charity.profile.index', {
+                                           <Link :href="$route('charity.profile.index', {
                                                 'id' : charity.id
                                             })">
                                             <div class="p-3 d-flex align-items-center network-item-header">
@@ -32,7 +32,9 @@
                                                         <img class="rounded-circle" :src="charity.logo" alt="charity logo" />
                                                     </div>
                                                     <div class="ms-2 w-75 align-middle d-inline">
-                                                        <span class="h6 font-weight-bold text-dark mb-0 text-truncate w-100">
+                                                        <span class="h6 font-weight-bold 
+                                                            d-inline-block text-truncate 
+                                                            text-dark mb-0 w-100">
                                                             {{ charity.name }}
                                                         </span>
                                                         <div class="small text-black-50">
