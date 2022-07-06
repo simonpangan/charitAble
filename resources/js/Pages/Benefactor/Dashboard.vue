@@ -6,8 +6,8 @@
       <div class="d-block">
         <button 
             class="d-block btn btn-sm btn-primary shadow-sm mx-auto"
-            @click="download"
-            :disabled="!canDownload"
+            @click="download(this)"
+            :disabled="! canDownload"
           >
           <i class="fas fa-download fa-sm text-white-50"></i> Generate Report 
         </button>  
@@ -247,15 +247,26 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
 import { Inertia } from '@inertiajs/inertia';
+import { ref } from 'vue';
 
   let props = defineProps({
     benefactor: Object,
     programDonations: Object,
     charities: Array,
-    canDownload: Boolean
+    canDownload: Boolean,
   });
 
+  let isDownloading = ref(false);
+
   let download = () => {
+
+    if (isDownloading.value) 
+    {
+      return;
+    }
+    
+    isDownloading.value = true;
+
     NProgress.start();
     
     axios({
@@ -269,7 +280,7 @@ import { Inertia } from '@inertiajs/inertia';
       link.setAttribute('download', 'report.pdf');
       document.body.appendChild(link);
       link.click();
-
+      
       NProgress.done();
 
       Inertia.visit(route('benefactor.dashboard.index'), {}, { only: ['canDownload'] });
