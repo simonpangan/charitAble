@@ -303,7 +303,7 @@
       },
       PaymongoSelected: function(type) {
         this.payment_method = type;
-      },
+      },  
       paymongoEWalletTransaction() {
           Inertia.get(route('paymongo'), {
             'program_id' : this.program.id, 
@@ -314,11 +314,15 @@
           });
       },
       paymongoCardTransaction() {
-         axios.get(route('paymongo.payment_intent'))
-              .then(paymentIntentResponse => {
+         axios.post(route('paymongo.payment_intent'), {
+            'program_id' : this.program.id, 
+            'price' : this.price,
+            'tip_level': this.tip_level,
+            // 'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY',
+            // 'is_anonymous' : this.is_anonymous
+         })
+            .then(paymentIntentResponse => {
 
-                  console.log(paymentIntentResponse);
-                  
                   axios.post('https://api.paymongo.com/v1/payment_methods', {
                         data: this.card
                       },
@@ -346,7 +350,9 @@
                                  auth: {
                                   username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
                                 },
-                              })
+                              }).then(finalResponse => {
+                                console.log(finalResponse);
+                              });
                       })
                       .catch(error => {
                         console.log(error);
