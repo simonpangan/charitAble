@@ -14,22 +14,24 @@ use Luigel\Paymongo\Facades\Paymongo;
 
 class PaymongoController
 {
-    public function gcash(Request $request)
+    public function pay(Request $request)
     {
+        $request->validate($this->rules());
+
         $gCash = Paymongo::source()->create([
-            'type' => 'gcash',
-            'amount' => $request->total_price,
+            'type' => ($request->wallet == 'G-CASH') ? 'gcash' : 'grab_pay',
+            'amount' => $request->price,
             'currency' => 'PHP',
             'redirect' => [
-                'success' => env('APP_URL') . 'paymongo/callback-gcash',
-                'failed' => env('APP_URL') . "paymongo/callback-gcash/failed"
+                'success' => env('APP_URL') . 'paymongo/callback',
+                'failed' => env('APP_URL') . "paymongo/callback/failed"
             ]
         ]);
                 
         session(['payment_details' => [
             'program_id' => $request->program_id,
-            'total_price' => $request->total_price,
-            'tip_price' => 100,
+            'tip_price' => $request->tip_level,
+            'wallet' => $request->wallet
         ]]);
 
         session(['payment_id' => $gCash->id]);
@@ -37,22 +39,33 @@ class PaymongoController
         return Inertia::location($gCash->redirect['checkout_url']);
     }
 
-    public function gcashCallback()
+    public function rules () {
+        return [
+            'price' => ['required'], 
+            'tip_level' => ['required'], 
+        ];
+    }
+
+    public function callback()
     {
         $paymentDetails = session()->pull('payment_details');
         $paymentID =  session()->pull('payment_id');
 
-        $payment = Paymongo::payment()
-            ->create([
-                'amount' => $paymentDetails['total_price'],
-                'currency' => 'PHP',
-                'description' => 'TEST',
-                'statement_descriptor' => 'Test Paymongo',
-                'source' => [
-                    'id' => $paymentID,
-                    'type' => 'source'
-                ]
-            ]);
+        try {
+            $payment = Paymongo::payment()
+                ->create([
+                    'amount' => $paymentDetails['total_price'],
+                    'currency' => 'PHP',
+                    'description' => 'TEST',
+                    'statement_descriptor' => 'Test Paymongo',
+                    'source' => [
+                        'id' => $paymentID,
+                        'type' => 'source'
+                    ]
+                ]);
+        } catch (\Throwable $th) {
+            abort(403);
+        }
     
         ProgramDonation::create([
             'benefactor_id' => Auth::id(),
@@ -80,74 +93,18 @@ class PaymongoController
         );
     }
 
-    public function gcashFailed(Request $request)
+    public function failed(Request $request)
     {
         session()->forget('payment_id');
 
         $paymentDetails = session()->pull('payment_details');
 
+        $wallet = ($paymentDetails['wallet'] == 'G-CASH') ? 'G-CASH' : 'GRAB PAY';
 
         return to_route('charity.donate.create', $paymentDetails['program_id'])->withErrors(
-            new MessageBag(['paymongo' => 'Invalid Gcash Transaction'])
+            new MessageBag(['paymongo' => "Invalid {$wallet} Transaction"])
         );
     }
-
-    public function grabPay(Request $request)
-    {
-        $grab = Paymongo::source()->create([
-            'type' => 'grab_pay',
-            'amount' => 100.00,
-            'currency' => 'PHP',
-            'redirect' => [
-                'success' => env('APP_URL') . 'paymongo/callback-grab',
-                'failed' => env('APP_URL') . 'paymongo/callback-grab/failed?program_id=99',
-            ]
-        ]);
-
-        session(['payment_details' => [
-            'program_id' => $request->program_id,
-            'total_price' => $request->total_price
-        ]]);
-
-        session(['payment_id' => $grab->id]);
-
-        return Inertia::location($grab->redirect['checkout_url']);
-    }
-
-    public function grabPayCallback(Request $request)
-    {
-        $paymentDetails = session()->pull('payment_details');
-
-        $payment = Paymongo::payment()
-            ->create([
-                'amount' => $paymentDetails['total_price'],
-                'currency' => 'PHP',
-                'description' => 'TEST',
-                'statement_descriptor' => 'Test Paymongo',
-                'source' => [
-                    'id' => session()->pull('payment_id'),
-                    'type' => 'source'
-                ]
-            ]);
-
-        Paymongo::payment()->find($payment->id);
-
-        return to_route('charity.donate.create', $paymentDetails['program_id'])->with(
-           'message', 'Successfuly Grab Pay Transaction'
-        );
-    }
-
-    public function grabPayFailed(Request $request)
-    {
-        session()->forget('payment_id');
-
-        $paymentDetails = session()->pull('payment_details');
-
-        return to_route('charity.donate.create', $paymentDetails['program_id'])->withErrors(
-            new MessageBag(['paymongo' => 'Invalid Grab Pay Transaction'])
-        );
-    }
-
 
     public function createPaymentIntent()   
     {
@@ -202,7 +159,8 @@ class PaymongoController
 
     public function search(Request $request): void
     {
-        $loww = Paymongo::payment()->find('pay_6K3Kaan4tLRzstFsQCzx8AKS');
+        $loww = Paymongo::payment()->find('pay_6K3Kaasn4tLRzstFsQCzx8AKS');
+        dd($loww);
         $date = Carbon::createFromTimestamp($loww->created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP');  
     }
 }

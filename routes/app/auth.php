@@ -245,13 +245,9 @@ Route::name('auth.')->group(function () {
 |
 */
 
-Route::get('/paymongo/gcash', [PaymongoController::class, 'gcash'])->name('paymongo.gCash');
-Route::get('/paymongo/callback-gcash', [PaymongoController::class, 'gcashCallback']);
-Route::get('/paymongo/callback-gcash/failed', [PaymongoController::class, 'gcashFailed']);
-
-Route::get('/paymongo/grab', [PaymongoController::class, 'grabPay'])->name('paymongo.grabPay');
-Route::get('/paymongo/callback-grab', [PaymongoController::class, 'grabPayCallback']);
-Route::get('/paymongo/callback-grab/failed', [PaymongoController::class, 'grabPayFailed']);
+Route::get('/paymongo', [PaymongoController::class, 'pay'])->name('paymongo');
+Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
+Route::get('/paymongo/callback/failed', [PaymongoController::class, 'failed']);
 
 Route::get('/paymongo/search', [PaymongoController::class, 'search']);
 Route::get('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent']);
