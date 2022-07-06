@@ -322,7 +322,7 @@
           });
       },
       paymongoCardTransaction() {
-        NProgress.start();
+        // NProgress.start();
         this.cardProcessing = true;
          axios.post(route('paymongo.payment_intent'), {
             'program_id' : this.program.id, 
@@ -361,8 +361,22 @@
                                   username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
                                 },
                               }).then(finalResponse => {
-                                NProgress.done();
-                                this.cardProcessing = false;
+                   
+                                var cardPay = finalResponse.data.data.attributes.payments[0];
+                                var paymentMethod = finalResponse.data.data.attributes;
+
+                                  axios.post(route('paymongo.cardPay'), {
+                                    'program_id' : this.program.id,
+                                    'tip_level' : this.tip_level,
+                                    'price' : this.price,
+                                    'is_anonymous' : this.is_anonymous,
+                                    'payment_created_at': '',
+                                    'net_amount': cardPay.attributes.net_amount,
+                                    'payment_created_at': cardPay.attributes.paid_at,
+                                  }).then(last => {
+                                    this.cardProcessing = false;
+                                  });
+
                               });
                       })
                       .catch(error => {

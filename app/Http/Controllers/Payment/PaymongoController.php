@@ -145,52 +145,29 @@ class PaymongoController
 
     public function cardPay(Request $request)
     {
-        $paymentDetails = session()->pull('payment_details');
-        $paymentID =  session()->pull('payment_id');
-        
-        $program = CharityProgram::findOrFail($paymentDetails['program_id']);
+        $program = CharityProgram::findOrFail($request->program_id);
 
-        $message =  'Paid an amount for ' . $paymentDetails['price'] . ' to ' .
-        $program->name . ' with a tip level of ' . $paymentDetails['tip_level'] . '%.';
+        $message =  'Paid an amount for ' . $request->price . ' to ' .
+        $program->name . ' with a tip level of ' . $request->tip_level . '%.';
         
-        $charitableTip = $paymentDetails['price'] * ($paymentDetails['tip_level'] / 100);
+        $charitableTip = $request->price * ($request->tip_level / 100);
 
-        try {
-            $payment = Paymongo::payment()
-                ->create([
-                    'amount' => $paymentDetails['price'],
-                    'currency' => 'PHP',
-                    'description' => $message,
-                    'statement_descriptor' => $message,
-                    'source' => [
-                        'id' => $paymentID,
-                        'type' => 'source'
-                    ]
-                ]);
-        } catch (\Throwable $th) {
-            abort(403);
-        }
-        
-
-        $totalDonation = ($payment->net_amount / 100) - $charitableTip; 
+        $totalDonation = ($request->net_amount / 100) - $charitableTip; 
 
         ProgramDonation::create([
             'benefactor_id' => Auth::id(),
-            'charity_program_id' => $paymentDetails['program_id'],
+            'charity_program_id' => $request->program_id,
             'amount' => $totalDonation,
-            'donated_at' => Carbon::createFromTimestamp($payment->created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP'),
-            'transaction_id' => $payment->id,
+            'donated_at' => Carbon::createFromTimestamp($request->payment_created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP'),
+            'transaction_id' => '123123',
             'tip_price' => $charitableTip,
-            'is_anonymous' => ($paymentDetails['is_anonymous'] == 'true') ? 1 : 0,
+            'is_anonymous' => ($request->is_anonymous == 'true') ? 1 : 0,
         ]);
 
         Auth::user()->createLog($message);
         
-        Paymongo::payment()->find($payment->id);
-
         return to_route('charity.donate.create', [
-            'id' => $paymentDetails['program_id'],
-            'payment_id' => $paymentID
+            'id' => $request->program_id,
         ])->with(
            'message', 'Sucessful G-Cash Transaction'
         );
