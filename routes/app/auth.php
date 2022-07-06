@@ -83,6 +83,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::get('program/{id}/edit', 'edit')->name('program.edit');
             Route::put('program/{id}', 'update')->name('program.update');
             Route::delete('program/{id}', 'destroy')->name('program.destroy');
+            Route::post('uploadProgramPhoto','uploadProgramPhoto')->name('program.store.image');
+            Route::post('uploadProgramPhoto/revert','uploadProgramPhotoRevert')->name('program.revert.image');
         });
 
         Route::get('program/{id}/report', [CharityProgramReportController::class, 'redirect'])->name('program.report');

@@ -25,12 +25,12 @@
                 <div class="p-3 border-bottom">
                   <div class="form-group mb-4">
                     <file-pond
-                      name="file"
-                      class="h-50 mb-5"
-                      v-model="file"
-                      ref="file"
-                      credits="false"
-                      v-bind:files="file"
+                    name="header"
+                    class="h-75 mt-4 mb-2"
+                    v-model="header"
+                    credits="false"
+                    ref="header"
+                    v-bind:files="header"
                       v-bind:server="{
                         timeout: 7000,
                         url: '/charity/uploadProgramPhoto',
@@ -43,13 +43,18 @@
                           withCredentials: false,
                         },
                       }"
-                      allow-multiple="false"
-                      accepted-file-types="image/jpeg, image/png"
-                      max-files="1"
-                      allowDrop="true"
-                      dropOnPage="true"
-                      v-on:init="handleFilePondInit"
-                      v-on:updatefiles="handleFilePondUpdateFiles"
+                    allow-multiple="false"
+                    accepted-file-types="image/jpeg, image/png"
+                    max-files="1"
+                    allowDrop="true"
+                    dropOnPage="true"
+                    maxFileSize= "5MB"
+                    labelIdle="Click Here To Upload File"
+                    v-on:init="handleFilePondInit"
+                    v-on:updatefiles="handleFilePondUpdateFiles"
+                    v-on:removefile="handleRevertFilePond"
+                    v-on:addfilestart="OnhandleOnAddFileStart"
+                    v-on:processfile="onHandleaddfile"
                     ></file-pond>
                   </div>
                   <div class="form-group mb-0"></div>
@@ -107,7 +112,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            name="program_location"
+                            v-model="form.location"
                           />
                           <span v-if="form.errors.location" v-text="form.errors.description"
                             class="invalid-feedback d-block" role="alert">
@@ -130,7 +135,7 @@
                     <span class="text-danger">*</span>
                     <div class="input-group">
                         <input type="text" class="form-control mb-2" v-model="goal.name" />
-                        <span v-text="form.errors['goals.'+ (index) +'.name']" 
+                        <span v-text="form.errors['goals.'+ (index) +'.name']"
                           v-if="form.errors['goals.'+ (index) +'.name']" class="invalid-feedback d-block" role="alert">
                         </span>
                     </div>
@@ -144,16 +149,16 @@
                           <i class="fad fa-trash"></i>
                       </button>
                     </div>
-                    <span  v-text="form.errors['goals.'+ (index) +'.date']" 
+                    <span  v-text="form.errors['goals.'+ (index) +'.date']"
                       v-if="form.errors['goals.'+ (index) +'.date']" class="invalid-feedback d-block" role="alert">
                     </span>
                   </div>
                 </div>
-                <span v-if="form.errors.goals" 
+                <span v-if="form.errors.goals"
                     v-text="form.errors.goals"
                     class="invalid-feedback d-block" role="alert">
                 </span>
-                <button class="btn btn-light d-inline-block u-text-muted mb-2" 
+                <button class="btn btn-light d-inline-block u-text-muted mb-2"
                     @click.stop.prevent="addGoal">
                     <i class="fad fa-plus"></i>
                     Add Goal
@@ -173,7 +178,7 @@
                         <div class="input-group">
                           <input type="text" class="form-control mb-2" v-model="expense.name" />
                         </div>
-                      <span v-if="form.errors['expenses.'+ (index) +'.name']" 
+                      <span v-if="form.errors['expenses.'+ (index) +'.name']"
                         v-text="form.errors['expenses.'+ (index) +'.name']"
                         class="invalid-feedback d-block" role="alert">
                       </span>
@@ -187,26 +192,26 @@
                           <i class="fad fa-trash"></i>
                         </button>
                       </div>
-                      <span v-if="form.errors['expenses.'+ (index) +'.amount']" 
+                      <span v-if="form.errors['expenses.'+ (index) +'.amount']"
                         v-text="form.errors['expenses.'+ (index) +'.amount']"
                         class="invalid-feedback d-block" role="alert">
                       </span>
                     </div>
                   </div>
                   <div class="d-flex justify-content-between">
-                      <button class="btn btn-light d-inline-block u-text-muted" 
+                      <button class="btn btn-light d-inline-block u-text-muted"
                         @click.stop.prevent="addExpense">
                         <i class="fad fa-plus"></i>
                         Add Program Expenses
                       </button>
                       <div class="align-items-center">
                         <span class="fw-bold">
-                          Total: 
+                          Total:
                         </span>
                         <span class="fa-1x text-gray-300">₱</span>
                         {{ expenseTotal }}
                       </div>
-                      <div></div> 
+                      <div></div>
                   </div>
                 </form>
               </div>
@@ -216,7 +221,7 @@
                 <i class="far fa-arrow-left me-2"></i>
                 Cancel
               </Link>
-              <button type="submit" class="font-weight-bold btn btn-primary rounded p-3">
+              <button type="submit" class="font-weight-bold btn btn-primary rounded p-3" :disabled="this.LoadingState == 'false'">
                 Save Changes
                  <i class="far fa-arrow-right me-2"></i>
               </button>
@@ -235,10 +240,13 @@ import vueFilePond from "vue-filepond";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+import axios from "axios";
 
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
-  FilePondPluginImagePreview
+  FilePondPluginImagePreview,
+  FilePondPluginFileValidateSize
 );
 
 export default {
@@ -246,27 +254,35 @@ export default {
     FilePond,
   },
   setup() {
+
+
     let form = useForm({
       name: null,
       description: null,
       location: null,
       goals: [{name: '', date: ''}],
       expenses: [{name: '', amount: 0}],
-      header: [],
+      header: null,
       total_needed_amount: null,
     });
 
     let submit = () => {
       form.post(route("charity.program.store"));
     };
-
     return { form, submit };
+  },
+  data() {
+    return{
+    lastFileName : '',
+    LoadingState : 'true'
+    }
   },
   props: {
     csrfToken: String,
   },
   methods: {
     goBack() {
+      this.handleRevertFilePond();
       return window.history.back();
     },
     addExpense(){
@@ -287,8 +303,28 @@ export default {
     removeGoal(item){
       this.form.goals.splice(item, 1);
     },
-    handleFilePondUpdateFiles: function (file) {
-      this.form.header = file[0].file;
+      handleFilePondUpdateFiles: function (header) {
+      this.form.header = header.map(
+        (header) => header.file
+      );
+      this.lastFileName = this.form.header;
+    },
+    handleRevertFilePond: function (header) {
+      return axios({
+        method: "POST",
+        url: "/charity/uploadProgramPhoto/revert",
+        data: {
+          filename : this.lastFileName[0].name
+        },
+      }).then((response) => {
+
+      });
+    },
+    OnhandleOnAddFileStart: function(){
+        this.LoadingState = 'false';
+    },
+    onHandleaddfile:function(){
+        this.LoadingState = 'true';
     },
   },
   computed: {

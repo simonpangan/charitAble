@@ -44,7 +44,7 @@ class CharityProgramController
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
                 'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
-                'follow' => $canFollow 
+                'follow' => $canFollow
             ]
         ]);
     }
@@ -59,19 +59,21 @@ class CharityProgramController
     public function store(CharityProgramRequest $request): RedirectResponse
     {
         $link = '';
+        $id = Auth::id();
 
-        if($request->hasFile('file'))
+        if($request->hasFile('header'))
         {
-            $file = $request->file('file');
-            $filename = $file->getClientOriginalName();
+            $file = $request->file('header');
+            $filename = $file[0]->getClientOriginalName();
 
             $temporaryFile = TemporaryFile::where('filename',$filename)
-                ->where('file_type','logo')
+                ->where('file_type','program-header')
                 ->latest()
                 ->first()
                 ->getRawOriginal();
 
-            Storage::move('tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 'charity/'.'/'.'program/'.$filename);
+            Storage::move('tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
+            'public/charity/'.$id.'/program'.'/'.$filename);
             //this doesn't work
             Storage::deleteDirectory('tmp/program/'.$temporaryFile['folder']);
 
@@ -82,15 +84,15 @@ class CharityProgramController
                 ->delete();
 
             //delete temporary
-            $link = 'charity/'.'/'.'program/'.$filename;
+            $link = '/storage/charity/'. $id .'/'.'program/'.$filename;
         }
 
         CharityProgram::create(
            array_merge(
-            $request->validated(), 
+            $request->validated(),
             [
                 'header' => $link,
-                'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum() 
+                'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum()
             ]
            )
         );
@@ -141,11 +143,11 @@ class CharityProgramController
 
         $program->update(
             array_merge(
-                $request->validated(), 
-                [ 
+                $request->validated(),
+                [
                     'total_needed_amount' => collect($request->expenses)
                         ->pluck('amount')
-                        ->sum() 
+                        ->sum()
                 ]
             )
         );
@@ -156,9 +158,9 @@ class CharityProgramController
     public function destroy(int $id): RedirectResponse
     {
         $program = CharityProgram::findOrFail($id);
-        
+
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
-    
+
         ProgramDonation::where('charity_program_id', $id)->delete();
 
         $program->delete();
@@ -169,8 +171,8 @@ class CharityProgramController
     public function supporters(int $id)
     {
         $program = CharityProgram::query()
-            ->with('charity:id,name', 
-                'supporters:id,charity_program_id,benefactor_id,amount,donated_at', 
+            ->with('charity:id,name',
+                'supporters:id,charity_program_id,benefactor_id,amount,donated_at',
                 'supporters.benefactor:id,first_name,last_name')
             ->findOrFail($id);
 
@@ -195,19 +197,37 @@ class CharityProgramController
 
     public function uploadProgramPhoto(Request $request){
 
-        if($request->hasFile('file')){
-            $file = $request->file('file');
+        if($request->hasFile('header'))
+        {
+            $file = $request->file('header');
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
             $file->storeAs('tmp/program/'. $folder ,$filename);
 
-            return TemporaryFile::create([
+            TemporaryFile::create([
                 'folder' => $folder,
                 'filename' => $filename,
                 'file_type' => 'program-header'
             ]);
+
+            return '200';
         }
 
         return '500';
+    }
+
+    public function uploadProgramPhotoRevert(Request $request)
+    {
+        try{
+            $filename = $request['filename'];
+            $folder = TemporaryFile::where('filename',$filename)->pluck('folder')->first();
+            TemporaryFile::where('filename',$filename)->first()->delete();
+
+             Storage::deleteDirectory('/tmp/program/'.$folder);
+
+            return 200;
+        }catch(\Exception $e){
+            return 500;
+        }
     }
 }
