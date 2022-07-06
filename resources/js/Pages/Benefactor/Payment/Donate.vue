@@ -169,8 +169,14 @@
                   </div>
                 </div>
 
-                <button class="btn btn-primary btn-lg btn-block" type="submit">
-                  Continue to checkout
+                <button :disabled="cardProcessing" class="btn btn-primary btn-lg btn-block" type="submit">
+                    <span v-if="! cardProcessing">
+                        Continue to Checkout
+                    </span>
+                    <div v-else>
+                       <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </div>
                 </button>
               </form>
             </div>
@@ -205,12 +211,13 @@
     data() {
       return {
         payment_method: '',
-        price: 0,
+        price: 100,
         step: 0,
         tip_level: 5,
         tip_price: 0,
         charity_program_id: this.program.id,
         is_anonymous: false,
+        cardProcessing: false,
         card: {
             "attributes": {
                 'details' :  {
@@ -316,7 +323,7 @@
       },
       paymongoCardTransaction() {
         NProgress.start();
-
+        this.cardProcessing = true;
          axios.post(route('paymongo.payment_intent'), {
             'program_id' : this.program.id, 
             'price' : this.price,
@@ -354,8 +361,8 @@
                                   username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
                                 },
                               }).then(finalResponse => {
-
                                 NProgress.done();
+                                this.cardProcessing = false;
                               });
                       })
                       .catch(error => {
