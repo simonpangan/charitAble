@@ -42,7 +42,7 @@
                                             </div>
                                             </Link>
                                             <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                <span class="fw-bold small text-primary text-truncate">
+                                                <span class="fw-bold small text-black-50 text-truncate">
                                                     {{ charity.about }}
                                                 </span>
                                             </div>

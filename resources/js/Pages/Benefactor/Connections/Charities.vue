@@ -31,7 +31,7 @@
                                                 </div>
                                                 </Link>
                                                 <div class="d-flex align-items-center p-3 border-top border-bottom network-item-body">
-                                                    <span class="fw-bold small text-primary text-truncate">{{ following.about }}</span>
+                                                    <span class="fw-bold small text-black-50 text-truncate">{{ following.about }}</span>
                                                 </div>
                                                 <div class="network-item-footer py-3 d-flex text-center">
                                                     <div class="col-6 ps-3 pe-1">
