@@ -77,7 +77,7 @@
                     </div>
                     <hr />
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                      <input class="form-check-input" type="checkbox" v-model="is_anonymous" id="flexCheckDefault" />
                       <label class="form-check-label" for="flexCheckDefault"> Please don't show my name publicly in the donations. </label>
                     </div>
                     <div id="paypal-button-container" v-on:click.prevent.self="PaypalTransaction" v-if="this.payment_method == 'paypal'"></div>
@@ -144,7 +144,8 @@
         step: 0,
         tip_level: 5,
         tip_price: 0,
-        charity_program_id: this.program.id
+        charity_program_id: this.program.id,
+        is_anonymous: false
       };
     },
     methods: {
@@ -222,7 +223,8 @@
             'program_id' : this.program.id, 
             'price' : this.price,
             'tip_level': this.tip_level,
-            'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY' 
+            'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY',
+            'is_anonymous' : this.is_anonymous
           });
       }
     },

@@ -33,7 +33,8 @@ class PaymongoController
             'program_id' => $request->program_id,
             'tip_level' => $request->tip_level,
             'wallet' => $request->wallet,
-            'price' => $request->price
+            'price' => $request->price,
+            'is_anonymous' => $request->is_anonymous
         ]]);
 
         session(['payment_id' => $gCash->id]);
@@ -44,8 +45,9 @@ class PaymongoController
     public function rules () {
         return [
             'price' => ['required'], 
-            'tip_level' => ['required', 'int', 'min:0', 'max:30'], 
             'wallet' => ['required' , Rule::in(['G-CASH', 'GRAB PAY']),], 
+            'tip_level' => ['required', 'int', 'min:0', 'max:30'], 
+            'is_anonymous' => ['required', Rule::in(['true', 'false'])], 
         ];
     }
 
@@ -53,7 +55,7 @@ class PaymongoController
     {
         $paymentDetails = session()->pull('payment_details');
         $paymentID =  session()->pull('payment_id');
-
+        
         $program = CharityProgram::findOrFail($paymentDetails['program_id']);
 
         $message =  'Paid an amount for ' . $paymentDetails['price'] . ' to ' .
@@ -87,6 +89,7 @@ class PaymongoController
             'donated_at' => Carbon::createFromTimestamp($payment->created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP'),
             'transaction_id' => $payment->id,
             'tip_price' => $charitableTip,
+            'is_anonymous' => ($paymentDetails['is_anonymous'] == 'true') ? 1 : 0,
         ]);
 
         Auth::user()->createLog($message);
