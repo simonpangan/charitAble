@@ -14,7 +14,10 @@
 											{{ supporter.amount }}
 										</h6>
 										<div class="small text-gray-500">
-											{{ displayName(supporter) }}
+											{{ (supporter.is_anonymous)  
+											? 'Anonymous User' + supporter.benefactor_id  
+											: supporter.benefactor.first_name + ' ' + supporter.benefactor.last_name 
+											}}
 										</div>
 									</div>
 								</div>
@@ -50,16 +53,6 @@ import { computed } from 'vue';
 let props = defineProps({
   program: Array,
 });
-
-
-const displayName = (supporter) => {
-	if (supporter.is_anonymous)
-	{
-		return 'Anonymous User ' + supporter.benefactor.id; 
-	}
-
-	return supporter.benefactor.first_name + ' ' + supporter.benefactor.last_name; 
-};
 												
 </script>
 

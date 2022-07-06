@@ -15,6 +15,10 @@ class ProgramDonation extends Pivot
 
     protected $appends = ['donated_at_formatted'];
 
+    public $casts = [
+        'boolean' => 'is_anonymous',
+    ];
+
 	public function getDonatedAtFormattedAttribute()
     {
         return (Carbon::parse($this->donated_at)->toDayDateTimeString());

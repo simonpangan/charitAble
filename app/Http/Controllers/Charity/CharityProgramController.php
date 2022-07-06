@@ -15,6 +15,7 @@ use App\Models\Charity\CharityProgram;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityProgramRequest;
+use App\Models\Benefactor;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CharityProgramController
@@ -171,10 +172,21 @@ class CharityProgramController
     public function supporters(int $id)
     {
         $program = CharityProgram::query()
-            ->with('charity:id,name',
-                'supporters:id,charity_program_id,benefactor_id,amount,donated_at,is_anonymous',
-                'supporters.benefactor:id,first_name,last_name')
+            ->with(['charity:id,name',
+                'supporters',
+            ])
             ->findOrFail($id);
+
+        $program->load(['supporters.benefactor' => function ($query) use ($id) {
+            $query->whereIn('id', function($query) use ($id) {
+                $query->select('benefactor_id')
+                    ->from('program_donations')
+                    ->where('charity_program_id', (int) $id)
+                    ->where('is_anonymous', 0)
+                    ->get();
+            });
+        }]);
+
 
         $donation = ProgramDonation::query()
             ->selectRaw("sum(amount) as total_donation")
