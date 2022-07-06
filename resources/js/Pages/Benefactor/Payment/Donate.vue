@@ -223,20 +223,12 @@
         });
       },
       paymongoTransaction() {
-        if(this.payment_method == 'gCash') {
-          Inertia.get(route('paymongo.gCash'), {
+          Inertia.get(route('paymongo'), {
             'program_id' : this.program.id, 
             'price' : this.price,
             'tip_level': this.tip_level,
+            'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY' 
           });
-        }
-
-         if(this.payment_method == 'grabPay') {
-          Inertia.get(route('paymongo.grabPay'), {
-            'total_price' : this.total_price,
-            'program_id' : this.program.id 
-          });
-         }
       }
     },
     computed: {
