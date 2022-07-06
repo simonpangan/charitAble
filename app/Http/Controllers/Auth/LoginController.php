@@ -52,5 +52,22 @@ class LoginController extends Controller
         $request->user()->createLoginLog();
 
         return redirect()->intended($this->redirectPath());
+    }   
+
+    public function logout(Request $request)
+    {
+        $request->user()->createLog('You have logout to our system');
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return to_route('index');
     }
 }
