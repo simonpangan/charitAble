@@ -33,6 +33,7 @@ class BenefactorProfileController
             ->findOrFail(Auth::id())
             ->update($request->except('email'));
 
+        Auth::user()->createLog('You have updated your profile');
 
         to_route('benefactor.profile.index')
             ->with('message', 'Succesfully updated your profile');
