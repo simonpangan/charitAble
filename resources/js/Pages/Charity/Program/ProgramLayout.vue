@@ -78,15 +78,21 @@
                             </div>
                             </div>
                             <div>
-                                <h3 class="mx-auto nmb-1">{{$page.props.program.total_donation_amount}}</h3>
-                                <p class="">funded out of {{$page.props.program.total_needed_amount}}</p>
+                                <h3 class="mx-auto nmb-1">{{$page.props.stats.total_donation}}</h3>
+                                <p class="">funded out of 
+                                    <span class="fa-1x text-gray-300">₱</span>
+                                    {{$page.props.program.total_needed_amount}}
+                                </p>
                             </div>
                             <div>
-                                <h5>{{$page.props.program.total_withdrawn_amount}}</h5>
+                                <h5>
+                                  <span class="fa-1x">₱</span>
+                                    {{$page.props.program.total_withdrawn_amount}}
+                                </h5>
                                 <p class="text-muted">Withdrawn Money</p>
                             </div>
                             <div>
-                                <h5>{{$page.props.program.total_donors}}</h5>
+                                <h5>{{$page.props.stats.total_donors}}</h5>
                                 <p class="text-muted">Total Donors</p>
                             </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
@@ -120,7 +126,8 @@ export default {
     props: ['program'],
     computed: {
         donationPercentage() {
-            return Math.round((this.$page.props.program.total_donation_amount / this.$page.props.program.total_needed_amount) * 100) ;
+            var percentage = Math.round((this.$page.props.stats.total_donation / this.$page.props.program.total_needed_amount) * 100);
+            return (percentage >= 100) ? '100' : percentage ;
         },     
     },
     methods: {
