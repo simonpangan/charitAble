@@ -172,7 +172,7 @@ class CharityProgramController
     {
         $program = CharityProgram::query()
             ->with('charity:id,name',
-                'supporters:id,charity_program_id,benefactor_id,amount,donated_at',
+                'supporters:id,charity_program_id,benefactor_id,amount,donated_at,is_anonymous',
                 'supporters.benefactor:id,first_name,last_name')
             ->findOrFail($id);
 
