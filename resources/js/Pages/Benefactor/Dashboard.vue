@@ -7,7 +7,7 @@
         <button 
             class="d-block btn btn-sm btn-primary shadow-sm mx-auto"
             @click="download"
-            :disabled="! canDownload"
+            :disabled="!canDownload"
           >
           <i class="fas fa-download fa-sm text-white-50"></i> Generate Report 
         </button>  

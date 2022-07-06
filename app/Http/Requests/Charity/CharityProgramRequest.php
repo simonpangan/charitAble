@@ -26,9 +26,8 @@ class CharityProgramRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            // 'location' => ['required', 'string'],
+            'location' => ['required', 'string'],
             'header' => ['nullable'],
-
             'goals' => ['required', 'array'],
             'goals.*' => [
                 'required',
