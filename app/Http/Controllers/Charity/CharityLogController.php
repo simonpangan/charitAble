@@ -40,6 +40,7 @@ class CharityLogController extends Controller
             $request->all(), $this->rules($request), 
             [
                 'to.after' => 'The to field must start before the "from" field',
+                'to.before' => 'The to must be a date before the current time.',
                 'from.before' => 'The from field must be before the "to" field' 
             ]
         );
@@ -62,8 +63,8 @@ class CharityLogController extends Controller
 
         return [
             'from' => ['required', 'date', "after:{$userCreatedAt}", 
-                "before:{$request->input('to')}"],
-            'to' => ['nullable', 'date', "after:{$request->input('from')}", 'before:now'],
+                "before_or_equal:{$request->input('to')}"],
+            'to' => ['nullable', 'date', "after_or_equal:{$request->input('from')}", 'before:now'],
         ];
     }
 
