@@ -18,7 +18,7 @@
                     <table class="table table-borderless mb-0">
                         <tbody>
                             <tr class="border-bottom">
-                                <th class="p-3 text-center6">
+                                <th class="p-3 text-center">
                                     <i class="fad fa-users-class fa-2x"></i>
                                 </th>
                                 <td class="p-3">
@@ -146,7 +146,7 @@ export default {
         const city =  (this.charity.user.location.name == 'Quezon City') ? 
             'Quezon City' : 
             ''  + this.charity.user.location.name + ' City';
-         return  addess.concat(' ' + city);  
+         return  addess.concat(', ' + city);  
     }
   }
 };
