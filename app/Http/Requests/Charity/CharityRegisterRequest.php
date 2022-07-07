@@ -31,7 +31,11 @@ class CharityRegisterRequest extends FormRequest
             return $this->stepOneRules();   
         }
         
-        return $this->stepOneRules();   
+        if ($this->query->get('step') == 2) {   
+            return $this->stepTwoRules();   
+        }
+
+        return $this->stepTwoRules();   
     }
 
     private function stepOneRules() : array
@@ -39,17 +43,22 @@ class CharityRegisterRequest extends FormRequest
         return [
             //'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'name' => ['required', 'string', 'min:5', 'max:100',  "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/"],
-
             'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            // 'address' => ['required', 'string', 'max:255'],
-            // 'location' => ['required', 'string', Rule::in(Location::all()->pluck('id'))],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'categories' => ['array', 'required'],
             'categories.*' => [
                 'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
             ],
         ];
+    }
+
+    private function stepTwoRules() : array
+    {
+        return array_merge($this->stepOneRules(), [
+            'address' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'int', Rule::in(Location::all()->pluck('id'))],
+        ]);
     }
 
     public function messages()

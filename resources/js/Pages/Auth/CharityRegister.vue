@@ -499,7 +499,11 @@
         })
       },
       secondNextStep: function(e) {
-        this.step++;
+        this.form.post(route("register.charity.store", {
+          step: 2,
+        }), {
+          onSuccess: () => this.step++,
+        })
       },
     },
   };
