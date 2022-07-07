@@ -230,7 +230,7 @@
                           Total: 
                         </span>
                         <span class="fa-1x text-gray-300">₱</span>
-                        {{ expenseTotal }}
+                        {{ expenseTotal() }}
                       </div>
                       <div></div> 
                   </div>                  
@@ -330,16 +330,16 @@ let removeExpense = (item) => {
   form.expenses = temp;
 };
 
-let expenseTotal = computed({
-  get() {
-    var total = 0;
-      form.expenses.forEach((item, index) => {
-        total += item['amount'];
-      });
+const expenseTotal = () => {
+  var total = 0;
+  var expenses = Object.values(toRaw(form.expenses));
 
-      return total;
-  }
-});
+  expenses.forEach((item, index) => {
+    total += item['amount'];
+  });
+
+  return total;
+}
 
 let submit = () => {
   form.put(route("charity.program.update", {
