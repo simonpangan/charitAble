@@ -103,7 +103,7 @@ class CharityProgramController
 
     public function show(int $id): Response
     {
-        $program = CharityProgram::with('charity:id,name')->findOrFail($id);
+        $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
 
         $donation = ProgramDonation::query()
             ->selectRaw("sum(amount) as total_donation")
@@ -241,5 +241,31 @@ class CharityProgramController
         }catch(\Exception $e){
             return 500;
         }
+    }
+
+    public function request(Request $request, $id)
+    {
+        $request->validate([
+            'amount' => ['required', 'int', 'min:0']
+        ]);
+
+        CharityProgram::query()
+            ->findOrFail($id)
+            ->update([
+                'has_withdraw_request' => true,
+                'withdraw_request_amount' => $request->amount,
+                'withdraw_requested_at' => now(),
+            ]);
+    }
+
+    public function cancel(int $id)
+    {
+        CharityProgram::query()
+            ->findOrFail($id)
+            ->update([
+                'has_withdraw_request' => false,
+                'withdraw_request_amount' => 0,
+                'withdraw_requested_at' => null,
+            ]);
     }
 }

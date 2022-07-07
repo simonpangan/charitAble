@@ -64,6 +64,33 @@
                             Download Report
                             <i class="fad fa-download ms-2"></i> 
                         </a>
+                        <div v-if="this.$page.props.program.has_withdraw_request">
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" placeholder="Amount" 
+                                    :value="this.$page.props.program.withdraw_request_amount"
+                                    disabled>
+                                <Button @click="cancelRequest($page.props.program.id)"
+                                    method="post" as="button" type="button"
+                                    class="btn btn-danger">
+                                        Cancel Request
+                                </Button>
+                                <span v-if="form.errors.amount" v-text="form.errors.amount"
+                                    class="invalid-feedback d-block" role="alert">
+                                </span>
+                            </div>
+                            <p><small>You still have an ongoing withdraw request.</small></p>
+                        </div>
+                        <div class="input-group mb-3" v-else>
+                            <input type="number" class="form-control" placeholder="Amount" v-model="form.amount">
+                            <Button @click="withdrawRequest($page.props.program.id)"
+                                method="post" as="button" type="button"
+                                class="btn btn-secondary">
+                                    Send Withdraw Request
+                            </Button>
+                            <span v-if="form.errors.amount" v-text="form.errors.amount"
+                                class="invalid-feedback d-block" role="alert">
+                            </span>
+                        </div>
                     </div>
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3 mt-2">
@@ -95,6 +122,10 @@
                                 <h5>{{$page.props.stats.total_donors}}</h5>
                                 <p class="text-muted">Total Donors</p>
                             </div>
+                            <div>
+                                <h5>{{$page.props.program.charity.eth_address}}</h5>
+                                <p clas s="text-muted">ETH Address</p>
+                            </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
                                 v-if="$page.props.auth.user.roleID == 4"
                                 :href="$route('charity.donate.create', {
@@ -118,6 +149,67 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import { useForm } from "@inertiajs/inertia-vue3";
+import { Inertia } from '@inertiajs/inertia';
+import Swal from 'sweetalert2';
+
+let form = useForm({
+    amount: null,
+})
+
+let withdrawRequest = (id) => {
+     Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, sent it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.post(route('charity.program.withdraw-request', {
+                'id' : id
+            }), {
+                onSuccess: () => {
+                    Swal.fire(
+                        'Sent!',
+                        'Your withdraw request has been sent.',
+                        'success'
+                    )
+                },
+            }); 
+        }
+    })
+};
+
+let cancelRequest = (id) => {
+      Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+         text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, cancel it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Inertia.post(route('charity.program.withdraw-request.cancel', {
+                'id' : id
+            }), {} ,{
+                onSuccess: () => {
+                    Swal.fire(
+                        'Sent!',
+                        'Your withdraw request has been cancelled.',
+                        'success'
+                    )
+                },
+            }); 
+        }
+    })
+}
+</script>
 
 <script>
 import { Inertia } from '@inertiajs/inertia';
