@@ -20,10 +20,10 @@ class CharityProgram extends Model
     protected $casts = [
         'goals' => 'array',
         'expenses' => 'array',
+        'withdraw_requested_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
     ];
 
     protected $appends = ['created_at_formatted'];
-
 
     public function charity()
     {
