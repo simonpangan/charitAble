@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Charity;
 
 use PDF;
+use App\Models\ProgramDonation;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +31,15 @@ class CharityProgramReportController extends Controller
 
         abort_if($program->charity_id != $user->id, 403);
 
+        $programStats = ProgramDonation::query()
+            ->selectRaw("sum(amount) as total_donation_amount")
+            ->selectRaw('count(distinct benefactor_id) as total_donors')
+                ->where('charity_program_id', $id)
+            ->first();
+
         $data = [
             'program' => $program,
+            'programStats' => $programStats
         ]; 
 
         $pdf = PDF::loadView('reports/charity/program', $data);
