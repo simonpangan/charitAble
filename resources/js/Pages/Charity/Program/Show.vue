@@ -7,8 +7,14 @@
                     <h6 class="m-0">Program Description</h6>
                 </div>
                 <div class="box-body p-3">
-                    <p>{{program.description}}
+                    <p>
+                        {{program.description}}
                     </p>
+                    <div class="border-top mt-2">
+                        <p class="text-strong">
+                            <span class="fw-bold">Location</span> : {{ program.location }}
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="box shadow-sm border rounded bg-white mb-3">
