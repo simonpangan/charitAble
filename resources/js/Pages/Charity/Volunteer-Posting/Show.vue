@@ -7,7 +7,14 @@
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
                             <h3 class="font-weight-bold text-dark mb-1 mt-0"> {{volunteerPost.name}}</h3>
-                            <p>A Volunteer Posting by {{volunteerPost.charity.name}}</p>
+                            <p>A Volunteer Posting by 
+                                <Link class="text-dark" 
+                                    :href="$route('charity.profile.index', {
+                                        'id' : volunteerPost.charity.id 
+                                    })">
+                                    <u>{{volunteerPost.charity.name}}</u>
+                                </Link>
+                            </p>
                         </div>
                         <div v-if="can.modify" class="profile-right ms-auto">
                             <Link class="btn btn-info btn-lg" 
