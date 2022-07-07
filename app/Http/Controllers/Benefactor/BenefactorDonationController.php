@@ -15,20 +15,27 @@ class BenefactorDonationController
         $program = CharityProgram::query()->findOrFail($id);
         $charity_id = $program->charity_id;
 
+        //If user has donate
+        $donated = null;
+        if ($program_id = session()->pull('program_donation_id', null)
+        ) {
+            $donated = ProgramDonation::find($program_id);
+        };
+
         return Inertia::render('Benefactor/Payment/Donate',[
             'program' => $program,
-            'charity' => Charity::where('id',$charity_id)->get()->toArray()
-        ]);
+            'charity' => Charity::where('id',$charity_id)->get()->toArray(),
+            'donated' => $donated 
+        ]); 
     }
 
-    public function successIndex(int $id, string $transaction_id): Response{
-
+    public function successIndex(int $id, string $transaction_id): Response
+    {
         $program = CharityProgram::query()->findOrFail($id);
         $charity_id = $program->charity_id;
         $transaction_data = ProgramDonation::where('transaction_id',$transaction_id)
-                            ->get()
-                            ->toArray();
-
+            ->get()
+            ->toArray();
 
         return Inertia::render('Benefactor/Payment/DonateSuccess',[
             'program' => $program,

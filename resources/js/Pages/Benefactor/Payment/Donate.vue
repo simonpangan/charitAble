@@ -154,6 +154,7 @@
         });
 
         var programDonation = toRaw(this.donated);
+        
         this.sendBlockchainTransaction(
           programDonation['amount'],
           programDonation['id']
@@ -214,32 +215,36 @@
       }
     },
     methods: {
-      async sendBlockchainTransaction(amount, id) {
+      async sendBlockchainTransaction(amount, programDonationID) {
+
+        //PAYEE = charitable master address
         const tx = {
           from : "0x5D4b9e91327314C79E1F16A7e5D1ACA09B48A8Ff", //payee
           to: "0x9BaC34730D8F5Ab8B219c32b5de050a0e219fBf7",  //contract address
           gas: 1000000,
           data: charitableContract.methods.transfer(
-              "0x887b8Ebd4e9e4f32555F3756ccc65568384CCf0d", 100
+              "0x887b8Ebd4e9e4f32555F3756ccc65568384CCf0d",   //transfer amount to
+              // change to charity eth address
+              Math.floor(amount) //will round down for the mean the donation amount
             ).encodeABI()
         }
 
         const signature = await web3.eth.accounts.signTransaction(
-          tx, "85c09b6e7aa27ceda5a3cc8a897492376c6b6eb9a7d2dd7dd7e8a69f8b3cce3e" //private key
+          tx, "09b6e7aa27ceda5a3cc8a897492376c6b6eb9a7d2dd7dd7e8a69f8b3cce3e" //private key ni payee
         );
 
         web3.eth.sendSignedTransaction(signature.rawTransaction)
           .on('receipt', (response) => {
-            Inertia.get(route('blockchain'), {
-              'blokchain_transaction' : response.transactionHash, 
-              'program_donation' : id,
-              'program_id' : this.program.id,
-            }, {
-              onSuccess: page => {
-                Swal.close();
-              },
-            }
-            );
+                Inertia.get(route('blockchain'), {
+                  'blokchain_transaction' : response.transactionHash, 
+                  'program_donation' : programDonationID,
+                  'program_id' : this.program.id,
+                }, {
+                  onSuccess: page => {
+                    Swal.close();
+                  },
+                }
+              );
           });
       },
       updateSlider: function(e) {
