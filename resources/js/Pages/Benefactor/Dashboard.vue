@@ -52,7 +52,7 @@
                 </div>
               </div>
               <div class="col-auto">
-                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                <i class="fad fa-home-heart fa-2x text-gray-300"></i>
               </div>
             </div>
           </div>
