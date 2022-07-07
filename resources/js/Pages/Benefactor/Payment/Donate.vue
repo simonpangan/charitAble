@@ -192,6 +192,11 @@
   import axios from 'axios';
   import { loadScript } from "@paypal/paypal-js";
   import NProgress from 'nprogress'
+  import charitableContract from "~blockchain/charitable.js";
+  import web3 from '~blockchain/web3.js';
+  import { toRaw } from 'vue';
+  import Swal from 'sweetalert2';
+
 
   let paypal;
 
@@ -199,13 +204,29 @@
     beforeMounted() {
       this.PaypalSelected();
     },
-    mounted() {
-      console.log(this.hasPaymongoTransacion);
+    async mounted() {
+      if(this.donated) {
+        Swal.fire({
+          title: 'We are creating an etherium transaction please wait!',
+          html: 'This may take a while.',
+          allowOutsideClick: false,
+          type: "info",
+          showLoaderOnConfirm: true,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+        });
+
+        console.log(toRaw(this.donated));
+        // this.sendBlockchainTransaction();
+
+        Swal.close();
+      }
     },
     props: {
       charity: Array,
       program: Array,
-      hasPaymongoTransacion: String,
+      donated: Object,
       errors: Array,
     },
     data() {
@@ -230,7 +251,7 @@
                 'address' : {
                     'line1' : 'Somewhere there',
                     'city' : 'Cebu City',
-                    'country' : 'PH',
+                    'country' : 'PH', // no need
                     'postal_code' : '6000',
                 },
                 'name' : 'Rigel Kent Carbonel',
@@ -243,6 +264,28 @@
       };
     },
     methods: {
+      async sendBlockchainTransaction() {
+        // toRaw(this.donated['amount']);
+
+        const tx = {
+          // from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
+          from : "0x5D4b9e91327314C79E1F16A7e5D1ACA09B48A8Ff", //payee
+          to: "0x34528DA1DD468c80354A154e2742DCdfaf1738b0",  //contract address
+          gas: 1000000,
+          data: charitableContract.methods.transfer(
+              "0x887b8Ebd4e9e4f32555F3756ccc65568384CCf0d", 100
+            ).encodeABI()
+        }
+
+        const signature = await web3.eth.accounts.signTransaction(
+          tx, "85c09b6e7aa27ceda5a3cc8a897492376c6b6eb9a7d2dd7dd7e8a69f8b3cce3e" //private key
+        );
+
+        web3.eth.sendSignedTransaction(signature.rawTransaction)
+          .on('receipt', (response) => {
+            console.log(response);  
+          });
+      },
       updateSlider: function(e) {
         let clickedElement = e.target,
           min = clickedElement.min,
@@ -322,6 +365,9 @@
           });
       },
       paymongoCardTransaction() {
+        //
+            // VALIDATION
+        //
         // NProgress.start();
         this.cardProcessing = true;
          axios.post(route('paymongo.payment_intent'), {
