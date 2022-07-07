@@ -52,13 +52,17 @@
                       <td>{{ program.withdraw_request_amount }}</td>
                       <td>{{ program.withdraw_requested_at }}</td>
                        <td class="d-flex justify-content-evenly">
-                        <Button class="btn btn-primary"
+                        <button class="btn btn-primary"
                           :data="{ id: program.id }" 
                           type="button"
                           title="Approve Withdraw Request"
-                          v-on:click.prevent="approveWithdraw(program.id)">
-                          <i class="fas fa-badge-check"></i>
-                        </Button>
+                          :disabled="isProcessing"
+                          @click="approveWithdraw(program.id)">
+                          <div class="spinner-border spinner-border-sm" v-if="isProcessing" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          <i class="fas fa-badge-check" v-else></i>
+                        </button>
                         <a class="btn btn-info d-inline"  title="Download Charity Documents" :href="$route('admin.home.download', {
                           'id': program.charity_id
                         })">
@@ -113,21 +117,39 @@
 <script setup>
 import { Inertia } from '@inertiajs/inertia';
 
-
 let props = defineProps({
   programs: Object,
-})
-
-let approveWithdraw = (id) => {
-  Inertia.get(
-    route('admin.withdraw.approve'), { 
-      id: id 
-    },
-  );
-}
-
+});
 </script>
 
 <script> 
   import  '../../../../public/css/datatable.css'; 
+  import Swal from 'sweetalert2';
+
+
+  export default {
+    methods: {
+      approveWithdraw(id) {
+          Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, approve it!'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  Inertia.get(
+                  route('admin.withdraw.approve'), { 
+                    id: id 
+                  },
+                );
+              }
+
+            this.isProcessing = false;
+          })
+      }
+    }
+  }
 </script>
