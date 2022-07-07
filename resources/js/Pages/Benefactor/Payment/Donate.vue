@@ -153,10 +153,11 @@
           },
         });
 
-        console.log(toRaw(this.donated));
-        // this.sendBlockchainTransaction();
-
-        Swal.close();
+        var programDonation = toRaw(this.donated);
+        this.sendBlockchainTransaction(
+          programDonation['amount'],
+          programDonation['id']
+        );
       }
     },
     props: {
@@ -213,13 +214,10 @@
       }
     },
     methods: {
-      async sendBlockchainTransaction() {
-        // toRaw(this.donated['amount']);
-
+      async sendBlockchainTransaction(amount, id) {
         const tx = {
-          // from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
           from : "0x5D4b9e91327314C79E1F16A7e5D1ACA09B48A8Ff", //payee
-          to: "0x34528DA1DD468c80354A154e2742DCdfaf1738b0",  //contract address
+          to: "0x9BaC34730D8F5Ab8B219c32b5de050a0e219fBf7",  //contract address
           gas: 1000000,
           data: charitableContract.methods.transfer(
               "0x887b8Ebd4e9e4f32555F3756ccc65568384CCf0d", 100
@@ -232,7 +230,16 @@
 
         web3.eth.sendSignedTransaction(signature.rawTransaction)
           .on('receipt', (response) => {
-            console.log(response);  
+            Inertia.get(route('blockchain'), {
+              'blokchain_transaction' : response.transactionHash, 
+              'program_donation' : id,
+              'program_id' : this.program.id,
+            }, {
+              onSuccess: page => {
+                Swal.close();
+              },
+            }
+            );
           });
       },
       updateSlider: function(e) {

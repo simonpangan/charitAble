@@ -40,10 +40,11 @@ use App\Http\Controllers\Admin\ {
     AdminWithdrawRequestController,
 };
 
-use App\Http\Controllers\Benefactor\BenefactorDonationController;
-use App\Http\Controllers\Payment\PaymongoController;
-use App\Http\Controllers\PaypalPaymentController;
 use App\Models\Charity\CharityVolunteerPost;
+use App\Http\Controllers\Benefactor\BenefactorDonationController;
+use App\Http\Controllers\BlockchainTransactionController;
+use App\Http\Controllers\PaypalPaymentController;
+use App\Http\Controllers\Payment\PaymongoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->name('home.download');
 
         Route::get('/withdraw', [AdminWithdrawRequestController::class, 'index'])->name('withdraw.index');
-        Route::get('/withdraw/approve', [AdminWithdrawRequestController::class, 'approved'])
+        Route::get('/withdraw/approve', [AdminWithdrawRequestController::class, 'approve'])
             ->name('withdraw.approve');
 
         Route::post('/approval/permits', [AdminApprovalController::class, 'permits'])->name('approval.permits');
@@ -92,6 +93,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('program/{id}', 'destroy')->name('program.destroy');
             Route::post('uploadProgramPhoto','uploadProgramPhoto')->name('program.store.image');
             Route::post('uploadProgramPhoto/revert','uploadProgramPhotoRevert')->name('program.revert.image');
+
+            Route::post('/program/{id}/withdraw-request', 'request')->name('program.withdraw-request');
+            Route::post('/program/{id}/withdraw-request/cancel', 'cancel')->name('program.withdraw-request.cancel');
         });
 
         Route::get('program/{id}/report', [CharityProgramReportController::class, 'redirect'])->name('program.report');
@@ -253,6 +257,8 @@ Route::name('auth.')->group(function () {
 | Routes that can be access by authenticated user
 |
 */
+
+Route::get('/blockchain', BlockchainTransactionController::class)->name('blockchain');
 
 Route::get('/paymongo', [PaymongoController::class, 'pay'])->name('paymongo');
 Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
