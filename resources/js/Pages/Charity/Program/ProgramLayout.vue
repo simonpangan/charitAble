@@ -9,7 +9,16 @@
 								{{$page.props.program.name}}
 							</h3>
                             <p class="mb-0 text-muted"> 
-								A Program by {{$page.props.program.charity.name}}
+								A Program by 
+                                <Link class="text-dark" 
+                                    :href="$route('charity.profile.index', {
+                                        'id' : $page.props.program.charity.id 
+                                    })">
+                                    <u>{{$page.props.program.charity.name}}</u>
+                                </Link>
+							</p>
+                            <p class="mb-0 text-muted"> 
+								Updated at : {{$page.props.program.updated_at}}
 							</p>
                         </div>
                        <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
