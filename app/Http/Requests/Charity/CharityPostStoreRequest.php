@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Charity;
 
+use App\Rules\MaxWordsRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharityPostStoreRequest extends FormRequest
@@ -24,8 +25,8 @@ class CharityPostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'main_content_body' => ['required', 'string', 'min:2'],
-            'main_content_body_image' => [],
+            'main_content_body' => ['required', 'string', 'min:2', new MaxWordsRule(250)],
+            'main_content_body_image' => ['nullable'],
         ];
     }
 }

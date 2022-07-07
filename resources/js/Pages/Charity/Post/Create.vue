@@ -18,6 +18,9 @@
               <div class="w-100">
                 <textarea placeholder="Write a message…" v-model="form.main_content_body" class="form-control border-0 p-3 shadow-none" rows="7">
                 </textarea>
+                <span v-if="form.errors.main_content_body" v-text="form.errors.main_content_body"
+                    class="invalid-feedback d-block" role="alert">
+                </span>
               </div>
               <file-pond
                 name="main_content_body_image"
@@ -50,6 +53,9 @@
                 v-on:addfilestart="OnhandleOnAddFileStart"
                 v-on:processfile="onHandleaddfile"
               ></file-pond>
+              <span v-if="form.errors.main_content_body_image" v-text="form.errors.main_content_body_image"
+                  class="invalid-feedback d-block" role="alert">
+              </span>
             </div>
             <div class="p-3 border-bottom osahan-post-footer">
               <div class="p-3 d-flex">
