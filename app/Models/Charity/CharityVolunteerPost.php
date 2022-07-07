@@ -33,7 +33,7 @@ class CharityVolunteerPost extends Model
     protected function location(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => $this->is_face_to_face == false ? 'Virtual' : $value,
+            set: fn ($value) => $this->is_face_to_face == true ? 'Virtual' : $value,
         );
     }
 
