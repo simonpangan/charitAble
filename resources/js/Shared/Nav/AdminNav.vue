@@ -5,7 +5,7 @@
 	</NavLink>
 	</li>
 	<li class="nav-item">
-	<NavLink class="nav-link btn btn-link" href="/benefactor/charity-search/followers">
+	<NavLink class="nav-link btn btn-link" href="/admin/withdraw">
 		<span class="d-none d-lg-inline">Withdrawal</span>
 	</NavLink>
 	</li>

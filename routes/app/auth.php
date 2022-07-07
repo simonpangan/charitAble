@@ -36,7 +36,8 @@ use App\Http\Controllers\Charity\{
 
 use App\Http\Controllers\Admin\ {
     AdminHomeController,
-    AdminApprovalController
+    AdminApprovalController,
+    AdminWithdrawRequestController,
 };
 
 use App\Http\Controllers\Benefactor\BenefactorDonationController;
@@ -61,9 +62,13 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
     ], function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home.index');
         Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->name('home.download');
+
+        Route::get('/withdraw', [AdminWithdrawRequestController::class, 'index'])->name('withdraw.index');
+
         Route::post('/approval/permits', [AdminApprovalController::class, 'permits'])->name('approval.permits');
         Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
         Route::post('/approval/disapprove', [AdminApprovalController::class, 'disApprove'])->name('approval.disapprove');
+   
         Route::post('/checkEthAddress',[AdminApprovalController::class,'checkIfEthAddressExists'])->name('eth.check');
         Route::post('/createEthAddress',[AdminApprovalController::class,'createEthAddress'])->name('eth.create');
 
@@ -252,7 +257,9 @@ Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
 Route::get('/paymongo/callback/failed', [PaymongoController::class, 'failed']);
 
 Route::get('/paymongo/search', [PaymongoController::class, 'search']);
-Route::get('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent']);
+
+Route::post('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent'])->name('paymongo.payment_intent');
+Route::post('/paymongo/cardPay', [PaymongoController::class, 'cardPay'])->name('paymongo.cardPay');
 
 Route::group(['prefix'=>'payment/paypal'], function(){
     Route::post('/order/create',[PaypalPaymentController::class,'create'])->name('paypal.create');
