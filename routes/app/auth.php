@@ -64,6 +64,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->name('home.download');
 
         Route::get('/withdraw', [AdminWithdrawRequestController::class, 'index'])->name('withdraw.index');
+        Route::get('/withdraw/approve', [AdminWithdrawRequestController::class, 'approved'])
+            ->name('withdraw.approve');
 
         Route::post('/approval/permits', [AdminApprovalController::class, 'permits'])->name('approval.permits');
         Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
