@@ -35,6 +35,7 @@ class CharityProgramFactory extends Factory
             'total_needed_amount' => 20000,  
             'has_withdraw_request' => $this->faker->numberBetween(0,1),  
             'withdraw_request_amount' => 1000,  
+            'withdraw_requested_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
             'expenses' => [
                 '1' => [
                     'name' => $this->faker->word,
