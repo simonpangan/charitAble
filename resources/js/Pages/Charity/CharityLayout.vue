@@ -134,10 +134,10 @@
                                     <div class="text-truncate">Create Posts</div>
 
                                 </div>
-                                <Link class="btn btn-outline-primary btn-sm ms-auto" 
+                                <Link class="btn btn-primary btn-sm ms-auto" 
                                     :href="$route('charity.post.create')"
                                 >
-                                    Create
+                                    <i class="fad fa-plus"></i>
                                 </Link>
                             </div>
                             <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
@@ -146,9 +146,9 @@
 
                                 </div>
                                 <span class="ms-auto">
-                                    <Link class="btn btn-outline-primary btn-sm" 
+                                    <Link class="btn btn-primary btn-sm" 
                                     :href="$route('charity.volunteer.create')">
-                                        Create
+                                        <i class="fad fa-plus"></i>
                                     </Link>
                                 </span>
                             </div>
@@ -157,8 +157,9 @@
                                     <div class="text-truncate">Create Program</div>
                                 </div>
                                 <span class="ms-auto">
-                                    <Link :href="$route('charity.program.create')" class="btn btn-outline-primary btn-sm">
-                                        Create
+                                    <Link :href="$route('charity.program.create')" 
+                                    class="btn btn-primary btn-sm">
+                                        <i class="fad fa-plus"></i>
                                     </Link>
                                </span>
                             </div>
