@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('amount');
             $table->timestamp('donated_at');
             $table->string('transaction_id');
+            $table->string('blockchain_transaction')->nullable();
             $table->string('tip_price');
             $table->string('message')->nullable();
             $table->boolean('is_anonymous');

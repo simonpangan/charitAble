@@ -32,7 +32,8 @@ class ProgramDonationSeeder extends Seeder
                 'amount' => $faker->numberBetween($min = 100, $max = 1000),
                 'donated_at' => $faker->dateTimeBetween('-5 years', 'now'),
                 'is_anonymous' => $faker->numberBetween(0, 1),
-                'transaction_id' => 21312321,
+                'transaction_id' => $faker->password,
+                'blockchain_transaction' => $faker->password,
                 'tip_price' => 15
             ]);
         }
@@ -45,7 +46,8 @@ class ProgramDonationSeeder extends Seeder
                     'benefactor_id' => $benefactors->random()->id,
                     'amount' => $faker->numberBetween($min = 100, $max = 1000),
                     'donated_at' => $faker->dateTimeBetween('-5 years', 'now'),
-                    'transaction_id' => 21312321,
+                    'transaction_id' => $faker->password,
+                    'blockchain_transaction' => $faker->password,
                     'is_anonymous' => $faker->numberBetween(0, 1),
                     'tip_price' => 15
                 ]);
