@@ -35,7 +35,7 @@
                                     <i class="fad fa-certificate fa-2x"></i>
                                 </th>
                                 <td class="p-3">
-                                    {{ charity.permits }}
+                                    {{ (charity.permits) ? charity.permits : 'Charity has no approve permit yet' }}
                                 </td>
                             </tr>
                             <tr class="border-bottom">
