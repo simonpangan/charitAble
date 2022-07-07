@@ -37,7 +37,7 @@ class PaypalPaymentController extends Controller
                         "currency_code"=> "PHP",
                         "value"=> $total_price
                     ],
-                    "description" => $tip_price
+                    "description" => $request->input('description')
                 ]
             ],
         ]);
@@ -58,7 +58,8 @@ class PaypalPaymentController extends Controller
                 'amount' => $request['amount'],
                 'transaction_id' => $request['transaction_id'],
                 'tip_price' => $request['tip_price'],
-                'donated_at' => Carbon::now()
+                'donated_at' => Carbon::now(),
+                'is_anonymous' => $request['is_anonymous']
             ]);
 
             // $charity_name = Charity::where('id',$request['charity_program_id'])->pluck('name')->get();
