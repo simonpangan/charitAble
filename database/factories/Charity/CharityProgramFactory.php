@@ -33,6 +33,8 @@ class CharityProgramFactory extends Factory
             ],
             'total_withdrawn_amount' => 1000,  
             'total_needed_amount' => 20000,  
+            'has_withdraw_request' => $this->faker->numberBetween(0,1),  
+            'withdraw_request_amount' => 1000,  
             'expenses' => [
                 '1' => [
                     'name' => $this->faker->word,

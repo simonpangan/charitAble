@@ -22,6 +22,8 @@ return new class extends Migration
             $table->json('goals');
             $table->bigInteger('total_withdrawn_amount')->default(0);
             $table->bigInteger('total_needed_amount')->default(0);
+            $table->boolean('has_withdraw_request')->default(0);
+            $table->bigInteger('withdraw_request_amount')->default(0);
             $table->json('expenses');
             $table->string('header');
             $table->timestamps();
