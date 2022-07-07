@@ -14,13 +14,15 @@
                       <label class="sr-only mb-2" for="">Enter your donation: </label>
                       <div class="input-group input-group-lg">
                         <span class="input-group-text" id="inputGroup-sizing-lg">PHP : </span>
-                        <input type="number" class="form-control" v-model="price" />
+                        <input type="number"  class="form-control" v-model="price" v-on:blur="ChoosePaymentSection" />
                         <span class="input-group-text">.00</span>
                         <span v-if="errors.price"
                                 v-text="errors.price"
                             class="invalid-feedback d-block" role="alert">
                         </span>
                       </div>
+                      <span class="text-danger" v-if="v$.price.$error"> {{ v$.price.$errors[0].$message }} </span>
+
                     </div>
                   </div>
                   <p class="text-dark nmb-1"> You are supporting towards the program : <strong class="text-dark">{{this.$page.props.program.program_name}}</strong>
@@ -34,7 +36,7 @@
                         v-text="errors.tip_level"
                     class="invalid-feedback d-block" role="alert">
                   </span>
-                  <div class="data">Tip Level: {{this.tip_level }}</div>
+                  <div class="data">Tip Level: {{this.tip_level }} %</div>
                   <div class="alert alert-light" role="alert">
                     <br /> Charitable provides 0% platform fee for benefactors, but providing a percentage tip on your contributions will be a long way on continuing our services.
                   </div>
@@ -52,25 +54,19 @@
                     <div class="card border-bottom">
                       <div class="card-body border-bottom">
                         <div class="form-check">
-                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaypalSelected" />
-                          <label class="form-check-label" for="flexRadioDefault1"> Paypal </label>
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <div class="form-check">
-                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaymongoSelected('creditCard')" />
-                          <label class="form-check-label" for="flexRadioDefault1"> Credit Card </label>
+                          <input class="form-check-input" name="donation" type="radio" :disabled="this.v$.$error" v-on:change="PaypalSelected" />
+                          <label class="form-check-label" for="flexRadioDefault1"> Paypal / Credit Card</label>
                         </div>
                       </div>
                       <div class="card-body border-top">
                         <div class="form-check">
-                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaymongoSelected('gCash')"/>
+                          <input class="form-check-input" name="donation" type="radio"  :disabled="this.v$.$error" v-on:change="PaymongoSelected('gCash')"/>
                           <label class="form-check-label" for="flexRadioDefault1"> GCash </label>
                         </div>
                       </div>
                       <div class="card-body border-top">
                         <div class="form-check">
-                          <input class="form-check-input" name="donation" type="radio" v-on:change="PaymongoSelected('grabPay')"/>
+                          <input class="form-check-input" name="donation" type="radio" :disabled="this.v$.$error" v-on:change="PaymongoSelected('grabPay')"/>
                           <label class="form-check-label" for="flexRadioDefault1"> Grab Pay </label>
                         </div>
                       </div>
@@ -81,8 +77,8 @@
                       <label class="form-check-label" for="flexCheckDefault"> Please don't show my name publicly in the donations. </label>
                     </div>
                     <div id="paypal-button-container" v-on:click.prevent.self="PaypalTransaction" v-if="this.payment_method == 'paypal'"></div>
-                    <div  v-if="isPaymongoTransaction">
-                      <button class="btn btn-warning me-auto" v-on:click.prevent.self="paymongoEWalletTransaction">Proceed</button>
+                    <div  v-if="isPaymongoTransaction" class="d-grid gap-2">
+                      <button class="btn btn-warning btn-lg mt-3" v-on:click.prevent.self="paymongoEWalletTransaction">Proceed</button>
                     </div>
                   </section>
                 </div>
@@ -90,6 +86,7 @@
             </div>
           </div>
         </main>
+        
         <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
           <div class="box shadow-sm border rounded bg-white mb-3">
             <div class="box-body p-3">
@@ -112,73 +109,10 @@
           <div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center"></div>
           <div class="card mb-4">
             <div class="card-header py-3">
-              <h5 class="mb-0">Biling details</h5>
+              <h5 class="mb-0">Benefactor Protections</h5>
             </div>
             <div class="card-body">
-              <form @submit.prevent="paymongoCardTransaction">
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form6Example3">Name</label>
-                  <input type="text" id="form6Example3" class="form-control" v-model="card.attributes.billing.name"/>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form6Example5">Email</label>
-                  <input type="email" id="form6Example5" class="form-control" v-model="card.attributes.billing.email" />
-                </div>
-
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form6Example6">Phone #</label>
-                  <input type="number" id="form6Example6" class="form-control" v-model="card.attributes.billing.phone"/>
-                </div>
-
-                <hr class="my-4" />
-                <h5 class="mb-4">Address</h5>
-
-                 <div class="form-outline mb-4">
-                  <label class="control-label" for="textinput">Line 1</label>
-                  <input type="text" class="form-control" v-model="card.attributes.billing.address.line1">
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="control-label" for="textinput">City</label>
-                    <input type="text" class="form-control" v-model="card.attributes.billing.address.city">
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="control-label" for="textinput">Postal Code</label>
-                  <input type="text" class="form-control" v-model="card.attributes.billing.address.postal_code" />
-                </div>
-
-                <hr class="my-4" />
-                <h5 class="mb-4">Payment</h5>
-
-                <div class="form-outline">
-                  <input type="text" id="formCardNumber" class="form-control" v-model="card.attributes.details.card_number"/>
-                  <label class="form-label" for="formCardNumber">Credit card number</label>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-3">
-                    <div class="form-outline">
-                      <input type="text" id="formExpiration" class="form-control" v-model="card.attributes.details.exp_year"/>
-                      <label class="form-label" for="formExpiration">Expiration</label>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-outline">
-                      <input type="text" id="formCVV" class="form-control" v-model="card.attributes.details.cvc"/>
-                      <label class="form-label" for="formCVV">CVC</label>
-                    </div>
-                  </div>
-                </div>
-
-                <button :disabled="cardProcessing" class="btn btn-primary btn-lg btn-block" type="submit">
-                    <span v-if="! cardProcessing">
-                        Continue to Checkout
-                    </span>
-                    <div v-else>
-                       <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                    </div>
-                </button>
-              </form>
+                <p>In CharitAble, every benefactor deserves best experience. Learn more about our transparency and accountability program</p>
             </div>
           </div>
         </aside>
@@ -196,6 +130,8 @@
   import web3 from '~blockchain/web3.js';
   import { toRaw } from 'vue';
   import Swal from 'sweetalert2';
+  import useVuelidate from "@vuelidate/core";
+  import {helpers,required,numeric,minValue,maxValue,integer} from "@vuelidate/validators";
 
 
   let paypal;
@@ -232,11 +168,12 @@
     data() {
       return {
         payment_method: '',
-        price: 100,
+        price: 0,
         step: 0,
         tip_level: 5,
         tip_price: 0,
         charity_program_id: this.program.id,
+        charity_name: this.program.name,
         is_anonymous: false,
         cardProcessing: false,
         card: {
@@ -261,7 +198,19 @@
               "type": "card"
             } 
           },
+        v$: useVuelidate(),
       };
+    },
+    validations() {
+      return{
+         price:{
+                required:helpers.withMessage("Donation Amount cannot be empty", required),
+                minValue:helpers.withMessage("Minimum donation value is 150 PHP.", minValue(150)),
+                maxValue:helpers.withMessage("Maximum donation value is 50,000 PHP", maxValue(50000)),
+                numeric:helpers.withMessage("Please input valid donation amount", numeric),
+                integer:helpers.withMessage("Please input valid donation amount", integer),
+            },
+      }
     },
     methods: {
       async sendBlockchainTransaction() {
@@ -295,11 +244,14 @@
         this.total_price = parseFloat(this.price) + parseFloat(this.tip_price);
       },
       ChoosePaymentSection: function() {
-        if (this.step == 0) {
+        this.v$.$validate();
+        if (this.step == 0 && !this.v$.$error) {
           this.step++;
         }
       },
       PaypalSelected: function() {
+        this.v$.$validate();
+        if(!this.v$.$error){
         this.payment_method = 'paypal';
         this.$forceUpdate();
         loadScript({
@@ -314,7 +266,7 @@
                 url: route('paypal.create'),
                 data: {
                   'tip_level': this.tip_level,
-                  'tip_price': this.tip_price,
+                  'tip_price': this.charitable_tip,
                   'total_contribution_amount': this.total_price,
                 }
               }).then((response) => {
@@ -330,10 +282,12 @@
                   headers: {},
                   url: route('paypal.capture'),
                   data: {
-                    'amount': orderData.purchase_units[0].amount.value,
+                    'amount': this.total_price,
                     'transaction_id': orderData.id,
-                    'tip_price': orderData.purchase_units[0].description,
-                    'charity_program_id': this.charity_program_id
+                    'tip_price': this.charitable_tip,
+                    'charity_program_id': this.charity_program_id,
+                    'is_anonymous' : this.is_anonymous,
+                    'description' : "Donation for the program" + this.charity_name
                   }
                 }).then((response) => {
                   //Web3
@@ -351,6 +305,7 @@
         }).catch((error) => {
           console.error("failed to load the PayPal JS SDK script", error);
         });
+        }
       },
       PaymongoSelected: function(type) {
         this.payment_method = type;
@@ -432,12 +387,19 @@
           )
       }
     },
+    openCreditCardForm:function(){
+      this.payment_method = 'credit_card';
+    },
     computed: {
       total_price() {
-        return this.price - (this.price * (this.tip_level / 100));  
+        if(!this.v$.$error){
+            return this.price - (this.price * (this.tip_level / 100));  
+        }else return 'N/A';
       },
       charitable_tip() {
-        return this.price * (this.tip_level / 100);
+        if(!this.v$.$error){
+            return this.price * (this.tip_level / 100);
+        }else return '0';
       },
       isPaymongoTransaction() {
         return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay';
