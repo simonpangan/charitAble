@@ -26,6 +26,7 @@ class BenefactorDashboardController extends Controller
     private function getBenefactorStats() {
         $donationStats =  ProgramDonation::query()
             ->selectRaw("count(*) as total_number_donations")
+            ->where('benefactor_id' , Auth::id())
             ->first()
             ->getAttributes();
             

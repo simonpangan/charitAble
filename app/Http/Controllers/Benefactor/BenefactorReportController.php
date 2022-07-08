@@ -25,7 +25,7 @@ class BenefactorReportController
     {
         $user = Auth::user();
 
-        abort_if(! $user->is_allowed_to_download, 403);
+        // abort_if(! $user->is_allowed_to_download, 403);
 
         $donations =  $user->benefactor->programDonations()
             ->latest('donated_at')
@@ -53,7 +53,6 @@ class BenefactorReportController
 
     private function getBenefactorStats() {
         $donationStats =  ProgramDonation::query()
-            ->selectRaw("sum(amount) as total_donation")
             ->selectRaw("count(*) as total_number_donations")
             ->where('benefactor_id' , Auth::id())
             ->first()
@@ -68,9 +67,17 @@ class BenefactorReportController
             ->unique()
             ->count();
 
+        $benefactorDonation = ProgramDonation::query()
+            ->select(['amount'])
+            ->where('benefactor_id' , Auth::id())
+            ->get();
+
+        $benefactorDonation = $benefactorDonation->sum('amount');
+
         return array_merge($donationStats, 
             ['total_charities_followed' => $charityFollowing] + 
-            ['total_charities_donated' => $totalCharitiesDonated]
+            ['total_charities_donated' => $totalCharitiesDonated] + 
+            ['total_donation' => $benefactorDonation]
         );
     }
 
