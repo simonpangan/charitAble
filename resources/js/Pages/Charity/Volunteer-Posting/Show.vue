@@ -124,10 +124,14 @@
                     </button>
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
-                            <h6 class="m-0">Text</h6>
+                            <h6 class="m-0">How to join?</h6>
                         </div>
-                        <div class="box-body p-3">
-                            hello
+                        <div class="box-body">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item">Click on the Join Now Button</li>
+                                <li class="list-group-item">Send a message to the charity that you are interested</li>
+                                <li class="list-group-item">Wait for the response of the charity</li>
+                            </ol>
                         </div>
                     </div>
                     <!-- Modal -->
