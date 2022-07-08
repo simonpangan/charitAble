@@ -43,7 +43,8 @@ class HandleInertiaRequests extends Middleware
     {
         $sharedProps = [
             'flash' => [
-                'message' => fn () => $request->session()->get('message')
+                'message' => fn () => $request->session()->get('message'),
+                'blockchain_message' => fn () => $request->session()->get('blockchain_message'),
             ],
         ];
 

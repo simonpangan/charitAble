@@ -16,6 +16,9 @@ class BlockchainTransactionController extends Controller
         ]);
 
         return to_route('charity.donate.create',$request->program_id)
-            ->with('message', 'Successful blochain transaction ' . $request->blokchain_transaction);
+            ->with('blockchain_message', [
+                'message' => 'Successful transaction', 
+                'transaction' => $request->blokchain_transaction, 
+            ]);
     }
 }

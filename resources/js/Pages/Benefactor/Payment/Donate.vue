@@ -22,7 +22,6 @@
                         </span>
                       </div>
                       <span class="text-danger" v-if="v$.price.$error"> {{ v$.price.$errors[0].$message }} </span>
-
                     </div>
                   </div>
                   <p class="text-dark nmb-1"> You are supporting towards the program : <strong class="text-dark">{{this.$page.props.program.program_name}}</strong>
@@ -47,6 +46,14 @@
                   <div v-if="$page.props.flash.message" role="alert"
                     class="alert alert-success w-80 mx-auto text-center">
                       {{ $page.props.flash.message }}
+                  </div>
+                  <div v-if="$page.props.flash.blockchain_message" role="alert"
+                    class="alert alert-success w-80 mx-auto text-center">
+                      {{ $page.props.flash.blockchain_message.message }}
+                      <a target="_blank" class="text-black text-decoration-underline" 
+                      :href="'https://rinkeby.etherscan.io/tx/' + $page.props.flash.blockchain_message.transaction">
+                      {{ $page.props.flash.blockchain_message.transaction }}
+                      </a>
                   </div>
                   <button type="button" class="btn btn-lg btn-primary mb-4" v-on:click="ChoosePaymentSection">
                     <i class="feather-plus"></i> Continue </button>
@@ -220,7 +227,7 @@
         //PAYEE = charitable master address
         const tx = {
           from : "0x5D4b9e91327314C79E1F16A7e5D1ACA09B48A8Ff", //payee
-          to: "0x9BaC34730D8F5Ab8B219c32b5de050a0e219fBf7",  //contract address
+          to: "0x2A9e2cCff89be59333E64DDDEd2a09dC7d1f11fB",  //contract address
           gas: 1000000,
           data: charitableContract.methods.transfer(
               "0x887b8Ebd4e9e4f32555F3756ccc65568384CCf0d",   //transfer amount to
@@ -230,7 +237,7 @@
         }
 
         const signature = await web3.eth.accounts.signTransaction(
-          tx, "09b6e7aa27ceda5a3cc8a897492376c6b6eb9a7d2dd7dd7e8a69f8b3cce3e" //private key ni payee
+          tx, "85c09b6e7aa27ceda5a3cc8a897492376c6b6eb9a7d2dd7dd7e8a69f8b3cce3e" //private key ni payee
         );
 
         web3.eth.sendSignedTransaction(signature.rawTransaction)
