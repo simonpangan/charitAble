@@ -115,17 +115,17 @@
                             </div>
                             <div>
                                 <h3 class="mx-auto nmb-1">
-                                   {{stats.total_donation.toLocaleString()}}
+                                    {{ formatNumber(stats.total_donation)}}
                                 </h3>
                                 <p class="">funded out of 
                                     <span class="fa-1x text-gray-300">₱</span>
-                                    {{program.total_needed_amount.toLocaleString()}}
+                                    {{ formatNumber(program.total_needed_amount)}}
                                 </p>
                             </div>
                             <div>
                                 <h5>
                                   <span class="fa-1x">₱</span>
-                                    {{program.total_withdrawn_amount.toLocaleString()}}
+                                    {{ formatNumber(program.total_withdrawn_amount)}}
                                 </h5>
                                 <p class="text-muted">Withdrawn Money</p>
                             </div>
@@ -134,7 +134,7 @@
                                 <p class="text-muted">Total Donors</p>
                             </div>
                             <div>
-                                <h5>{{$page.props.program.charity.eth_address}}</h5>
+                                <h5>{{program.charity.eth_address}}</h5>
                                 <p clas s="text-muted">ETH Address</p>
                             </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
@@ -205,6 +205,8 @@ let withdrawRequest = (id) => {
                 'id' : id
             }), {
                 onSuccess: () => {
+                    Inertia.reload();
+
                     Swal.fire(
                         'Sent!',
                         'Your withdraw request has been sent.',
@@ -217,7 +219,7 @@ let withdrawRequest = (id) => {
 };
 
 let cancelRequest = (id) => {
-      Swal.fire({
+    Swal.fire({
         title: 'Are you sure?',
         icon: 'warning',
          text: "You won't be able to revert this!",
@@ -231,6 +233,8 @@ let cancelRequest = (id) => {
                 'id' : id
             }), {} ,{
                 onSuccess: () => {
+                    Inertia.reload();
+
                     Swal.fire(
                         'Sent!',
                         'Your withdraw request has been cancelled.',
@@ -255,17 +259,22 @@ export default {
     },
     computed: {
         donationPercentage() {
-            // var percentage = Math.round((this.$page.props.stats.total_donation / program..total_needed_amount) * 100);
-            // return (percentage >= 100) ? '100' : percentage ;
-            return 1;
+            var percentage = Math.round(
+                (this.stats.total_donation / this.program.total_needed_amount) * 100
+            );
+            
+            return (percentage >= 100) ? '100' : percentage ;
         },     
     },
     methods: {
+        formatNumber(number) {
+            return (number == null) ? 0 : number.toLocaleString();
+        },
         deletePost (id)  {
             this.$swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
-                icon: 'warning',
+                icon: 'warning',    
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -280,7 +289,7 @@ export default {
                                 'Deleted!',
                                 'Your program has been deleted.',
                                 'success'
-                            )
+                            );
                         },
                     });
                 }
