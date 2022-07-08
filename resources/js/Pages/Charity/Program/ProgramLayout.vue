@@ -8,7 +8,7 @@
                             <h3 class="font-weight-bold text-dark mb-1 mt-0"> 
 								{{$page.props.program.name}}
 							</h3>
-                            <p class="mb-0 text-muted"> 
+                            <p class="text-muted"> 
 								A Program by 
                                 <Link class="text-dark" 
                                     :href="$route('charity.profile.index', {
@@ -17,7 +17,7 @@
                                     <u>{{$page.props.program.charity.name}}</u>
                                 </Link>
 							</p>
-                            <p class="mb-0 text-muted"> 
+                            <p class="text-muted"> 
 								Updated at : {{$page.props.program.updated_at}}
 							</p>
                         </div>
@@ -114,16 +114,18 @@
                             </div>
                             </div>
                             <div>
-                                <h3 class="mx-auto nmb-1">{{$page.props.stats.total_donation}}</h3>
+                                <h3 class="mx-auto nmb-1">
+                                    {{$page.props.stats.total_donation.toLocaleString()}}
+                                </h3>
                                 <p class="">funded out of 
                                     <span class="fa-1x text-gray-300">₱</span>
-                                    {{$page.props.program.total_needed_amount}}
+                                    {{$page.props.program.total_needed_amount.toLocaleString()}}
                                 </p>
                             </div>
                             <div>
                                 <h5>
                                   <span class="fa-1x">₱</span>
-                                    {{$page.props.program.total_withdrawn_amount}}
+                                    {{$page.props.program.total_withdrawn_amount.toLocaleString()}}
                                 </h5>
                                 <p class="text-muted">Withdrawn Money</p>
                             </div>
