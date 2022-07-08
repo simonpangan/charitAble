@@ -9,6 +9,9 @@
               <div class="box shadow-sm border rounded bg-white mb-3">
                 <div class="box-body p-3">
                   <div class="alert alert-info" role="alert"> Every cent of your donation is protected, learn more about our transparency program. </div>
+                  <div class="alert alert-info" role="alert"> 
+                    TERMS CONDITION
+                  </div>
                   <div class="row">
                     <div class="col-sm-12 mb-2">
                       <label class="sr-only mb-2" for="">Enter your donation: </label>
@@ -53,8 +56,10 @@
                       <a target="_blank" class="text-black text-decoration-underline" 
                       :href="'https://rinkeby.etherscan.io/tx/' + $page.props.flash.blockchain_message.transaction">
                       {{ $page.props.flash.blockchain_message.transaction }}
+                          DESCRIPTIOnasdasdada
                       </a>
                   </div>
+
                   <button type="button" class="btn btn-lg btn-primary mb-4" v-on:click="ChoosePaymentSection">
                     <i class="feather-plus"></i> Continue </button>
                   <section v-if="step == 1">
@@ -93,11 +98,10 @@
             </div>
           </div>
         </main>
-        
         <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
           <div class="box shadow-sm border rounded bg-white mb-3">
             <div class="box-body p-3">
-              <p>Your Donation</p>
+              <p class="fw-bold">Breakdown</p>
               <div class="d-flex">
                 <p>Your Donation</p>
                 <p class="text-muted ms-auto">{{price}}</p>
@@ -105,6 +109,11 @@
               <div class="d-flex">
                 <p>Charitable Tip</p>
                 <p class="text-muted ms-auto">{{charitable_tip}}</p>
+              </div>
+              <div class="d-flex" v-if="payment_method != null">
+                <p v-if="payment_method == 'gCash'">GCash Fee</p>
+                <p v-else-if="payment_method == 'grabPay'">Grab Pay Fee</p>
+                <p class="text-muted ms-auto">{{transaction_fee}}</p>
               </div>
               <hr />
               <div class="d-flex">
@@ -176,7 +185,7 @@
     },
     data() {
       return {
-        payment_method: '',
+        payment_method: null,
         price: 0,
         step: 0,
         tip_level: 5,
@@ -410,15 +419,24 @@
       this.payment_method = 'credit_card';
     },
     computed: {
-      total_price() {
-        if(!this.v$.$error){
-            return this.price - (this.price * (this.tip_level / 100));  
-        }else return 'N/A';
-      },
       charitable_tip() {
         if(!this.v$.$error){
             return this.price * (this.tip_level / 100);
         }else return '0';
+      },
+      transaction_fee() {
+        if (this.payment_method == 'gCash') {
+          return this.price * 0.025;
+        }
+        else if (this.payment_method == 'grabPay') {
+          return this.price * 0.022;
+        }
+        else return '0';
+      },
+      total_price() {
+        if(!this.v$.$error){
+            return this.price - (this.price * (this.tip_level / 100) - this.transaction_fee);  
+        }else return 'N/A';
       },
       isPaymongoTransaction() {
         return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay';
