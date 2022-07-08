@@ -24,8 +24,8 @@
             <th>Total Needed Amount</th>
         </tr>
         <tr>
-            <td>{{ $program->total_donors }}</td>
-            <td>{{ $program->total_donation_amount }}</td>
+            <td>{{ $programStats['total_donors'] }}</td>
+            <td>{{ $programStats['total_donation'] }}</td>
             <td>{{ $program->total_withdrawn_amount }}</td>
             <td>{{ $program->total_needed_amount }}</td>
         </tr>

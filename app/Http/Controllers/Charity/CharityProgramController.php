@@ -105,19 +105,19 @@ class CharityProgramController
     {
         $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
 
-        $donation = ProgramDonation::query()
-            ->selectRaw("sum(amount) as total_donation")
-            ->selectRaw('count(distinct benefactor_id) as total_donors')
-                ->where('charity_program_id', $id)
-            ->first()
-            ->toArray();
-
+        $programStats = ProgramDonation::query()
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+        
+        $stats['total_donation'] = $programStats->sum('amount'); 
+        $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
 
         return Inertia::render(
             'Charity/Program/Show',
             [
                 'program' => $program,
-                'stats' => $donation,
+                'stats' => $stats,
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()
                 ]
@@ -189,18 +189,19 @@ class CharityProgramController
         }]);
 
 
-        $donation = ProgramDonation::query()
-            ->selectRaw("sum(amount) as total_donation")
-            ->selectRaw('count(distinct benefactor_id) as total_donors')
-                ->where('charity_program_id', $id)
-            ->first()
-            ->toArray();
+        $programStats = ProgramDonation::query()
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+        
+        $stats['total_donation'] = $programStats->sum('amount'); 
+        $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
 
         return Inertia::render(
             'Charity/Program/Supports',
             [
                 'program' => $program,
-                'stats' => $donation,
+                'stats' => $stats,
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()
                 ]

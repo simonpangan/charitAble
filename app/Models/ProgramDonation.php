@@ -17,6 +17,10 @@ class ProgramDonation extends Pivot
 
     public $casts = [
         'boolean' => 'is_anonymous',
+        'amount' => 'encrypted',
+        'transaction_id' => 'encrypted',
+        'blockchain_transaction' => 'encrypted',
+        'tip_price' => 'encrypted',
     ];
 
 	public function getDonatedAtFormattedAttribute()

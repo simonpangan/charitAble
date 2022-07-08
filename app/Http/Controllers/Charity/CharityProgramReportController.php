@@ -32,14 +32,16 @@ class CharityProgramReportController extends Controller
         abort_if($program->charity_id != $user->id, 403);
 
         $programStats = ProgramDonation::query()
-            ->selectRaw("sum(amount) as total_donation_amount")
-            ->selectRaw('count(distinct benefactor_id) as total_donors')
-                ->where('charity_program_id', $id)
-            ->first();
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+    
+        $stats['total_donation'] = $programStats->sum('amount'); 
+        $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
 
         $data = [
             'program' => $program,
-            'programStats' => $programStats
+            'programStats' => $stats
         ]; 
 
         $pdf = PDF::loadView('reports/charity/program', $data);

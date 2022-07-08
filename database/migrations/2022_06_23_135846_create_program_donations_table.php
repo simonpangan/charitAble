@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('charity_program_id')->constrained();
             $table->foreignId('benefactor_id')->constrained();
-            $table->string('amount');
+            $table->text('amount');
             $table->timestamp('donated_at');
-            $table->string('transaction_id');
-            $table->string('blockchain_transaction')->nullable();
-            $table->string('tip_price');
+            $table->text('transaction_id');
+            $table->text('blockchain_transaction')->nullable();
+            $table->text('tip_price');
             $table->string('message')->nullable();
             $table->boolean('is_anonymous');
             $table->index(['charity_program_id', 'benefactor_id']);
