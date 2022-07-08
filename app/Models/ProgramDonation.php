@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Benefactor;
 use Illuminate\Support\Carbon;
+use App\Models\Charity\CharityProgram;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 
@@ -31,5 +32,10 @@ class ProgramDonation extends Pivot
     public function benefactor()
     {
         return $this->belongsTo(Benefactor::class);
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(CharityProgram::class, 'charity_program_id');
     }
 }

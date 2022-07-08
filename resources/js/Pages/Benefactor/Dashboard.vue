@@ -129,6 +129,9 @@
                       <th style="width: 20%;" class="text-center">
                         Amount
                       </th>
+                      <th style="width: 20%;" class="text-center">
+                        Blockchain transaction
+                      </th>
                       <th style="width: 30%;" class="text-center">
                         Donated At 
                       </th>
@@ -138,9 +141,10 @@
      
                     <tr v-for="(donation, index) in programDonations.data" :key="index">
                       <td class="text-center">{{ programDonations.from + index }}</td>
-                      <td>{{ donation.name }}</td>
+                      <td>{{ donation.program.name }}</td>
                       <td>{{ donation.amount }}</td>
-                      <td>{{ donation.pivot.donated_at_formatted }}</td>
+                      <td>{{ donation.blockchain_transaction }}</td>
+                      <td>{{ donation.donated_at_formatted }}</td>
                     </tr>
                     <tr v-if="programDonations.data.length == 0">
                       <td class="dataTables-empty" colspan="4" width="1300">

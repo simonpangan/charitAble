@@ -25,24 +25,30 @@ class BenefactorDashboardController extends Controller
 
     private function getBenefactorStats() {
         $donationStats =  ProgramDonation::query()
-            ->selectRaw("sum(amount) as total_donation")
             ->selectRaw("count(*) as total_number_donations")
-            ->where('benefactor_id' , Auth::id())
             ->first()
             ->getAttributes();
+            
+            $charityFollowing = CharityFollowers::where('benefactor_id', Auth::id())->count();
 
-        $charityFollowing = CharityFollowers::where('benefactor_id', Auth::id())->count();
-
-        $totalCharitiesDonated = $this->getBenefactorAuth()->programDonations()
+            $totalCharitiesDonated = $this->getBenefactorAuth()->programDonations()
             ->latest('donated_at')
             ->get(['charity_id'])
             ->pluck('charity_id')
             ->unique()
             ->count();
 
+            $benefactorDonation = ProgramDonation::query()
+                ->select(['amount'])
+                ->where('benefactor_id' , Auth::id())
+                ->get();
+        
+        $benefactorDonation = $benefactorDonation->sum('amount');
+
         return array_merge($donationStats, 
             ['total_charities_followed' => $charityFollowing] + 
-            ['total_charities_donated' => $totalCharitiesDonated]
+            ['total_charities_donated' => $totalCharitiesDonated] +
+            ['total_donation' => $benefactorDonation]
         );
     }
 
@@ -53,9 +59,11 @@ class BenefactorDashboardController extends Controller
 
     private function getProgramDonations()
     {
-        return $this->getBenefactorAuth()->programDonations()
-        ->latest()
-        ->paginate(10, ['name', 'program_donations.amount']);
+        return ProgramDonation::query()
+            ->with('program')
+            ->where('benefactor_id', Auth::id())
+            ->latest('donated_at')
+            ->paginate(10);
     }
 
     private function getCharities()
@@ -66,9 +74,5 @@ class BenefactorDashboardController extends Controller
             ->pluck('charity_id')->unique()->toArray();
 
         return Charity::whereIn('id', $charityID)->paginate(10);
-    }
-
-    private function getTotalDonation(){
-        return dd();
     }
 }
