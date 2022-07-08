@@ -6,7 +6,9 @@
 				<div class="row">
 					<template v-if="program.supporters.length != 0">
 						<div v-for="supporter in program.supporters" :key="supporter.id" class="col-md-3">
-							<div class="border job-item mb-3">
+							<a href="https://rinkeby.etherscan.io/tx/0x707aae768bf91a260ecb28c6f69b033974db9e0ae9b62d76c77b78fdd63666e8"
+							target="_blank">
+								<div class="border job-item mb-3">
 								<div class="d-flex align-items-center p-3 job-item-header">
 									<div class="overflow-hidden me-2">
 										<h6 class="font-weight-bold text-dark mb-0 text-truncate">
@@ -28,6 +30,7 @@
 									</small>
 								</div>
 							</div>
+							</a>
 						</div>
 					</template>
 					<div v-else>
