@@ -3,7 +3,6 @@
 namespace App\Models\Charity;
 
 use App\Models\User;
-use App\Models\Location;
 use App\Models\Categories;
 use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityOfficers;
@@ -32,10 +31,6 @@ class Charity extends Model
     public function officers()
     {
         return $this->hasMany(CharityOfficers::class);
-    }
-    public function documents()
-    {
-        return $this->hasMany(CharityDocuments::class);
     }
 
     public function posts()

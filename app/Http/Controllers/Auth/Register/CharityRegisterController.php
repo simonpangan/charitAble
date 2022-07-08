@@ -94,7 +94,6 @@ class CharityRegisterController extends Controller
             Storage::deleteDirectory('tmp/documents/'.$temporaryDocumentFile['folder']);
 
             TemporaryFile::findOrFail($temporaryDocumentFile['id'])->delete();
-            $this->storeCharityDocuments($id,$documentFileName);
         }
 
         event(new Registered($user));
@@ -173,13 +172,4 @@ class CharityRegisterController extends Controller
 
         return $request->hasFile('documentFile');
     }
-
-    public function storeCharityDocuments($id,$documentFileName){
-        $charityDocument = new CharityDocuments();
-        $charityDocument->charity_id = $id;
-        $charityDocument->path = 'charity/'.$id.'/'.'documents/'. $documentFileName;
-        $charityDocument->type = 'SEC or DTI';
-        $charityDocument->save();
-    }
-
 }
