@@ -148,11 +148,32 @@
                         </div>
                     </div>
                     <div v-if="$page.props.program.header != null" class="box shadow-sm border rounded bg-white mb-3">
-                        <!-- <div class="box-title border-bottom p-3">
-                            <h6 class="m-0">Recent Donations</h6>
-                        </div> -->
                         <div class="box-body p-3">
-                            <img class="img-fluid" :src="$page.props.program.header" alt="Program Header">
+                            <!-- <img class="img-fluid" :src="$page.props.program.header" alt="Program Header"> -->
+                            <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                    <img src="https://sebhastian.com/javascript-format-number-commas/javascript-format-number-commas.webp?ezimgfmt=ng%3Awebp%2Fngcb9%2Frs%3Adevice%2Frscb9-1" 
+                                    class="d-block w-100 img-fluid" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="https://news.tulane.edu/sites/default/files/021717_nba-allstar-clinic_6825_800_rr.jpg" 
+                                    class="d-block w-100 img-fluid" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="https://cdn.nba.com/manage/2021/06/Bembry_nbacares-784x523.jpg" 
+                                    class="d-block w-100 img-fluid" alt="...">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </aside>
