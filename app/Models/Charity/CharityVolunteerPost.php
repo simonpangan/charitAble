@@ -23,6 +23,7 @@ class CharityVolunteerPost extends Model
 
     protected $casts = [
         'is_virtual' => 'boolean',
+        'created_at' => 'datetime:l\\, F jS Y\\',
     ];
     
     public function getCreatedAtFormattedAttribute()

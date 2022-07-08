@@ -15,6 +15,9 @@
                                     <u>{{volunteerPost.charity.name}}</u>
                                 </Link>
                             </p>
+                             <p class="mb-0 text-muted"> 
+								Created at : {{volunteerPost.created_at}}
+							</p>
                         </div>
                         <div v-if="can.modify" class="profile-right ms-auto">
                             <Link class="btn btn-info btn-lg" 
