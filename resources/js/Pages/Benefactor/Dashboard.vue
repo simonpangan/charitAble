@@ -109,7 +109,7 @@
     <br />
     <div class="container mt-n10">
       <div class="row">
-        <div class="col">
+        <div class="col-md-8">
           <div class="card mb-4">
           <div class="card-header h4">Your Donations History</div>
           <div class="card-body">
@@ -132,18 +132,31 @@
                       <th style="width: 20%;" class="text-center">
                         Blockchain transaction
                       </th>
-                      <th style="width: 30%;" class="text-center">
+                      <th style="width: 40%;" class="text-center">
                         Donated At 
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-     
                     <tr v-for="(donation, index) in programDonations.data" :key="index">
                       <td class="text-center">{{ programDonations.from + index }}</td>
                       <td>{{ donation.program.name }}</td>
                       <td>{{ donation.amount }}</td>
-                      <td>{{ donation.blockchain_transaction }}</td>
+                      <td class="text-truncate">
+                       <a target="_blank" title="Go to ether scan"
+								          :href="'https://rinkeby.etherscan.io/tx/' + donation.blockchain_transaction">
+                          <input readonly :value="donation.blockchain_transaction" 
+                            class="d-inline-block text-truncate border-0" 
+                            disabled
+                            style="max-width: 150px;"
+                          />
+                        </a>
+                        
+                        <button title="Copy" 
+                          class="d-inline btn btn-primary btn-sm" @click="copy(donation.blockchain_transaction)">
+                          <i class="fad fa-clipboard"></i>
+                        </button>
+                      </td>
                       <td>{{ donation.donated_at_formatted }}</td>
                     </tr>
                     <tr v-if="programDonations.data.length == 0">
@@ -180,7 +193,7 @@
               </div>
             </div>
           </div>
-        </div>
+          </div>
         </div>
         <div class="col">
           <div class="card mb-4">
@@ -252,6 +265,9 @@ import axios from 'axios'
 import NProgress from 'nprogress'
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue';
+import useClipboard from 'vue-clipboard3';
+import Swal from 'sweetalert2';
+
 
   let props = defineProps({
     benefactor: Object,
@@ -291,6 +307,29 @@ import { ref } from 'vue';
 
     });
 
+  }
+
+
+  const copy = async (text) => {
+    const { toClipboard } = useClipboard()
+
+    await toClipboard(text);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Copied'
+      })
   }
 </script>
 
