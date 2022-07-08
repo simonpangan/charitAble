@@ -1,6 +1,6 @@
 <template>
     <Head title="Charity Program" />
-    <program-layout>
+    <program-layout v-bind:program="program">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="box shadow-sm border rounded bg-white mb-3">
                 <div class="box-title border-bottom p-3">

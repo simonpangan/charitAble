@@ -205,8 +205,6 @@ let withdrawRequest = (id) => {
                 'id' : id
             }), {
                 onSuccess: () => {
-                    Inertia.reload();
-
                     Swal.fire(
                         'Sent!',
                         'Your withdraw request has been sent.',
@@ -231,10 +229,8 @@ let cancelRequest = (id) => {
         if (result.isConfirmed) {
             Inertia.post(route('charity.program.withdraw-request.cancel', {
                 'id' : id
-            }), {} ,{
+            }), {} ,{   
                 onSuccess: () => {
-                    Inertia.reload();
-
                     Swal.fire(
                         'Sent!',
                         'Your withdraw request has been cancelled.',
@@ -251,9 +247,9 @@ let cancelRequest = (id) => {
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
+    props: ['program'],
     data () {
         return {
-            program: this.$page.props.program,        
             stats: this.$page.props.stats,        
         }
     },

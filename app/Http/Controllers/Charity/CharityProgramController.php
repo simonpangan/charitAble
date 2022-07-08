@@ -112,6 +112,7 @@ class CharityProgramController
             ->first()
             ->toArray();
 
+
         return Inertia::render(
             'Charity/Program/Show',
             [
@@ -243,7 +244,7 @@ class CharityProgramController
         }
     }
 
-    public function request(Request $request, $id)
+    public function withdrawRequest(Request $request, $id)
     {
         $request->validate([
             'amount' => ['required', 'int', 'min:0']
@@ -257,8 +258,8 @@ class CharityProgramController
                 'withdraw_requested_at' => now(),
             ]);
     }
-
-    public function cancel(int $id)
+    
+    public function cancelWithdrawRequest(int $id)
     {
         CharityProgram::query()
             ->findOrFail($id)
