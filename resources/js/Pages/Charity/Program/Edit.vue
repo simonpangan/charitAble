@@ -116,6 +116,7 @@
                             type="text"
                             class="form-control"
                             name="program_location"
+                            v-model="form.location"
                           />
                           <span v-if="form.errors.location" v-text="form.errors.description"
                             class="invalid-feedback d-block" role="alert">
