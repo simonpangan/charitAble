@@ -17,7 +17,7 @@
 										</h6>
 										<div class="small text-gray-500">
 											{{ (supporter.is_anonymous)  
-											? 'Anonymous User' + supporter.benefactor_id  
+											? 'Anonymous User'  
 											: supporter.benefactor.first_name + ' ' + supporter.benefactor.last_name 
 											}}
 										</div>
