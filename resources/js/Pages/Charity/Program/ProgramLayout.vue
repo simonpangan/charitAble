@@ -6,29 +6,29 @@
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
                             <h3 class="font-weight-bold text-dark mb-1 mt-0"> 
-								{{$page.props.program.name}}
+								{{program.name}}
 							</h3>
                             <p class="text-muted"> 
 								A Program by 
                                 <Link class="text-dark" 
                                     :href="$route('charity.profile.index', {
-                                        'id' : $page.props.program.charity.id 
+                                        'id' : program.charity.id 
                                     })">
-                                    <u>{{$page.props.program.charity.name}}</u>
+                                    <u>{{program.charity.name}}</u>
                                 </Link>
 							</p>
                             <p class="text-muted"> 
-								Updated at : {{$page.props.program.updated_at}}
+								Updated at : {{program.updated_at}}
 							</p>
                         </div>
                        <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
                             <Link class="btn btn-success btn-lg" 
                                 :href="$route('charity.program.edit', 
-                                {id: $page.props.program.id})
+                                {id: program.id})
                             ">
                                 <i class="fad fa-edit"></i>
                             </Link>
-                            <Link  @click="deletePost($page.props.program.id)"
+                            <Link  @click="deletePost(program.id)"
                                 as="button" 
                                 class="btn btn-danger btn-lg ms-2" >  
                                 <i class="fad fa-trash"></i>
@@ -49,14 +49,14 @@
                                 <Link class="nav-link" 
                                 :class="{ 'active': $page.component === 'Charity/Program/Show' }"
                                 :href="$route('charity.program.show', {
-                                    'id': this.$page.props.program.id
+                                    'id': program.id
                                 })">Program Description</Link>
                             </li>
                             <li class="nav-item">
                                 <Link class="nav-link" 
                                 :class="{ 'active': $page.component === 'Charity/Program/Supports' }"
                                 :href="$route('charity.program.supporters', {
-                                    'id': this.$page.props.program.id
+                                    'id': program.id
                                 })">Supporters</Link>
                             </li>
                         </ul>
@@ -68,15 +68,15 @@
                 <aside class="col col-xl-4 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                     <div v-if="this.$page.props.can.modify">
                         <a :href="$route('charity.program.report', {
-                            'id': this.$page.props.program.id
+                            'id': program.id
                         })" class="btn btn-block btn-lg btn-primary w-100 mb-3">
                             Download Report
                             <i class="fad fa-download ms-2"></i> 
                         </a>
-                        <div v-if="this.$page.props.program.has_withdraw_request">
+                        <div v-if="program.has_withdraw_request">
                             <div class="input-group mb-3">
                                 <input type="number" class="form-control" placeholder="Amount" 
-                                    :value="this.$page.props.program.withdraw_request_amount"
+                                    :value="program.withdraw_request_amount"
                                     disabled>
                                 <Button @click="cancelRequest($page.props.program.id)"
                                     method="post" as="button" type="button"
@@ -115,22 +115,22 @@
                             </div>
                             <div>
                                 <h3 class="mx-auto nmb-1">
-                                    {{$page.props.stats.total_donation.toLocaleString()}}
+                                   {{stats.total_donation.toLocaleString()}}
                                 </h3>
                                 <p class="">funded out of 
                                     <span class="fa-1x text-gray-300">₱</span>
-                                    {{$page.props.program.total_needed_amount.toLocaleString()}}
+                                    {{program.total_needed_amount.toLocaleString()}}
                                 </p>
                             </div>
                             <div>
                                 <h5>
                                   <span class="fa-1x">₱</span>
-                                    {{$page.props.program.total_withdrawn_amount.toLocaleString()}}
+                                    {{program.total_withdrawn_amount.toLocaleString()}}
                                 </h5>
                                 <p class="text-muted">Withdrawn Money</p>
                             </div>
                             <div>
-                                <h5>{{$page.props.stats.total_donors}}</h5>
+                                <h5>{{stats.total_donors}}</h5>
                                 <p class="text-muted">Total Donors</p>
                             </div>
                             <div>
@@ -247,11 +247,17 @@ let cancelRequest = (id) => {
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
-    props: ['program'],
+    data () {
+        return {
+            program: this.$page.props.program,        
+            stats: this.$page.props.stats,        
+        }
+    },
     computed: {
         donationPercentage() {
-            var percentage = Math.round((this.$page.props.stats.total_donation / this.$page.props.program.total_needed_amount) * 100);
-            return (percentage >= 100) ? '100' : percentage ;
+            // var percentage = Math.round((this.$page.props.stats.total_donation / program..total_needed_amount) * 100);
+            // return (percentage >= 100) ? '100' : percentage ;
+            return 1;
         },     
     },
     methods: {
