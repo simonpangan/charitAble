@@ -347,73 +347,6 @@
             'is_anonymous' : this.is_anonymous
           });
       },
-      paymongoCardTransaction() {
-        //
-            // VALIDATION
-        //
-        // NProgress.start();
-        this.cardProcessing = true;
-         axios.post(route('paymongo.payment_intent'), {
-            'program_id' : this.program.id, 
-            'price' : this.price,
-            'tip_level': this.tip_level,
-            // 'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY',
-            // 'is_anonymous' : this.is_anonymous
-         })
-            .then(paymentIntentResponse => {
-
-                  axios.post('https://api.paymongo.com/v1/payment_methods', {
-                        data: this.card
-                      },
-                      {
-                          auth: {
-                          username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
-                        },
-                        Accept: 'application/json', 
-                        'Content-Type': 'application/json'
-                      })
-                      .then(methodResponse => {
-                              var paymentMethod = methodResponse.data.data;
-                              var paymentIntentID = paymentIntentResponse.data;
-
-                              axios.post(`https://api.paymongo.com/v1/payment_intents/${paymentIntentID}/attach`,{
-                                 "data": {
-                                      "attributes": {
-                                          "payment_method": paymentMethod.id,
-                                          "client_key": "pk_test_3iPrAbFgvFQBnKsUkkFKpfUm",
-                                      }
-                                }
-                              }, {
-                                Accept: 'application/json', 
-                                'Content-Type': 'application/json',
-                                 auth: {
-                                  username: 'sk_test_TXVUjuMBu7sJk8vSDQnCfjUb',
-                                },
-                              }).then(finalResponse => {
-                   
-                                var cardPay = finalResponse.data.data.attributes.payments[0];
-                                var paymentMethod = finalResponse.data.data.attributes;
-
-                                  axios.post(route('paymongo.cardPay'), {
-                                    'program_id' : this.program.id,
-                                    'tip_level' : this.tip_level,
-                                    'price' : this.price,
-                                    'is_anonymous' : this.is_anonymous,
-                                    'payment_created_at': '',
-                                    'net_amount': cardPay.attributes.net_amount,
-                                    'payment_created_at': cardPay.attributes.paid_at,
-                                  }).then(last => {
-                                    this.cardProcessing = false;
-                                  });
-
-                              });
-                      })
-                      .catch(error => {
-                        console.log(error);
-                      })
-              }
-          )
-      }
     },
     openCreditCardForm:function(){
       this.payment_method = 'credit_card';
@@ -422,7 +355,8 @@
       charitable_tip() {
         if(!this.v$.$error){
             return this.price * (this.tip_level / 100);
-        }else return '0';
+        }
+        else return '0';
       },
       transaction_fee() {
         if (this.payment_method == 'gCash') {
@@ -435,8 +369,9 @@
       },
       total_price() {
         if(!this.v$.$error){
-            return this.price - (this.price * (this.tip_level / 100) - this.transaction_fee);  
-        }else return 'N/A';
+            return this.price - (this.charitable_tip + this.transaction_fee);  
+        }
+        else return 'N/A';
       },
       isPaymongoTransaction() {
         return  this.payment_method == 'gCash' ||  this.payment_method == 'grabPay';
