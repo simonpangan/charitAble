@@ -5,9 +5,6 @@
         <div class="col-md-4 mx-auto">
           <div class="py-4">
             <div class="text-center mb-4">
-              <a href="index.html">
-                <img src="img/logo.svg" alt="charitAble logo" />
-              </a>
               <h5 class="font-weight-bold">First, let's find your account</h5>
               <p class="text-muted">Please enter your email address</p>
             </div>
@@ -53,9 +50,6 @@
               <button type="submit" :disabled="form.processing" class="btn btn-primary d-block w-100 text-uppercase"> Send Password Reset Link </button>
               <div class="py-3 d-flex align-item-center">
                 <Link :href="$route('auth.index')">Sign In</Link>
-                <span class="ms-auto"> New to Osahanin? 
-                  <a class="fw-bold" href="sign-up.html">Join now</a>
-                </span>
               </div>
             </form>
           </div>
