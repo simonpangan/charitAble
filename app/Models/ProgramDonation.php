@@ -12,6 +12,8 @@ class ProgramDonation extends Pivot
 {
 	public $timestamps = false;
 
+    public $incrementing = true;
+
     public $table = 'program_donations';
 
     protected $appends = ['donated_at_formatted'];
