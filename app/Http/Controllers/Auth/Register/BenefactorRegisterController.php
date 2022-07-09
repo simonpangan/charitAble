@@ -68,12 +68,8 @@ use App\Models\Categories;
                 'last_name' => $data['last_name'],
                 'gender' => $data['gender'],
                 'city' => $data['city'],
-                'age' => $data['age'],
+                'birth_date' => $data['birth_date'],
                 'preferences' => $data['preferences'],
-                'total_donation' => 0,
-                'total_charities_donated' => 0,
-                'total_charities_followed' => 0,
-                'total_number_donations' => 0,
             ]);
         }
     }
