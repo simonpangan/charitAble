@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Charity\Charity;
 use App\Mail\ApproveCharityMail;
 use App\Http\Controllers\Controller;
+use App\Mail\DisapproveCharityMail;
 use Illuminate\Support\Facades\Mail;
 
 class AdminApprovalController extends Controller
@@ -18,13 +19,18 @@ class AdminApprovalController extends Controller
             ->send(new ApproveCharityMail($charity));
 
         $charity->update(['charity_verified_at' => now()]);
-
-        return to_route('admin.home.index');
     }
     
     public function disApprove(Request $request)
     {
-        Charity::findOrFail($request->id)->update(['charity_verified_at' => null]);
+        dd($request->message);
+        
+        $charity = Charity::findOrFail($request->id);   
+
+        Mail::to($charity->charity_email)
+            ->send(new DisapproveCharityMail($charity, $request->message));
+
+        $charity->update(['charity_verified_at' => null]);
 
         return to_route('admin.home.index');
     }

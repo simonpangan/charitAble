@@ -90,13 +90,10 @@
                            >
                            <i class="fas fa-times-circle"></i>
                         </Link>
-                        <Link class="btn btn-primary" v-else 
-                          :href="$route('admin.approval.approve')" 
-                           :data="{ id: charity.id }" 
-                          method="post" as="button" type="button"
-                          v-on:click.prevent="createEthAddress(charity.id)">
+                        <button class="btn btn-primary" v-else 
+                          v-on:click.prevent="approve(charity.id)">
                           <i class="fas fa-badge-check"></i>
-                        </Link>
+                        </button>
                         <a class="btn btn-info d-inline"  title="Download Charity Documents" :href="$route('admin.home.download', {
                           'id': charity.id
                         })">
@@ -207,51 +204,81 @@ let savePermit = (e, charityID) => {
                   )
               },
             }
-          );
+          );  
       } else {
         e.target.reset();
       }
   });
 }
 
-let createEthAddress = (charityID)=>{
-    try{
-    return axios({
+let approve = (charityID) => {
+
+Swal.fire({
+  title: 'Are you sure?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, approve it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+     Swal.fire({
+      title: 'Approving !',
+      html: 'This may take a while.',
+      allowOutsideClick: false,
+      type: "info",
+      showLoaderOnConfirm: true,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+    });
+    Inertia.post(route('admin.approval.approve'), {
+      id: charityID
+    }, {
+        onSuccess: (page) => {
+          createETHAddress(charityID);
+        },
+    });
+  }
+});
+}
+
+let createETHAddress = (charityID) => {
+   return axios({
+      method: 'POST',
+      url: route('admin.eth.check'),
+      data: {
+        'charityId': charityID,
+      }
+    }).then((response) => {
+        if(response.data == 'empty'){
+            let createdAccount = web3.eth.accounts.create();
+            axios({
                 method: 'POST',
-                url: route('admin.eth.check'),
-                data: {
-                  'charityId': charityID,
+                url: route('admin.eth.create'),
+                data:{
+                    'charityId': charityID,
+                    'ethAddress' : createdAccount.address
                 }
-              }).then((response) => {
-                    if(response.data == 'empty'){
-                        let createdAccount = web3.eth.accounts.create();
-                        axios({
-                            method: 'POST',
-                            url: route('admin.eth.create'),
-                            data:{
-                                'charityId': charityID,
-                                'ethAddress' : createdAccount.address
-                            }
-                        }).then((response) => {
-                            Swal.fire(
-                                'Success!',
-                                'Ethereum Address created.',
-                                'success'
-                            )
-                        }).catch((error)=>{
-                            console.log(error);
-                        })
-                    };
-                return response;
-                
-              }).catch((error) => {
-                console.log(error);
-              });
+            }).then((response) => {
+                Swal.fire(
+                    'Success!',
+                    'Ethereum Address created.',
+                    'success'
+                )
 
-
-    }catch(e){
-        console.log(e);
-    }
+                Inertia.reload();
+            });
+        } else {
+          Swal.fire(
+            'Success!',
+            'Charity has been approved.',
+            'success'
+          )
+        }
+    
+      return response;
+    });
 }
 </script>
 
