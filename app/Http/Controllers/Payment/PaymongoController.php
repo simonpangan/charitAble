@@ -79,10 +79,9 @@ class PaymongoController
             abort(403);
         }
         
-
         $totalDonation = ($payment->net_amount / 100) - $charitableTip; 
 
-        ProgramDonation::create([
+        $programDonation = ProgramDonation::create([
             'benefactor_id' => Auth::id(),
             'charity_program_id' => $paymentDetails['program_id'],
             'amount' => $totalDonation,
@@ -92,13 +91,14 @@ class PaymongoController
             'is_anonymous' => ($paymentDetails['is_anonymous'] == 'true') ? 1 : 0,
         ]);
 
+        session(['program_donation_id' => $programDonation->id]);
+
         Auth::user()->createLog($message);
         
         Paymongo::payment()->find($payment->id);
 
         return to_route('charity.donate.create', [
             'id' => $paymentDetails['program_id'],
-            'payment_id' => $paymentID
         ])->with(
            'message', 'Sucessful G-Cash Transaction'
         );
