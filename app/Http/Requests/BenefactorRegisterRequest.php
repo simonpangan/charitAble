@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Categories;
+use App\Rules\LegalAgeRule;
 use App\Rules\MaxWordsRule;
 use App\Enums\CharityCategory;
-use App\Models\Categories;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
@@ -55,7 +56,7 @@ class BenefactorRegisterRequest extends FormRequest
     private function stepTwoRules() : array
     {
         return array_merge($this->stepOneRules(), [
-            'age' => ['required', 'numeric', 'min:18', 'max:100'],
+            'birth_date' => ['required', 'date', new LegalAgeRule(18)],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
             'city' => ['required', 'string', 'max:50'],
         ]);

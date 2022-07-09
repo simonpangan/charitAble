@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('first_name');
             $table->text('last_name');
             $table->string('gender');
-            $table->smallInteger('age');
+            $table->date('birth_date');
             $table->string('city');
             $table->string('preferences');
         });

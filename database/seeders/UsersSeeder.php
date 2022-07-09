@@ -61,7 +61,7 @@ class UsersSeeder extends Seeder
             'first_name' => 'Simon Joseph',
             'last_name' => 'Pangan',
             'gender' => 'Male', 
-            'age' => '22',
+            'birth_date' => now(),
             'city' => 'Valenzuela',
             'preferences' => [ 1, 2, 3 ,4 ,5],
         ]);

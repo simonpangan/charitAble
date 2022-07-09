@@ -130,15 +130,15 @@
                 <div class="col">
                   <div class="form-group">
                     <label class="mb-1">Age <span class="text-danger">*</span></label>
-                      <input v-model="form.age" type="number" class="form-control" />
-                      <div v-if="form.errors.age" class="text-danger">
-                        {{ form.errors.age }}
+                      <input v-model="form.birth_date" type="date" class="form-control" />
+                      <div v-if="form.errors.birth_date" class="text-danger">
+                        {{ form.errors.birth_date }}
                       </div>
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Gender</label>
+                    <label class="mb-1">Gender <span class="text-danger">*</span></label>
                       <select v-model="form.gender" class="form-select" aria-label="Default select example">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -244,7 +244,7 @@
         email: null,
         password: null,
         password_confirmation: null,
-        age: null,
+        birth_date: null,
         gender: null,
         city: null,
         preferences: [],
