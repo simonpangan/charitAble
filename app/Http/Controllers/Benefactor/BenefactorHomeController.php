@@ -38,7 +38,7 @@ class BenefactorHomeController
 
     private function getDonationCount()
     {
-        return ProgramDonation::where('benefactor_id', Auth::id())->sum('amount');
+        return ProgramDonation::where('benefactor_id', Auth::id())->get('amount')->sum('amount');
     }
 
     private function userHasFollowing()   
