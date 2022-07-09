@@ -6,8 +6,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <template v-if="volunteerPost.length > 0">
-                             <div v-for="volunteer_post in volunteerPost" :key="volunteer_post.id" class="col-md-6">
+                            <template v-if="volunteerPost.data.length > 0">
+                             <div v-for="volunteer_post in volunteerPost.data" :key="volunteer_post.id" class="col-md-6">
                                 <Link :href="$route('charity.volunteer.show', {
                                     'id': volunteer_post.id
                                 })">
@@ -44,6 +44,26 @@
                         </div>
                     </div>
                 </div>
+                 <nav v-if="volunteerPost.data.length > 0">
+                    <ul class="pagination justify-content-center">
+                        <li  v-for="(link, index) in volunteerPost.links" :key="index"
+                            class="page-item"
+                            :class="[
+                                link.active ? 'active' : '',
+                                link.url ? 'pager' : '',
+                            ]"
+                        >
+                            <Component 
+                            :is="link.url ? 'Link' : 'span'"
+                            v-if="link.url" 
+                            :href="link.url" 
+                            v-html="link.label"
+                            class="page-link"
+                            >
+                            </Component>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </charity-layout>
@@ -53,7 +73,7 @@
 import CharityLayout from '../CharityLayout.vue';
 
 let props = defineProps({
-    volunteerPost: String,
+    volunteerPost: Object,
 });
 
 </script>
