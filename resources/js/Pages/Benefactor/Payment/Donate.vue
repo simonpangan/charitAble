@@ -9,9 +9,6 @@
               <div class="box shadow-sm border rounded bg-white mb-3">
                 <div class="box-body p-3">
                   <div class="alert alert-info" role="alert"> Every cent of your donation is protected, learn more about our transparency program. </div>
-                  <div class="alert alert-info" role="alert"> 
-                    TERMS CONDITION
-                  </div>
                   <div class="row">
                     <div class="col-sm-12 mb-2">
                       <label class="sr-only mb-2" for="">Enter your donation: </label>
@@ -27,7 +24,7 @@
                       <span class="text-danger" v-if="v$.price.$error"> {{ v$.price.$errors[0].$message }} </span>
                     </div>
                   </div>
-                  <p class="text-dark nmb-1"> You are supporting towards the program : <strong class="text-dark">{{this.$page.props.program.program_name}}</strong>
+                  <p class="text-dark nmb-1"> You are supporting towards the program : <strong class="text-dark">{{this.$page.props.program.name}}</strong>
                   </p>
                   <p class="text-muted">
                     <small> Your contribution will help {{charity.name}}</small>
@@ -53,7 +50,7 @@
                   <div v-if="$page.props.flash.blockchain_message" role="alert"
                     class="alert alert-success w-80 mx-auto text-center">
                       {{ $page.props.flash.blockchain_message.message }}
-                      <a target="_blank" class="text-black text-decoration-underline" 
+                      <a target="_blank" class="text-black text-decoration-underline"
                       :href="'https://rinkeby.etherscan.io/tx/' + $page.props.flash.blockchain_message.transaction">
                       {{ $page.props.flash.blockchain_message.transaction }}
                           DESCRIPTIOnasdasdada
@@ -92,6 +89,10 @@
                     <div  v-if="isPaymongoTransaction" class="d-grid gap-2">
                       <button class="btn btn-warning btn-lg mt-3" v-on:click.prevent.self="paymongoEWalletTransaction">Proceed</button>
                     </div>
+                
+                    <div class="form-check" v-if="isPaymongoTransaction || this.payment_method == 'paypal'">
+                      <label class="form-check-label fst-italic mt-2" for="flexCheckDefault"><small> By clicking this button, you agree to Charitable Terms and Agreement, Privacy Policy & Benefactor-Charity Transparency Agreement</small></label>
+                    </div>
                   </section>
                 </div>
               </div>
@@ -101,7 +102,7 @@
         <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
           <div class="box shadow-sm border rounded bg-white mb-3">
             <div class="box-body p-3">
-              <p class="fw-bold">Breakdown</p>
+              <p class="fw-bold text-dark">Breakdown</p>
               <div class="d-flex">
                 <p>Your Donation</p>
                 <p class="text-muted ms-auto">{{price}}</p>
@@ -113,11 +114,14 @@
               <div class="d-flex" v-if="payment_method != null">
                 <p v-if="payment_method == 'gCash'">GCash Fee</p>
                 <p v-else-if="payment_method == 'grabPay'">Grab Pay Fee</p>
+                <p v-else-if="payment_method == 'paypal'">Paypal Fees</p>
+
                 <p class="text-muted ms-auto">{{transaction_fee}}</p>
               </div>
               <hr />
               <div class="d-flex">
-                <p class="text-dark">Total Contribution</p>
+                <p class="text-dark">Total Contribution</p><i class="fad fa-info-circle mt-1 ms-2 text-primary"
+                title="This is the total amount of what the charity will recieve."></i>
                 <p class="text-dark ms-auto">{{total_price}}</p>
               </div>
             </div>
@@ -125,7 +129,7 @@
           <div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center"></div>
           <div class="card mb-4">
             <div class="card-header py-3">
-              <h5 class="mb-0">Benefactor Protections</h5>
+              <h6 class="mb-0">Benefactor Protections</h6>
             </div>
             <div class="card-body">
                 <p>In CharitAble, every benefactor deserves best experience. Learn more about our transparency and accountability program</p>
@@ -141,14 +145,13 @@
   import { Inertia } from "@inertiajs/inertia";
   import axios from 'axios';
   import { loadScript } from "@paypal/paypal-js";
-  import NProgress from 'nprogress'
   import charitableContract from "~blockchain/charitable.js";
   import web3 from '~blockchain/web3.js';
   import contractAddress from '~blockchain/contract-address.js';
   import { toRaw } from 'vue';
   import Swal from 'sweetalert2';
   import useVuelidate from "@vuelidate/core";
-  import {helpers,required,numeric,minValue,maxValue,integer} from "@vuelidate/validators";
+  import {helpers,required,numeric,minValue,maxValue,integer,sameAs} from "@vuelidate/validators";
 
 
   export default {
@@ -160,8 +163,8 @@
 
       if(this.donated) {
         Swal.fire({
-          title: 'We are creating an etherium transaction please wait!',
-          html: 'This may take a while.',
+          title: 'Processing your Donation',
+          html: 'Please hang tight.',
           allowOutsideClick: false,
           type: "info",
           showLoaderOnConfirm: true,
@@ -171,7 +174,7 @@
         });
 
         var programDonation = toRaw(this.donated);
-        
+
         this.sendBlockchainTransaction(
           programDonation['amount'],
           programDonation['id']
@@ -188,35 +191,14 @@
       return {
         payment_method: null,
         price: 0,
+        blockchain_hash: '',
+        paypal_transaction_db_id:'',
         step: 0,
         tip_level: 5,
         tip_price: 0,
         charity_program_id: this.program.id,
         charity_name: this.program.name,
         is_anonymous: false,
-        cardProcessing: false,
-        card: {
-            "attributes": {
-                'details' :  {
-                'card_number' : '4343434343434345',
-                  'exp_month' : 12,
-                  'exp_year' : 25,
-                  'cvc' : "123",
-              },
-              'billing' : {
-                'address' : {
-                    'line1' : 'Somewhere there',
-                    'city' : 'Cebu City',
-                    'country' : 'PH', // no need
-                    'postal_code' : '6000',
-                },
-                'name' : 'Rigel Kent Carbonel',
-                'email' : 'rigel20.kent@gmail.com',
-                'phone' : '0935454875545'
-              },
-              "type": "card"
-            } 
-          },
         v$: useVuelidate(),
       };
     },
@@ -228,12 +210,13 @@
                 maxValue:helpers.withMessage("Maximum donation value is 50,000 PHP", maxValue(50000)),
                 numeric:helpers.withMessage("Please input valid donation amount", numeric),
                 integer:helpers.withMessage("Please input valid donation amount", integer),
+                termsAccepted: helpers.withMessage("Please indicate that you have read and agreed to the Terms and Conditions and Privacy Policy",sameAs)
             },
       }
     },
     methods: {
       async sendBlockchainTransaction(amount, programDonationID) {
-        
+
         const tx = {
           from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
           to: contractAddress,
@@ -251,7 +234,7 @@
         web3.eth.sendSignedTransaction(signature.rawTransaction)
           .on('receipt', (response) => {
                 Inertia.get(route('blockchain'), {
-                  'blokchain_transaction' : response.transactionHash, 
+                  'blokchain_transaction' : response.transactionHash,
                   'program_donation' : programDonationID,
                   'program_id' : this.program.id,
                 }, {
@@ -262,6 +245,49 @@
               );
           });
       },
+
+    async PaypalSendBlockchainTransaction(amount, programDonationID) {
+
+        const tx = {
+          from : "0xDF1aB5acdbd533b091Cd7448c2B54E7fB5479aBe", //payee
+          to: "0xd0a865C56344C61E1F6c73f2239A46baEb687ddB",
+          gas: 1000000,
+          data: charitableContract.methods.transfer(
+              "0xC5509DA8BED22aC2102e104042ba11f47ef5868d",   //transfer amount to
+              (amount * 100)
+            ).encodeABI()
+        }
+
+        const signature = await web3.eth.accounts.signTransaction(
+          tx, "5b6d9034b1491aab1bf0936163bf15859f36232c33498eb1233c3a2966f489c0" //private key ni payee
+        );
+
+        web3.eth.sendSignedTransaction(signature.rawTransaction)
+          .on('receipt', (response) => {
+                return axios({
+                method: 'POST',
+                headers: {},
+                url: route('blockchain-paypal'),
+                data: {
+                  'blockchain_transaction' : response.transactionHash,
+                  'program_donation' : programDonationID,
+                  'program_id' : this.program.id,
+                }
+              }).then((response) => {
+                this.blockchain_hash = response.transactionHash;
+                console.log(this.isEthTransactDone);
+                Swal.close();
+                    Inertia.visit(route('charity.donate.success', {
+                            id: this.charity_program_id,
+                            transaction_id: this.paypal_transaction_db_id
+                    }))
+              }).catch((error) => {
+                console.log(error);
+              })
+          });
+      },
+
+
       updateSlider: function(e) {
         let clickedElement = e.target,
           min = clickedElement.min,
@@ -317,12 +343,18 @@
                     'description' : "Donation for the program" + this.charity_name
                   }
                 }).then((response) => {
-                  //Web3
-                  //Axios post
-                  Inertia.visit(route('charity.donate.success', {
-                    id: this.charity_program_id,
-                    transaction_id: orderData.id
-                  }))
+                    Swal.fire({
+                    title: 'Processing your Donation',
+                    html: 'Please hang tight.',
+                    allowOutsideClick: false,
+                    type: "info",
+                    showLoaderOnConfirm: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    },
+                    });
+                   this.paypal_transaction_db_id = response.data;
+                   this.PaypalSendBlockchainTransaction(this.total_price,response.data);
                 })
               });
             }
@@ -336,10 +368,10 @@
       },
       PaymongoSelected: function(type) {
         this.payment_method = type;
-      },  
+      },
       paymongoEWalletTransaction() {
           Inertia.get(route('paymongo'), {
-            'program_id' : this.program.id, 
+            'program_id' : this.program.id,
             'price' : this.price,
             'tip_level': this.tip_level,
             'wallet': (this.payment_method == 'gCash')  ? 'G-CASH' : 'GRAB PAY',
@@ -364,11 +396,14 @@
         else if (this.payment_method == 'grabPay') {
           return this.price * 0.022;
         }
+        else if (this.payment_method == 'paypal'){
+            return this.price * 0.044 + 25;
+        }
         else return '0';
       },
       total_price() {
         if(!this.v$.$error){
-            return this.price - (this.charitable_tip + this.transaction_fee);  
+            return this.price - (this.charitable_tip + this.transaction_fee);
         }
         else return 'N/A';
       },
