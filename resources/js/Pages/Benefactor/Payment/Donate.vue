@@ -144,6 +144,7 @@
   import NProgress from 'nprogress'
   import charitableContract from "~blockchain/charitable.js";
   import web3 from '~blockchain/web3.js';
+  import contractAddress from '~blockchain/contract-address.js';
   import { toRaw } from 'vue';
   import Swal from 'sweetalert2';
   import useVuelidate from "@vuelidate/core";
@@ -233,20 +234,18 @@
     methods: {
       async sendBlockchainTransaction(amount, programDonationID) {
 
-        //PAYEE = charitable master address
         const tx = {
-          from : "0x5D4b9e91327314C79E1F16A7e5D1ACA09B48A8Ff", //payee
-          to: "0x2A9e2cCff89be59333E64DDDEd2a09dC7d1f11fB",  //contract address
+          from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
+          to: contractAddress,
           gas: 1000000,
           data: charitableContract.methods.transfer(
-              "0x887b8Ebd4e9e4f32555F3756ccc65568384CCf0d",   //transfer amount to
-              // change to charity eth address
-              Math.floor(amount) //will round down for the mean the donation amount
+              this.charity.eth_address,   //transfer amount to
+              (amount * 100)
             ).encodeABI()
         }
 
         const signature = await web3.eth.accounts.signTransaction(
-          tx, "85c09b6e7aa27ceda5a3cc8a897492376c6b6eb9a7d2dd7dd7e8a69f8b3cce3e" //private key ni payee
+          tx, "9a79ead2b40a2ada662e6a775b5454d89913b9ebb3253a954a16f03abf234b90" //private key ni payee
         );
 
         web3.eth.sendSignedTransaction(signature.rawTransaction)
