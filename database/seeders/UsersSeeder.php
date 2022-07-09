@@ -81,7 +81,11 @@ class UsersSeeder extends Seeder
 
         $charity->logs()->createMany($this->createLogsForUser());
         
-        $charity->charity()->create(Charity::factory()->raw());
+        $charity->charity()->create(
+            array_merge(Charity::factory()->raw(), [
+                'eth_address' => '0x30E54C2b235A15724d69Ac69855Fbd0A4E42E286'
+            ])
+        );
         
 
         // if (Log::where('user_id', $charity->id)->get()->count() < 5) {
