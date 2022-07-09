@@ -25,6 +25,7 @@ class AdminWithdrawRequestController extends Controller
     private function getProgramWithWithdrawRequest()
     {
         return CharityProgram::query()
+            ->with('charity:id,eth_address')
             ->where('has_withdraw_request', 1)
             ->paginate(15);
     }
@@ -43,7 +44,9 @@ class AdminWithdrawRequestController extends Controller
         
         $emails = User::find($benefactor_id, 'email')->pluck('email');
 
-        Mail::bcc($emails)->send(new WithdrawRequestMail($program));
+        Mail::to($program->charity->charity_email)
+            ->bcc($emails)
+            ->send(new WithdrawRequestMail($program, $request->blockchain_transaction));
 
         $program->update([
             'has_withdraw_request' => 0,
@@ -51,8 +54,6 @@ class AdminWithdrawRequestController extends Controller
             'withdraw_request_amount' => 0,
             'total_withdrawn_amount' => $program->total_withdrawn_amount + $program->withdraw_request_amount,
         ]);
-
-
 
         to_route('admin.withdraw.index');
     }

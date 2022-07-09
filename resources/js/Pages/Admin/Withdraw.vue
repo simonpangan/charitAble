@@ -57,7 +57,7 @@
                           type="button"
                           title="Approve Withdraw Request"
                           :disabled="isProcessing"
-                          @click="approveWithdraw(program.id)">
+                          @click="approveWithdraw(program.id, program.withdraw_request_amount, program.charity.eth_address)">
                           <div class="spinner-border spinner-border-sm" v-if="isProcessing" role="status">
                             <span class="visually-hidden">Loading...</span>
                           </div>
@@ -123,13 +123,15 @@ let props = defineProps({
 </script>
 
 <script> 
-  import  '../../../../public/css/datatable.css'; 
   import Swal from 'sweetalert2';
-
+  import web3 from '~blockchain/web3.js';
+  import  '../../../../public/css/datatable.css'; 
+  import charitableContract from "~blockchain/charitable.js";
+  import contractAddress from '~blockchain/contract-address.js';
 
   export default {
     methods: {
-      approveWithdraw(id) {
+      approveWithdraw(programID, amount, ethAddress) {
           Swal.fire({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",
@@ -140,16 +142,66 @@ let props = defineProps({
               confirmButtonText: 'Yes, approve it!'
           }).then((result) => {
               if (result.isConfirmed) {
-                  Inertia.get(
-                  route('admin.withdraw.approve'), { 
-                    id: id 
-                  },
-                );
+                   Swal.fire({
+                    title: 'Creating and sending etherium transaction please wait!',
+                    html: 'This may take a while.',
+                    allowOutsideClick: false,
+                    type: "info",
+                    showLoaderOnConfirm: true,
+                    didOpen: () => {
+                      Swal.showLoading()
+                    },
+                  });
+
+                  const transaction = this.sendBlockchainTransaction(amount, ethAddress);
+
+                  transaction.then(response => {
+                    Inertia.get(
+                      route('admin.withdraw.approve'), { 
+                        id: programID,
+                        'blockchain_transaction': response.transactionHash
+                      }, {
+                        onSuccess: page => {
+                          Swal.fire(
+                            'Send!',
+                            'Ethereum transaction sent!',
+                            'success',
+                          )
+                        }
+                      }
+                    );
+                  }).catch(error => {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Ethereum transaction failed',
+                      showConfirmButton: true,
+                      didOpen: () => {
+                        Swal.hideLoading()
+                      },
+                    })
+                  });
               }
 
             this.isProcessing = false;
           })
-      }
+      },
+      async sendBlockchainTransaction(amount, ethAddress) {
+        const tx = {
+          from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
+          to: contractAddress,
+          gas: 1000000,
+          data: charitableContract.methods.transferBack(
+              ethAddress, 
+              (amount * 100)
+            ).encodeABI()
+        }
+
+        const signature = await web3.eth.accounts.signTransaction(
+          tx, "9a79ead2b40a2ada662e6a775b5454d89913b9ebb3253a954a16f03abf234b90" //private key ni payee
+        );
+
+        return await web3.eth.sendSignedTransaction(signature.rawTransaction);
+      },
     }
   }
 </script>
