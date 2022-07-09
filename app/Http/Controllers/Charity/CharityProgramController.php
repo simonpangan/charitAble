@@ -40,7 +40,7 @@ class CharityProgramController
         return Inertia::render('Charity/Program/Index',[
             'programs' => CharityProgram::where(
                     'charity_id', $id
-                )->latest()->get(),
+                )->latest()->paginate(15),
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
@@ -188,7 +188,6 @@ class CharityProgramController
             });
         }]);
 
-
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
             ->where('charity_program_id', $id)
@@ -196,7 +195,7 @@ class CharityProgramController
         
         $stats['total_donation'] = $programStats->sum('amount'); 
         $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
-
+        
         return Inertia::render(
             'Charity/Program/Supports',
             [
