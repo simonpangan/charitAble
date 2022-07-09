@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Charity\Charity;
+use App\Mail\ApproveCharityMail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class AdminApprovalController extends Controller
 {
     public function approve(Request $request)
     {
-        Charity::findOrFail($request->id)->update(['charity_verified_at' => now()]);
+        $charity = Charity::findOrFail($request->id);   
+
+        Mail::to($charity->charity_email)
+            ->send(new ApproveCharityMail($charity));
+
+        $charity->update(['charity_verified_at' => now()]);
 
         return to_route('admin.home.index');
     }
