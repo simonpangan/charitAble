@@ -30,7 +30,7 @@
                   <p class="text-dark nmb-1"> You are supporting towards the program : <strong class="text-dark">{{this.$page.props.program.program_name}}</strong>
                   </p>
                   <p class="text-muted">
-                    <small> Your contribution will help {{this.$page.props.charity[0].name}}</small>
+                    <small> Your contribution will help {{charity.name}}</small>
                   </p>
                   <label for="customRange3" class="form-label mt-5">Enter tip</label>
                   <input type="range" min="0" max="30" step="5" v-model="tip_level" @input="updateSlider" :style="{backgroundSize: backgroundSize}" />
@@ -151,13 +151,13 @@
   import {helpers,required,numeric,minValue,maxValue,integer} from "@vuelidate/validators";
 
 
-  let paypal;
-
   export default {
     beforeMounted() {
       this.PaypalSelected();
     },
     async mounted() {
+      console.log(this.charity.eth_address);
+
       if(this.donated) {
         Swal.fire({
           title: 'We are creating an etherium transaction please wait!',
@@ -179,8 +179,8 @@
       }
     },
     props: {
-      charity: Array,
-      program: Array,
+      charity: Object,
+      program: Object,
       donated: Object,
       errors: Array,
     },
@@ -233,7 +233,7 @@
     },
     methods: {
       async sendBlockchainTransaction(amount, programDonationID) {
-
+        
         const tx = {
           from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
           to: contractAddress,

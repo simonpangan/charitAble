@@ -12,7 +12,7 @@ class BenefactorDonationController
 {
     public function index(int $id): Response
     {
-        $program = CharityProgram::query()->findOrFail($id);
+        $program = CharityProgram::findOrFail($id);
         $charity_id = $program->charity_id;
 
         //If user has donate
@@ -24,7 +24,7 @@ class BenefactorDonationController
 
         return Inertia::render('Benefactor/Payment/Donate',[
             'program' => $program,
-            'charity' => Charity::where('id',$charity_id)->get()->toArray(),
+            'charity' => Charity::find($charity_id),
             'donated' => $donated 
         ]); 
     }
