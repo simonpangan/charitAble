@@ -72,10 +72,16 @@ class CharityLogController extends Controller
     {
         return Log::query()
             ->visibleTo(Auth::user())  
-            ->when($request->input('from') && $request->input('to'), 
+            ->when($request->input('from') && $request->input('to') && ($request->input('from') != $request->input('to')), 
                     function ($query, $from) use ($request) {
                 $query->whereBetween('created_at', 
                     [$request->input('from'), $request->input('to')]
+                );
+            })
+            ->when($request->input('from') && $request->input('to') && ($request->input('from') == $request->input('to')), 
+                    function ($query, $from) use ($request) {
+                $query->whereBetween('created_at', 
+                    [$request->input('from') . ':00', $request->input('from') . ':59']
                 );
             })
             ->when($request->input('from') && ($request->input('to') == null), 
