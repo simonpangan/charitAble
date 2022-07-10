@@ -23,16 +23,16 @@ class AdminApprovalController extends Controller
     
     public function disApprove(Request $request)
     {
-        dd($request->message);
-        
-        $charity = Charity::findOrFail($request->id);   
+        $request->validate([
+            'message' => 'required'
+        ]);
+
+        $charity = Charity::findOrFail($request->charityID);   
 
         Mail::to($charity->charity_email)
             ->send(new DisapproveCharityMail($charity, $request->message));
 
         $charity->update(['charity_verified_at' => null]);
-
-        return to_route('admin.home.index');
     }
 
     public function permits(Request $request)

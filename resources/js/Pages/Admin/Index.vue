@@ -81,18 +81,30 @@
                         </div>
                       </td>
                        <td class="d-flex justify-content-evenly">
-                        <Link class="btn btn-danger" v-if="charity.charity_verified_at"
-                           :href="$route('admin.approval.disapprove')" 
-                           method="post" 
-                           :data="{ id: charity.id }" 
-                           as="button" type="button" title="Approve or Reject Charity Verification Application"
-                           >
-                           <i class="fas fa-times-circle"></i>
-                        </Link>
-                        <button class="btn btn-primary" v-else 
-                          v-on:click.prevent="approve(charity.id)">
-                          <i class="fas fa-badge-check"></i>
-                        </button>
+                        <template  v-if="charity.charity_verified_at">
+                          <button class="btn btn-danger"
+                            data-bs-toggle="modal" data-bs-target="#disapproveModal"
+                            title="Reject Charity Verification Application"
+                            v-on:click.prevent="form.charityID = charity.id"
+                          >
+                            <i class="fas fa-times-circle"></i>
+                          </button>
+                        </template>
+                        <template v-else>
+                          <button class="btn btn-primary" 
+                            v-on:click.prevent="approve(charity.id)">
+                            <i class="fas fa-badge-check"></i>
+                          </button>
+                           <button class="btn btn-danger"
+                            data-bs-toggle="modal" data-bs-target="#disapproveModal"
+                            title="Reject Charity Verification Application"
+                            v-on:click.prevent="form.charityID = charity.id"
+                          >
+                            <i class="fas fa-times-circle"></i>
+                          </button>
+                        </template>
+
+              
                         <a class="btn btn-info d-inline"  title="Download Charity Documents" :href="$route('admin.home.download', {
                           'id': charity.id
                         })">
@@ -143,17 +155,61 @@
         </div>
       </div>
     </main>
+      <!-- Modal -->
+      <div class="modal fade"
+          id="disapproveModal" tabindex="-1" 
+          aria-labelledby="disapproveModal" aria-hidden="true"
+          data-bs-backdrop="static" data-bs-keyboard="false">
+          <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Reason</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">
+                          Message  <span class="text-danger">*</span>
+                      </label>
+                      <textarea class="form-control" v-model="form.message" rows="3">
+                      </textarea>
+                      <div v-if="form.errors.message" class="text-danger d-block">
+                          {{ form.errors.message }}
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                  @click="form.reset()">Close</button>
+                  <button type="button" class="btn btn-primary" 
+                  :disabled="form.processing"
+                  @click="disapprove">
+                      <span v-if="! form.processing">
+                          Send
+                      </span>
+                      <span v-else>
+                          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                          Sending...
+                      </span>
+                  </button>
+                  </div>
+              </div>
+          </div>
+      </div>
 </template>
 
 <script setup>
 import debounce from 'lodash/debounce';
 import Swal from 'sweetalert2'
+import { Modal } from 'bootstrap';
 import {
     ref,
     watch,
+    onMounted
   } from 'vue';
 
 import {Inertia} from '@inertiajs/inertia';
+import { useForm } from '@inertiajs/inertia-vue3'
 import web3 from "~blockchain/web3.js";
 import axios from 'axios';
 
@@ -178,9 +234,8 @@ watch(search, debounce((value) => {
 }, 300));
 
 let savePermit = (e, charityID) => {
-    
   Swal.fire({
-      title: 'Are you sure?',
+    title: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -189,8 +244,8 @@ let savePermit = (e, charityID) => {
   }).then((result) => {
       if (result.isConfirmed) {
          Inertia.post(
-            route('admin.approval.permits'), { 
-              permits: e.target.value, 
+           route('admin.approval.permits'), { 
+             permits: e.target.value, 
               charityID: charityID, 
               }, {
               preserveState: true,
@@ -207,6 +262,34 @@ let savePermit = (e, charityID) => {
       } else {
         e.target.reset();
       }
+  });
+}
+
+let form  = useForm({
+  message: '',
+  charityID : null
+});
+
+const modal = ref()
+
+onMounted(() => {
+  modal.value = new Modal(document.getElementById('disapproveModal'), {
+      keyboard: false
+  });
+})
+
+let disapprove = () => {
+  form.post(route('admin.approval.disapprove'), {
+    onSuccess: () => {
+       Swal.fire(
+          'Success!',
+          'Succesfully disapprove charity.',
+          'success'
+      )
+      modal.value.hide();
+      form.reset();
+      Inertia.reload();
+    },
   });
 }
 
