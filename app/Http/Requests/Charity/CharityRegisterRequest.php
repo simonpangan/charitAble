@@ -27,23 +27,23 @@ class CharityRegisterRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->query->get('step') == 1) {   
-            return $this->stepOneRules();   
-        }
-        
-        if ($this->query->get('step') == 2) {   
-            return $this->stepTwoRules();   
+        if ($this->query->get('step') == 1) {
+            return $this->stepOneRules();
         }
 
-        return $this->stepTwoRules();   
+        if ($this->query->get('step') == 2) {
+            return $this->stepTwoRules();
+        }
+
+        return $this->stepTwoRules();
     }
 
     private function stepOneRules() : array
     {
         return [
             //'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
-            'name' => ['required', 'string', 'min:5', 'max:100',  "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/"],
-            'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'name' => ['required', 'string', 'min:5', 'max:100',  "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/", 'unique:charities,name'],
+            'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:charities,charity_email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'categories' => ['array', 'required'],
@@ -66,7 +66,8 @@ class CharityRegisterRequest extends FormRequest
         return [
             'charity_email.required' => 'The organization email field is required.',
             'email.required' => 'The head admin email field is required.',
-            'name.regex' => 'Charity name has an illegal special characters ( ! , @ , # , ^ , % , * , < , > , \ , / , { , } , ? , | , ~)'
+            'name.regex' => 'Charity name has an illegal special characters ( ! , @ , # , ^ , % , * , < , > , \ , / , { , } , ? , | , ~)',
+            'name.unique' => 'Charity name is already taken',
         ];
     }
 }

@@ -210,6 +210,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
         Route::get('charity/program/{id}', 'show')->name('charity.program.show');
         Route::get('charity/program/{id}/supporters', 'supporters')->name('charity.program.supporters');
+        Route::get('charity/program/{id}/gallery', 'gallery')->name('charity.program.gallery');
+
     });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])

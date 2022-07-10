@@ -5,32 +5,32 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h3 class="font-weight-bold text-dark mb-1 mt-0"> 
+                            <h3 class="font-weight-bold text-dark mb-1 mt-0">
 								{{program.name}}
 							</h3>
-                            <p class="text-muted"> 
-								A Program by 
-                                <Link class="text-dark" 
+                            <p class="text-muted">
+								A Program by
+                                <Link class="text-dark"
                                     :href="$route('charity.profile.index', {
-                                        'id' : program.charity.id 
+                                        'id' : program.charity.id
                                     })">
                                     <u>{{program.charity.name}}</u>
                                 </Link>
 							</p>
-                            <p class="text-muted"> 
+                            <p class="text-muted">
 								Updated at : {{program.updated_at}}
 							</p>
                         </div>
                        <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
-                            <Link class="btn btn-success btn-lg" 
-                                :href="$route('charity.program.edit', 
+                            <Link class="btn btn-success btn-lg"
+                                :href="$route('charity.program.edit',
                                 {id: program.id})
                             ">
                                 <i class="fad fa-edit"></i>
                             </Link>
                             <Link  @click="deletePost(program.id)"
-                                as="button" 
-                                class="btn btn-danger btn-lg ms-2" >  
+                                as="button"
+                                class="btn btn-danger btn-lg ms-2" >
                                 <i class="fad fa-trash"></i>
                             </Link>
                         </div>
@@ -46,19 +46,28 @@
                     <div class="box shadow-sm rounded bg-white mb-3 overflow-hidden">
                         <ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <Link class="nav-link" 
+                                <Link class="nav-link"
                                 :class="{ 'active': $page.component === 'Charity/Program/Show' }"
                                 :href="$route('charity.program.show', {
                                     'id': program.id
                                 })">Program Description</Link>
                             </li>
                             <li class="nav-item">
-                                <Link class="nav-link" 
+                                <Link class="nav-link"
                                 :class="{ 'active': $page.component === 'Charity/Program/Supports' }"
                                 :href="$route('charity.program.supporters', {
                                     'id': program.id
                                 })">Supporters</Link>
                             </li>
+                            <li class="nav-item">
+                                <Link class="nav-link"
+                                :class="{ 'active': $page.component === 'Charity/Program/Gallery' }"
+                                :href="$route('charity.program.gallery', {
+                                    'id': program.id
+                                })">Gallery</Link>
+                            </li>
+
+
                         </ul>
                     </div>
                     <div class="tab-content" id="myTabContent">
@@ -71,11 +80,11 @@
                             'id': program.id
                         })" class="btn btn-block btn-lg btn-primary w-100 mb-3">
                             Download Report
-                            <i class="fad fa-download ms-2"></i> 
+                            <i class="fad fa-download ms-2"></i>
                         </a>
                         <div v-if="program.has_withdraw_request">
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control" placeholder="Amount" 
+                                <input type="number" class="form-control" placeholder="Amount"
                                     :value="program.withdraw_request_amount"
                                     disabled>
                                 <Button @click="cancelRequest($page.props.program.id)"
@@ -107,7 +116,7 @@
                         </div>
                         <div class="box-body p-3">
                             <div class="progress">
-                            <div class="progress-bar" role="progressbar" 
+                            <div class="progress-bar" role="progressbar"
                                 :style="{ width: donationPercentage + '%' }"
                                 :aria-valuenow="donationPercentage" aria-valuemin="0" aria-valuemax="100">
                                     {{ donationPercentage }} %
@@ -117,7 +126,7 @@
                                 <h3 class="mx-auto nmb-1">
                                     {{ formatNumber(stats.total_donation)}}
                                 </h3>
-                                <p class="">funded out of 
+                                <p class="">funded out of
                                     <span class="fa-1x text-gray-300">₱</span>
                                     {{ formatNumber(program.total_needed_amount)}}
                                 </p>
@@ -142,8 +151,8 @@
                                 :href="$route('charity.donate.create', {
                                     'id': $page.props.program.id
                              })">
-                                <i class="feather-plus"></i> 
-                                Donate Now! 
+                                <i class="feather-plus"></i>
+                                Donate Now!
                             </Link>
                         </div>
                     </div>
@@ -153,15 +162,15 @@
                             <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                    <img src="https://sebhastian.com/javascript-format-number-commas/javascript-format-number-commas.webp?ezimgfmt=ng%3Awebp%2Fngcb9%2Frs%3Adevice%2Frscb9-1" 
+                                    <img src="https://sebhastian.com/javascript-format-number-commas/javascript-format-number-commas.webp?ezimgfmt=ng%3Awebp%2Fngcb9%2Frs%3Adevice%2Frscb9-1"
                                     class="d-block w-100 img-fluid" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                    <img src="https://news.tulane.edu/sites/default/files/021717_nba-allstar-clinic_6825_800_rr.jpg" 
+                                    <img src="https://news.tulane.edu/sites/default/files/021717_nba-allstar-clinic_6825_800_rr.jpg"
                                     class="d-block w-100 img-fluid" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                    <img src="https://cdn.nba.com/manage/2021/06/Bembry_nbacares-784x523.jpg" 
+                                    <img src="https://cdn.nba.com/manage/2021/06/Bembry_nbacares-784x523.jpg"
                                     class="d-block w-100 img-fluid" alt="...">
                                     </div>
                                 </div>
@@ -211,7 +220,7 @@ let withdrawRequest = (id) => {
                         'success'
                     )
                 },
-            }); 
+            });
         }
     })
 };
@@ -229,7 +238,7 @@ let cancelRequest = (id) => {
         if (result.isConfirmed) {
             Inertia.post(route('charity.program.withdraw-request.cancel', {
                 'id' : id
-            }), {} ,{   
+            }), {} ,{
                 onSuccess: () => {
                     Swal.fire(
                         'Sent!',
@@ -237,7 +246,7 @@ let cancelRequest = (id) => {
                         'success'
                     )
                 },
-            }); 
+            });
         }
     })
 }
@@ -250,7 +259,7 @@ export default {
     props: ['program'],
     data () {
         return {
-            stats: this.$page.props.stats,        
+            stats: this.$page.props.stats,
         }
     },
     computed: {
@@ -258,9 +267,9 @@ export default {
             var percentage = Math.round(
                 (this.stats.total_donation / this.program.total_needed_amount) * 100
             );
-            
+
             return (percentage >= 100) ? '100' : percentage ;
-        },     
+        },
     },
     methods: {
         formatNumber(number) {
@@ -270,7 +279,7 @@ export default {
             this.$swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
-                icon: 'warning',    
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -278,7 +287,7 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     Inertia.delete(route('charity.program.destroy', {
-                        id: id 
+                        id: id
                     }), {
                         onSuccess: () => {
                             this.$swal.fire(
