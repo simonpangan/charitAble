@@ -199,7 +199,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('charity/program/{id}', 'show')->name('charity.program.show');
         Route::get('charity/program/{id}/supporters', 'supporters')->name('charity.program.supporters');
         Route::get('charity/program/{id}/gallery', 'gallery')->name('charity.program.gallery');
-
+        Route::get('charity/program/{id}/charitysuporters','charitysettings')->name('charity.program.setting');
     });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])

@@ -170,73 +170,6 @@
                 <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
-                            <h6 class="m-0">Similar pages</h6>
-                        </div>
-                        <div class="box-body p-3">
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/l1.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Charity 1</div>
-                                    <div class="small text-gray-500">Charity Category
-                                    </div>
-                                </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
-                           </span>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/l2.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Charity 2</div>
-                                    <div class="small text-gray-500">Charity Category
-                                    </div>
-                                </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
-                           </span>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/l3.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Charity 3</div>
-                                    <div class="small text-gray-500">Charity Category
-                                    </div>
-                                </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
-                           </span>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/l4.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Charity 4</div>
-                                    <div class="small text-gray-500">Charity Category
-                                    </div>
-                                </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
-                           </span>
-                            </div>
-                            <div class="d-flex align-items-center osahan-post-header people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/l5.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Charity 5</div>
-                                    <div class="small text-gray-500">Charity Category
-                                    </div>
-                                </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
-                           </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box shadow-sm border rounded bg-white mb-3">
-                        <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Active Programs</h6>
                         </div>
                         <div class="box-body p-3">
@@ -255,19 +188,6 @@
                                     </button>
                                 </span>
                             </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p9.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Programs 2</div>
-                                    <div class="small text-gray-500">Feeding Program
-                                    </div>
-                                </div>
-                                <span class="ms-auto"><button type="button" class="btn btn-outline-primary btn-sm">Donate Now</button>
-                           </span>
-                            </div>
-
                         </div>
                     </div>
                 </aside>
