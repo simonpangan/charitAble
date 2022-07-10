@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,8 +20,13 @@ class Log extends Model
 
     public $casts = [
         'activity' => 'encrypted',
-        'created_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
     ];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->toDayDateTimeString();
+    }
+
 
     public function scopeOrderByTimestamp($query, $field)
     {
