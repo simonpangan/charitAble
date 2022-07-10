@@ -94,8 +94,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::post('uploadProgramPhoto','uploadProgramPhoto')->name('program.store.image');
             Route::post('uploadProgramPhoto/revert','uploadProgramPhotoRevert')->name('program.revert.image');
 
-            Route::post('/program/{id}/withdraw-request', 'request')->name('program.withdraw-request');
-            Route::post('/program/{id}/withdraw-request/cancel', 'cancel')->name('program.withdraw-request.cancel');
+            Route::post('/program/{id}/withdraw-request', 'withdrawRequest')->name('program.withdraw-request');
+            Route::post('/program/{id}/withdraw-request/cancel', 'cancelWithdrawRequest')->name('program.withdraw-request.cancel');
         });
 
         Route::get('program/{id}/report', [CharityProgramReportController::class, 'redirect'])->name('program.report');
