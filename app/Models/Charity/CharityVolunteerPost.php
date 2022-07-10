@@ -2,6 +2,7 @@
 
 namespace App\Models\Charity;
 
+use DateTimeInterface;
 use App\Traits\CharityID;
 use App\Models\Benefactor;
 use App\Models\Categories;
@@ -23,8 +24,12 @@ class CharityVolunteerPost extends Model
 
     protected $casts = [
         'is_virtual' => 'boolean',
-        'created_at' => 'datetime:l\\, F jS Y\\',
     ];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->toDayDateTimeString();
+    }
     
     public function getCreatedAtFormattedAttribute()
     {

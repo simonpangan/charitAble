@@ -2,8 +2,9 @@
 
 namespace App\Models\Charity;
 
-use App\Models\Benefactor;
+use DateTimeInterface;
 use App\Traits\CharityID;
+use App\Models\Benefactor;
 use App\Models\Categories;
 use Illuminate\Support\Carbon;
 use App\Models\ProgramDonation;
@@ -26,6 +27,11 @@ class CharityProgram extends Model
     ];
 
     protected $appends = ['created_at_formatted'];
+    
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->toDayDateTimeString();
+    }
 
     public function charity()
     {

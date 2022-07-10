@@ -3,6 +3,7 @@
 namespace App\Models\Charity;
 
 use App\Models\User;
+use DateTimeInterface;
 use App\Models\Categories;
 use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityOfficers;
@@ -18,10 +19,11 @@ class Charity extends Model
     public $timestamps = false;
 
     protected $guarded = [];
-
-    public $casts = [
-        'created_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
-    ];
+    
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->toDayDateTimeString();
+    }
 
     public function user()
     {
