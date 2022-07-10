@@ -133,12 +133,6 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         });
     });
 
-    Route::get('charity/program/{id}/donate',[BenefactorDonationController::class,'index'])
-        ->name('charity.donate.create');
-    Route::get('charity/program/{id}/{transaction_id}/donate/success',[BenefactorDonationController::class,'successIndex'])
-        ->name('charity.donate.success');
-
-
     Route::group([
         'middleware' => 'role:BENEFACTOR',
         'as' => 'benefactor.',
@@ -148,8 +142,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             ->name('report.redirect');
         Route::get('/report',[ BenefactorReportController::class, 'generate'])
             ->name('report.generate')
-            ->middleware('signed')
-            ;
+            ->middleware('signed');
 
         Route::get('/logs', BenefactorLogController::class)
             ->name('logs.index');
@@ -196,12 +189,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
     });
 
 
-
-
-
-
-
-      //CAN BE ACCESS BY ANY VERIFIED USER
+    //CAN BE ACCESS BY ANY VERIFIED USER
     Route::get('charity/profile/{id?}', [CharityProfileController::class, 'index'])
         ->name('charity.profile.index')
         ->where('id', '[0-9]+');
@@ -260,19 +248,33 @@ Route::name('auth.')->group(function () {
 |
 */
 
-Route::get('/blockchain', BlockchainTransactionController::class)->name('blockchain');
-Route::post('/blockchain/paypal', [BlockchainTransactionController::class, 'PaypalUpdateBlockchainHash'])->name('blockchain-paypal');
+Route::group(
+    ['middleware' => ['role:BENEFACTOR', 'verified:auth.verification.notice']]
+    , function () {
 
-Route::get('/paymongo', [PaymongoController::class, 'pay'])->name('paymongo');
-Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
-Route::get('/paymongo/callback/failed', [PaymongoController::class, 'failed']);
+    Route::get('charity/program/{id}/donate', [BenefactorDonationController::class, 'index'])
+        ->name('charity.donate.create');
+    Route::get('charity/program/{id}/donate/{donation_id}/success', [BenefactorDonationController::class, 'successIndex'])
+        ->name('charity.donate.success');
 
-Route::get('/paymongo/search', [PaymongoController::class, 'search']);
+    Route::get('/blockchain', BlockchainTransactionController::class)->name('blockchain');
+    Route::post('/blockchain/paypal', [BlockchainTransactionController::class, 'PaypalUpdateBlockchainHash'])->name('blockchain-paypal');
 
-Route::post('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent'])->name('paymongo.payment_intent');
-Route::post('/paymongo/cardPay', [PaymongoController::class, 'cardPay'])->name('paymongo.cardPay');
+    Route::get('/paymongo', [PaymongoController::class, 'pay'])->name('paymongo');
+    Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);
+    Route::get('/paymongo/callback/failed', [PaymongoController::class, 'failed']);
 
-Route::group(['prefix'=>'payment/paypal'], function(){
-    Route::post('/order/create',[PaypalPaymentController::class,'create'])->name('paypal.create');
-    Route::post('/order/capture/',[PaypalPaymentController::class,'capture'])->name('paypal.capture');
+    Route::get('/paymongo/search', [PaymongoController::class, 'search']);
+
+    Route::post('/paymongo/payment-intent', [PaymongoController::class, 'createPaymentIntent'])->name('paymongo.payment_intent');
+    Route::post('/paymongo/cardPay', [PaymongoController::class, 'cardPay'])->name('paymongo.cardPay');
+
+    Route::group(['prefix'=>'payment/paypal'], function(){
+        Route::post('/order/create',[PaypalPaymentController::class,'create'])->name('paypal.create');
+        Route::post('/order/capture/',[PaypalPaymentController::class,'capture'])->name('paypal.capture');
+    });
 });
+
+
+
+

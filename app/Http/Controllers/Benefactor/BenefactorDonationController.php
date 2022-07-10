@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Charity\Charity;
 use App\Models\ProgramDonation;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Charity\CharityProgram;
 
 class BenefactorDonationController
@@ -29,18 +30,20 @@ class BenefactorDonationController
         ]);
     }
 
-    public function successIndex(int $id, string $transaction_id): Response
+    public function successIndex(int $programID, string $donationID): Response
     {
-        $program = CharityProgram::query()->findOrFail($id);
-        $charity_id = $program->charity_id;
-        $transaction_data = ProgramDonation::where('id',$transaction_id)
-            ->get()
-            ->toArray();
+        $program = CharityProgram::query()
+            ->with('charity')
+            ->findOrFail($programID);
+    
+        $donation = ProgramDonation::findOrFail($donationID);
+
+        abort_if($donation->charity_program_id != $program->id, 404);
+        abort_if($donation->benefactor_id != Auth::id(), 403);
 
         return Inertia::render('Benefactor/Payment/DonateSuccess',[
             'program' => $program,
-            'charity' => Charity::where('id',$charity_id)->get()->toArray(),
-            'transaction' => $transaction_data
+            'transaction' => $donation->blockchain_transaction
         ]);
     }
 }
