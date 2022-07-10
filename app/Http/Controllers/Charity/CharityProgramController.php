@@ -73,7 +73,7 @@ class CharityProgramController
                 ->first()
                 ->getRawOriginal();
 
-            Storage::move('tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
+            Storage::move('tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
             'public/charity/'.$id.'/program'.'/'.$filename);
             //this doesn't work
             Storage::deleteDirectory('tmp/program/'.$temporaryFile['folder']);
@@ -109,8 +109,8 @@ class CharityProgramController
             ->select(['amount','benefactor_id'])
             ->where('charity_program_id', $id)
             ->get();
-        
-        $stats['total_donation'] = $programStats->sum('amount'); 
+
+        $stats['total_donation'] = $programStats->sum('amount');
         $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
 
         return Inertia::render(
@@ -192,12 +192,35 @@ class CharityProgramController
             ->select(['amount','benefactor_id'])
             ->where('charity_program_id', $id)
             ->get();
-        
-        $stats['total_donation'] = $programStats->sum('amount'); 
+
+        $stats['total_donation'] = $programStats->sum('amount');
         $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
-        
+
         return Inertia::render(
             'Charity/Program/Supports',
+            [
+                'program' => $program,
+                'stats' => $stats,
+                'can' => [
+                    'modify' =>  $program->charity_id == Auth::id()
+                ]
+            ]
+        );
+    }
+
+    public function gallery(int $id){
+        $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
+
+        $programStats = ProgramDonation::query()
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+
+        $stats['total_donation'] = $programStats->sum('amount');
+        $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
+
+        return Inertia::render(
+            'Charity/Program/Gallery',
             [
                 'program' => $program,
                 'stats' => $stats,
@@ -258,7 +281,7 @@ class CharityProgramController
                 'withdraw_requested_at' => now(),
             ]);
     }
-    
+
     public function cancelWithdrawRequest(int $id)
     {
         CharityProgram::query()
