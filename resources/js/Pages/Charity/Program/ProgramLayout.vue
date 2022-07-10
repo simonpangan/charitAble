@@ -143,8 +143,14 @@
                                 <p class="text-muted">Total Donors</p>
                             </div>
                             <div>
-                                <h5>{{program.charity.eth_address}}</h5>
-                                <p clas s="text-muted">ETH Address</p>
+                                <h5 class="text-truncate">{{program.charity.eth_address}}</h5>
+                                <div class="d-flex">
+                                    <p clas s="text-muted">ETH Address</p>
+
+                                    <i class="fad fa-info-circle mt-1 ms-2 text-primary"
+                                    title="This is a special account for charities to conduct blockchain transaction"></i>
+                                </div>
+                                <p class="fw-light"><small>What is a blockchain, and other questions. Learn more about our <a href="#" class="text-decoration-underline">transparency blockchain program</a></small></p>
                             </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
                                 v-if="$page.props.auth.user.roleID == 4"
