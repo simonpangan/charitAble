@@ -252,7 +252,7 @@
         var  totalAmount = amount * Math.pow(10, 2);
         const tx = {
           from : "0xDF1aB5acdbd533b091Cd7448c2B54E7fB5479aBe", //payee
-          to: "0xd0a865C56344C61E1F6c73f2239A46baEb687ddB",
+          to: contractAddress,
           gas: 1000000,
           data: charitableContract.methods.transfer(
               "0xC5509DA8BED22aC2102e104042ba11f47ef5868d",   //transfer amount to
