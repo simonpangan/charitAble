@@ -206,7 +206,7 @@
       return{
          price:{
                 required:helpers.withMessage("Donation Amount cannot be empty", required),
-                minValue:helpers.withMessage("Minimum donation value is 150 PHP.", minValue(150)),
+                minValue:helpers.withMessage("Minimum donation value is 100 PHP.", minValue(100)),
                 maxValue:helpers.withMessage("Maximum donation value is 50,000 PHP", maxValue(50000)),
                 numeric:helpers.withMessage("Please input valid donation amount", numeric),
                 integer:helpers.withMessage("Please input valid donation amount", integer),
