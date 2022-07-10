@@ -235,7 +235,7 @@
         web3.eth.sendSignedTransaction(signature.rawTransaction)
           .on('receipt', (response) => {
                 Inertia.get(route('blockchain'), {
-                  'blokchain_transaction' : response.transactionHash,
+                  'blockchain_transaction' : response.transactionHash,
                   'program_donation' : programDonationID,
                   'program_id' : this.program.id,
                 }, {
@@ -251,7 +251,7 @@
 
         var  totalAmount = amount * Math.pow(10, 2);
         const tx = {
-          from : "0xDF1aB5acdbd533b091Cd7448c2B54E7fB5479aBe", //payee
+          from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
           to: contractAddress,
           gas: 1000000,
           data: charitableContract.methods.transfer(
@@ -261,7 +261,7 @@
         }
 
         const signature = await web3.eth.accounts.signTransaction(
-          tx, "5b6d9034b1491aab1bf0936163bf15859f36232c33498eb1233c3a2966f489c0" //private key ni payee
+          tx, "9a79ead2b40a2ada662e6a775b5454d89913b9ebb3253a954a16f03abf234b90" //private key ni payee
         );
 
         web3.eth.sendSignedTransaction(signature.rawTransaction)

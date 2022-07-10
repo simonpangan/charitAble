@@ -16,14 +16,13 @@ class BlockchainTransactionController extends Controller
             'blockchain_transaction' => $request->blockchain_transaction,
         ]);
 
-        return to_route('charity.donate.create',$request->program_id)
-            ->with('blockchain_message', [
-                'message' => 'Successful transaction',
-                'transaction' => $request->blockchain_transaction,
+        return to_route('charity.donate.success', [
+            'id' => $request->program_id, 
+            'donation_id' => $donation->id,
         ]);
     }
 
-        public function PaypalUpdateBlockchainHash(Request $request)
+    public function PaypalUpdateBlockchainHash(Request $request)
     {
 
         $donation = ProgramDonation::findOrFail($request->program_donation);
