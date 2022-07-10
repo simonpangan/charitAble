@@ -22,8 +22,7 @@ class CharityProgram extends Model
         'goals' => 'array',
         'expenses' => 'array',
         'has_withdraw_request' => 'boolean',
-        'withdraw_requested_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
-        'updated_at' => 'datetime:l\\, F jS Y\\, h:i:s A',
+        'withdraw_requested_at' => 'datetime',
     ];
 
     protected $appends = ['created_at_formatted'];
