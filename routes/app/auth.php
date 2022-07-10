@@ -71,7 +71,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::post('/approval/permits', [AdminApprovalController::class, 'permits'])->name('approval.permits');
         Route::post('/approval/approve', [AdminApprovalController::class, 'approve'])->name('approval.approve');
         Route::post('/approval/disapprove', [AdminApprovalController::class, 'disApprove'])->name('approval.disapprove');
-   
+
         Route::post('/checkEthAddress',[AdminApprovalController::class,'checkIfEthAddressExists'])->name('eth.check');
         Route::post('/createEthAddress',[AdminApprovalController::class,'createEthAddress'])->name('eth.create');
 
@@ -210,6 +210,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
         Route::get('charity/program/{id}', 'show')->name('charity.program.show');
         Route::get('charity/program/{id}/supporters', 'supporters')->name('charity.program.supporters');
+        Route::get('charity/program/{id}/gallery', 'gallery')->name('charity.program.gallery');
+
     });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
@@ -259,6 +261,7 @@ Route::name('auth.')->group(function () {
 */
 
 Route::get('/blockchain', BlockchainTransactionController::class)->name('blockchain');
+Route::post('/blockchain/paypal', [BlockchainTransactionController::class, 'PaypalUpdateBlockchainHash'])->name('blockchain-paypal');
 
 Route::get('/paymongo', [PaymongoController::class, 'pay'])->name('paymongo');
 Route::get('/paymongo/callback', [PaymongoController::class, 'callback']);

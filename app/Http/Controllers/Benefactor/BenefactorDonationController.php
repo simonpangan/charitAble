@@ -25,15 +25,15 @@ class BenefactorDonationController
         return Inertia::render('Benefactor/Payment/Donate',[
             'program' => $program,
             'charity' => Charity::find($charity_id),
-            'donated' => $donated 
-        ]); 
+            'donated' => $donated
+        ]);
     }
 
     public function successIndex(int $id, string $transaction_id): Response
     {
         $program = CharityProgram::query()->findOrFail($id);
         $charity_id = $program->charity_id;
-        $transaction_data = ProgramDonation::where('transaction_id',$transaction_id)
+        $transaction_data = ProgramDonation::where('id',$transaction_id)
             ->get()
             ->toArray();
 

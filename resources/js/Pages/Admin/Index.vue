@@ -77,8 +77,7 @@
                       <td>
                         <div class="input-group mb-3">
                         <input type="email" class="form-control" 
-                        :value="charity.permits">
-                        <button class="input-group-text" v-on:click.prevent="savePermit($event, charity.id)"><i class="far fa-plus me-1"></i> Add </button>
+                        :value="charity.permits"  v-on:keyup.enter="savePermit($event, charity.id)">
                         </div>
                       </td>
                        <td class="d-flex justify-content-evenly">
@@ -222,7 +221,7 @@ let props = defineProps({
 let search = ref(props.filters.search);
 let sort = ref(props.filters.sort);
 let status = ref(props.filters.status);
-
+let permit = ref()
 watch(search, debounce((value) => {
     Inertia.get(
       route('admin.home.index'), { 
@@ -235,7 +234,6 @@ watch(search, debounce((value) => {
 }, 300));
 
 let savePermit = (e, charityID) => {
-  
   Swal.fire({
     title: 'Are you sure?',
       icon: 'warning',

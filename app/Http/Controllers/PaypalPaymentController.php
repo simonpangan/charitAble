@@ -50,9 +50,7 @@ class PaypalPaymentController extends Controller
 
     public function capture(Request $request)
     {
-
-        try{
-            ProgramDonation::create([
+           $donation =  ProgramDonation::create([
                 'benefactor_id' =>  Auth::user()->id,
                 'charity_program_id' => $request['charity_program_id'],
                 'amount' => $request['amount'],
@@ -62,16 +60,13 @@ class PaypalPaymentController extends Controller
                 'is_anonymous' => $request['is_anonymous']
             ]);
 
-            // $charity_name = Charity::where('id',$request['charity_program_id'])->pluck('name')->get();
             Auth::user()->createLog("Donated to a charity" . "with the amount of " . $request['amount']);
 
-            return "Status 500";
-        }catch(\Exception $e){
-            return response($e);
-        }
-
-
+            return $donation->id;
     }
 
-   
+
+
+
+
 }
