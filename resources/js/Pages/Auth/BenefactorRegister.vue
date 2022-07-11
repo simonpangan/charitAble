@@ -94,7 +94,7 @@
         <div class="row mb-2">
           <div class="col">
             <div class="form-group">
-              <label class="mb-1">Age <span class="text-danger">*</span></label>
+              <label class="mb-1">Birth Date <span class="text-danger">*</span></label>
                 <input v-model="form.birth_date" type="date" class="form-control" />
                 <div v-if="form.errors.birth_date" class="text-danger">
                   {{ form.errors.birth_date }}
@@ -178,7 +178,6 @@
         password_confirmation: null,
         birth_date: null,
         gender: null,
-        city: null,
         preferences: [],
       });
 
