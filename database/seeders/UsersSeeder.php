@@ -22,10 +22,10 @@ class UsersSeeder extends Seeder
     {
         User::firstOrCreate(
             [
-                'email' => 'admin@yahoo.com',
+                'email' => 'charitable439@gmail.com',
                 'role_id' => Role::USERS['ADMIN'],
                 'email_verified_at' => Carbon::now(config('app.timezone')),
-                'password' => Hash::make('simonpangan'),
+                'password' => Hash::make('Charitable#2022'),
                 'created_at' => '2021-06-18 01:15:48',
             ]
         );
