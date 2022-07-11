@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('last_name');
             $table->string('gender', 10);
             $table->date('birth_date');
-            $table->string('city');
             $table->string('preferences', 50);
         });
     }

@@ -30,51 +30,21 @@ class BenefactorRegisterRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->query->get('step') == 1) {   
-            // dd($this->stepOneRules());
-            return $this->stepOneRules();   
-        }       
-        else if ($this->query->get('step') == 2) {
-            return $this->stepTwoRules();
-        }
-            
-        //last step
-        return $this->stepThreeRules();
-    }
-
-
-    private function stepOneRules() : array
-    {
         return [
             'first_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'last_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
-        ];
-    }
-
-    private function stepTwoRules() : array
-    {
-        return array_merge($this->stepOneRules(), [
             'birth_date' => ['required', 'date', new LegalAgeRule(18)],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
-            'city' => ['required', 'string', 'max:50'],
-        ]);
-    }
-
-    private function stepThreeRules() : array
-    {
-        //https://stackoverflow.com/questions/42258185/how-to-validate-array-in-laravel
-        return array_merge($this->stepTwoRules(), [
             'preferences' => [
                 'array', 'required', 
             ],
             'preferences.*' => [
                 'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
             ],
-        ]);
-    }   
-
+        ];
+    }
     public function messages()
     {
         return [
