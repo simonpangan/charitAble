@@ -68,7 +68,7 @@
                     <tr v-for="(charity, index) in charities.data" :key="index">
                       <td class="text-center">{{ charities.from + index }}</td>
                       <td>{{ charity.name }}</td>
-                      <td>{{ charity.created_at }}</td>
+                      <td class="text-center">{{ charity.created_at }}</td>
                        <td class="text-center">
                          <div v-if="charity.charity_verified_at" 
                           class="badge bg-success text-white rounded-pill">Approve</div>
