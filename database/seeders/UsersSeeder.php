@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Categories;
 use App\Models\Charity\Charity;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -19,21 +20,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-//        LazyCollection::make(function () {
-//            for ($i = 0; $i < 50000; $i++) {
-//                yield User::factory()->raw();
-//            }
-//        })->chunk(5000)->each(function ($chunk) {
-//            User::insert($chunk->toArray());
-//        });
-
-//        $users = collect(User::factory()->count(10)->unverified()->benefactor()->raw());
-//        $users = User::factory()->count(50000)->lazyRaw();
-//
-//        $users->chunk(5000)->each(function ($chunk) {
-//            User::insertOrIgnore($chunk->toArray());
-//        });
-
         User::firstOrCreate(
             [
                 'email' => 'admin@yahoo.com',
@@ -62,7 +48,6 @@ class UsersSeeder extends Seeder
             'last_name' => 'Pangan',
             'gender' => 'Male', 
             'birth_date' => now(),
-            'city' => 'Valenzuela',
             'preferences' => [ 1, 2, 3 ,4 ,5],
         ]);
 
@@ -79,28 +64,22 @@ class UsersSeeder extends Seeder
             ]
         );
 
+
         $charity->logs()->createMany($this->createLogsForUser());
         
-        $charity->charity()->create(
+        $charityuser = $charity->charity()->create(
             array_merge(Charity::factory()->raw(), [
-                'eth_address' => '0x30E54C2b235A15724d69Ac69855Fbd0A4E42E286'
+                'eth_address' => '0x30E54C2b235A15724d69Ac69855Fbd0A4E42E286',
+                'logo' => 'http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/okc.png',
             ])
         );
+
+        $categories = Categories::all()->pluck('id');
+
+        $charityuser->categories()->attach(
+            $categories->random(3)
+        );
         
-
-        // if (Log::where('user_id', $charity->id)->get()->count() < 5) {
-        //     $charity->charity()->create(Charity::factory()->raw());
-        //     $charity->logs()->createMany($this->createLogsForUser());
-        // }
-
-        // if (User::count() < 10000) {
-        //     // $users = collect(User::factory()->count(10)->unverified()->benefactor()->raw());
-        //     $users = User::factory()->count(50000)->lazyRaw();
-
-        //     $users->chunk(5000)->each(function ($chunk) {
-        //         User::insertOrIgnore($chunk->toArray());
-        //     });
-        // }
     }
 
     private function createLogsForUser(): array
