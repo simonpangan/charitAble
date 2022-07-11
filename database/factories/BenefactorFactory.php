@@ -23,7 +23,6 @@ class BenefactorFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'gender' => Arr::random(['Male', 'Female', 'LGBT', 'Others']),
-            'city' => $this->faker->city,
             'birth_date' =>$this->faker->date,
             'preferences' => ['1','2','3'], 
         ];

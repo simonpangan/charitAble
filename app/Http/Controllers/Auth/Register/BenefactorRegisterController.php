@@ -67,7 +67,6 @@ use App\Models\Categories;
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'gender' => $data['gender'],
-                'city' => $data['city'],
                 'birth_date' => $data['birth_date'],
                 'preferences' => $data['preferences'],
             ]);
