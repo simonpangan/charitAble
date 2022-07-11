@@ -19,10 +19,10 @@ return new class extends Migration
 
             $table->text('first_name');
             $table->text('last_name');
-            $table->string('gender');
+            $table->string('gender', 10);
             $table->date('birth_date');
             $table->string('city');
-            $table->string('preferences');
+            $table->string('preferences', 50);
         });
     }
 
