@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Benefactor;
 
 use App\Models\Categories;
+use App\Rules\LegalAgeRule;
 use App\Rules\MaxWordsRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,9 +34,8 @@ class BenefactorProfileRequest extends FormRequest
                 'required','string','email','max:255',
                 'email', Rule::unique('users')->ignore($this->user()->id)
             ],
-            'age' => ['required', 'numeric', 'min:18', 'max:100'],
+            'birth_date' => ['required', 'date', new LegalAgeRule(18)],
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'LGBT', 'Others'])],
-            'city' => ['required', 'string', 'max:50'],
             'preferences' => [
                 'array', 'required', 
             ],
@@ -44,8 +44,6 @@ class BenefactorProfileRequest extends FormRequest
             ],
         ];
     }
-
-  
 
     public function messages()
     {
