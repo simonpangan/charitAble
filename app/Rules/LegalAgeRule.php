@@ -39,6 +39,6 @@ class LegalAgeRule implements Rule
      */
     public function message()
     {
-        return 'You must be at least ' . $this->legalAge . 'years old.';
+        return 'You must be at least ' . $this->legalAge . ' years old.';
     }
 }
