@@ -74,7 +74,7 @@ class BenefactorLogController
             ->when($request->input('from') && $request->input('to') && ($request->input('from') != $request->input('to')), 
                     function ($query, $from) use ($request) {
                 $query->whereBetween('created_at', 
-                    [$request->input('from'), $request->input('to')]
+                    [$request->input('from') . ':00', $request->input('to') . ':59']
                 );
             })
             ->when($request->input('from') && $request->input('to') && ($request->input('from') == $request->input('to')), 
