@@ -62,7 +62,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         'prefix' => 'admin',
     ], function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home.index');
-        Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->name('home.download');
+        Route::get('/home/documents/{id}', [AdminHomeController::class, 'download'])->where('id', '[0-9]+')->name('home.download');
 
         Route::get('/withdraw', [AdminWithdrawRequestController::class, 'index'])->name('withdraw.index');
         Route::get('/withdraw/approve', [AdminWithdrawRequestController::class, 'approve'])
@@ -88,37 +88,47 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::controller(CharityProgramController::class)->group(function () {
             Route::get('program/create', 'create')->name('program.create');
             Route::post('program', 'store')->name('program.store');
-            Route::get('program/{id}/edit', 'edit')->name('program.edit');
-            Route::put('program/{id}', 'update')->name('program.update');
-            Route::delete('program/{id}', 'destroy')->name('program.destroy');
+            Route::get('program/{id}/edit', 'edit')->where('id', '[0-9]+')->name('program.edit');
+            Route::put('program/{id}', 'update')->where('id', '[0-9]+')->name('program.update');
+            Route::delete('program/{id}', 'destroy')->where('id', '[0-9]+')->name('program.destroy');
             Route::post('uploadProgramPhoto','uploadProgramPhoto')->name('program.store.image');
             Route::post('uploadProgramPhoto/revert','uploadProgramPhotoRevert')->name('program.revert.image');
 
-            Route::post('/program/{id}/withdraw-request', 'withdrawRequest')->name('program.withdraw-request');
-            Route::post('/program/{id}/withdraw-request/cancel', 'cancelWithdrawRequest')->name('program.withdraw-request.cancel');
+            Route::post('/program/{id}/withdraw-request', 'withdrawRequest')
+                ->where('id', '[0-9]+')->name('program.withdraw-request');
+            Route::post('/program/{id}/withdraw-request/cancel', 'cancelWithdrawRequest')
+                ->where('id', '[0-9]+')->name('program.withdraw-request.cancel');
         });
 
-        Route::get('program/{id}/report', [CharityProgramReportController::class, 'redirect'])->name('program.report');
-        Route::get('program/{id}/download', [CharityProgramReportController::class, 'generate'])->name('program.download');
+        Route::get('program/{id}/report', [CharityProgramReportController::class, 'redirect'])
+            ->where('id', '[0-9]+')->name('program.report');
+        Route::get('program/{id}/download', [CharityProgramReportController::class, 'generate'])
+            ->where('id', '[0-9]+')->name('program.download');
 
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
             Route::get('volunteer-posts/create', 'create')->name('volunteer.create');
-            Route::get('volunteer-posts/{id}/edit', 'edit')->name('volunteer.edit');
+            Route::get('volunteer-posts/{id}/edit', 'edit')->where('id', '[0-9]+')->name('volunteer.edit');
             Route::put('volunteer-posts/{id}', 'update')->name('volunteer.update');
-            Route::delete('volunteer-posts/{id}', 'destroy')->name('volunteer.destroy');
+            Route::delete('volunteer-posts/{id}', 'destroy')->where('id', '[0-9]+')->name('volunteer.destroy');
         });
 
         Route::controller(CharityVolunteerPostReportController::class)->group(function () {
-            Route::get('volunteer-posts/{id}/report', 'redirectToGeneratedReport')->name('volunteer.report');
-            Route::get('volunteer-posts/{id}/generate', 'generate')->name('volunteer.download');
+            Route::get('volunteer-posts/{id}/report', 'redirectToGeneratedReport')
+                ->where('id', '[0-9]+')
+                ->name('volunteer.report');
+            Route::get('volunteer-posts/{id}/generate', 'generate')
+                ->where('id', '[0-9]+')
+                ->name('volunteer.download');
         });
 
         Route::controller(CharityPostsController::class)->group(function(){
             Route::get('post/create','create')->name('post.create');
             Route::post('post', 'store')->name('post.store');
-            Route::delete('post/{id}', 'destroy')->name('post.destroy');
+            Route::delete('post/{id}', 'destroy')
+                ->where('id', '[0-9]+')
+                ->name('post.destroy');
             Route::post('uploadPostPhoto','uploadPostPhoto')->name('post.store.image');
             Route::post('uploadPostPhoto/revert','uploadPostPhotoRevert')->name('post.revert.image');
 
@@ -127,9 +137,13 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::controller(CharityOfficerController::class)->group(function(){
             Route::get('officer','create')->name('officer.create');
             Route::post('officer/create','store')->name('officer.store');
-            Route::get('officer/{id}/edit','show')->name('officer.show');
+            Route::get('officer/{id}/edit','show')
+                ->where('id', '[0-9]+')
+                ->name('officer.show');
             Route::put('officer','edit')->name('officer.edit');
-            Route::delete('officer/{id}', 'destroy')->name('officer.destroy');
+            Route::delete('officer/{id}', 'destroy')
+                ->where('id', '[0-9]+')
+                ->name('officer.destroy');
         });
     });
 
@@ -196,10 +210,17 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
     Route::controller(CharityProgramController::class)->group(function () {
         Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
-        Route::get('charity/program/{id}', 'show')->name('charity.program.show');
-        Route::get('charity/program/{id}/supporters', 'supporters')->name('charity.program.supporters');
-        Route::get('charity/program/{id}/gallery', 'gallery')->name('charity.program.gallery');
-        Route::get('charity/program/{id}/charitysuporters','charitysettings')->name('charity.program.setting');
+        Route::get('charity/program/{id}', 'show')
+            ->where('id', '[0-9]+')
+            ->name('charity.program.show');
+        Route::get('charity/program/{id}/supporters', 'supporters')
+            ->where('id', '[0-9]+')
+            ->name('charity.program.supporters');
+        Route::get('charity/program/{id}/gallery', 'gallery')
+            ->where('id', '[0-9]+')
+            ->name('charity.program.gallery');
+        Route::get('charity/program/{id}/charitysuporters','charitysettings')
+            ->where('id', '[0-9]+')->name('charity.program.setting');
     });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
@@ -208,7 +229,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
 
     Route::controller(CharityVolunteerPostController::class)->group(function () {
         Route::get('charity/{id?}/volunteer-posts', 'index')->name('charity.volunteer.index')->where('id', '[0-9]+');
-        Route::get('charity/volunteer-posts/{id}', 'show')->name('charity.volunteer.show');
+        Route::get('charity/volunteer-posts/{id}', 'show')->name('charity.volunteer.show')->where('id', '[0-9]+');
     });
 
   //-------------------------
@@ -235,6 +256,7 @@ Route::name('auth.')->group(function () {
 
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
         ->name('verification.verify')
+        ->where('id', '[0-9]+')
         ->middleware(['signed','throttle:6,1']);
 });
 
@@ -253,9 +275,9 @@ Route::group(
     , function () {
 
     Route::get('charity/program/{id}/donate', [BenefactorDonationController::class, 'index'])
-        ->name('charity.donate.create');
+        ->name('charity.donate.create')->where('id', '[0-9]+');
     Route::get('charity/program/{id}/donate/{donation_id}/success', [BenefactorDonationController::class, 'successIndex'])
-        ->name('charity.donate.success');
+        ->name('charity.donate.success')->where(['id', 'donation_id'], '[0-9]+');
 
     Route::get('/blockchain', BlockchainTransactionController::class)->name('blockchain');
     Route::post('/blockchain/paypal', [BlockchainTransactionController::class, 'PaypalUpdateBlockchainHash'])->name('blockchain-paypal');
