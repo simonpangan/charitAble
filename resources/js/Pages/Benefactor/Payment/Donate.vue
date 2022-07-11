@@ -89,7 +89,7 @@
                     <div  v-if="isPaymongoTransaction" class="d-grid gap-2">
                       <button class="btn btn-warning btn-lg mt-3" v-on:click.prevent.self="paymongoEWalletTransaction">Proceed</button>
                     </div>
-                
+
                     <div class="form-check" v-if="isPaymongoTransaction || this.payment_method == 'paypal'">
                       <label class="form-check-label fst-italic mt-2" for="flexCheckDefault"><small> By clicking this button, you agree to Charitable Terms and Agreement, Privacy Policy & Benefactor-Charity Transparency Agreement</small></label>
                     </div>
@@ -251,7 +251,7 @@
 
         var  totalAmount = amount * Math.pow(10, 2);
         const tx = {
-          from : "0x9a42C53cf833fa5011d46C8C0AEBe684aB493f2b", //payee
+          from : "0xDF1aB5acdbd533b091Cd7448c2B54E7fB5479aBe", //payee
           to: contractAddress,
           gas: 1000000,
           data: charitableContract.methods.transfer(
@@ -261,7 +261,7 @@
         }
 
         const signature = await web3.eth.accounts.signTransaction(
-          tx, "9a79ead2b40a2ada662e6a775b5454d89913b9ebb3253a954a16f03abf234b90" //private key ni payee
+          tx, "5b6d9034b1491aab1bf0936163bf15859f36232c33498eb1233c3a2966f489c0" //private key ni payee
         );
 
         web3.eth.sendSignedTransaction(signature.rawTransaction)
@@ -281,7 +281,7 @@
                 Swal.close();
                     Inertia.visit(route('charity.donate.success', {
                             id: this.charity_program_id,
-                            transaction_id: this.paypal_transaction_db_id
+                            donation_id: this.paypal_transaction_db_id
                     }))
               }).catch((error) => {
                 console.log(error);
