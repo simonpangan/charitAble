@@ -100,12 +100,12 @@
                 </div>
                 <div class="col-sm-6 mb-2">
                   <div class="js-form-message">
-                    <label id="locationLabel" class="form-label"> City <span class="text-danger">*</span>
+                    <label id="websiteLabel" class="form-label"> Birth Date <span class="text-danger">*</span>
                     </label>
-                    <div class="form-group">  
-                      <input  :disabled="type != 'edit'" type="text" class="form-control" v-model="form.city" placeholder="Enter your location" />
-                      <div v-if="form.errors.city" class="text-danger">
-                        {{ form.errors.city }}
+                    <div class="form-group">
+                      <input  :disabled="type != 'edit'" class="form-control" type="date" v-model="form.birth_date" />
+                      <div v-if="form.errors.birth_date" class="text-danger">
+                        {{ form.errors.birth_date }}
                       </div>
                     </div>
                   </div>
@@ -127,18 +127,6 @@
                       </select>
                       <div v-if="form.errors.gender" class="text-danger">
                         {{ form.errors.gender }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-2">
-                  <div class="js-form-message">
-                    <label id="websiteLabel" class="form-label"> Age <span class="text-danger">*</span>
-                    </label>
-                    <div class="form-group">
-                      <input  :disabled="type != 'edit'" class="form-control" type="number" v-model="form.age" placeholder="Enter your age" />
-                      <div v-if="form.errors.age" class="text-danger">
-                        {{ form.errors.age }}
                       </div>
                     </div>
                   </div>
@@ -169,7 +157,7 @@ let form = useForm({
     email: props.auth.user.email,
     first_name: props.benefactor.first_name,
     last_name: props.benefactor.last_name,
-    age: props.benefactor.age,
+    birth_date: props.benefactor.birth_date,
     city: props.benefactor.city,
     gender: props.benefactor.gender,
     preferences: props.benefactor.preferences, 
