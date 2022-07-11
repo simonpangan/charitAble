@@ -99,9 +99,7 @@ class PaymongoController
 
         return to_route('charity.donate.create', [
             'id' => $paymentDetails['program_id'],
-        ])->with(
-           'message', 'Sucessful G-Cash Transaction'
-        );
+        ]);
     }
 
     public function failed(Request $request)
