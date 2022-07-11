@@ -44,7 +44,7 @@ class PaymongoController
 
     public function rules () {
         return [
-            'price' => ['required'], 
+            'price' => ['required' ,'int', 'min:100', 'max:50000'], 
             'wallet' => ['required' , Rule::in(['G-CASH', 'GRAB PAY']),], 
             'tip_level' => ['required', 'int', 'min:0', 'max:30'], 
             'is_anonymous' => ['required', Rule::in(['true', 'false'])], 
@@ -85,7 +85,7 @@ class PaymongoController
             'benefactor_id' => Auth::id(),
             'charity_program_id' => $paymentDetails['program_id'],
             'amount' => $totalDonation,
-            'donated_at' => Carbon::createFromTimestamp($payment->created_at, 'Asia/Manila')->format('Y-m-d\TH:i:s.uP'),
+            'donated_at' => Carbon::createFromTimestamp($payment->created_at)->format('Y-m-d\TH:i:s.uP'),
             'transaction_id' => $payment->id,
             'tip_price' => $charitableTip,
             'is_anonymous' => ($paymentDetails['is_anonymous'] == 'true') ? 1 : 0,
