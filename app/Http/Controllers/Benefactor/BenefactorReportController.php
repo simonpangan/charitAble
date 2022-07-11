@@ -25,7 +25,7 @@ class BenefactorReportController
     {
         $user = Auth::user();
 
-        // abort_if(! $user->is_allowed_to_download, 403);
+        abort_if(! $user->is_allowed_to_download, 403);
 
         $donations =  $user->benefactor->programDonations()
             ->latest('donated_at')
@@ -36,7 +36,7 @@ class BenefactorReportController
         $data = [
             'title' => 'Report',
             'date' => now()->toDateTimeString(),
-            'user' => $user,
+            'user' => $user,    
             'benefactor' => $this->getBenefactorStats(),
             'donations' => $donations,
             'donatedCharities' =>  $charities
