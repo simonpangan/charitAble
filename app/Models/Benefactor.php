@@ -115,7 +115,7 @@ class Benefactor extends Model
             ->using(ProgramDonation::class)
             ->withPivot(
                 'amount', 'transaction_id',
-                'tip_price', 'message',
+                'tip_price', 'message', 'donated_at'
             );
     }
 }

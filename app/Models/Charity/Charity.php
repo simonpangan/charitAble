@@ -15,10 +15,15 @@ class Charity extends Model
 {
     use HasFactory;
 
-    public $incrementing = false;
+    public $incrementing = false;   
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public $casts = [
+        'created_at' => 'datetime',
+    ];
+
     
     protected function serializeDate(DateTimeInterface $date)
     {
