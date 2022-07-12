@@ -6,7 +6,7 @@
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
                             <h1 class="fw-bold text-dark mb-1 mt-0">
-                                {{this.$page.props.charity.name}} 
+                                {{charity.name}} 
                                 <span class="text-info">
                                     <i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i>
                                 </span>
@@ -14,14 +14,14 @@
                         </div>
                         <div v-if="this.$page.props.can.seeFollowOrUnfollow" class="profile-right ms-auto">
                             <Link v-if="this.$page.props.can.follow" :href="$route('benefactor.connections.charities.destroy', {
-                                    id: this.$page.props.charity.id
+                                    id: charity.id
                                 })" 
                                     method="delete" as="button" type="button"
                                     class="btn btn-outline-primary btn-sm d-block w-100">
                                 Unfollow 
                             </Link>
                             <Link v-else :href="$route('benefactor.connections.charities.store', {
-                                    id: this.$page.props.charity.id
+                                    id: charity.id
                                 })" 
                                     method="post" as="button" type="button"
                                     class="btn btn-outline-primary btn-sm d-block w-100">
@@ -44,30 +44,30 @@
 								<Link class="nav-link" 
                                 :class="{ 'active': $page.component === 'Charity/Profile' }"
                                 :href="$route('charity.profile.index', {
-                                    'id': this.$page.props.charity.id
+                                    'id': charity.id
                                 })">About</Link>
 							</li>
 							<li class="nav-item">
                                 <Link class="nav-link" 
                                 :class="{ 'active': $page.component === 'Charity/Post/Index' }"
                                 :href="$route('charity.post.index', {
-                                    'id': this.$page.props.charity.id
+                                    'id': charity.id
                                 })">Posts</Link>
 							</li>
 							<li class="nav-item">
 								<Link class="nav-link" 
                                     :class="{ 'active': $page.component === 'Charity/Volunteer-Posting/Index' }"
                                     :href="$route('charity.volunteer.index', {
-                                        'id': this.$page.props.charity.id
+                                        'id': charity.id
                                     })">
                                     Volunteer Posting
                                 </Link>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item" v-if="charity.charity_verified_at">
 								<Link class="nav-link" 
                                     :class="{ 'active': $page.component === 'Charity/Program/Index' }"
                                     :href="$route('charity.program.index', {
-                                        'id': this.$page.props.charity.id
+                                        'id': charity.id
                                     })">
                                     Program
                                 </Link>
@@ -81,13 +81,13 @@
                 <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
                     <div class="box mb-3 shadow-sm border rounded bg-white profile-box">
                         <div class="p-5">
-                            <img v-bind:src="this.$page.props.charity.logo" class="img-fluid" alt="Responsive image">
+                            <img v-bind:src="charity.logo" class="img-fluid" alt="Responsive image">
                         </div>
                         <div class="p-3 border-top border-bottom">
                             <div class="d-flex align-items-top">
                                 <p class="mb-0 text-dark fw-bold">Total Followers</p>
                                 <p class="mb-0 mt-0 ms-auto">
-                                    {{this.$page.props.charity.followers}}
+                                    {{charity.followers}}
                                 </p>
                             </div>
                         </div>
@@ -95,29 +95,29 @@
                             <div class="d-flex align-items-top">
                                 <p class="mb-0 text-dark fw-bold">Email Address</p>
                                 <p class="mb-0 mt-0 ms-auto">
-                                    {{this.$page.props.charity.charity_email}}
+                                    {{charity.charity_email}}
                                 </p>
                             </div>
                         </div>
                         <div class="p-3 d-flex justify-content-around">
-                             <a :href="this.$page.props.charity.website_link"
-                                v-if="this.$page.props.charity.website_link" 
+                             <a :href="charity.website_link"
+                                v-if="charity.website_link" 
                                 class="text-dark" target="_blank">
                                 <i class="far fa-globe fa-2x"></i>
                             </a>
-                            <a :href="this.$page.props.charity.facebook_link"
-                                v-if="this.$page.props.charity.facebook_link"
+                            <a :href="charity.facebook_link"
+                                v-if="charity.facebook_link"
                                 class="text-dark" target="_blank">
                                 <i class="fab fa-facebook fa-2x"></i>
                             </a>
-                            <a :href="this.$page.props.charity.instagram_link"
-                                v-if="this.$page.props.charity.instagram_link"
+                            <a :href="charity.instagram_link"
+                                v-if="charity.instagram_link"
                                 class="d-flex justify-content-between" target="_blank">
                                 <i class="fab fa-instagram fa-2x"></i>
                             </a>
                             <a  class="ms-2" target="_blank"
-                                :href="this.$page.props.charity.twitter_link"
-                                v-if="this.$page.props.charity.twitter_link"
+                                :href="charity.twitter_link"
+                                v-if="charity.twitter_link"
                                 >
                                  <i class="fab fa-twitter fa-2x"></i>
                             </a>
@@ -152,7 +152,7 @@
                                     </Link>
                                 </span>
                             </div>
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+                            <div v-if="charity.charity_verified_at" class="d-flex align-items-center osahan-post-header mb-3 people-list">
                                 <div class="fw-bold me-2">
                                     <div class="text-truncate">Create Program</div>
                                 </div>
@@ -195,3 +195,13 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            charity : this.$page.props.charity
+        }
+    }
+}
+</script>

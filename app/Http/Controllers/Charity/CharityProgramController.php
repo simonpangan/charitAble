@@ -52,6 +52,10 @@ class CharityProgramController
 
     public function create(): Response
     {
+        $charity = Charity::find(Auth::id());
+
+        abort_if(is_null($charity->charity_verified_at), 403);
+
         return Inertia::render('Charity/Program/Create',[
             'csrfToken' => csrf_token(),
         ]);
