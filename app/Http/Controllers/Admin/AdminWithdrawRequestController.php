@@ -34,7 +34,7 @@ class AdminWithdrawRequestController extends Controller
     public function approve(Request $request)
     {
         $request->validate([
-            'transaction' => 'required',
+            'transaction' => ['required', 'file', 'mimes:jpg,jpeg,png'],
         ]);
 
         $program = CharityProgram::query()
