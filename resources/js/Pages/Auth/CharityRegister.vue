@@ -76,7 +76,7 @@
                   <div class="col-12">
                     <label class="mb-1">Password <span class="text-danger">*</span></label>
                       <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
-                      <div class="mt-2">
+                      <div class="alert alert-info mt-2" role="alert">
                         <small>
                           <p class="text-danger nmb-1" v-if="v$.password.containsSpecial.$invalid"> &#10006; Passwords requires an special character. </p>
                         </small>
