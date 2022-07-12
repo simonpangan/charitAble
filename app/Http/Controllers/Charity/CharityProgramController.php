@@ -110,9 +110,13 @@ class CharityProgramController
         return to_route('charity.program.index', Auth::id());
     }
 
-    public function show(int $id): Response
+    public function show(int $id)
     {
-        $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
+        $program = CharityProgram::with('charity:id,name,eth_address,charity_verified_at')->findOrFail($id);
+
+        if (is_null($program->charity->charity_verified_at)) {
+            return back();
+        }
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
