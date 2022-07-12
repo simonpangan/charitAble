@@ -51,32 +51,41 @@
                       <td>{{ program.name }}</td>
                       <td>{{ program.withdraw_request_amount }}</td>
                       <td class="text-center">{{ program.withdraw_requested_at }}</td>
-                       <td class="d-flex justify-content-evenly">
-                        <div class="input-group">
-                          <input type="file" class="form-control" @input="avatar[index] = $event.target.files[0]">
-                           <button class="btn btn-primary"
-                            :data="{ id: program.id }" 
-                            type="button"
-                            title="Approve Withdraw Request"
-                            :disabled="isProcessing"
-                            @click="approveWithdraw(
-                                program.id, 
-                                program.withdraw_request_amount, 
-                                program.charity.eth_address,
-                                index
-                              )">
-                            <div class="spinner-border spinner-border-sm" v-if="isProcessing" role="status">
-                              <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <i class="fas fa-badge-check" v-else></i>
-                          </button>
+                       <td >
+                        <div class="d-flex justify-content-evenly">
+                          <div class="input-group">
+                            <input type="file" class="form-control" 
+                            placeholder="hello"
+                            @input="avatar[index] = $event.target.files[0]">
+                            <button class="btn btn-primary"
+                              :data="{ id: program.id }" 
+                              type="button"
+                              title="Approve Withdraw Request"
+                              :disabled="isProcessing"
+                              @click="approveWithdraw(
+                                  program.id, 
+                                  program.withdraw_request_amount, 
+                                  program.charity.eth_address,
+                                  index
+                                )">
+                              <div class="spinner-border spinner-border-sm" v-if="isProcessing" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                              <i class="fas fa-badge-check" v-else></i>
+                            </button>
+                          </div>
+                          <Link class="btn btn-light ms-1"
+                            :href="$route('charity.program.show', {
+                                id: program.id
+                            })" title="Look Up Program">
+                              <i class="far fa-search"></i>
+                          </Link>
                         </div>
-                        <Link class="btn btn-light ms-1"
-                          :href="$route('charity.program.show', {
-                              id: program.id
-                          })" title="Look Up Program">
-                            <i class="far fa-search"></i>
-                        </Link>
+                        <div v-if="props.errors.transaction" class="d-block">
+                          <span v-text="props.errors.transaction"
+                            class="invalid-feedback d-block" role="alert">
+                          </span>
+                        </div>
                       </td>
                     </tr>
                     <tr v-if="programs.data.length == 0">
@@ -122,6 +131,7 @@ import { Inertia } from '@inertiajs/inertia';
 
 let props = defineProps({
   programs: Object,
+   errors: Array,
 });
 </script>
 
