@@ -75,10 +75,9 @@
                           <div v-else class="badge bg-warning rounded-pill">Pending</div>
                       </td>
                       <td>
-                        <div class="input-group mb-3">
-                        <input type="email" class="form-control" 
-                        :value="charity.permits"  v-on:keyup.enter="savePermit($event, charity.id)">
-                        </div>
+                          <input type="email" class="form-control" 
+                          :value="charity.permits"  v-on:keyup.enter="savePermit($event, charity.id)">
+                          <small class="form-text text-muted d-block">Press enter key to save.</small>
                       </td>
                        <td class="d-flex justify-content-evenly">
                         <template  v-if="charity.charity_verified_at">
