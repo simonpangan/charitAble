@@ -188,11 +188,11 @@
              <div>
                <label class="mb-1">Address <span class="text-danger">*</span></label>
               <div class="input-group mb-3">
-                <input type="text" v-model="form.address" class="form-control">
-                <select v-model="form.location" class="form-select" id="inputGroupSelect02">
-                  <option selected>Select City</option>
-                  <option v-for="location in locations" :key="location.id" :value="location.id">
-                    {{ location.name }}
+                 <textarea type="textarea" v-model="form.address" class="form-control"> </textarea>
+                <select v-model="form.city" class="form-select" id="inputGroupSelect02">
+                  <option :value="null">Select City</option>
+                  <option v-for="city in locations" :key="city.id" :value="city.id">
+                    {{ city.name }}
                   </option>
                 </select>
               </div>
