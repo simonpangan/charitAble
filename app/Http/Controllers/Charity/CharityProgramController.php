@@ -189,7 +189,11 @@ class CharityProgramController
             ->with(['charity:id,name,eth_address',
                 'supporters',
             ])
-            ->findOrFail($id);
+            ->findOrFail($id);  
+
+        if (is_null($program->charity->charity_verified_at)) {
+            return back();
+        }
 
         $program->load(['supporters.benefactor' => function ($query) use ($id) {
             $query->whereIn('id', function($query) use ($id) {
