@@ -20,10 +20,15 @@ use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CharityProgramController
 {
-    public function index(int $id): Response
+    public function index(int $id)
     {
         $charity =  Charity::query()
             ->findOrFail($id);
+
+
+        if (is_null($charity->charity_verified_at)) {
+            return back();
+        }
 
         $seeFollowOrUnfollow = false;
         $canFollow = false;
