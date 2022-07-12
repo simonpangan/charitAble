@@ -426,7 +426,7 @@
         password_confirmation: null,
         description: null,
         address: null,
-        location: null,
+        city: null,
         fb_link: null,
         twitter_link: null,
         ig_link: null,
