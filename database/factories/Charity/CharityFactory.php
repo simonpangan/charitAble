@@ -41,4 +41,13 @@ class CharityFactory extends Factory
             ];
         });
     }
+
+    public function ethAddress($ethAddress)
+    {
+        return $this->state(function (array $attributes) use ($ethAddress) {
+            return [
+                'eth_address' => $ethAddress,
+            ];
+        });
+    }
 }
