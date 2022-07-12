@@ -45,7 +45,7 @@ class CharityRegisterController extends Controller
         $link = '';
 
         $user = $this->createUser(
-            $request->only(['email', 'password','address','location'])
+            $request->only(['email', 'password','address','city'])
         );
         $id = $user->id;
 
@@ -110,7 +110,7 @@ class CharityRegisterController extends Controller
             'role_id' => Role::USERS['CHARITY_SUPER_ADMIN'],
             'password' => Hash::make($data['password']),
             'address' => $data['address'],
-            'location_id' => $data['location'],
+            'location_id' => $data['city'],
         ]);
     }
 

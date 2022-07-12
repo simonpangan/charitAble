@@ -4,6 +4,7 @@ namespace App\Http\Requests\Charity;
 
 use App\Models\Categories;
 use App\Models\Location;
+use App\Rules\MaxWordsRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
@@ -41,7 +42,7 @@ class CharityRegisterRequest extends FormRequest
     private function stepOneRules() : array
     {
         return [
-            'name' => ['required', 'string', 'min:5', 'max:100',  "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/", 'unique:charities,name'],
+            'name' => ['required', 'string', 'min:5', 'max:200', "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/", 'unique:charities,name'],
             'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:charities,charity_email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
@@ -55,6 +56,7 @@ class CharityRegisterRequest extends FormRequest
     private function stepTwoRules() : array
     {
         return array_merge($this->stepOneRules(), [
+            'description' => ['required', 'string', new MaxWordsRule(250)],
             'address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'int', Rule::in(Location::all()->pluck('id'))],
             //active_url
