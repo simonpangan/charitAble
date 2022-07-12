@@ -29,8 +29,8 @@
                 <div class="col">
                   <label class="mb-1">Organization Email <span class="text-danger">*</span></label>
                     <input v-model.trim="form.charity_email" type="email" class="form-control" />
-                    <div v-if="errors.charity_email" class="text-danger">
-                      {{ errors.charity_email }}
+                    <div v-if="form.errors.charity_email" class="text-danger">
+                      {{ form.errors.charity_email }}
                     </div>
                 </div>
               </div>
@@ -67,8 +67,8 @@
                       <small class="form-text text-muted">
                         This is the email you are going to use in login.
                       </small>
-                      <div v-if="errors.email" class="text-danger">
-                        {{ errors.email }}
+                      <div v-if="form.errors.email" class="text-danger">
+                        {{ form.errors.email }}
                       </div>
                   </div>
                 </div>
@@ -108,8 +108,8 @@
                           <p style="color: #00c9a7" v-else> &check;  Passwords needs to have atleast 8 characters.</p>
                         </small>
                       </div>
-                      <div v-if="errors.password" class="text-danger">
-                        {{ errors.password }}
+                      <div v-if="form.errors.password" class="text-danger">
+                        {{ form.errors.password }}
                       </div>
                   </div>
                   <div class="col">
@@ -179,60 +179,63 @@
                   <div class="form-group">
                     <label class="mb-1">Organization Description <span class="text-danger">*</span></label>
                       <textarea v-model="form.description" type="text" class="form-control" rows="6"></textarea>
-                      <div v-if="errors.name" class="text-danger">
-                        {{ errors.name }}
+                      <div v-if="form.errors.description" class="text-danger">
+                        {{ form.errors.description }}
                       </div>
-                      
                   </div>
                 </div>
               </div>
-              <div class="row mt-2">
-                <div class="col">
-                  <label class="mb-1">Address <span class="text-danger">*</span></label>
-                  <div class="input-group mb-3">
-                    <input type="text" v-model="form.address" class="form-control">
-                    <select v-model="form.location" class="form-select" id="inputGroupSelect02">
-                      <option selected>Select City</option>
-                      <option v-for="location in locations" :key="location.id" :value="location.id">
-                        {{ location.name }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
+             <div>
+               <label class="mb-1">Address <span class="text-danger">*</span></label>
+              <div class="input-group mb-3">
+                <input type="text" v-model="form.address" class="form-control">
+                <select v-model="form.location" class="form-select" id="inputGroupSelect02">
+                  <option selected>Select City</option>
+                  <option v-for="location in locations" :key="location.id" :value="location.id">
+                    {{ location.name }}
+                  </option>
+                </select>
               </div>
+               <div v-if="form.errors.address" class="text-danger d-block">
+                  {{ form.errors.address }}
+                </div>
+                <div v-if="form.errors.city" class="text-danger d-block">
+                  {{ form.errors.city }}
+                </div>
+             </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Facebook Link</label>
-                    <input v-model.trim="form.fb_link" type="email" class="form-control" />
-                    <div v-if="errors.charity_email">
-                      {{ errors.charity_email }}
+                    <input v-model.trim="form.fb_link" type="text" class="form-control" />
+                    <div v-if="form.errors.fb_link" class="text-danger">
+                      {{ form.errors.fb_link }}
                     </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Twitter Link</label>
-                    <input v-model.trim="form.twitter_link" type="email" class="form-control" />
-                    <div v-if="errors.charity_email">
-                      {{ errors.charity_email }}
+                    <input v-model.trim="form.twitter_link" type="text" class="form-control" />
+                    <div v-if="form.errors.twitter_link" class="text-danger">
+                      {{ form.errors.twitter_link }}
                     </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Instagram Link</label>
-                    <input v-model.trim="form.ig_link" type="email" class="form-control" />
-                    <div v-if="errors.charity_email">
-                      {{ errors.charity_email }}
+                    <input v-model.trim="form.ig_link" type="text" class="form-control" />
+                    <div v-if="form.errors.ig_link" class="text-danger">
+                      {{ form.errors.ig_link }}
                     </div>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label class="mb-1">Website Link</label>
-                    <input v-model.trim="form.website_link" type="email" class="form-control" />
-                    <div v-if="errors.charity_email">
-                      {{ errors.charity_email }}
+                    <input v-model.trim="form.website_link" type="text" class="form-control" />
+                    <div v-if="form.errors.website_link" class="text-danger">
+                      {{ form.errors.website_link }}
                     </div>
                 </div>
               </div>
@@ -272,6 +275,9 @@
                     v-on:init="handleFilePondInit"
                     v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
             </div>
+               <div v-if="form.errors.logo" class="text-danger d-block">
+                  {{ form.errors.logo }}
+              </div>
           </div>
           <div class="col-md-4  justify-content-center align-items-center d-flex vh-100">
             <div class="card card-custom bg-white border-white border-0">
@@ -459,7 +465,6 @@
       return { form, v$, submit };
     },
     props: {
-      errors: Object,
       csrfToken: String,
       charityCategories: Array,
       locations: Array

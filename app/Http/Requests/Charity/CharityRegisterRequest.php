@@ -41,13 +41,12 @@ class CharityRegisterRequest extends FormRequest
     private function stepOneRules() : array
     {
         return [
-            //'name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'name' => ['required', 'string', 'min:5', 'max:100',  "regex:/^([^\"!\*\\\\^<>{}_=+~|?]*)$/", 'unique:charities,name'],
             'charity_email' => ['required', 'string', 'email', 'max:255', 'unique:charities,charity_email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'categories' => ['array', 'required'],
-            'categories.*' => [
+            'categories.*' => [ 
                 'required', 'distinct', Rule::in(Categories::all()->pluck('id'))
             ],
         ];
@@ -57,7 +56,12 @@ class CharityRegisterRequest extends FormRequest
     {
         return array_merge($this->stepOneRules(), [
             'address' => ['required', 'string', 'max:255'],
-            'location' => ['required', 'int', Rule::in(Location::all()->pluck('id'))],
+            'city' => ['required', 'int', Rule::in(Location::all()->pluck('id'))],
+            //active_url
+            'fb_link'=> ['nullable', 'string', 'url'],
+            'twitter_link'=> ['nullable', 'string', 'url'],
+            'ig_link'=> ['nullable', 'string', 'url'],
+            'website_link'=> ['nullable', 'string', 'url'],
         ]);
     }
 
@@ -68,6 +72,7 @@ class CharityRegisterRequest extends FormRequest
             'email.required' => 'The head admin email field is required.',
             'name.regex' => 'Charity name has an illegal special characters ( ! , @ , # , ^ , % , * , < , > , \ , / , { , } , ? , | , ~)',
             'name.unique' => 'Charity name is already taken',
+            'ig_link.url' => 'The instagram link must be a valid URL',
         ];
     }
 }
