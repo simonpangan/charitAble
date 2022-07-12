@@ -25,7 +25,7 @@ class AdminWithdrawRequestController extends Controller
     private function getProgramWithWithdrawRequest()
     {
         return CharityProgram::query()
-            ->with('charity:id,eth_address')
+            ->with('charity:id,eth_address,charity_verified_at')
             ->where('has_withdraw_request', 1)
             ->latest('withdraw_requested_at')
             ->paginate(15);
@@ -36,6 +36,7 @@ class AdminWithdrawRequestController extends Controller
         $request->validate([
             'transaction' => ['required', 'file', 'mimes:jpg,jpeg,png'],
         ]);
+
 
         $program = CharityProgram::query()
             ->with('charity')

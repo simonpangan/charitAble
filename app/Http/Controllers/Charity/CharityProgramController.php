@@ -186,7 +186,7 @@ class CharityProgramController
     public function supporters(int $id)
     {
         $program = CharityProgram::query()
-            ->with(['charity:id,name,eth_address',
+            ->with(['charity:id,name,eth_address,charity_verified_at',
                 'supporters',
             ])
             ->findOrFail($id);  

@@ -28,7 +28,7 @@
                 <card id="datatablesSimple" class="dataTable-table">
                   <thead>
                   <tr>
-                      <th width="10%" class="text-center">
+                      <th width="5%" class="text-center">
                         #
                       </th>
                       <th width="20%" class="text-center">
@@ -36,6 +36,9 @@
                       </th>
                       <th width="5%" class="text-center">
                        Amount
+                      </th>
+                      <th width="10%" class="text-center">
+                       Charity Status
                       </th>
                       <th width="15%" class="text-center">
                         Request Date
@@ -50,6 +53,11 @@
                       <td class="text-center">{{ programs.from + index }}</td>
                       <td>{{ program.name }}</td>
                       <td>{{ program.withdraw_request_amount }}</td>
+                      <td class="text-center">
+                        <div v-if="program.charity.charity_verified_at" 
+                          class="badge bg-success text-white rounded-pill">Approve</div>
+                        <div v-else class="badge bg-warning rounded-pill">Pending</div>
+                      </td>
                       <td class="text-center">{{ program.withdraw_requested_at }}</td>
                        <td >
                         <div class="d-flex justify-content-evenly">
@@ -74,7 +82,7 @@
                               <i class="fas fa-badge-check" v-else></i>
                             </button>
                           </div>
-                          <Link class="btn btn-light ms-1"
+                          <Link class="btn btn-light ms-1" v-if="program.charity.charity_verified_at"
                             :href="$route('charity.program.show', {
                                 id: program.id
                             })" title="Look Up Program">
