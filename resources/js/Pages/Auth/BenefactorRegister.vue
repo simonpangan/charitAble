@@ -117,7 +117,7 @@
           </div>
         </div>
         <div>
-          <label>Preferences <span class="text-danger">*</span></label>
+          <label>Preferences <span class="text-danger">*</span><small><span class="text-muted"> (Please select at least one)</span></small></label>
           <ul class="ks-cboxtags">
             <li v-for="(category, index) in charityCategories" :key="category.id">
               <input
