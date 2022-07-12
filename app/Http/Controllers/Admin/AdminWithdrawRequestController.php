@@ -27,6 +27,7 @@ class AdminWithdrawRequestController extends Controller
         return CharityProgram::query()
             ->with('charity:id,eth_address')
             ->where('has_withdraw_request', 1)
+            ->latest('withdraw_requested_at')
             ->paginate(15);
     }
 
