@@ -11,10 +11,16 @@ use App\Models\Charity\CharityProgram;
 
 class BenefactorDonationController
 {
-    public function index(int $id): Response
+    public function index(int $id)
     {
         $program = CharityProgram::findOrFail($id);
         $charity_id = $program->charity_id;
+
+        $charity = Charity::find($charity_id);
+        
+        if (is_null($charity->charity_verified_at)) {
+            return back();
+        }
 
         //If user has donate
         $donated = null;
@@ -25,7 +31,7 @@ class BenefactorDonationController
 
         return Inertia::render('Benefactor/Payment/Donate',[
             'program' => $program,
-            'charity' => Charity::find($charity_id),
+            'charity' => $charity,
             'donated' => $donated
         ]);
     }
