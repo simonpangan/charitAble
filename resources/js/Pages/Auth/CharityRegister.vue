@@ -247,34 +247,35 @@
                         {{this.image_file}}
                     </div>
                 </div>
-                    <file-pond name="file"
-                     class="h-25 mb-5"
-                      v-model="file"
-                       ref="file"
-                        v-bind:files="file"
-                         v-bind:server="{
-                        timeout: 7000,
-                        url: '/register/charity/upload',
-                        process: {
-                        headers: {
-                            url: '/register/charity/upload',
-                            method: 'POST',
-                            'X-CSRF-TOKEN': this.$page.props.csrfToken,
-                        },
-                        withCredentials: false,
-                        },
-                    }"
-                    allow-multiple="false"
-                    accepted-file-types="image/jpeg, image/png"
-                    max-files="1"
-                    label="Click here to Upload Photo"
-                    required="true"
-                    credits="false"
-                    allowDrop="true"
-                    dropOnPage="true"
-                    v-on:init="handleFilePondInit"
-                    v-on:updatefiles="handleFilePondUpdateFiles"></file-pond>
-            </div>
+                <file-pond name="file"
+                  class="h-25 mb-5"
+                v-model="file"
+                ref="file"
+                v-bind:files="file"
+                v-bind:server="{
+                  timeout: 7000,
+                  url: '/register/charity/upload',
+                  process: {
+                  headers: {
+                      url: '/register/charity/upload',
+                      method: 'POST',
+                      'X-CSRF-TOKEN': this.$page.props.csrfToken,
+                  },
+                  withCredentials: false,
+                  },
+                }"
+                allow-multiple="false"
+                accepted-file-types="image/jpeg, image/png"
+                max-files="1"
+                label="Click here to Upload Photo"
+                required="true"
+                credits="false"
+                allowDrop="true"
+                dropOnPage="true"
+                v-on:init="handleFilePondInit"
+                v-on:updatefiles="handleFilePondUpdateFiles">
+                </file-pond>
+              </div>
                <div v-if="form.errors.logo" class="text-danger d-block">
                   {{ form.errors.logo }}
               </div>
@@ -324,22 +325,22 @@
               </div>
               <div class="row">
                 <label class="pb-5">Documents <span class="text-danger">*</span></label>
-                    <file-pond name="documentFile"
-                     class="h-50 mb-5"
-                      v-model="documentFile"
-                       ref="documentFile"
-                        v-bind:files="documentFile"
-                         v-bind:server="{
-                        timeout: 7000,
-                        url: '/register/charity/uploadDocuments',
-                        process: {
-                        headers: {
-                            url: '/register/charity/uploadDocuments',
-                            method: 'POST',
-                            'X-CSRF-TOKEN': this.$page.props.csrfToken,
-                        },
-                        withCredentials: false,
-                        },
+                  <file-pond name="documentFile"
+                    class="h-50 mb-5"
+                    v-model="documentFile"
+                    ref="documentFile"
+                    v-bind:files="documentFile"
+                    v-bind:server="{
+                      timeout: 7000,
+                      url: '/register/charity/uploadDocuments',
+                      process: {
+                      headers: {
+                          url: '/register/charity/uploadDocuments',
+                          method: 'POST',
+                          'X-CSRF-TOKEN': this.$page.props.csrfToken,
+                      },
+                      withCredentials: false,
+                      },
                     }"
                     allow-multiple="false"
                     accepted-file-types="image/*"
@@ -347,9 +348,8 @@
                     allowDrop="true"
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
-                    v-on:updatefiles="handleFilePondUpdateDocumentFiles"></file-pond>
-
-
+                    v-on:updatefiles="handleFilePondUpdateDocumentFiles">
+                  </file-pond>
               </div>
               <div class="d-flex justify-content-end">
                 <button class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="prevStep"> Previous Step </button>
@@ -431,7 +431,7 @@
         twitter_link: null,
         ig_link: null,
         website_link: null,
-        file: [],
+        logo: [],
         categories: [],
         documentFile: null,
         categories: []
@@ -479,10 +479,6 @@
       };
     },
     methods: {
-      handleFilePondInit: function() {
-        console.log("FilePond has initialized");
-        // FilePond instance methods are available on `this.$refs.pond`
-      },
       handleFilePondUpdateDocumentFiles:function(documentFile){
         this.form.documentFile = documentFile.map(documentFile => documentFile.file);
       },
@@ -491,7 +487,7 @@
         this.image_file = file[0].filename;
         this.image_file_size = file[0].fileSize;
 
-        this.form.file = file[0].file;
+        this.form.logo = file[0].file;
       },
       prevStep: function() {
         this.step--;
