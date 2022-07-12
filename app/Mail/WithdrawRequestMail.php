@@ -20,6 +20,7 @@ class WithdrawRequestMail extends Mailable
     public function __construct(
         public $program,
         public $transaction_hash,
+        public $receipt
     ) {}
 
     /**
@@ -29,6 +30,10 @@ class WithdrawRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.withdraw-request');
+        return $this->markdown('mail.withdraw-request')
+            ->attachData($this->receipt->get(), 'receipt.' . $this->receipt->getClientOriginalExtension(), 
+            [
+                'mime' => $this->receipt->getClientMimeType(),
+            ]);
     }
 }

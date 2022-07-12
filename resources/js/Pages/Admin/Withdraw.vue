@@ -34,13 +34,13 @@
                       <th width="20%" class="text-center">
                         Name
                       </th>
-                      <th width="10%" class="text-center">
+                      <th width="5%" class="text-center">
                        Amount
                       </th>
-                      <th width="20%" class="text-center">
+                      <th width="15%" class="text-center">
                         Request Date
                       </th>
-                      <th width="10%" class="text-center">
+                      <th width="20%" class="text-center">
                           Action
                       </th>
                     </tr>
@@ -50,25 +50,28 @@
                       <td class="text-center">{{ programs.from + index }}</td>
                       <td>{{ program.name }}</td>
                       <td>{{ program.withdraw_request_amount }}</td>
-                      <td>{{ program.withdraw_requested_at }}</td>
+                      <td class="text-center">{{ program.withdraw_requested_at }}</td>
                        <td class="d-flex justify-content-evenly">
-                        <button class="btn btn-primary"
-                          :data="{ id: program.id }" 
-                          type="button"
-                          title="Approve Withdraw Request"
-                          :disabled="isProcessing"
-                          @click="approveWithdraw(program.id, program.withdraw_request_amount, program.charity.eth_address)">
-                          <div class="spinner-border spinner-border-sm" v-if="isProcessing" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                          </div>
-                          <i class="fas fa-badge-check" v-else></i>
-                        </button>
-                        <a class="btn btn-info d-inline"  title="Download Charity Documents" :href="$route('admin.home.download', {
-                          'id': program.charity_id
-                        })">
-                          <i class="fad fa-download"></i>
-                        </a>
-                        <Link class="btn btn-light"
+                        <div class="input-group">
+                          <input type="file" class="form-control" @input="avatar[index] = $event.target.files[0]">
+                           <button class="btn btn-primary"
+                            :data="{ id: program.id }" 
+                            type="button"
+                            title="Approve Withdraw Request"
+                            :disabled="isProcessing"
+                            @click="approveWithdraw(
+                                program.id, 
+                                program.withdraw_request_amount, 
+                                program.charity.eth_address,
+                                index
+                              )">
+                            <div class="spinner-border spinner-border-sm" v-if="isProcessing" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <i class="fas fa-badge-check" v-else></i>
+                          </button>
+                        </div>
+                        <Link class="btn btn-light ms-1"
                           :href="$route('charity.program.show', {
                               id: program.id
                           })" title="Look Up Program">
@@ -130,8 +133,13 @@ let props = defineProps({
   import contractAddress from '~blockchain/contract-address.js';
 
   export default {
+    data() {
+      return {
+        avatar: [],
+      }
+    },
     methods: {
-      approveWithdraw(programID, amount, ethAddress) {
+      approveWithdraw(programID, amount, ethAddress, index) {
           Swal.fire({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",
@@ -156,10 +164,11 @@ let props = defineProps({
                   const transaction = this.sendBlockchainTransaction(amount, ethAddress);
 
                   transaction.then(response => {
-                    Inertia.get(
+                    Inertia.post(
                       route('admin.withdraw.approve'), { 
                         id: programID,
-                        'blockchain_transaction': response.transactionHash
+                        'blockchain_transaction': response.transactionHash,
+                        'transaction': this.avatar[index],
                       }, {
                         onSuccess: page => {
                           Swal.fire(

@@ -33,6 +33,10 @@ class AdminWithdrawRequestController extends Controller
 
     public function approve(Request $request)
     {
+        $request->validate([
+            'transaction' => 'required',
+        ]);
+
         $program = CharityProgram::query()
             ->with('charity')
             ->findOrFail($request->id);
@@ -47,7 +51,10 @@ class AdminWithdrawRequestController extends Controller
 
         Mail::to($program->charity->charity_email)
             ->bcc($emails)
-            ->send(new WithdrawRequestMail($program, $request->blockchain_transaction));
+            ->send(new WithdrawRequestMail(
+                $program, $request->blockchain_transaction,
+                $request->file('transaction')
+            ));
 
         $program->update([
             'has_withdraw_request' => 0,
