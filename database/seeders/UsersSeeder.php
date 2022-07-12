@@ -69,6 +69,7 @@ class UsersSeeder extends Seeder
         
         $charityuser = $charity->charity()->create(
             array_merge(Charity::factory()->raw(), [
+                'charity_verified_at' => now(),
                 'eth_address' => '0x30E54C2b235A15724d69Ac69855Fbd0A4E42E286',
                 'logo' => 'http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/okc.png',
             ])
