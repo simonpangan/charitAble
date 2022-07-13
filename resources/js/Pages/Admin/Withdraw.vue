@@ -198,6 +198,7 @@ let props = defineProps({
                       }
                     );
                   }).catch(error => {
+                    console.log(error);
                     Swal.fire({
                       icon: 'error',
                       title: 'Ethereum transaction failed',
