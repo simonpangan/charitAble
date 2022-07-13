@@ -1,4 +1,5 @@
 <template>
+  <Head title="Terms and Condition" />
   <div class="bg-white py-5">
     <div class="container">
       <div class="row">
