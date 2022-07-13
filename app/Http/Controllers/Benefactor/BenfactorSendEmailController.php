@@ -15,7 +15,7 @@ class BenfactorSendEmailController
     public function __invoke(Request $request)
     {
         $request->validate([
-            'message' => 'required|max:255|string', 
+            'message' => 'required|max:280|string', 
         ]);
 
         $post = CharityVolunteerPost::query()
