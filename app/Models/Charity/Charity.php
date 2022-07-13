@@ -37,7 +37,7 @@ class Charity extends Model
 
     public function officers()
     {
-        return $this->hasMany(CharityOfficers::class);
+        return $this->hasMany(CharityOfficers::class)->orderBy('first_name');
     }
 
     public function posts()
