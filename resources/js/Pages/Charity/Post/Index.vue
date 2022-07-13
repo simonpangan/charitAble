@@ -19,11 +19,12 @@
                             </button>
                         </div>
                         <div class="p-3 border-bottom osahan-post-body">
-                            {{post.main_content_body}}
-                            <img v-if="post.main_content_body_image" 
-                                v-bind:src="post.main_content_body_image"
-                                class="img-fluid"  alt="post image"
-                            >
+                            <p class="text-break">
+                                {{post.main_content_body}}
+                            </p>
+                            <div v-if="post.main_content_body_image" class="text-center">
+                                <img  v-bind:src="post.main_content_body_image" class="img-fluid"  alt="post image">
+                            </div>
                         </div>
                     </div>
                 </div>
