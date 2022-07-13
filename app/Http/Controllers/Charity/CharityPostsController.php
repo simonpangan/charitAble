@@ -90,7 +90,7 @@ class CharityPostsController
 
             Storage::move(
                 'tmp/post/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
-                'public/charity/'.$id.'/post'.'/'.$filename. '-' .Carbon::now()->timestamp
+                'public/charity/'.$id.'/post'.'/'.Carbon::now()->timestamp.'-'.$filename
             );
             Storage::deleteDirectory('tmp/post/'.$temporaryFile['folder']);
 
@@ -100,7 +100,7 @@ class CharityPostsController
                 ->first()
                 ->delete();
 
-            $link = "/storage/charity/{$id}/post/{$filename}-".Carbon::now()->timestamp;
+            $link = "/storage/charity/{$id}/post/".Carbon::now()->timestamp."-{$filename}";
         }
 
         CharityPosts::create([
@@ -117,6 +117,10 @@ class CharityPostsController
     public function destroy(int $id): RedirectResponse
     {
         $post = CharityPosts::findOrFail($id);
+
+        if (! is_null($post->main_content_body_image)) {
+            unlink(substr($post->main_content_body_image, 1));
+        }
 
         abort_if($post->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
