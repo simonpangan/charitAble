@@ -41,7 +41,19 @@ class PaypalPaymentController extends Controller
                 ]
             ],
         ]);
-        return response()->json($order);
+
+        // return (dd(strcmp($order['error']['message'],"Request is not well-formed, syntactically incorrect, or violates schema.") == 0 ));
+        if($order['status'] == "CREATED"){
+            return response()->json($order);
+        }if($order['error']['message'] === "Request is not well-formed, syntactically incorrect, or violates schema."){
+            return to_route('charity.donate.create')->with(
+               'message', 'Invalid donation amount. Please try again.'
+            );
+        }else{
+            return to_route('charity.donate.create')->with(
+                'message', 'Something went wrong with Paypal123. Please try again.'
+             );
+        }
 
 
         //return redirect($order['links'][1]['href'])->send();
