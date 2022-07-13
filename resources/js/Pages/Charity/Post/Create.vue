@@ -18,10 +18,12 @@
               <div class="w-100">
                 <textarea placeholder="Write a message…" v-model="form.main_content_body" class="form-control border-0 p-3 shadow-none" rows="7">
                 </textarea>
+                <div class="float-end">{{ charactersLength }} / 63000 characters</div>
                 <span v-if="form.errors.main_content_body" v-text="form.errors.main_content_body"
                     class="invalid-feedback d-block" role="alert">
                 </span>
               </div>
+              <br />
               <file-pond
                 name="main_content_body_image"
                 class="h-25 mt-4 mb-2"
@@ -101,7 +103,7 @@ export default {
   },
   setup() {
     let form = useForm({
-      main_content_body: null,
+      main_content_body: '',
       main_content_body_image: null,
     });
 
@@ -125,7 +127,7 @@ export default {
       return window.history.back();
     },
     handleFilePondInit: function () {
-      console.log("FilePond has initialized");
+      console.log("FilePond has initialized");s
       // FilePond instance methods are available on `this.$refs.pond`
     },
     handleFilePondUpdateFiles: function (main_content_body_image) {
@@ -152,8 +154,11 @@ export default {
         this.LoadingState = 'true';
     },
   },
- 
-
+  computed : {
+    charactersLength() {
+      return this.form.main_content_body.length;
+    }
+  }
 };
 </script>
 <style>
