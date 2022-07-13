@@ -16,8 +16,9 @@ use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityPostStoreRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+
 
 class CharityPostsController
 {
@@ -41,7 +42,7 @@ class CharityPostsController
         $seeFollowOrUnfollow = false;
         $canFollow = false;
 
-        if (Auth::user()->role_id == Role::USERS['BENEFACTOR']) 
+        if (Auth::user()->role_id == Role::USERS['BENEFACTOR'])
         {
             $seeFollowOrUnfollow = true;
 
@@ -59,7 +60,7 @@ class CharityPostsController
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
                 'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
-                'follow' => $canFollow 
+                'follow' => $canFollow
             ]
         ]);
     }
@@ -88,8 +89,8 @@ class CharityPostsController
                 ->getRawOriginal();
 
             Storage::move(
-                'tmp/post/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
-                'public/charity/'.$id.'/post'.'/'.$filename
+                'tmp/post/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
+                'public/charity/'.$id.'/post'.'/'.$filename. '-' .Carbon::now()->timestamp
             );
             Storage::deleteDirectory('tmp/post/'.$temporaryFile['folder']);
 
@@ -99,7 +100,7 @@ class CharityPostsController
                 ->first()
                 ->delete();
 
-            $link = "/storage/charity/{$id}/post/{$filename}";
+            $link = "/storage/charity/{$id}/post/{$filename}-".Carbon::now()->timestamp;
         }
 
         CharityPosts::create([
@@ -120,14 +121,15 @@ class CharityPostsController
         abort_if($post->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
         Auth::user()->createLog("You have deleted a post");
-        
+
+
         $post->delete();
         return to_route('charity.post.index', [
             'id' => Auth::id()
         ]);
     }
 
-    public function uploadPostPhoto(Request $request) 
+    public function uploadPostPhoto(Request $request)
     {
         if($request->hasFile('main_content_body_image'))
         {
