@@ -124,7 +124,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="mb-3 border rounded list-sidebar overflow-hidden">
+          <div class="mb-3 border rounded list-sidebar overflow-hidden sticky-md-top">
             <div class="box-title p-3 border-bottom">
               <h6 class="m-0">All List</h6>
             </div>
