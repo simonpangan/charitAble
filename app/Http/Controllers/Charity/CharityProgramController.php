@@ -45,7 +45,7 @@ class CharityProgramController
         return Inertia::render('Charity/Program/Index',[
             'programs' => CharityProgram::where(
                     'charity_id', $id
-                )->latest()->paginate(15),
+                )->latest()->paginate(16),
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,

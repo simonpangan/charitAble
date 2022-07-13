@@ -37,7 +37,7 @@ class CharityVolunteerPostController
         return Inertia::render('Charity/Volunteer-Posting/Index',[
             'volunteerPost'=> CharityVolunteerPost::where(
                     'charity_id', $id
-                )->latest()->paginate(15),
+                )->latest()->paginate(16),
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
