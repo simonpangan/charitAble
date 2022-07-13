@@ -4,6 +4,7 @@ namespace App\Models\Charity;
 
 use DateTimeInterface;
 use App\Traits\CharityID;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,12 +14,10 @@ class CharityOfficers extends Model
 
     protected $guarded = ['id'];
 
-    public $casts = [
-        'officer_since' => 'date',
-    ];
+    protected $appends = ['officer_since_formatted'];
 
-    protected function serializeDate(DateTimeInterface $date)
+    public function getOfficerSinceFormattedAttribute()
     {
-        return $date->toFormattedDateString();
+        return (new Carbon($this->officer_since))->toFormattedDateString();
     }
 }

@@ -77,7 +77,7 @@
                             <tr class="nmb-1 border-bottom text-center" v-for="officer in charity.officers" :key="officer.id">
                                 <td>{{officer.first_name + ' ' + officer.last_name}} </td>
                                 <td>{{officer.position}}</td>
-                                <td>{{officer.officer_since}}</td>
+                                <td>{{officer.officer_since_formatted}}</td>
                                 <td v-if="can.access">
                                     <Link  :href="$route('charity.officer.show', {
                                                  id: officer.id 
