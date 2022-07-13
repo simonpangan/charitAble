@@ -40,7 +40,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Position</label>
+                    <label class="mb-1">Position <span class="text-danger">*</span></label>
                     <div class="position-relative">
                       <input type="text" class="form-control" 
                         v-model="form.position" 
@@ -56,7 +56,7 @@
               <div class="row mt-2">
                   <div class="col">
                     <div class="form-group">
-                        <label class="mb-1">Position since...</label>
+                        <label class="mb-1">Position since... <span class="text-danger">*</span></label>
                         <input type="date" v-model="form.officer_since" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <span v-if="form.errors.officer_since" class="text-danger">
                           {{ form.errors.officer_since }}
