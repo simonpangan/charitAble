@@ -18,9 +18,9 @@ return new class extends Migration
             $table->foreignId('charity_id')->constrained();
             $table->string('name');
             $table->text('description');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->text('qualifications');
-            $table->string('incentives')->nullable();
+            $table->text('incentives')->nullable();
             $table->timestamps();
         });
     }
