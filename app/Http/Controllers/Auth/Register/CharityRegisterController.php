@@ -33,11 +33,11 @@ class CharityRegisterController extends Controller
 
     public function store(CharityRegisterRequest $request)
     {
-        if ($request->get('step') == 1) 
+        if ($request->get('step') == 1)
         {
             return to_route('register.charity.index');
-        } 
-        else if ($request->get('step') == 2) 
+        }
+        else if ($request->get('step') == 2)
         {
             return to_route('register.charity.index');
         }
@@ -63,7 +63,7 @@ class CharityRegisterController extends Controller
                 ->getRawOriginal();
 
             Storage::move(
-                'tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'], 
+                'tmp/logo/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
                 'public/charity/'.$id.'/'.'logo/'.$filename
             );
 
@@ -82,7 +82,7 @@ class CharityRegisterController extends Controller
         $documentFile = $request->only('documentFile');
 
         $this->createCharityWithCategories($user, $request->except(['email', 'password','address']), $link);
-        
+
         foreach($documentFile['documentFile'] as $document) {
             $documentFileName = $document->getClientOriginalName();
             $temporaryDocumentFile = TemporaryFile::where('filename',$documentFileName)
@@ -99,7 +99,7 @@ class CharityRegisterController extends Controller
         event(new Registered($user));
 
         $this->guard()->login($user);
-        
+
         return redirect($this->redirectPath());
     }
 
@@ -171,5 +171,21 @@ class CharityRegisterController extends Controller
         }
 
         return $request->hasFile('documentFile');
+    }
+
+
+    public function revertUploadLogo(Request $request)
+    {
+        try{
+            $filename = $request['filename'];
+            $folder = TemporaryFile::where('filename',$filename)->pluck('folder')->first();
+            TemporaryFile::where('filename',$filename)->first()->delete();
+
+             Storage::deleteDirectory('/tmp/logo/'.$folder);
+
+            return 200;
+        }catch(\Exception $e){
+            return $e;
+        }
     }
 }

@@ -48,7 +48,8 @@ Route::name('register.')->group(function () {
 
     Route::get('/register/charity', [CharityRegisterController::class, 'index'])->name('charity.index');
     Route::post('/register/charity/store',[CharityRegisterController::class,'store'])->name('charity.store');
-    Route::post('/register/charity/upload', [CharityRegisterController::class, 'uploadPhoto']);
-    Route::post('/register/charity/uploadDocuments', [CharityRegisterController::class, 'uploadDocumentsPhoto']);
+    Route::post('/register/charity/upload', [CharityRegisterController::class, 'uploadPhoto'])->name('charity.upload.logo');
+    Route::post('/register/charity/uploadDocuments', [CharityRegisterController::class, 'uploadDocumentsPhoto'])->name('charity.upload.documents');
+    Route::post('/register/charity/uploadLogo/revert', [CharityRegisterController::class, 'revertUploadLogo'])->name('charity.upload.logo.revert');
 
 });

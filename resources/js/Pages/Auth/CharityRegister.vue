@@ -37,7 +37,7 @@
               <div class="row mt-2">
                 <div class="col">
                   <div class="form-group">
-                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span> <small><span class="text-muted">(Please select at least one)</span></small></label>                      
+                    <label class="mb-1">Our Organization deals with <span class="text-danger">*</span> <small><span class="text-muted">(Please select at least one)</span></small></label>
                       <ul class="ks-cboxtags">
                         <li v-for="(category, index) in charityCategories" :key="category.id">
                           <input
@@ -54,8 +54,8 @@
                         <div v-if="form.errors.categories" class="text-danger">
                           {{ form.errors['categories'] }}
                         </div>
-                      </ul> 
-                  
+                      </ul>
+
                   </div>
                 </div>
               </div>
@@ -118,16 +118,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row"></div>
-              <div class="row">
-                <label class="mb-1 mt-2">By registering to our platform , you are now agreeing to the CharitAble
-                    <a href="/terms" target="_blank">Terms and User Agreement</a>,
-                    <a href="/privacy" target="_blank">Privacy Policy</a>.
-                </label>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-primary text-uppercase mt-3 px-5" @click.prevent="nextStep"> Agree & Join </button>
-              </div>
             </div>
           </div>
           <div class="
@@ -161,7 +151,17 @@
                   <p class="card-text"> Please input the organization details properly & correctly. Any further corrections, please contact charitable@gmail.com </p>
                 </div>
               </div>
-              <div class="card-footer" style="background: inherit; border-color: inherit"></div>
+              <div class="card-footer" style="background: inherit; border-color: inherit">
+                <div class="row">
+                <label class="mb-1 mt-2">By registering to our platform , you are now agreeing to the CharitAble
+                    <a href="/terms" target="_blank">Terms and User Agreement</a>,
+                    <a href="/privacy" target="_blank">Privacy Policy</a>.
+                </label>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary text-uppercase mt-3 px-5" @click.prevent="nextStep"> Agree & Join </button>
+              </div>
+              </div>
             </div>
           </div>
         </div>
@@ -240,15 +240,19 @@
                 </div>
               </div>
 
-              <label class="pb-0">Organization Logo</label>
-                <div v-if="this.image_file">
+              <label class="pb-2">Organization Logo</label>
+                <div v-if="this.image_file != ''">
                     <p>Uploaded File : </p>
-                      <div class="d-flex mx-auto">
+                      <div class="d-flex me-auto">
                         {{this.image_file}}
+
                     </div>
+                    <button v-if="this.return_from_step3 === 1" type="button" class="btn btn-danger btn-sm mb-1"  @click.prevent="deleteLogoState">Delete currently uploaded file</button>
+
                 </div>
                 <file-pond name="file"
                   class="h-25 mb-5"
+                required="true"
                 v-model="file"
                 ref="file"
                 v-bind:files="file"
@@ -267,13 +271,14 @@
                 allow-multiple="false"
                 accepted-file-types="image/jpeg, image/png"
                 max-files="1"
-                label="Click here to Upload Photo"
-                required="true"
-                credits="false"
+                label="Click here to Upload Charity Logo"
                 allowDrop="true"
-                dropOnPage="true"
+                maxFileSize= "3MB"
                 v-on:init="handleFilePondInit"
-                v-on:updatefiles="handleFilePondUpdateFiles">
+                v-on:updatefiles="handleFilePondUpdateFiles"
+                v-on:removefile="handleRevertFilePond"
+                v-on:addfilestart="OnhandleOnAddFileStart"
+                v-on:processfile="onHandleaddfile">
                 </file-pond>
               </div>
                <div v-if="form.errors.logo" class="text-danger d-block">
@@ -307,8 +312,8 @@
               </div>
               <div class="card-footer" >
                 <div class="d-flex justify-content-end">
-                <button class="btn btn-primary text-uppercase  mx-auto" @click.prevent="prevStep"> Previous Step </button>
-                <button class="btn btn-primary text-uppercase  mx-auto" @click.prevent="secondNextStep"> Next Step </button>
+                <button :disabled="this.LoadingState == 'false'" class="btn btn-primary text-uppercase  mx-auto" @click.prevent="prevStep" > Previous Step </button>
+                <button :disabled="this.LoadingState == 'false'" class="btn btn-primary text-uppercase  mx-auto" @click.prevent="secondNextStep" > Next Step </button>
               </div>
               </div>
             </div>
@@ -343,17 +348,23 @@
                       },
                     }"
                     allow-multiple="false"
-                    accepted-file-types="image/*"
+                    allowImagePreview="false"
+                    credits="false"
+                    accepted-file-types="image/jpeg, image/png, application/pdf"
                     max-files="7"
+                    maxFileSize= "5MB"
                     allowDrop="true"
                     dropOnPage="true"
                     v-on:init="handleFilePondInit"
-                    v-on:updatefiles="handleFilePondUpdateDocumentFiles">
+                    v-on:updatefiles="handleFilePondUpdateDocumentFiles"
+                    v-on:addfilestart="OnhandleOnAddFileStart"
+                    v-on:processfile="onHandleaddfile">
                   </file-pond>
+
               </div>
+              {{this.adedDocumentLists}}
               <div class="d-flex justify-content-end">
-                <button class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="prevStep"> Previous Step </button>
-                <button :disabled="form.processing" class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="submit">
+                <button :disabled="form.processing || this.LoadingState == 'false'" class="btn btn-primary text-uppercase mt-3 mx-auto" @click.prevent="submit">
                   <span v-if="form.processing">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing... </span>
                   <span v-else> Submit </span>
@@ -409,9 +420,13 @@
   import vueFilePond from "vue-filepond";
   import "filepond/dist/filepond.min.css";
   import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+  import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
   import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+  import axios from "axios";
+  import Swal from 'sweetalert2';
 
-  const FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview);
+
+  const FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview,FilePondPluginFileValidateSize);
 
   export default {
     components: {
@@ -474,21 +489,51 @@
         categories: [],
         step: 1,
         totalSteps: 3,
+        return_from_step3: 0,
         image_file: '',
         image_file_size: '',
+        lastFileName : '',
+        uploadedDocumentLists: '',
+        LoadingState : 'true',
+        documentsFileName : []
       };
     },
     methods: {
+      deleteLogoState:function(){
+        this.image_file = '';
+         this.image_file_size= '';
+        this.form.logo = [];
+        this.$refs.file.value = null;
+
+      },
       handleFilePondUpdateDocumentFiles:function(documentFile){
         this.form.documentFile = documentFile.map(documentFile => documentFile.file);
       },
       handleFilePondUpdateFiles: function(file) {
+        this.return_from_step3 = 0;
 
         this.image_file = file[0].filename;
         this.image_file_size = file[0].fileSize;
 
         this.form.logo = file[0].file;
       },
+    handleRevertFilePond: function () {
+      axios({
+        method: "POST",
+        url: route('register.charity.upload.logo.revert'),
+        data: {
+          filename : this.image_file
+        },
+      }).then((response) => {
+       this.image_file = '';
+      });
+    },
+    OnhandleOnAddFileStart: function(){
+        this.LoadingState = 'false';
+    },
+    onHandleaddfile:function(){
+        this.LoadingState = 'true';
+    },
       prevStep: function() {
         this.step--;
       },
@@ -500,11 +545,22 @@
         })
       },
       secondNextStep: function(e) {
+        if(this.image_file === ''){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Please add an charity logo',
+                icon: 'error',
+                confirmButtonText: 'Close'
+                })
+        }else{
+        this.return_from_step3  = 1;
         this.form.post(route("register.charity.store", {
           step: 2,
         }), {
           onSuccess: () => this.step++,
+
         })
+        }
       },
     },
   };

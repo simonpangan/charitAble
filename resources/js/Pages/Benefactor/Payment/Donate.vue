@@ -47,6 +47,10 @@
                     class="alert alert-success w-80 mx-auto text-center">
                       {{ $page.props.flash.message }}
                   </div>
+                  <div v-if="this.paypal_errors != ''" role="alert"
+                    class="alert alert-success w-80 mx-auto text-center">
+                    {{this.paypal_errors}}
+                  </div>
                   <div v-if="$page.props.flash.blockchain_message" role="alert"
                     class="alert alert-success w-80 mx-auto text-center">
                       {{ $page.props.flash.blockchain_message.message }}
@@ -91,7 +95,10 @@
                     </div>
 
                     <div class="form-check" v-if="isPaymongoTransaction || this.payment_method == 'paypal'">
-                      <label class="form-check-label fst-italic mt-2" for="flexCheckDefault"><small> By clicking this button, you agree to Charitable Terms and Agreement, Privacy Policy & Benefactor-Charity Transparency Agreement</small></label>
+                      <label class="form-check-label fst-italic mt-2" for="flexCheckDefault"><small> By clicking this button, you agree to Charitable
+                        <a href="/terms" target="_blank">Terms and Agreement</a>,
+                        <a href="/privacy" target="_blank">Privacy Policy</a>
+                        & Benefactor-Charity Transparency Agreement</small></label>
                     </div>
                   </section>
                 </div>
@@ -132,7 +139,7 @@
               <h6 class="mb-0">Benefactor Protections</h6>
             </div>
             <div class="card-body">
-                <p>In CharitAble, every benefactor deserves best experience. Learn more about our transparency and accountability program</p>
+                <p>In CharitAble, every benefactor deserves best experience. Learn more about our <a href="#" class="text-decoration-underline">transparency and accountability program</a></p>
             </div>
           </div>
         </aside>
@@ -199,6 +206,7 @@
         charity_program_id: this.program.id,
         charity_name: this.program.name,
         is_anonymous: false,
+        paypal_errors: '',
         v$: useVuelidate(),
       };
     },
@@ -327,11 +335,12 @@
               }).then((response) => {
                 return response.data.id;
               }).catch((error) => {
-                console.log(error);
+                alert(error);
               });
             },
             onApprove: (data, action) => {
-              return action.order.capture().then((orderData) => {
+              return action.order.capture()
+              .then((orderData) => {
                 return axios({
                   method: 'POST',
                   headers: {},
