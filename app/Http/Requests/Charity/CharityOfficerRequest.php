@@ -37,9 +37,9 @@ class CharityOfficerRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.regex' => 'The first name must only contain letters, dashes and spaces',
-            'last_name.regex' => 'The last name must only contain letters, dashes and spaces',
-            'position.regex' => 'The last name must only contain letters, dashes and spaces',
+            'first_name.regex' => 'The first name must only contain letters, hyphens and spaces',
+            'last_name.regex' => 'The last name must only contain letters, hyphens and spaces',
+            'position.regex' => 'The position  must only contain letters, hyphens and spaces',
         ];
     }
 }
