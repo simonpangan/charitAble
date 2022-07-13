@@ -36,13 +36,6 @@ class CharityVolunteerPost extends Model
         return (Carbon::parse($this->created_at)->diffForHumans());
     }
 
-    protected function location(): Attribute
-    {
-        return Attribute::make(
-            set: fn ($value) => $this->is_face_to_face == true ? 'Virtual' : $value,
-        );
-    }
-
     public function charity()
     {
         return $this->belongsTo(Charity::class);

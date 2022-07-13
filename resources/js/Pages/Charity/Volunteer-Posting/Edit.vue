@@ -135,11 +135,13 @@ let props = defineProps({
     volunteerPost: Object
 })
 
+console.log(props.volunteerPost.location);
+
 let form = useForm({
    name: props.volunteerPost.name,
    description: props.volunteerPost.description,
-   location: props.volunteerPost.location,
-   is_face_to_face: props.volunteerPost.is_face_to_face,
+   location: (props.volunteerPost.location == 'Virtual') ? '' : props.volunteerPost.location,
+   is_face_to_face: (props.volunteerPost.location == 'Virtual') ? false : true,
    qualifications: props.volunteerPost.qualifications,
    incentives: props.volunteerPost.incentives
  })

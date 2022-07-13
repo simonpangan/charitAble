@@ -24,14 +24,14 @@ class CharityVolunteerPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string'],
-            'description' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:50'],
+            'description' => ['required', 'string', 'max:63000'],
             'is_face_to_face' => ['required', 'boolean'],
             'location' => ['nullable', 'string', 
                 'required_if:is_face_to_face,true'
             ],
-            'qualifications' => ['required', 'string'],
-            'incentives' => ['required', 'string'],
+            'qualifications' => ['required', 'string', 'max:63000'],
+            'incentives' => ['nullable', 'string', 'max:63000'],
         ];
     }
 

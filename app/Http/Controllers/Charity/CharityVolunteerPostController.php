@@ -49,7 +49,12 @@ class CharityVolunteerPostController
 
     public function store(CharityVolunteerPostRequest $request): RedirectResponse
     {
-        CharityVolunteerPost::create($request->validated());
+        $values = array_merge(
+            $request->validated(), 
+            ['location' => ($request->is_face_to_face == true) ? $request->location : 'Virtual'] 
+        );
+
+        CharityVolunteerPost::create($values);
 
         return to_route('charity.volunteer.index', Auth::id());
     }
@@ -90,7 +95,12 @@ class CharityVolunteerPostController
         
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
-        $program->update($request->validated());
+        $values = array_merge(
+            $request->validated(), 
+            ['location' => ($request->is_face_to_face == true) ? $request->location : 'Virtual'] 
+        );
+
+        $program->update($values);
 
         return to_route('charity.volunteer.edit', $id)
             ->with('message', 'Succesfully updated your volunteer posting');
