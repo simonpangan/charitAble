@@ -55,7 +55,10 @@
                                     <div class="border-top mt-2">
                                         <p class="text-strong">
                                             <span class="fw-bold">Location</span> : 
-                                            {{ volunteerPost.location }} 
+                                                <a :href="'https://maps.google.com/?q=' + volunteerPost.location"
+                                                target="_blank">
+                                                {{ volunteerPost.location }}
+                                            </a>
                                         </p>
                                     </div>
                                 </div>
