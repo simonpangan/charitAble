@@ -1,5 +1,5 @@
 <template>
-  <Head title="Create Volunteer Posting "></Head>
+  <Head title="Edit Volunteer Posting "></Head>
   <form @submit.prevent="submit">
     <div class="py-4">
       <div class="container">
