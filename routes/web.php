@@ -23,5 +23,4 @@ Route::middleware('auth')
 Route::inertia('/', 'Index')->name('index');
 Route::inertia('/faq', 'Static/FAQ')->name('faq');
 Route::inertia('/about-us', 'Static/AboutUs')->name('about');
-Route::inertia('/privacy', 'Static/PrivacyPolicy')->name('privacy');
 Route::inertia('/terms', 'Static/TermsAndCondition')->name('terms');
