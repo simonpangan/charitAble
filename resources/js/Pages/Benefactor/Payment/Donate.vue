@@ -48,7 +48,7 @@
                       {{ $page.props.flash.message }}
                   </div>
                   <div v-if="this.paypal_errors != ''" role="alert"
-                    class="alert alert-success w-80 mx-auto text-center">
+                    class="alert alert-danger w-80 mx-auto text-center">
                     {{this.paypal_errors}}
                   </div>
                   <div v-if="$page.props.flash.blockchain_message" role="alert"
@@ -200,6 +200,7 @@
         price: 0,
         blockchain_hash: '',
         paypal_transaction_db_id:'',
+        paypal_errors: '',
         step: 0,
         tip_level: 5,
         tip_price: 0,
@@ -335,7 +336,12 @@
               }).then((response) => {
                 return response.data.id;
               }).catch((error) => {
-                alert(error);
+                if(this.v$.price.$errors){
+                this.paypal_errors = "Invalid donation amount. Please try again."
+                }else{
+                this.paypal_errors = "Something went wrong with Paypal. Please try again."
+                }
+
               });
             },
             onApprove: (data, action) => {
@@ -368,7 +374,19 @@
                    this.PaypalSendBlockchainTransaction(this.total_price,response.data);
                 })
               });
-            }
+            },
+            onError:function(err){
+                this.paypal_errors = "Something went wrong";
+            },
+            onCancel:function(data,actions){
+                this.paypal_errors = "Transaction is canceled";
+                  Swal.fire({
+                    title: 'Error!',
+                    text: 'Transaction is canceled',
+                    icon: 'error',
+                    confirmButtonText: 'Close'
+                    })
+            },
           })).render("#paypal-button-container").catch((error) => {
             console.error("failed to render the PayPal Buttons", error);
           });
