@@ -155,7 +155,7 @@
                                     <label for="exampleFormControlTextarea1" class="form-label">
                                         Message  <span class="text-danger">*</span>
                                     </label>
-                                    <textarea class="form-control" v-model="form.message" rows="3">
+                                    <textarea class="form-control" v-model="form.message" rows="6">
                                     </textarea>
                                     <div v-if="errors.message" class="text-danger d-block">
                                         {{ errors.message }}
