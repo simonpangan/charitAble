@@ -1,4 +1,5 @@
 <template>
+  <Head title="Edit board member" />
   <div class="container">
     <div class="row justify-content-center align-items-center d-flex h-75 mt-5">
       <div class="col-md-6">
