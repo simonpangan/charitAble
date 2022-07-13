@@ -7,48 +7,101 @@
             <!-- Title -->
             <div class="border-bottom pb-5 mb-5">
               <h1 class="text-primary fw-light">
-                <span class="fw-bold">Osahanin</span> Terms &amp; conditions
+                <span class="fw-bold">CharitAble</span> Terms &amp; conditions
               </h1>
-              <p class="mb-0">Effective date: 1 January 2020</p>
+              <p class="mb-0">Effective date: July 13, 2022</p>
             </div>
             <!-- End Title -->
             <!-- Title -->
             <div class="mb-3">
-              <h2 class="h5">Welcome to Osahanin</h2>
+              <h2 class="h5">Welcome to CharitAble</h2>
             </div>
             <!-- End Title -->
-            <p>Thanks for using our products and services ("Services"). The Services are provided by Pixeel Ltd. ("Osahanin"), located at 153 Williamson Plaza, Maggieberg, MT 09514, England, United Kingdom. </p>
-            <p>By using our Services, you are agreeing to these terms. Please read them carefully.</p>
-            <p>Our Services are very diverse, so sometimes additional terms or product requirements (including age requirements) may apply. Additional terms will be available with the relevant Services, and those additional terms become part of your agreement with us if you use those Services.</p>
+            <p>By using our platform, you are agreeing to these terms below. Please read them carefully.</p>
+            <p>If users are to use our platform, they agree that we may change or modify portions of these Terms of Service at any time and without notice.
+                The users continued use of services after date of any changes constitutes the acceptance of the revised terms and conditions done by the platform.</p>
+            <p></p>
           </div>
           <div id="services" class="mb-4">
             <!-- Title -->
             <div class="mb-3">
-              <h3 class="h5">1. Using our services</h3>
+              <h3 class="h5">1. Access and Use of the Platform</h3>
             </div>
             <!-- End Title -->
-            <p>You must follow any policies made available to you within the Services.</p>
-            <p>Don't misuse our Services. For example, don't interfere with our Services or try to access them using a method other than the interface and the instructions that we provide. You may use our Services only as permitted by law, including applicable export and re-export control laws and regulations. We may suspend or stop providing our Services to you if you do not comply with our terms or policies or if we are investigating suspected misconduct.</p>
-            <p>Using our Services does not give you ownership of any intellectual property rights in our Services or the content you access. You may not use content from our Services unless you obtain permission from its owner or are otherwise permitted by law. These terms do not grant you the right to use any branding or logos used in our Services. Don't remove, obscure, or alter any legal notices displayed in or along with our Services.</p>
+            <p>You must follow any policies made available to you within the bound of our platform.</p>
+
+            <p>We are merely a platform; therefore we are not a broker, financial institution creditor nor are we a charitable organization.
+                The platform does not endorse any Charity, Program or User, and we make no expressed guarantee or implied that any information that is
+                provided through the services is accurate.</p>
+            <p>Services offered by our platform allows non-profit organizations (the “Charity”) to create different types of fundraisers
+                (“Programs”) to the platform wherein it can recieve monetary donations (“Donations”) from the (“Benefactors”). </p>
+            <p>Fees: Every program donation given by the benefactor will levy a required transactional fees laid down by our partner payment gateways. Furthermore, another optional fees
+                are ("CharitAble Tip"), wherein benefactor users are given to option to choose a level to tip our platform,
+                 ensuring our continued operation and free-of-charge withdrawal of program funds for the charities.
+            </p>
             <!-- Title -->
             <div id="personal-data" class="mb-3 active">
-              <h4 class="h6">A. Personal Data that we collect about you.</h4>
+              <h4 class="h6 text-primary" >A. Benefactor</h4>
             </div>
             <!-- End Title -->
-            <p>Personal Data is any information that relates to an identified or identifiable individual. The Personal Data that you provide directly to us through our Sites will be apparent from the context in which you provide the data. In particular: </p>
+            <p>Benefactor users are consisting of donors and volunteers in our platform. Every valid benefactor users are able to use our all platform features including donate programs.</p>
+            <p>Benefactors are open to explore and support any programs of verified charity programs, however CharitAble cannot guarantee that all inputs stated by the charities
+                are accurate and the following,
+            </p>
+
             <ul class="text-secondary">
-              <li class="pb-2">When you register for a Osahanin account we collect your full name, email address, and account log-in credentials.</li>
-              <li class="pb-2">When you fill-in our online form to contact our sales team, we collect your full name, work email, country, and anything else you tell us about your project, needs and timeline.</li>
-              <li class="pb-2">When you use the "Remember Me" feature of Osahanin Checkout, we collect your email address, payment card number, CVC code and expiration date.</li>
+              <li class="pb-2">The total accuracy and factualness of information provided to the programs</li>
+              <li class="pb-2">Validate all of the claimed charities completed programs milestone.</li>
+              <li class="pb-2">The guaranteed success or completion of any charity programs</li>
             </ul>
-            <p>When you respond to Osahanin emails or surveys we collect your email address, name and any other information you choose to include in the body of your email or responses. If you contact us by phone, we will collect the phone number you use to call Osahanin. If you contact us by phone as a Osahanin User, we may collect additional information in order to verify your identity.</p>
+            <p>However, CharitAble is commited towards a strict verification proccess before allowing charitable organization to collect donations. Through filtering out legitimate and illegtimate charitable organizations,
+                providing benefactors better knowledge and informed decisions. CharitAble strives to make sure any fradulent activities a rare occurrence for a more transparent and safer place towards benefactor.
+            </p>
+            <p>With those thing in mind, the benefactor would be ultimately held responsible for exercising due diligence on donating towards any particular programs in our platform.</p>
+
+            <p>Donating to any programs, the benefactor is here henceforth understood the following terms</p>
+            <ul class="text-secondary">
+              <li class="pb-2">I fully support and agree on how the charity will use my donations as stated in the program expenses.</li>
+              <li class="pb-2">There shall be no refunds provided in what ever unforeseen circumstances that might arise</li>
+              <li class="pb-2">I will fully commit my support and contribution towards the program goal and success.</li>
+            </ul>
+
+
             <!-- Title -->
             <div id="information" class="mb-3 active">
-              <h4 class="h6">B. Information that we collect automatically on our Sites.</h4>
+              <h4 class="h6 text-primary">B. Charity</h4>
             </div>
             <!-- End Title -->
-            <p>We also may collect information about your online activities on websites and connected devices over time and across third-party websites, devices, apps and other online features and services. We use Google Analytics on our Sites to help us analyze Your use of our Sites and diagnose technical issues.</p>
-            <p>To learn more about the cookies that may be served through our Sites and how You can control our use of cookies and third-party analytics, please see our Cookie Policy.</p>
+            <p>Any valid charities registered through our platform are able to use all of our features, however only verified charities are allowed to use donation, and solicit donations from the benefactors.</p>
+            <p>Charities are suggested to submit the following requirements for complete verification in our system</p>
+            <ul class="text-secondary">
+              <li class="pb-2">Department of Trade and Industry - Permit</li>
+              <li class="pb-2">Securities and Exchange Commission - Non-stock, Non-Profit Corporation License</li>
+              <li class="pb-2">The Department of Education - Solicitation Permit</li>
+              <li class="pb-2">Mayor's Permit</li>
+              <li class="pb-2">Philippine Council for NGO Certification - Accreditation Papers</li>
+            </ul>
+
+            <p>All of the documents submitted to us, will be subjected for approval by CharitAble admins.</p>
+            <p>Submission of fake or tampered documents, low quality image of documents, and incomplete documents, will automatically flag your verification request.
+                Thus, CharitAble could contact the charity through email for further documents and inquries.
+            </p>
+
+
+            <!-- Title -->
+            <div id="information" class="mb-3 active">
+              <h4 class="h6 text-primary">C. CharitAble</h4>
+            </div>
+            <!-- End Title -->
+            <p>Any valid charities registered through our platform are able to use all of our features, however only verified charities are allowed to use donation, and solicit donations from the benefactors.</p>
+            <p>Charities are suggested to submit the following requirements for complete verification in our system</p>
+
+            <p>As of now, CharitAble has no way of handling and moderating posts and content of the charities. We expect the highest level of professionalism and grace, for any content posted by the charities.</p>
+            <p>Submission of fake or tampered documents, low quality image of documents, and incomplete documents, will automatically flag your verification request.
+                Thus, CharitAble could contact the charity through email for further documents and inquries.
+            </p>
+
+
           </div>
           <div id="privacy" class="mb-4">
             <!-- Title -->
