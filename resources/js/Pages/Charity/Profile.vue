@@ -67,7 +67,7 @@
                     <table class="table table-borderless mb-0 ">
                         <thead>
                             <tr class="text-center table-">
-                                <th scope="col">Name</th>
+                                <th style="width: 30%;" scope="col">Name</th>
                                 <th scope="col">Position</th>
                                 <th scope="col">Since</th>
                                 <th scope="col" v-if="can.access">Actions</th>
@@ -75,10 +75,10 @@
                         </thead>
                         <tbody>
                             <tr class="nmb-1 border-bottom text-center" v-for="officer in charity.officers" :key="officer.id">
-                                <td class="p-3">{{officer.first_name + ' ' + officer.last_name}} </td>
-                                <td class="p-3">{{officer.position}}</td>
-                                <td class="p-3">{{officer.officer_since}}</td>
-                                <td class="nmb-1" v-if="can.access">
+                                <td>{{officer.first_name + ' ' + officer.last_name}} </td>
+                                <td>{{officer.position}}</td>
+                                <td>{{officer.officer_since}}</td>
+                                <td v-if="can.access">
                                     <Link  :href="$route('charity.officer.show', {
                                                  id: officer.id 
                                              })" 
