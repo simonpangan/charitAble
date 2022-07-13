@@ -269,7 +269,7 @@
                   },
                 }"
                 allow-multiple="false"
-                accepted-file-types="image/jpeg, image/png"
+                accepted-file-types="image/jpeg, image/png, image/jpg"
                 max-files="1"
                 label="Click here to Upload Charity Logo"
                 allowDrop="true"
@@ -350,7 +350,7 @@
                     allow-multiple="false"
                     allowImagePreview="false"
                     credits="false"
-                    accepted-file-types="image/jpeg, image/png, application/pdf"
+                    accepted-file-types="image/jpeg, image/png, image/jpg, application/pdf"
                     max-files="7"
                     maxFileSize= "5MB"
                     allowDrop="true"
