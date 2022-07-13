@@ -25,8 +25,18 @@ class CharityPostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'main_content_body' => ['required', 'string', 'min:2', new MaxWordsRule(250)],
-            'main_content_body_image' => ['nullable'],
+            'main_content_body' => ['required', 'string', 'max:63000'],
+            'main_content_body_image.' => ['array', 'nullable'],
+            'main_content_body_image.*' => [
+                'required', 'mimes:png,jpeg,jpg'
+            ],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'main_content_body' => 'message',
         ];
     }
 }
