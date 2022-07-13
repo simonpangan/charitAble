@@ -30,7 +30,7 @@ class CharityOfficerRequest extends FormRequest
             'first_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'last_name' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
             'position' => ['required', 'string', 'min:2', 'max:50', 'regex:/^[\pL\s\-]+$/u'],
-            'officer_since' => ['required', 'date'],
+            'officer_since' => ['required', 'date', 'before:tomorrow'],
         ];
     }
 
