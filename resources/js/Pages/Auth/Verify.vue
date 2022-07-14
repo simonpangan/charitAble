@@ -1,11 +1,11 @@
 <template>
+  <Head title="Email Verification"/>
   <div class="bg-white">
     <div class="container">
       <div class="row justify-content-center align-items-center d-flex vh-100">
         <div class="col-md-4 mx-auto">
           <div class="osahan-login py-4">
             <div class="text-center mb-4">
-              <a href="index.html"><img src="img/logo.svg" alt="" /></a>
               <h5 class="font-weight-bold mt-3">We're almost there!</h5>
               <p class="text-muted">Please check your email inbox.</p>
             </div>
