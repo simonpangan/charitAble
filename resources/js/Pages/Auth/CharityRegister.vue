@@ -206,6 +206,9 @@
                 <div class="col">
                   <label class="mb-1">Facebook Link</label>
                     <input v-model.trim="form.fb_link" type="text" class="form-control" />
+                    <small class="form-text text-muted">
+                      Ex: https://www.facebook.com/unicefphilippines/
+                    </small>
                     <div v-if="form.errors.fb_link" class="text-danger">
                       {{ form.errors.fb_link }}
                     </div>
@@ -215,6 +218,9 @@
                 <div class="col">
                   <label class="mb-1">Twitter Link</label>
                     <input v-model.trim="form.twitter_link" type="text" class="form-control" />
+                    <small class="form-text text-muted">
+                      Ex: https://twitter.com/unicefphils
+                    </small>
                     <div v-if="form.errors.twitter_link" class="text-danger">
                       {{ form.errors.twitter_link }}
                     </div>
@@ -224,6 +230,9 @@
                 <div class="col">
                   <label class="mb-1">Instagram Link</label>
                     <input v-model.trim="form.ig_link" type="text" class="form-control" />
+                    <small class="form-text text-muted">
+                      Ex: https://www.instagram.com/unicef/?hl=en
+                    </small>
                     <div v-if="form.errors.ig_link" class="text-danger">
                       {{ form.errors.ig_link }}
                     </div>
@@ -233,6 +242,9 @@
                 <div class="col">
                   <label class="mb-1">Website Link</label>
                     <input v-model.trim="form.website_link" type="text" class="form-control" />
+                    <small class="form-text text-muted">
+                      Ex: https://www.unicef.org/
+                    </small>
                     <div v-if="form.errors.website_link" class="text-danger">
                       {{ form.errors.website_link }}
                     </div>
@@ -240,14 +252,15 @@
               </div>
 
               <label class="pb-2">Organization Logo  <span class="text-danger">*</span></label>
+                <div v-if="form.errors.logo" class="text-danger d-block">
+                  {{ form.errors.logo }}
+                </div>
                 <div v-if="this.image_file != ''">
                     <p>Uploaded File : </p>
                       <div class="d-flex me-auto">
                         {{this.image_file}}
-
                     </div>
                     <button v-if="this.return_from_step3 === 1" type="button" class="btn btn-danger btn-sm mb-1"  @click.prevent="deleteLogoState">Delete currently uploaded file</button>
-
                 </div>
                 <file-pond name="file"
                   class="h-25 mb-5"
@@ -279,9 +292,6 @@
                 v-on:addfilestart="OnhandleOnAddFileStart"
                 v-on:processfile="onHandleaddfile">
                 </file-pond>
-              </div>
-               <div v-if="form.errors.logo" class="text-danger d-block">
-                  {{ form.errors.logo }}
               </div>
           </div>
           <div class="col-md-4  justify-content-center align-items-center d-flex vh-100">
