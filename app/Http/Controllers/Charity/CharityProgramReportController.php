@@ -23,13 +23,22 @@ class CharityProgramReportController extends Controller
         $user = Auth::user();
 
         $program = CharityProgram::query()
-            ->with(
-                'supporters:id,charity_program_id,benefactor_id,amount,donated_at', 
-                'supporters.benefactor:id,first_name,last_name'
-            )
-            ->findOrFail($id);
+            ->with(['charity:id,name,eth_address,charity_verified_at',
+                'supporters',
+            ])
+            ->findOrFail($id);  
 
         abort_if($program->charity_id != $user->id, 403);
+
+        $program->load(['supporters.benefactor' => function ($query) use ($id) {
+            $query->whereIn('id', function($query) use ($id) {
+                $query->select('benefactor_id')
+                    ->from('program_donations')
+                    ->where('charity_program_id', (int) $id)
+                    ->where('is_anonymous', 0)
+                    ->get();
+            });
+        }]);
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
