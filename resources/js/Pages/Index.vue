@@ -1,4 +1,5 @@
 <template>
+<Head title="Home" />
 <div class="aa" style="overflow-x:hidden;">
  <header class="masthead">
             <div class="container position-relative">
