@@ -95,7 +95,7 @@
 		@foreach ($program->supporters as $supporter)
         <tr>
 			<td>{{ $supporter->benefactor->first_name  . ' ' . $supporter->benefactor->last_name}}</td>
-            <td>{{ $supporter->amount }}</td>
+            <td>{{ round($supporter->amount, 2) }}</td>
             <td>{{ $supporter->donated_at_formatted }}</td>
         </tr>
 		@endforeach
