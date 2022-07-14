@@ -132,7 +132,7 @@
                             </div>
                             <div>
                                 <h3 class="mx-auto nmb-1">
-                                    {{ formatNumber(stats.total_donation)}}
+                                    {{ formatNumber(stats.total_donation.toFixed(2))}}
                                 </h3>
                                 <p class="">funded out of
                                     <span class="fa-1x text-gray-300">₱</span>

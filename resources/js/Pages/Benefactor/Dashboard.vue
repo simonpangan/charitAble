@@ -26,7 +26,7 @@
                     text-primary text-uppercase
                     mb-1
                   "> Total Donation </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ benefactor.total_donation }}
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ benefactor.total_donation.toFixed(2) }}
                 </div>
               </div>
               <div class="col-auto">

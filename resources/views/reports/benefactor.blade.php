@@ -103,7 +103,7 @@
             <th>Total Number of Donations</th>
         </tr>
         <tr>
-            <td>{{ $benefactor['total_donation'] }}</td>
+            <td>{{ round($benefactor['total_donation'], 2) }}</td>
             <td>{{ $benefactor['total_charities_donated'] }}</td>
             <td>{{ $benefactor['total_charities_followed'] }}</td>
             <td>{{ $benefactor['total_number_donations'] }}</td>
