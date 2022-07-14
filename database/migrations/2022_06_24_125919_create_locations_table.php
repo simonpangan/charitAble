@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name');
+            $table->string('name', 50);
         });
 
         Schema::table('users', function (Blueprint $table) {

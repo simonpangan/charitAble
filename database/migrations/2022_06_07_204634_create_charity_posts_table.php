@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('charity_id')->constrained();
             $table->text('main_content_body');
-            $table->string('main_content_body_image')->nullable();
+            $table->string('main_content_body_image', 70)->nullable();
             $table->timestamps();
 
             // $table->index(['charity_id', 'created_at']);

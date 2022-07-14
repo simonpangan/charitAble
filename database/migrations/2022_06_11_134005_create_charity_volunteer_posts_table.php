@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('charity_volunteer_posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')->constrained();
-            $table->string('name');
+            $table->string('name' , 100);
             $table->text('description');
-            $table->string('location')->nullable();
+            $table->string('location', 70)->nullable();
             $table->text('qualifications');
             $table->text('incentives')->nullable();
             $table->timestamps();

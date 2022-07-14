@@ -17,19 +17,19 @@ return new class extends Migration
             $table->foreignId('id')->constrained('users');
             $table->primary('id');
 
-            $table->string('name');
+            $table->string('name', 200);
             $table->text('about');
-            $table->string('charity_email');
-            $table->string('logo');
+            $table->string('charity_email', 255);
+            $table->string('logo', 150);
 
-            $table->string('website_link')->nullable();
-            $table->string('facebook_link')->nullable();
-            $table->string('twitter_link')->nullable();
-            $table->string('instagram_link')->nullable();
+            $table->string('website_link', 150)->nullable();
+            $table->string('facebook_link', 150)->nullable();
+            $table->string('twitter_link', 150)->nullable();
+            $table->string('instagram_link', 150)->nullable();
 
-            $table->string('permits')->nullable();
+            $table->string('permits', 100)->nullable();
+            $table->string('eth_address', 50)->nullable();
             $table->timestamp('charity_verified_at')->nullable();
-            $table->string('eth_address')->nullable();
             $table->integer('followers')->default(0);
         });
     }

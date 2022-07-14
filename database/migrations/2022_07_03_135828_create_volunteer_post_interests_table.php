@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('charity_volunteer_post_id')->constrained()->onDelete('cascade');
             $table->foreignId('benefactor_id')->constrained();
-            $table->string('message');
+            $table->string('message', 280);
             $table->timestamp('created_at');
         });
     }
