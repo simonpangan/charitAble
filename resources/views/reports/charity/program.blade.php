@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User report</title>
+    <title>Program report</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .page-break {
@@ -61,7 +61,7 @@
     <footer>
         Copyright &copy; <?php echo date("Y");?> 
     </footer>
-    
+
     <h1 class="text-center">{{ $program->name }}</h1>
     <p><b>Date:</b> {{ now()->toDayDateTimeString() }}</p>
 	<br />
@@ -72,12 +72,12 @@
         <tr>
             <th>Total Donors</th>
             <th>Total Donation Amount</th>
-            <th>Total Withdrawn Amount</th>
+            <th>Total Withdrawn Amount</th> 
             <th>Total Needed Amount</th>
         </tr>
         <tr>
             <td>{{ $programStats['total_donors'] }}</td>
-            <td>{{ $programStats['total_donation'] }}</td>
+            <td>{{ round($programStats['total_donation'], 2) }}</td>
             <td>{{ $program->total_withdrawn_amount }}</td>
             <td>{{ $program->total_needed_amount }}</td>
         </tr>
