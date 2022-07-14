@@ -1,4 +1,5 @@
 <template>
+  <Head title="Success Donation" />
   <div class="container h-100">
     <div class="row justify-content-center align-items-center d-flex vh-100">
       <div class="col-md-6 mx-auto">
