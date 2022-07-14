@@ -42,7 +42,7 @@
                           },
                           withCredentials: false,
                         },
-                      }"
+                    }"
                     allow-multiple="false"
                     accepted-file-types="image/jpeg, image/png"
                     max-files="1"
@@ -114,7 +114,7 @@
                             class="form-control"
                             v-model="form.location"
                           />
-                          <span v-if="form.errors.location" v-text="form.errors.description"
+                          <span v-if="form.errors.location" v-text="form.errors.location"
                             class="invalid-feedback d-block" role="alert">
                           </span>
                         </div>
@@ -142,11 +142,14 @@
                   </div>
                   <div class="col-sm-6">
                     <label class="form-label">Date of Expected Completion</label>
-                    <div class="input-group">
-                      <input type="date" class="form-control mb-2" v-model="goal.date"/>
-                        <button @click.stop.prevent="removeGoal(index)"
-                          class="ms-2 py-0 btn btn-sm btn-danger" style="height: 35px">
-                          <i class="fad fa-trash"></i>
+                    <div class="d-flex">
+                      <Datepicker :minDate="new Date()" format="MM/dd/yyyy" :enableTimePicker="false"
+                        v-model="goal.date" class="mb-2 w-100"
+                      >
+                      </Datepicker>
+                      <button @click.stop.prevent="removeGoal(index)"
+                        class="py-0 btn btn-sm btn-danger ms-2" style="height: 35px">
+                        <i class="fad fa-trash"></i>
                       </button>
                     </div>
                     <span  v-text="form.errors['goals.'+ (index) +'.date']"
@@ -241,7 +244,13 @@ import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+``
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 import axios from "axios";
+
+import { ref, computed } from 'vue';
 
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
@@ -251,10 +260,9 @@ const FilePond = vueFilePond(
 
 export default {
   components: {
-    FilePond,
+    FilePond, Datepicker
   },
   setup() {
-
 
     let form = useForm({
       name: null,
@@ -269,6 +277,7 @@ export default {
     let submit = () => {
       form.post(route("charity.program.store"));
     };
+    
     return { form, submit };
   },
   data() {
