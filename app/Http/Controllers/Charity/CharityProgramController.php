@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Charity;
 use App\Models\Role;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Benefactor;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
+use Illuminate\Support\Carbon;
 use App\Models\Charity\Charity;
 use App\Models\ProgramDonation;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,6 @@ use App\Models\Charity\CharityProgram;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Charity\CharityFollowers;
 use App\Http\Requests\Charity\CharityProgramRequest;
-use App\Models\Benefactor;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CharityProgramController
@@ -82,9 +83,11 @@ class CharityProgramController
                 ->first()
                 ->getRawOriginal();
 
-            Storage::move('tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
-            'public/charity/'.$id.'/program'.'/'.$filename);
-            //this doesn't work
+            Storage::move(
+                'tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
+                "public/charity/{$id}/program/".Carbon::now()->timestamp.".{$file[0]->getClientOriginalExtension()}"
+            );
+
             Storage::deleteDirectory('tmp/program/'.$temporaryFile['folder']);
 
             TemporaryFile::where('filename',$filename)
@@ -93,8 +96,8 @@ class CharityProgramController
                 ->first()
                 ->delete();
 
-            //delete temporary
-            $link = '/storage/charity/'. $id .'/'.'program/'.$filename;
+
+            $link = "/storage/charity/{$id}/program/".Carbon::now()->timestamp. ".{$file[0]->getClientOriginalExtension()}";
         }
 
         CharityProgram::create(
@@ -175,6 +178,10 @@ class CharityProgramController
         $program = CharityProgram::findOrFail($id);
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+
+        if (! is_null($program->header)) {
+            unlink(substr($program->header, 1));
+        }
 
         ProgramDonation::where('charity_program_id', $id)->delete();
 
