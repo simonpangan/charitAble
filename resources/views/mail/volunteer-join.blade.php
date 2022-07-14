@@ -9,7 +9,14 @@
 <p><b>Message: </b>{{ $inputs['message'] }}</p>
 
 <p>
-    You can email {{ (($user->benefactor->gender) == 'Male') ? 'him' : 'her' }}  
+    You can email 
+    @if ($user->benefactor->gender == 'Male')
+        him        
+    @elseif ($user->benefactor->gender == 'Female')
+        her
+    @elseif ($user->benefactor->gender == 'LGBT' || $user->benefactor->gender == 'Others')
+        him/her 
+    @endif
     via email : <b>{{ $user->email }}</b>
 </p> 
 
