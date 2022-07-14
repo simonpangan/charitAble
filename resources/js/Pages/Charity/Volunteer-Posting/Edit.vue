@@ -30,7 +30,7 @@
                 </span>
               </div>
               <div class="mb-3">
-                <label class="mb-1">Program Description</label>
+                <label class="mb-1">Volunteer Post Description</label>
                 <span class="text-danger">*</span>
                 <div class="position-relative">
                     <textarea class="form-control" rows="4" name="text" v-model="form.description">
