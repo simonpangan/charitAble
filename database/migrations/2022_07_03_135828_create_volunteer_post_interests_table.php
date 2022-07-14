@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('volunteer_post_interests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('charity_volunteer_post_id')->constrained();
+            $table->foreignId('charity_volunteer_post_id')->constrained()->onDelete('cascade');
             $table->foreignId('benefactor_id')->constrained();
             $table->string('message');
             $table->timestamp('created_at');
