@@ -96,8 +96,7 @@
 
                     <div class="form-check" v-if="isPaymongoTransaction || this.payment_method == 'paypal'">
                       <label class="form-check-label fst-italic mt-2" for="flexCheckDefault"><small> By clicking this button, you agree to Charitable
-                        <a href="/terms" target="_blank">Terms and Agreement</a>,
-                        <a href="/privacy" target="_blank">Privacy Policy</a>
+                        <Link href="/terms" target="_blank">Terms and Agreement</Link>,
                         & Benefactor-Charity Transparency Agreement</small></label>
                     </div>
                   </section>
