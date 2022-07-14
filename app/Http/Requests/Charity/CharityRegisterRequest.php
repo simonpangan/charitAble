@@ -36,7 +36,7 @@ class CharityRegisterRequest extends FormRequest
             return $this->stepTwoRules();
         }
 
-        return $this->stepTwoRules();
+        return $this->stepThreeRules();
     }
 
     private function stepOneRules() : array
@@ -56,14 +56,24 @@ class CharityRegisterRequest extends FormRequest
     private function stepTwoRules() : array
     {
         return array_merge($this->stepOneRules(), [
-            'description' => ['required', 'string', new MaxWordsRule(250)],
+            'description' => ['required', 'string', 'max:63000'],
             'address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'int', Rule::in(Location::all()->pluck('id'))],
-            //active_url
-            'fb_link'=> ['nullable', 'string', 'url'],
-            'twitter_link'=> ['nullable', 'string', 'url'],
-            'ig_link'=> ['nullable', 'string', 'url'],
-            'website_link'=> ['nullable', 'string', 'url'],
+            // 'fb_link'=> ['nullable', 'string', 'url', 'max:150'],
+            // 'twitter_link'=> ['nullable', 'string', 'url', 'max:150'],
+            // 'ig_link'=> ['nullable', 'string', 'url', 'max:150'],
+            // 'website_link'=> ['nullable', 'string', 'url', 'max:150'],
+            'logo'=> [
+                'required', 'mimes:png,jpeg,jpg'
+            ],
+        ]);
+    }
+
+    private function stepThreeRules() : array
+    {
+        return array_merge($this->stepTwoRules(), [
+            'documentFile' => ['nullable', 'array'],
+            'documentFile.*' => ['required', 'mimes:jpg,jpeg,png,pdf', 'max:5240'],
         ]);
     }
 
