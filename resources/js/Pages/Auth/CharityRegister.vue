@@ -229,7 +229,7 @@
                     </div>
                 </div>
               </div>
-              <div class="row mt-2">
+              <div class="row mt-2 mb-2">
                 <div class="col">
                   <label class="mb-1">Website Link</label>
                     <input v-model.trim="form.website_link" type="text" class="form-control" />
@@ -239,7 +239,7 @@
                 </div>
               </div>
 
-              <label class="pb-2">Organization Logo</label>
+              <label class="pb-2">Organization Logo  <span class="text-danger">*</span></label>
                 <div v-if="this.image_file != ''">
                     <p>Uploaded File : </p>
                       <div class="d-flex me-auto">
