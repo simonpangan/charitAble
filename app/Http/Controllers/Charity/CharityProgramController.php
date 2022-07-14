@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityProgram;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Charity\CharityFollowers;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Charity\CharityProgramRequest;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
@@ -293,17 +294,37 @@ class CharityProgramController
 
     public function withdrawRequest(Request $request, $id)
     {
-        $request->validate([
-            'amount' => ['required', 'int', 'min:0']
-        ]);
+        $program = CharityProgram::findOrFail($id);
 
-        CharityProgram::query()
-            ->findOrFail($id)
-            ->update([
-                'has_withdraw_request' => true,
-                'withdraw_request_amount' => $request->amount,
-                'withdraw_requested_at' => now(),
-            ]);
+       
+
+        $programStats = ProgramDonation::query()
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+
+        $totalBalance = round($programStats->sum('amount') - $program->total_withdrawn_amount, 2);
+
+        $messages = [
+            'amount.max' => 'Your total balance left is ' . $totalBalance ,
+        ];
+
+        $validator = Validator::make($request->all(), 
+            [
+                'amount' => ['required', 'numeric','min:1', 'max:'.$totalBalance]
+            ] , 
+            $messages
+        );
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $program->update([
+            'has_withdraw_request' => true,
+            'withdraw_request_amount' => $request->amount,
+            'withdraw_requested_at' => now(),
+        ]);
     }
 
     public function cancelWithdrawRequest(int $id)
