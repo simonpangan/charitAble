@@ -338,7 +338,7 @@
                 <p class="text-muted">Step 3 - Upload Documents</p>
               </div>
               <div class="row">
-                <label class="pb-5">Documents <span class="text-danger">*</span></label>
+                <label class="pb-5">Documents</label>
                   <file-pond name="documentFile"
                     class="h-50 mb-5"
                     v-model="documentFile"
