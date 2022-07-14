@@ -13,7 +13,7 @@
 									<div class="overflow-hidden me-2">
 										<h6 class="font-weight-bold text-dark mb-0 text-truncate">
 											<span class="fa-1x text-gray-300">₱</span>
-											{{ supporter.amount }}
+											{{ parseFloat(supporter.amount).toFixed(2) }}
 										</h6>
 										<div class="small text-gray-500">
 											{{ (supporter.is_anonymous)  
