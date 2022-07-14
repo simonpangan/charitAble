@@ -16,6 +16,15 @@ class CharityOfficers extends Model
 
     protected $appends = ['officer_since_formatted'];
 
+    protected $casts = [
+        'officer_since' => 'date',
+    ];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->toDayDateTimeString();
+    }
+    
     public function getOfficerSinceFormattedAttribute()
     {
         return (new Carbon($this->officer_since))->toFormattedDateString();
