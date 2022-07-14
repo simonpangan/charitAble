@@ -28,7 +28,8 @@ class CharityProgramRequest extends FormRequest
             'description' => ['required', 'string', 'max:63000'],
             'location' => ['required', 'string', 'max:70'],
 
-            'header' => ['required', 'mimes:jpg,png,jpeg', 'max:5240'],
+            'header' => ['required'],
+            'header.*' => ['required', 'mimes:jpg,png,jpeg', 'max:5240'],
 
             'goals' => ['required', 'array'],
             'goals.*' => [
@@ -38,7 +39,7 @@ class CharityProgramRequest extends FormRequest
                 'required', 'string', 'max:100'
             ],
             'goals.*.date' => [
-                // 'required', 'date', 'after_or_equal:today', 
+                'required', 'date', 'after_or_equal:today', 
             ],
 
             'expenses' => ['nullable', 'array'],
