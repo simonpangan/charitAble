@@ -154,8 +154,7 @@
               <div class="card-footer" style="background: inherit; border-color: inherit">
                 <div class="row">
                 <label class="mb-1 mt-2">By registering to our platform , you are now agreeing to the CharitAble
-                    <a href="/terms" target="_blank">Terms and User Agreement</a>,
-                    <a href="/privacy" target="_blank">Privacy Policy</a>.
+                    <Link href="/terms" target="_blank">Terms and User Agreement</Link>,
                 </label>
               </div>
               <div class="text-center">
