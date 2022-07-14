@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VolunteerPostInterest;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityFollowers;
 use Inertia\Response as InertiaResponse;
@@ -111,7 +112,9 @@ class CharityVolunteerPostController
         $volunteerPost = CharityVolunteerPost::findOrFail($id);
         
         abort_if($volunteerPost->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
-
+        
+        VolunteerPostInterest::where('charity_volunteer_post_id', $id)->delete();
+        
         $volunteerPost->delete();
 
         return to_route('charity.volunteer.index', Auth::id());
