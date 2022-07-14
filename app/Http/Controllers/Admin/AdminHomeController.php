@@ -8,6 +8,7 @@ use ZipArchive;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Charity\Charity;
+use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -56,13 +57,23 @@ class AdminHomeController extends Controller
 
     public function download(int $id)
     {
+        $path = storage_path("app\charity\\".$id."\\documents");
+
+        if (! File::exists($path)) 
+        {
+            return back()->withErrors(
+                new MessageBag(['download' => 'The charity has no documents'])
+            );
+        }
+       
+
         $zip = new ZipArchive;
 
         $zipFile = Storage::path('documents.zip');
         
         if($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE)) 
         {
-            $files = File::files(storage_path("app\charity\\".$id."\\documents"));
+            $files = File::files($path);
 
             foreach ($files as $key => $value) {
                 $relativeNameInZipFile = basename($value);

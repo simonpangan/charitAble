@@ -25,8 +25,13 @@
           <div class="card-body">
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
              <div class="dataTable-top">
-                <div class="dataTable-search">
-                  <input type="text" class="form-control mt-2" v-model="search" placeholder="Search" />                
+                <div class="mt-2">
+                  <input type="text" class="form-control" v-model="search" placeholder="Search" />                
+                  <div v-if="props.errors.download" class="mt-4">
+                    <span  role="alert" class="alert alert-danger">
+                      {{ props.errors.download }}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div class="dataTable-container">
@@ -214,7 +219,8 @@ import axios from 'axios';
 
 let props = defineProps({
   charities: Object,
-  filters: Array
+  filters: Array,
+  errors: Array
 })
 
 let search = ref(props.filters.search);
