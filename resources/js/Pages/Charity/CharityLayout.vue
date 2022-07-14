@@ -13,20 +13,13 @@
                             </h1>
                         </div>
                         <div v-if="this.$page.props.can.seeFollowOrUnfollow" class="profile-right ms-auto">
-                            <Link v-if="this.$page.props.can.follow" :href="$route('benefactor.connections.charities.destroy', {
-                                    id: charity.id
-                                })" 
-                                    method="delete" as="button" type="button"
+                            <button v-if="this.$page.props.can.follow"  @click="unFollowCharity(charity.id)"
                                     class="btn btn-outline-primary btn-sm d-block w-100">
                                 Unfollow 
-                            </Link>
-                            <Link v-else :href="$route('benefactor.connections.charities.store', {
-                                    id: charity.id
-                                })" 
-                                    method="post" as="button" type="button"
-                                    class="btn btn-outline-primary btn-sm d-block w-100">
+                            </button>
+                            <button v-else @click="followCharity(charity.id)" class="btn btn-outline-primary btn-sm d-block w-100">
                                 Follow 
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -201,6 +194,31 @@ export default {
     data() {
         return {
             charity : this.$page.props.charity
+        }
+    },
+    methods: {
+        followCharity($id) {
+            this.$inertia.post(route('benefactor.connections.charities.store'), {
+                id: $id
+            }, {
+                onSuccess: () => {
+                    this.$inertia.get(route('charity.profile.index', {
+                        'id' : $id
+                    }));
+                }
+            });
+        },
+        unFollowCharity($id) {
+            this.$inertia.post(route('benefactor.connections.charities.destroy', {
+                id: $id
+            }), {}, {
+                onSuccess: () => {
+                    alert('asd');
+                    this.$inertia.get(route('charity.profile.index', {
+                        'id' : $id
+                    }));
+                }
+            });
         }
     }
 }

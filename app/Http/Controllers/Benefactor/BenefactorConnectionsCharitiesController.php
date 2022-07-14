@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Benefactor;
 use Illuminate\Http\Request;
+use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Charity\CharityFollowers;
@@ -57,6 +58,12 @@ class BenefactorConnectionsCharitiesController
         $benefactor
             ->followingCharities()
             ->attach($request->only('id'));
+
+        $charity = Charity::find($request->get('id'));
+
+        $charity->update([
+            'followers' => $charity->followers + 1 
+        ]);
         
         return back();        
     }
@@ -64,10 +71,16 @@ class BenefactorConnectionsCharitiesController
     public function destroy (int $id): RedirectResponse
     {
         $benefactor = Benefactor::auth();
-
+        
         $benefactor
             ->followingCharities()
             ->detach($id);
+            
+        $charity = Charity::find($id);
+            
+        $charity->update([
+            'followers' => $charity->followers - 1 
+        ]);
 
         return back();
     }
