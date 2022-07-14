@@ -22,7 +22,7 @@ class CharityOfficers extends Model
 
     protected function serializeDate(DateTimeInterface $date)
     {
-        return $date->toDayDateTimeString();
+        return $date->toDateString();
     }
     
     public function getOfficerSinceFormattedAttribute()
