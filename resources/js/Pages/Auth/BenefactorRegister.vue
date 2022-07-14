@@ -138,7 +138,6 @@
         </div>
         <label class="mb-1 mt-2">By registering to our platform , you are now agreeing to the CharitAble
             <a :href="$route('terms')" target="_blank">Terms and User Agreement</a>,
-            <a :href="$route('privacy')" target="_blank">Privacy Policy</a>.
         </label>
         <div class="text-center">
           <button :disabled="form.processing" class="btn btn-primary text-uppercase mt-3 px-5" 
