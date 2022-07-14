@@ -32,6 +32,17 @@ class CharityProgram extends Model
         return $date->toDayDateTimeString();
     }
 
+    public function getGoalsAttribute($value) 
+    {
+        $goals = collect(json_decode($value, true));
+
+        return $goals->map(function ($goal) {
+            return array_merge($goal, [
+                'goal_formatted' => (new Carbon($goal['date']))->toFormattedDateString()
+            ]);
+        });
+    }
+
     public function charity()
     {
         return $this->belongsTo(Charity::class);

@@ -41,9 +41,9 @@
                 </div>
                 <div class="box-body p-3">
                     <ul class="StepProgress">
-                        <li class="StepProgress-item program-is-done" v-for="goal in program.goals">
+                        <li class="StepProgress-item program-is-done" v-for="(goal, index) in program.goals" :key="index">
                             <p class="text-dark"><strong>{{goal.name}}</strong></p>
-                            <p class="text-muted">Expected Date of Completion :{{goal.date}}</p>
+                            <p> Expected Date of Completion : <b>{{goal.goal_formatted}}</b></p>
                         </li>
                     </ul>
                 </div>
