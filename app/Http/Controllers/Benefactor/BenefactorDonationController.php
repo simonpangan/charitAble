@@ -18,7 +18,7 @@ class BenefactorDonationController
 
         $charity = Charity::find($charity_id);
         
-        if (is_null($charity->charity_verified_at)) {
+        if (is_null($charity->charity_verified_at) || (! $program->is_active)) {
             return back();
         }
 

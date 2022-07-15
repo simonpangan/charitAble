@@ -154,7 +154,7 @@
                                 <p class="fw-light"><small>What is a blockchain, and other questions. Learn more about our <a href="#" class="text-decoration-underline">transparency blockchain program</a></small></p>
                             </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
-                                v-if="$page.props.auth.user.roleID == 4"
+                                v-if="$page.props.auth.user.roleID == 4 && program.is_active"
                                 :href="$route('charity.donate.create', {
                                     'id': $page.props.program.id
                              })">
