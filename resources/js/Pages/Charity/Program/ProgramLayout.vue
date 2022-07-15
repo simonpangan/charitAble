@@ -22,6 +22,10 @@
 							</p>
                         </div>
                        <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
+                            <select  @change="setStatus"  style="width: 100px" class="form-select my-2 ms-auto" aria-label="Default select example">
+                                <option value="Active" :selected="status">Active</option>
+                                <option value="Inactive" :selected="! status">Inactive</option>
+                            </select>
                             <Link class="btn btn-success btn-lg"
                                 :href="$route('charity.program.edit',
                                 {id: program.id})
@@ -239,6 +243,7 @@ export default {
     data () {
         return {
             stats: this.$page.props.stats,
+            status: this.program.is_active
         }
     },
     computed: {
@@ -253,6 +258,32 @@ export default {
     methods: {
         formatNumber(number) {
             return (number == null) ? 0 : number.toLocaleString();
+        },
+        setStatus(e) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.put(route('charity.program.status', {
+                        'id' : this.program.id  
+                    }), {
+                        'status' : e.target.value
+                    } ,{
+                        onSuccess: () => {
+                            Swal.fire(
+                                'Updated!',
+                            )
+                        },
+                    });
+                }
+            })
+
         },
         deletePost (id)  {
             this.$swal.fire({
