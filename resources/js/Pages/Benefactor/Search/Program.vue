@@ -5,21 +5,24 @@
                 <SearchNavLinks v-bind:search="props.name" @search="searchPost" />
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="p-3 job-tags">
-                            <Link :href="$route('benefactor.charity-search.program')" class="btn btn-outline-secondary btn-sm me-1">
-                                All
-                            </Link>
-                            <Link v-for="category in charityCategories" :key="category.id" 
-                                :href="$route('benefactor.charity-search.program', {
-                                    category: category.name
-                                })"
-                                class="btn btn-sm me-1"
-                                :class="($route().params['category'] == category.name) ? 'btn-secondary' : 'btn-outline-secondary'"
-                            >
-                                {{ category.name }}
-                            </Link>
+                        <div class="p-3 job-tags d-flex float-end">
+                            <select  style="width: 250px"
+                                v-model="status" class="form-select" aria-label="Default select example">
+                                <option value="All">Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                            <select style="width: 250px"  
+                                v-model="category" class="form-select" aria-label="Default select example">
+                                <option value="All">Category</option>
+                                <option :value="category.name"  v-for="category in charityCategories" :key="category.id"
+                                >
+                                    {{ category.name }}
+                                </option>
+                            </select>
                         </div>
                         <div class="p-3 border-top">
+                            <br /><br />
                             <div class="p-3 w-100">
                                  <div class="row">
                                     <div v-for="program in programs.data" :key="program.id" class="col-md-3">
@@ -76,6 +79,7 @@
 
 <script setup>
 import SearchNavLinks from './SearchNavLinks.vue';
+import { ref, watch } from 'vue';
 import {
     Inertia
 } from '@inertiajs/inertia';
@@ -84,6 +88,7 @@ let props = defineProps({
     name: String,
     charityCategories: Array,
     programs: Object,
+    filters: Array
 })
 
 let searchPost = (value) => {
@@ -96,4 +101,26 @@ let searchPost = (value) => {
         }
     );
 }
+
+let status = ref(props.filters.status);
+let category = ref(props.filters.category);
+
+watch(category, (value) => {
+  Inertia.get(
+    route('benefactor.charity-search.program'), {
+      'status' : status.value,
+      'category' : value
+    }
+  ); 
+});
+
+watch(status, (value) => {
+  Inertia.get(
+    route('benefactor.charity-search.program'), {
+      'status' : value,
+      'category' : category.value
+    }
+  ); 
+});
+
 </script>

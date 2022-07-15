@@ -14,6 +14,10 @@
                         <p class="text-strong">
                             <span class="fw-bold">Location</span> : {{ program.location }}
                         </p>
+                        <p class="text-strong">
+                            <span class="fw-bold">Status</span> : 
+                            {{ (program.is_active) ? 'Active' : 'Inactive' }}
+                        </p>
                     </div>
                 </div>
             </div>
