@@ -24,7 +24,7 @@ class AdminApprovalController extends Controller
     public function disApprove(Request $request)
     {
         $request->validate([
-            'message' => 'required'
+            'message' => ['required', 'string', 'max:280']
         ]);
 
         $charity = Charity::findOrFail($request->charityID);   
