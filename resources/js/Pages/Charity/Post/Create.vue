@@ -55,6 +55,13 @@
                 v-on:addfilestart="OnhandleOnAddFileStart"
                 v-on:processfile="onHandleaddfile"
               ></file-pond>
+              <div class="post-for border-top">
+                <label class="mt-3">This posts is an update for the program : </label>
+                <select class="form-select" aria-label="Default select example" v-model="form.charity_program_id" >
+                <option selected disabled>Select Program:</option>
+                <option v-for="(program, index) in program" :key="program.id" :value="program.id">{{program.name}}</option>
+                </select>
+              </div>
               <span v-if="form.errors.main_content_body_image" v-text="form.errors.main_content_body_image"
                   class="invalid-feedback d-block" role="alert">
               </span>
@@ -105,6 +112,7 @@ export default {
     let form = useForm({
       main_content_body: '',
       main_content_body_image: null,
+      charity_program_id:'',
     });
 
     let submit = () => {
@@ -115,6 +123,7 @@ export default {
   },
   props: {
     csrfToken: String,
+    program:Array,
   },
   data() {
     return{
