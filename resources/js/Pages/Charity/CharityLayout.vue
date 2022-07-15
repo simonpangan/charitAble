@@ -160,30 +160,6 @@
                     </div>
                 </aside>
 
-                <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="box shadow-sm border rounded bg-white mb-3">
-                        <div class="box-title border-bottom p-3">
-                            <h6 class="m-0">Active Programs</h6>
-                        </div>
-                        <div class="box-body p-3">
-                            <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="img/p4.png" alt="">
-                                </div>
-                                <div class="fw-bold me-2">
-                                    <div class="text-truncate">Programs 1</div>
-                                    <div class="small text-gray-500">Tree Planting Activity
-                                    </div>
-                                </div>
-                                <span class="ms-auto">
-                                    <button type="button" class="btn btn-outline-primary btn-sm">
-                                        Donate Now
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
             </div>
         </div>
     </div>
