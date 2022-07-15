@@ -8,6 +8,7 @@ use Inertia\Response;
 use App\Models\Charity\Charity;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Charity\CharityProgram;
 use App\Models\Charity\CharityFollowers;
 
 class CharityProfileController extends Controller
@@ -43,9 +44,17 @@ class CharityProfileController extends Controller
                 ->exists();
         }
 
+        $latestFiveActivePrograms = CharityProgram::query()
+            ->where('charity_id' , $charity->id)
+            ->where('is_active', true)
+            ->latest()
+            ->limit(5)
+            ->get();
+
         return Inertia::render(
             'Charity/Profile',[ 
                 'charity' => $charity,
+                'latestFiveActivePrograms' => $latestFiveActivePrograms,
                  'can' => [
                     'access' => Auth::id() ==  $charity->id,
                     'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,

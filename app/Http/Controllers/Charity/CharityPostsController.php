@@ -53,11 +53,20 @@ class CharityPostsController
                 ->exists();
         }
 
+        $latestFiveActivePrograms = CharityProgram::query()
+            ->where('charity_id' , $id)
+            ->where('is_active', true)
+            ->latest()
+            ->limit(5)
+            ->get();
+
+
         return Inertia::render('Charity/Post/Index',[
             'posts'=> CharityPosts::where(
                     'charity_id', $charity->id
                 )->latest()->get(),
             'charity' => $charity,
+            'latestFiveActivePrograms' => $latestFiveActivePrograms,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
                 'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,

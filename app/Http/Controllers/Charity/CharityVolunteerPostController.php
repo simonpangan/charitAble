@@ -9,6 +9,7 @@ use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
 use App\Models\VolunteerPostInterest;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Charity\CharityProgram;
 use App\Models\Charity\CharityFollowers;
 use Inertia\Response as InertiaResponse;
 use App\Models\Charity\CharityVolunteerPost;
@@ -33,6 +34,13 @@ class CharityVolunteerPostController
                 ->where('benefactor_id', Auth::id())
                 ->exists();
         }
+
+        $latestFiveActivePrograms = CharityProgram::query()
+            ->where('charity_id' , $id)
+            ->where('is_active', true)
+            ->latest()
+            ->limit(5)
+            ->get();
             
 
         return Inertia::render('Charity/Volunteer-Posting/Index',[
@@ -40,6 +48,7 @@ class CharityVolunteerPostController
                     'charity_id', $id
                 )->latest()->paginate(16),
             'charity' => $charity,
+            'latestFiveActivePrograms' => $latestFiveActivePrograms,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
                 'seeFollowOrUnfollow' =>  $seeFollowOrUnfollow,
