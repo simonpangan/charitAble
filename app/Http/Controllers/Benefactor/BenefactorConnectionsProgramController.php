@@ -15,21 +15,34 @@ class BenefactorConnectionsProgramController
     {
         return Inertia::render('Benefactor/Connections/Program', [
             'programs' => $this->getFollowingCharitiesProgramPost(
-                $request->get('name'), $request->get('category')
+                $request->get('name'), $request->get('category'), request()->get('status')
             ),
             'charityFollowingProgramCategoryStats' => fn () => $this->charityFollowingProgramCategoryStats(),
             'name' => $request->get('name') ?? '',
+            'filters' => [
+                'status' => (request()->get('status')) ? request()->get('status'): 'All'
+            ]
         ]);
     }
 
 
-    private function getFollowingCharitiesProgramPost(string $name = null, string $category = null)   
-    {
+    private function getFollowingCharitiesProgramPost(
+        string $name = null, string $category = null , $status = null
+    ) {
         return CharityProgram::query()
             ->select(['charity_programs.*', 'charities.name as charity_name'])
             ->join('charities', 'charities.id', '=', 'charity_programs.charity_id')
             ->filterProgramBy($name, $category)
+            ->when($status, function ($query, $status) {
+                if ($status == 'Inactive') 
+                {
+                    $query->where('charity_programs.is_active', false);
+                } else if ($status == 'Active') {
+                    $query->where('charity_programs.is_active', true);
+                }
+            })
             ->latest()
+            ->whereNotNull('charities.charity_verified_at')
             ->paginate(12)
             ->withQueryString();
     }

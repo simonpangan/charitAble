@@ -16,12 +16,17 @@ class BenefactorCharitySearchProgramController
             'charityCategories'=> fn() => Categories::all(  ),
             'programs' => $this->getPrograms(
                 request()->get('name'), request()->get('category')
+                , request()->get('status')
             ),
             'name' => request()->get('name') ?? '',
+            'filters' => [
+                'status' => (request()->get('status')) ? request()->get('status') : 'All',
+                'category' => (request()->get('category')) ? request()->get('category') : 'All'
+            ],
         ]);
     }
 
-    private function getPrograms($name, $category = null)
+    private function getPrograms($name, $category = null, $status = null)
     {
         return CharityProgram::query()
             ->select(['charity_programs.*', 'charities.name as charity_name'])
@@ -33,6 +38,15 @@ class BenefactorCharitySearchProgramController
             ->when($category, function ($query, $category) {
               $this->filterByCategory($query, $category);
             })
+            ->when($status, function ($query, $status) {
+                if ($status == 'Inactive') 
+                {
+                    $query->where('charity_programs.is_active', false);
+                } else if ($status == 'Active') {
+                    $query->where('charity_programs.is_active', true);
+                }
+            })
+            ->whereNotNull('charities.charity_verified_at')
             ->paginate(12)
             ->withQueryString();
     }
