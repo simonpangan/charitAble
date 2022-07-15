@@ -107,7 +107,8 @@ class CharityProgramController
             $request->validated(),
             [
                 'header' => $link,
-                'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum()
+                'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum(),
+                'is_active' => true
             ]
            )
         );

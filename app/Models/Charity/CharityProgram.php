@@ -22,6 +22,7 @@ class CharityProgram extends Model
         'goals' => 'array',
         'expenses' => 'array',
         'has_withdraw_request' => 'boolean',
+        'is_active' => 'boolean',
         'withdraw_requested_at' => 'datetime',
     ];
 

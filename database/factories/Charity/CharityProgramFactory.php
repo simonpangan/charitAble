@@ -46,6 +46,7 @@ class CharityProgramFactory extends Factory
                     'amount' =>  10000
                 ], 
             ],
+            'is_active' => $this->faker->numberBetween(0,1),  
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
         ];
     }
