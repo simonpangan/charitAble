@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CharityProgramController
 {
-    public function index(int $id)
+    public function index(Request $request, int $id)
     {
         $charity =  Charity::query()
             ->findOrFail($id);
@@ -52,11 +52,23 @@ class CharityProgramController
             ->limit(5)
             ->get();
 
+
+        $list = CharityProgram::where('charity_id', $id)
+            ->when($request->status, function ($query, $status) {
+                if ($status == 'Inactive') 
+                {
+                    $query->where('is_active', false);
+                } else if ($status == 'Active') {
+                    $query->where('is_active', true);
+                }
+            })
+            ->latest()
+            ->paginate(16);
+
         return Inertia::render('Charity/Program/Index',[
-            'programs' => CharityProgram::where(
-                    'charity_id', $id
-                )->latest()->paginate(16),
+            'programs' => $list,    
             'charity' => $charity,
+            'filter' => ($request->status) ? $request->status : 'All',
             'latestFiveActivePrograms' => $latestFiveActivePrograms,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
