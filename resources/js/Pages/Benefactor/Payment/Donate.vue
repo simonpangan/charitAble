@@ -330,7 +330,7 @@
                 data: {
                   'tip_level': this.tip_level,
                   'tip_price': this.charitable_tip,
-                  'total_contribution_amount': this.total_price,
+                  'total_contribution_amount': this.price,
                 }
               }).then((response) => {
                 return response.data.id;
