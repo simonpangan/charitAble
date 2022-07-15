@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
 use App\Models\Charity\Charity;
 use App\Models\Charity\CharityPosts;
+use App\Models\Charity\CharityProgram;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +69,8 @@ class CharityPostsController
     public function create(): Response
     {
         return Inertia::render('Charity/Post/Create',[
-            'csrfToken' => csrf_token()
+            'csrfToken' => csrf_token(),
+            'program' => CharityProgram::where('charity_id',Auth::id())->get()->toArray()
         ]);
     }
 
@@ -106,7 +108,7 @@ class CharityPostsController
         CharityPosts::create([
             'main_content_body' => $request->main_content_body,
             'main_content_body_image' => $link,
-            'charity_id' => $id
+            'charity_programs_id' => $request->charity_program_id
         ]);
 
         Auth::user()->createLog("You have created a post");

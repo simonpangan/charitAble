@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Charity\CharityFollowers;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Charity\CharityProgramRequest;
+use App\Models\Charity\CharityPosts;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CharityProgramController
@@ -235,6 +236,7 @@ class CharityProgramController
 
     public function gallery(int $id){
         $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
+        $posts = CharityPosts::where('charity_programs_id',$id)->get()->toArray();
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
@@ -248,6 +250,7 @@ class CharityProgramController
             'Charity/Program/Gallery',
             [
                 'program' => $program,
+                'posts' => $posts,
                 'stats' => $stats,
                 'can' => [
                     'modify' =>  $program->charity_id == Auth::id()

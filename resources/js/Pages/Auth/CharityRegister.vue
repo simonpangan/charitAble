@@ -307,7 +307,7 @@
                     </li>
                     <li class="StepProgress-item current">
                       <strong>Step Two - Additional Organization Information</strong>
-                      <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
+                      <p>We need to know more about your charity. A charity logo would be useful branding tool for benefactors to see.</p>
                     </li>
                     <li class="StepProgress-item">
                       <strong>Step Three - Documents</strong>
@@ -403,7 +403,9 @@
                     </li>
                     <li class="StepProgress-item current">
                       <strong>Step Three - Documents</strong>
-                      <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
+                      <p>Submit valid documents to get verified and access programs/donate feature. </p>
+                      <p>The following documents are valid (DTI , SEC License, PCNC Accreditation License, Mayor's Permit) </p>
+
                     </li>
                     <li class="StepProgress-item">
                       <strong>Step Four - Email Verification</strong>

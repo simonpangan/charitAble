@@ -78,23 +78,26 @@ class CharityRegisterController extends Controller
             $link = '/storage/charity/'.$id.'/logo'.'/'.$filename;
         }
 
-
+        
         $documentFile = $request->only('documentFile');
 
         $this->createCharityWithCategories($user, $request->except(['email', 'password','address']), $link);
 
-        foreach($documentFile['documentFile'] as $document) {
-            $documentFileName = $document->getClientOriginalName();
-            $temporaryDocumentFile = TemporaryFile::where('filename',$documentFileName)
-                ->where('file_type','document')
-                ->first()
-                ->getRawOriginal();
-
-            Storage::move('tmp/documents/'.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], 'charity/'.$id.'/'.'documents/'.$documentFileName);
-            Storage::deleteDirectory('tmp/documents/'.$temporaryDocumentFile['folder']);
-
-            TemporaryFile::findOrFail($temporaryDocumentFile['id'])->delete();
+        If($request->hasFile('documentFile')){
+            foreach($documentFile['documentFile'] as $document) {
+                $documentFileName = $document->getClientOriginalName();
+                $temporaryDocumentFile = TemporaryFile::where('filename',$documentFileName)
+                    ->where('file_type','document')
+                    ->first()
+                    ->getRawOriginal();
+    
+                Storage::move('tmp/documents/'.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], 'charity/'.$id.'/'.'documents/'.$documentFileName);
+                Storage::deleteDirectory('tmp/documents/'.$temporaryDocumentFile['folder']);
+    
+                TemporaryFile::findOrFail($temporaryDocumentFile['id'])->delete();
+            }
         }
+        
 
         event(new Registered($user));
 

@@ -16,7 +16,7 @@ class CharityProgram extends Model
 {
     use HasFactory, CharityID;
 
-    protected $guarded = ['id'];   
+    protected $guarded = ['id'];
 
     protected $casts = [
         'goals' => 'array',
@@ -26,13 +26,13 @@ class CharityProgram extends Model
     ];
 
     protected $appends = ['created_at_formatted'];
-    
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->toDayDateTimeString();
     }
 
-    public function getGoalsAttribute($value) 
+    public function getGoalsAttribute($value)
     {
         $goals = collect(json_decode($value, true));
 
@@ -53,13 +53,19 @@ class CharityProgram extends Model
         return $this->belongsTo(Benefactor::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(CharityPosts::class);
+    }
+
+
     public function donations()
     {
         return $this->belongsToMany(
-                CharityProgram::class, 
-                'program_donations', 
+                CharityProgram::class,
+                'program_donations',
                 'charity_program_id',
-                'benefactor_id', 
+                'benefactor_id',
             )
             ->using(ProgramDonation::class)
             ->withPivot(
@@ -81,7 +87,7 @@ class CharityProgram extends Model
     public function scopeFilterProgramBy($query, $name, $category)
     {
         //name is only in the query
-        if(! is_null($name) && is_null($category)) 
+        if(! is_null($name) && is_null($category))
         {
             return $this->filterProgramByName($query, $name);
         }
@@ -92,7 +98,7 @@ class CharityProgram extends Model
         }
 
         return $query->whereIn(
-            'charity_programs.charity_id', 
+            'charity_programs.charity_id',
            $this->benefactorFollowing()
         );
     }
@@ -109,9 +115,9 @@ class CharityProgram extends Model
     private function filterProgramByName($query, $name)
     {
         return $query->whereIn(
-            'charity_programs.charity_id', 
+            'charity_programs.charity_id',
             $this->benefactorFollowing()
-        )->where('charity_programs.name', 'like', '%'.$name.'%'); 
+        )->where('charity_programs.name', 'like', '%'.$name.'%');
     }
 
     private function filteProgramByCategory($query, $category)
@@ -124,7 +130,7 @@ class CharityProgram extends Model
 
         if (is_null($category)) {
             return $query->whereIn(
-                'charity_programs.charity_id', 
+                'charity_programs.charity_id',
                $this->benefactorFollowing()
             );
         }
@@ -139,7 +145,7 @@ class CharityProgram extends Model
             ->pluck('charity_id');
 
         return  $query->whereIn(
-            'charity_programs.charity_id', 
+            'charity_programs.charity_id',
             $charityID->toArray()
         );
     }

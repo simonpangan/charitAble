@@ -16,9 +16,14 @@ class CharityPosts extends Model
     protected $guarded = ['id'];
 
     protected $appends = ['created_at_formatted'];
-    
+
     public function getCreatedAtFormattedAttribute()
     {
         return (Carbon::parse($this->created_at)->diffForHumans());
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(CharityProgram::class, 'charity_programs_id');
     }
 }

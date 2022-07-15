@@ -66,14 +66,7 @@
                                     'id': program.id
                                 })">Gallery</Link>
                             </li>
-                             <li class="nav-item ms-auto">
-
-                                <Link class="nav-link"
-                                :class="{ 'active': $page.component === 'Charity/Program/CharitySettings' }"
-                                :href="$route('charity.program.setting', {
-                                    'id': program.id
-                                })"><i class="fas fa-cog text-primary me-2"></i>Admin : Program Settings</Link>
-                            </li>
+                           
 
 
                         </ul>
