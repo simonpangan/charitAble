@@ -16,112 +16,19 @@
           <div class="container">
             <div class="row text-center text-lg-start">
               <div class="col-lg-6 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
                   <img
                     class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/pWkk7iiCoDM/400x300"
+                    v-bind:src="this.program.header"
                     alt=""
                   />
-                </a>
               </div>
-              <div class="col-lg-6 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
+
+              <div class="col-lg-6 col-md-6 col-6" v-for="(posts) in posts" :key="posts.id">
                   <img
                     class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/aob0ukAYfuI/400x300"
+                    v-bind:src="posts.main_content_body_image"
                     alt=""
                   />
-                </a>
-              </div>
-              <div class="col-lg-6 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/EUfxH-pze7s/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-6 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/M185_qYH8vg/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-6 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/sesveuG_rNo/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-6x col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/AvhMzHwiE_0/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-4 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/2gYsZUmockw/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-4 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/EMSDtjVHdQ8/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-4 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/8mUEy0ABdNE/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-4 col-md-6 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/G9Rfc1qccH4/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-4 col-md-4 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/aJeH0KcFkuc/400x300"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div class="col-lg-4 col-md-4 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                  <img
-                    class="img-fluid img-thumbnail"
-                    src="https://source.unsplash.com/p2TQ-3Bh3Oo/400x300"
-                    alt=""
-                  />
-                </a>
               </div>
             </div>
           </div>
@@ -136,6 +43,7 @@ import ProgramLayout from "./ProgramLayout";
 
 let props = defineProps({
   program: Array,
+  posts: Array,
 });
 </script>
 
