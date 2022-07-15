@@ -5,6 +5,12 @@
         <main class="col col-xl-9 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
           <div class="box shadow-sm border rounded bg-white mb-3 osahan-share-post ">
             <ConnectionsNavLinks v-bind:search="props.name" @search="searchPost" />
+            <select style="width: 250px"
+                  v-model="status" class="form-select my-2 ms-auto" aria-label="Default select example">
+                  <option value="All">Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+              </select>
              <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="p-3">
@@ -66,33 +72,16 @@
                   </small>
                   </div>
                   <ul class="list-group list-group-flush">
-                      <Link v-for="(total, name, index) in charityFollowingProgramCategoryStats" :key="index"
-                          :href="$route('benefactor.connections.program.index', {
-                              category: name.replaceAll('_', ' ')
-                          })"
-                          :only="['programs']"
-                      >
-                          <li class="list-group-item ps-3 pe-3 d-flex align-items-center text-dark">
-                                  {{ name.replaceAll('_', ' ') }} 
+                      <template v-for="(total, name, index) in charityFollowingProgramCategoryStats" :key="index">
+                          <li style="cursor: pointer"
+                              @click="category = name.replaceAll('_', ' ')" class="list-group-item ps-3 pe-3 d-flex align-items-center text-dark">
+                              {{ name.replaceAll('_', ' ') }}
                               <span class="ms-auto fw-bold">{{ total }}</span>
                           </li>
-                      </Link>
+                      </template>
                   </ul>
               </div>
-              <div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center">
-                  <div class="image-overlap-2 pt-4">
-                      <img src="img/l4.png" class="img-fluid rounded-circle shadow-sm" alt="Responsive image">
-                      <img src="img/user.png" class="img-fluid rounded-circle shadow-sm" alt="Responsive image">
-                  </div>
-                  <div class="p-3 border-bottom">
-                      <h6 class="text-dark">Gurdeep, grow your career by following <span class="fw-bold"> Askbootsrap</span></h6>
-                      <p class="mb-0 text-muted">Stay up-to industry trends!</p>
-                  </div>
-                  <div class="p-3">
-                      <button type="button" class="btn btn-outline-primary btn-sm ps-4 pe-4"> FOLLOW </button>
-                  </div>
-              </div>
-          </aside>
+        </aside>
       </div>
     </div>
   </div>
@@ -100,6 +89,7 @@
 
 <script setup>
   import ConnectionsNavLinks from './ConnectionsNavLinks.vue';
+  import { ref, watch } from 'vue';
 
   import {
     Inertia
@@ -109,7 +99,33 @@
   let props = defineProps({
     name: String,
     programs: Array,
+    filters : Array,
     charityFollowingProgramCategoryStats: Object,
+  });
+
+  let status = ref(props.filters.status);
+  let category = ref(props.filters.category);
+
+  watch(status, (value) => {
+    Inertia.get(
+      route('benefactor.connections.program.index'), {
+        'status' : value,
+        'category' : category.value
+      }
+    ); 
+  });
+
+  watch(category, (value) => {
+  Inertia.get(
+    route('benefactor.connections.program.index'), {
+        'status' : status.value,
+        'category' : value
+      }, {
+        preserveState: true,
+        replace: true,
+        only: ['programs'],
+      }
+    ); 
   });
 
   let searchPost = (value) => {
@@ -118,7 +134,8 @@
         name: value, 
       }, {
         preserveState: true,
-        replace: true
+        replace: true,
+        only: ['programs'],
       }
     );
   }

@@ -56,7 +56,9 @@
                 v-on:processfile="onHandleaddfile"
               ></file-pond>
               <div class="post-for border-top">
-                <label class="mt-3">This posts is an update for the program : </label>
+                <label class="mt-3">This posts is an update for the program :  
+                    <span class="text-muted">(Optional)</span>
+                </label>
                 <select class="form-select" aria-label="Default select example" v-model="form.charity_program_id" >
                 <option selected disabled>Select Program:</option>
                 <option v-for="(program, index) in program" :key="program.id" :value="program.id">{{program.name}}</option>
