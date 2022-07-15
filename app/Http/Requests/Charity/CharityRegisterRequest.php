@@ -59,10 +59,10 @@ class CharityRegisterRequest extends FormRequest
             'description' => ['required', 'string', 'max:63000'],
             'address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'int', Rule::in(Location::all()->pluck('id'))],
-            // 'fb_link'=> ['nullable', 'string', 'url', 'max:150'],
-            // 'twitter_link'=> ['nullable', 'string', 'url', 'max:150'],
-            // 'ig_link'=> ['nullable', 'string', 'url', 'max:150'],
-            // 'website_link'=> ['nullable', 'string', 'url', 'max:150'],
+            'fb_link'=> ['nullable', 'string', 'url', 'max:150'],
+            'twitter_link'=> ['nullable', 'string', 'url', 'max:150'],
+            'ig_link'=> ['nullable', 'string', 'url', 'max:150'],
+            'website_link'=> ['nullable', 'string', 'url', 'max:150'],
             'logo'=> [
                 'required', 'mimes:png,jpeg,jpg'
             ],
