@@ -51,9 +51,9 @@ class CharityRegisterController extends Controller
 
         $user->createLog('You have registered to our system');
 
-        if ($request->hasFile('file'))
+        if ($request->hasFile('logo'))
         {
-            $file = $request->file('file');
+            $file = $request->file('logo');
             $filename = $file->getClientOriginalName();
 
             $temporaryFile = TemporaryFile::where('filename',$filename)
@@ -81,7 +81,7 @@ class CharityRegisterController extends Controller
         
         $documentFile = $request->only('documentFile');
 
-        $this->createCharityWithCategories($user, $request->except(['email', 'password','address']), $link);
+        $this->createCharityWithCategories($user, $request->except(['email', 'password','address']),$link);
 
         If($request->hasFile('documentFile')){
             foreach($documentFile['documentFile'] as $document) {

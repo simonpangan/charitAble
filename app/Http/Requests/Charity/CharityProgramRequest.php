@@ -28,8 +28,7 @@ class CharityProgramRequest extends FormRequest
             'description' => ['required', 'string', 'max:63000'],
             'location' => ['required', 'string', 'max:70'],
 
-            'header' => ['required'],
-            'header.*' => ['required', 'mimes:jpg,png,jpeg', 'max:5240'],
+
 
             'goals' => ['required', 'array'],
             'goals.*' => [

@@ -37,7 +37,6 @@ class AdminWithdrawRequestController extends Controller
             'transaction' => ['required', 'file', 'mimes:jpg,jpeg,png'],
         ]);
 
-
         $program = CharityProgram::query()
             ->with('charity')
             ->findOrFail($request->id);
@@ -47,7 +46,7 @@ class AdminWithdrawRequestController extends Controller
             ->get('benefactor_id')
             ->pluck('benefactor_id')
             ->unique();
-        
+
         $emails = User::find($benefactor_id, 'email')->pluck('email');
 
         Mail::to($program->charity->charity_email)

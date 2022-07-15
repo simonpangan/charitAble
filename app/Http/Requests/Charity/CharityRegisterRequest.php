@@ -63,9 +63,9 @@ class CharityRegisterRequest extends FormRequest
             // 'twitter_link'=> ['nullable', 'string', 'url', 'max:150'],
             // 'ig_link'=> ['nullable', 'string', 'url', 'max:150'],
             // 'website_link'=> ['nullable', 'string', 'url', 'max:150'],
-            'logo'=> [
-                'required', 'mimes:png,jpeg,jpg'
-            ],
+            // 'logo'=> [
+            //     'required', 'mimes:png,jpeg,jpg'
+            // ],
         ]);
     }
 

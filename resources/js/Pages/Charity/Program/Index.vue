@@ -17,6 +17,14 @@
                           <p class="card-text text-dark">
                             <i class="fas fa-clock"></i>
                             {{program.created_at_formatted}}
+                            
+                             <h3 class="mx-auto nmb-1">
+                                    {{ stats.total_donation}}
+                                </h3>
+                                <p class="">funded out of
+                                    <span class="fa-1x text-gray-300">₱</span>
+                                    {{ program.total_needed_amount}}
+                                </p>
                           </p>
                       </div>
                   </div>
@@ -61,6 +69,7 @@ import CharityLayout from '../CharityLayout.vue';
 
 let props = defineProps({
   programs: Object,
+  stats:Array,
 });
 
 </script>

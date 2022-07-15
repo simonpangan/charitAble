@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class=" d-flex align-items-center"><i class="far fa-credit-card fa-8x pl-5"></i></div>
+                            <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
                             <h3>Multiple Payment Methods</h3>
                             <p class="lead mb-0">Choose from PayPal, Card , Gcash, and GrabPay payments</p>
                         </div>

@@ -15,7 +15,7 @@ class Charity extends Model
 {
     use HasFactory;
 
-    public $incrementing = false;   
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $guarded = [];
@@ -24,7 +24,7 @@ class Charity extends Model
         'created_at' => 'datetime',
     ];
 
-    
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->toDayDateTimeString();

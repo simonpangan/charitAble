@@ -54,14 +54,6 @@
                   </div>
                   <div class="form-group mb-0"></div>
                 </div>
-                <div class="overflow-hidden text-center p-3">
-                  <a
-                    class="font-weight-bold btn btn-light rounded p-3 d-block"
-                    href="#"
-                  >
-                    SAVE
-                  </a>
-                </div>
               </div>
             </div>
           </aside>
@@ -138,9 +130,9 @@
                     <label id="FROM" class="form-label">Goal</label>
                     <span class="text-danger">*</span>
                     <div class="input-group">
-                        <input type="text" class="form-control mb-2" 
+                        <input type="text" class="form-control mb-2"
                           v-model="form.goals[index].name" />
-                        <span v-text="form.errors['goals.'+ (index) +'.name']" 
+                        <span v-text="form.errors['goals.'+ (index) +'.name']"
                           v-if="form.errors['goals.'+ (index) +'.name']" class="invalid-feedback d-block" role="alert">
                         </span>
                     </div>
@@ -154,16 +146,16 @@
                           <i class="fad fa-trash"></i>
                       </button>
                     </div>
-                    <span  v-text="form.errors['goals.'+ (index) +'.date']" 
+                    <span  v-text="form.errors['goals.'+ (index) +'.date']"
                       v-if="form.errors['goals.'+ (index) +'.date']" class="invalid-feedback d-block" role="alert">
                     </span>
                   </div>
                 </div>
-                <span v-if="form.errors.goals" 
+                <span v-if="form.errors.goals"
                     v-text="form.errors.goals"
                     class="invalid-feedback d-block" role="alert">
                 </span>
-                <button class="btn btn-light d-inline-block u-text-muted mb-2" 
+                <button class="btn btn-light d-inline-block u-text-muted mb-2"
                     @click.stop.prevent="addGoal">
                     <i class="fad fa-plus"></i>
                     Add Goal
@@ -179,13 +171,13 @@
                   <div class="row">
                     <div class="col-sm-12 mb-2">
                       <div class="js-form-message">
-                        <label id="nameLabel" class="form-label"> 
+                        <label id="nameLabel" class="form-label">
                           Total Needed Amount
                           <span class="text-danger">*</span>
                         </label>
                         <div class="form-group">
-                          <input type="number" class="form-control" v-model="form.total_needed_amount" />
-                          <span v-if="form.errors.total_needed_amount" 
+                          <input type="number" class="form-control" v-model="form.total_needed_amount" disabled/>
+                          <span v-if="form.errors.total_needed_amount"
                             v-text="form.errors.total_needed_amount"
                             class="invalid-feedback d-block" role="alert">
                           </span>
@@ -198,9 +190,9 @@
                     <div class="col-sm-6 mb-4">
                       <label id="FROM" class="form-label">Expense name</label>
                         <div class="input-group">
-                          <input type="text" class="form-control mb-2" v-model="expense.name" />
+                          <input type="text" class="form-control mb-2" v-model="expense.name" disabled/>
                         </div>
-                      <span v-if="form.errors['expenses.'+ (index) +'.name']" 
+                      <span v-if="form.errors['expenses.'+ (index) +'.name']"
                         v-text="form.errors['expenses.'+ (index) +'.name']"
                         class="invalid-feedback d-block" role="alert">
                       </span>
@@ -208,33 +200,18 @@
                     <div class="col-sm-6 mb-4">
                       <label class="form-label">Amount</label>
                       <div class="input-group">
-                        <input type="number" class="form-control mb-2" v-model="expense.amount" />
+                        <input type="number" class="form-control mb-2" v-model="expense.amount" disabled/>
                         <button @click.stop.prevent="removeExpense(index)"
                           class="ms-2 py-0 btn btn-sm btn-danger" style="height: 35px">
                           <i class="fad fa-trash"></i>
                         </button>
                       </div>
-                      <span v-if="form.errors['expenses.'+ (index) +'.amount']" 
+                      <span v-if="form.errors['expenses.'+ (index) +'.amount']"
                         v-text="form.errors['expenses.'+ (index) +'.amount']"
                         class="invalid-feedback d-block" role="alert">
                       </span>
                     </div>
                   </div>
-                     <div class="d-flex justify-content-between">
-                      <button class="btn btn-light d-inline-block u-text-muted" 
-                        @click.stop.prevent="addExpense">
-                        <i class="fad fa-plus"></i>
-                        Add Program Expenses
-                      </button>
-                      <div class="align-items-center">
-                        <span class="fw-bold">
-                          Total: 
-                        </span>
-                        <span class="fa-1x text-gray-300">₱</span>
-                        {{ expenseTotal() }}
-                      </div>
-                      <div></div> 
-                  </div>                  
                 </form>
               </div>
             </div>
@@ -258,6 +235,7 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed, toRaw } from 'vue';
+import axios from "axios";
 
 
 import vueFilePond from "vue-filepond";
@@ -284,6 +262,25 @@ let form = useForm({
   expenses: props.program.expenses,
   header: [],
 });
+
+let handleRevertFilePond = () => {
+      return axios({
+        method: "POST",
+        url: "/charity/uploadPostPhoto/revert",
+        data: {
+          filename : this.lastFileName[0].name
+        },
+      }).then((response) => {
+       alert
+      });
+};
+let OnhandleOnAddFileStart = ()=>{
+        this.LoadingState = 'false';
+    };
+let onHandleaddfile=()=>{
+        this.LoadingState = 'true';
+    };
+
 
 let goBack = () =>  {
     return window.history.back();

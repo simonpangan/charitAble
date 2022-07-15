@@ -45,10 +45,29 @@ class CharityProgramController
                 ->exists();
         }
 
+      
+
+        $newProgramStats = CharityProgram::query()
+        ->find($id)
+        ->pluck('id')
+        ->toArray();
+
+        //
+        $programStats = ProgramDonation::query()
+        ->select(['amount','benefactor_id'])
+        ->where('charity_program_id', $id)
+        ->get();
+
+        dd($newProgramStats);
+
+        $stats['total_donation'] = $programStats->sum('amount');
+
+
         return Inertia::render('Charity/Program/Index',[
             'programs' => CharityProgram::where(
                     'charity_id', $id
                 )->latest()->paginate(16),
+            'stats' => $stats,
             'charity' => $charity,
             'can' => [
                 'access' => Auth::id() ==  $charity->id,
@@ -160,7 +179,36 @@ class CharityProgramController
         $program = CharityProgram::findOrFail($id);
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+        $link = '';
 
+        if($request->hasFile('header'))
+        {
+            $file = $request->file('header');
+            $filename = $file[0]->getClientOriginalName();
+
+            $temporaryFile = TemporaryFile::where('filename',$filename)
+                ->where('file_type','program-header')
+                ->latest()
+                ->first()
+                ->getRawOriginal();
+
+            Storage::move(
+                'tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
+                "public/charity/{$id}/program/".Carbon::now()->timestamp.".{$file[0]->getClientOriginalExtension()}"
+            );
+
+            Storage::deleteDirectory('tmp/program/'.$temporaryFile['folder']);
+
+            TemporaryFile::where('filename',$filename)
+                ->where('file_type','program-header')
+                ->latest()
+                ->first()
+                ->delete();
+
+
+            $link = "/storage/charity/{$id}/program/".Carbon::now()->timestamp. ".{$file[0]->getClientOriginalExtension()}";
+        
+        }
         $program->update(
             array_merge(
                 $request->validated(),
@@ -168,7 +216,7 @@ class CharityProgramController
                     'total_needed_amount' => collect($request->expenses)
                         ->pluck('amount')
                         ->sum()
-                ]
+                ],
             )
         );
 
