@@ -10,7 +10,9 @@
                                 <img class="rounded-circle" v-bind:src="charity.logo" alt="">
                             </div>
                             <div class="font-weight-bold">
-                                <div class="text-truncate">{{charity.name}}<span class="text-info ms-1"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
+                                <div class="text-truncate">
+                                    {{charity.name}}
+                                    <span class="text-info ms-1"><i data-bs-toggle="tooltip" data-bs-placement="top" title="Verified" class="feather-check-circle"></i></span></div>
                                 <div class="small text-gray-500"> {{post.created_at_formatted}}</div>
                             </div>
                             <span class="ms-auto small"></span>
