@@ -181,7 +181,10 @@ class CharityProgramController
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
-        if (! is_null($program->header)) {
+        if (! is_null($program->header) &&
+                //for demonstration purpose only
+            $program->header != 'https://andscape.com/wp-content/uploads/2019/02/GettyImages-1125042094-e1550278649308.jpg?w=700'
+        ) {
             unlink(substr($program->header, 1));
         }
 

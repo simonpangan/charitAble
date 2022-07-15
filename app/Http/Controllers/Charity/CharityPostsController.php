@@ -120,7 +120,9 @@ class CharityPostsController
     {
         $post = CharityPosts::findOrFail($id);
 
-        if (! is_null($post->main_content_body_image)) {
+        if (! is_null($post->main_content_body_image) &&
+            $post->main_content_body_image != 'https://www.cloudways.com/blog/wp-content/uploads/OG-Banner-204.jpg'
+        ) {
             unlink(substr($post->main_content_body_image, 1));
         }
 
