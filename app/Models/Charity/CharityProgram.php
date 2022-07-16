@@ -39,8 +39,8 @@ class CharityProgram extends Model
     {
         return Attribute::make(
             get: function ($value) {
-                $updates = collect(json_decode($value, true));
-                
+                $updates = collect(json_decode($value, true))->reverse();
+
                 return $updates->map(function ($update) {
                     if (array_key_exists("updated_at", $update)) {
                         return array_merge($update, [
