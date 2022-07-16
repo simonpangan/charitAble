@@ -28,10 +28,11 @@ use App\Http\Controllers\Charity\{
     CharityPostsController,
     CharityProfileController,
     CharityProgramController,
-    CharityVolunteerPostController,
     CharityOfficerController,
+    CharityVolunteerPostController,
+    CharityProgramStatusController,
     CharityProgramReportController,
-    CharityVolunteerPostReportController
+    CharityVolunteerPostReportController,
 };
 
 use App\Http\Controllers\Admin\ {
@@ -105,6 +106,8 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         Route::get('program/{id}/download', [CharityProgramReportController::class, 'generate'])
             ->where('id', '[0-9]+')->name('program.download');
 
+        Route::put('program/{id}/status', CharityProgramStatusController::class)
+            ->where('id', '[0-9]+')->name('program.status');
 
         Route::controller(CharityVolunteerPostController::class)->group(function () {
             Route::post('volunteer-posts', 'store')->name('volunteer.store');
@@ -209,7 +212,9 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
         ->where('id', '[0-9]+');
 
     Route::controller(CharityProgramController::class)->group(function () {
-        Route::get('charity/{id?}/program', 'index')->name('charity.program.index')->where('id', '[0-9]+');
+        Route::get('charity/{id?}/program', 'index')
+            ->name('charity.program.index')->where('id', '[0-9]+');
+            
         Route::get('charity/program/{id}', 'show')
             ->where('id', '[0-9]+')
             ->name('charity.program.show');
