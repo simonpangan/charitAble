@@ -7,7 +7,7 @@
       role="tabpanel"
       aria-labelledby="home-tab"
     >
-      <div v-for="(updates,index) in program.updates" :key="program.id">
+      <div v-for="(updates,index) in program.updates" :key="index">
         <div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
           <div class="p-3 border-bottom osahan-post-body">
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -21,7 +21,7 @@
                     aria-expanded="false"
                     aria-controls="flush-collapseOne"
                   >
-                Changes on {{ program.name}} at {{program.updates[index].updated_at_formatted}}
+                Changes on {{ program.name}} at {{updates.updated_at_formatted}}
                   </button>
                 </h2>
                 <div
@@ -32,14 +32,16 @@
                 >
                   <div class="accordion-body">
 
-                    <p v-if="program.updates[index].name">Program Name : {{program.updates[index].name}}</p>
-                    <p v-if="program.updates[index].description">Description : {{program.updates[index].description}}</p>
-                    <p v-if="program.updates[index].location">Location : {{program.updates[index].location}}</p>
-                    
-                    
-                     
-                  
-             
+                    <p v-if="updates.name"><span class="fw-bold">Program Name</span> : {{updates.name}}</p>
+                    <p v-if="updates.description"><span class="fw-bold">Description</span> : {{updates.description}}</p>
+                    <p v-if="updates.location"><span class="fw-bold">Location</span> : {{updates.location}}</p>
+                    <p v-if="updates.goals">
+                      <span class="fw-bold">Goals</span> 
+
+                      <ul style="list-style-type:disc;" v-for="(goal, index) in updates.goals" :key="index">
+                        <li>{{ goal.name }}</li>
+                      </ul>
+                    </p>
                   </div>
                 </div>
               </div>

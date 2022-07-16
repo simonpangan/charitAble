@@ -44,11 +44,17 @@ class CharityProgram extends Model
                 return $updates->map(function ($update) {
                     if (array_key_exists("updated_at", $update)) {
                         return array_merge($update, [
+                            'status' => 'updated',
+                            'goals' => json_decode($update['goals'], true),
+                            'expenses' => json_decode($update['expenses'], true),
                             'updated_at_formatted' => (new Carbon($update['updated_at']))->toDayDateTimeString()
                         ]);
                     } else {
                         return array_merge($update, [
-                            'created_at_formatted' => (new Carbon($update['created_at']))->toDayDateTimeString()
+                            'status' => 'original',
+                            'goals' => json_decode($update['goals'], true),
+                            'expenses' => json_decode($update['expenses'], true),
+                            'created_at_formatted' => (new Carbon($update['created_at']))->toDayDateTimeString(),
                         ]);
                     }
                 });
