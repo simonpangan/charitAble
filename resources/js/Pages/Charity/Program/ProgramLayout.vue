@@ -178,6 +178,10 @@
                                         <label for="exampleFormControlInput1" class="form-label">Message</label>
                                         <textarea class="form-control" :value="program.withdraw_message" rows="4" cols="50" disabled></textarea>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">G-CASH</label>
+                                        <input class="form-control" :value="program.gcash" disabled />
+                                    </div>
                                     <p><small>You still have an ongoing withdraw request.</small></p>
                                 </div>
                                 <div v-else>
@@ -192,6 +196,13 @@
                                         <label for="exampleFormControlInput1" class="form-label">Message</label>
                                         <textarea class="form-control" v-model="form.message" rows="4" cols="50"> </textarea>
                                         <span v-if="form.errors.message" v-text="form.errors.message"
+                                            class="invalid-feedback d-block" role="alert">
+                                        </span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">G-CASH</label>
+                                        <input class="form-control" v-model="form.gcash" />
+                                        <span v-if="form.errors.gcash" v-text="form.errors.gcash"
                                             class="invalid-feedback d-block" role="alert">
                                         </span>
                                     </div>
@@ -229,6 +240,7 @@ export default {
         let form = useForm({
             amount: null,
             message: null,
+            gcash: null,
         })
 
         return { form };
