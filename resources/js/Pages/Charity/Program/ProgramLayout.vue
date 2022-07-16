@@ -70,9 +70,6 @@
                                     'id': program.id
                                 })">Gallery</Link>
                             </li>
-                           
-
-
                         </ul>
                     </div>
                     <div class="tab-content" id="myTabContent">
@@ -87,33 +84,10 @@
                             Download Report
                             <i class="fad fa-download ms-2"></i>
                         </a>
-                        <div v-if="program.has_withdraw_request">
-                            <div class="input-group mb-3">
-                                <input type="number" class="form-control" placeholder="Amount"
-                                    :value="program.withdraw_request_amount"
-                                    disabled>
-                                <Button @click="cancelRequest($page.props.program.id)"
-                                    method="post" as="button" type="button"
-                                    class="btn btn-danger">
-                                        Cancel Request
-                                </Button>
-                                <span v-if="form.errors.amount" v-text="form.errors.amount"
-                                    class="invalid-feedback d-block" role="alert">
-                                </span>
-                            </div>
-                            <p><small>You still have an ongoing withdraw request.</small></p>
-                        </div>
-                        <div class="input-group mb-3" v-else>
-                            <input type="number" class="form-control" placeholder="Amount" v-model="form.amount">
-                            <Button @click="withdrawRequest($page.props.program.id)"
-                                method="post" as="button" type="button"
-                                class="btn btn-secondary">
-                                    Send Withdraw Request
-                            </Button>
-                            <span v-if="form.errors.amount" v-text="form.errors.amount"
-                                class="invalid-feedback d-block" role="alert">
-                            </span>
-                        </div>
+                         <button type="button" class="btn btn-block btn-lg btn-warning w-100 mb-3" 
+                            data-bs-toggle="modal" data-bs-target="#withdrawModal">
+                            Withdraw Request 
+                        </button>
                     </div>
                     <div class="box shadow-sm border rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3 mt-2">
@@ -167,83 +141,89 @@
                             </Link>
                         </div>
                     </div>
-
                 </aside>
+                <div class="modal fade"
+                    id="withdrawModal" tabindex="-1" 
+                    aria-labelledby="withdrawModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Withdraw Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <div v-if="program.has_withdraw_request">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">
+                                            Amount  <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" class="form-control" :value="program.withdraw_request_amount" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Message</label>
+                                        <textarea class="form-control" :value="program.withdraw_message" rows="4" cols="50" disabled></textarea>
+                                    </div>
+                                    <p><small>You still have an ongoing withdraw request.</small></p>
+                                </div>
+                                <div v-else>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Amount</label>
+                                        <input type="number" class="form-control" v-model="form.amount">
+                                        <span v-if="form.errors.amount" v-text="form.errors.amount"
+                                            class="invalid-feedback d-block" role="alert">
+                                        </span>
+                                    </div>
+                                     <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Message</label>
+                                        <textarea class="form-control" v-model="form.message" rows="4" cols="50"> </textarea>
+                                        <span v-if="form.errors.message" v-text="form.errors.message"
+                                            class="invalid-feedback d-block" role="alert">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                             <Button v-if="program.has_withdraw_request" @click="cancelRequest($page.props.program.id)" method="post" as="button" type="button" class="btn btn-danger">
+                                Cancel Request
+                            </Button>
+                            <Button v-else @click="withdrawRequest($page.props.program.id)"
+                                method="post" as="button" type="button"
+                                class="btn btn-primary">
+                                    Send Withdraw Request
+                            </Button>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
+<script>
 import { useForm } from "@inertiajs/inertia-vue3";
 import { Inertia } from '@inertiajs/inertia';
 import Swal from 'sweetalert2';
-
-let form = useForm({
-    amount: null,
-})
-
-let withdrawRequest = (id) => {
-     Swal.fire({
-        title: 'Are you sure?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, sent it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            form.post(route('charity.program.withdraw-request', {
-                'id' : id
-            }), {
-                onSuccess: () => {
-                    Swal.fire(
-                        'Sent!',
-                        'Your withdraw request has been sent.',
-                        'success'
-                    )
-                },
-            });
-        }
-    })
-};
-
-let cancelRequest = (id) => {
-    Swal.fire({
-        title: 'Are you sure?',
-        icon: 'warning',
-         text: "You won't be able to revert this!",
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, cancel it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Inertia.post(route('charity.program.withdraw-request.cancel', {
-                'id' : id
-            }), {} ,{
-                onSuccess: () => {
-                    Swal.fire(
-                        'Sent!',
-                        'Your withdraw request has been cancelled.',
-                        'success'
-                    )
-                },
-            });
-        }
-    })
-}
-</script>
-
-<script>
-import { Inertia } from '@inertiajs/inertia';
+import { Modal } from 'bootstrap';
 
 export default {
     props: ['program'],
+    setup() {
+        let form = useForm({
+            amount: null,
+            message: null,
+        })
+
+        return { form };
+    },
     data () {
         return {
             stats: this.$page.props.stats,
-            status: this.program.is_active
+            status: this.program.is_active,
+            modal: null,
         }
     },
     computed: {
@@ -254,6 +234,13 @@ export default {
 
             return (percentage >= 100) ? '100' : percentage ;
         },
+    },
+    mounted() {
+        if(this.$page.props.can.modify) {
+            this.modal = new Modal(document.getElementById('withdrawModal'), {
+                keyboard: false
+            });
+        }
     },
     methods: {
         formatNumber(number) {
@@ -267,11 +254,11 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, change it!'
             }).then((result) => {
                 if (! result.isConfirmed) {
                     this.status = this.program.is_active;
-                    return;
+                    return; 
                 }  
 
                 Inertia.put(route('charity.program.status', {
@@ -306,6 +293,57 @@ export default {
                             this.$swal.fire(
                                 'Deleted!',
                                 'Your program has been deleted.',
+                                'success'
+                            );
+                        },
+                    });
+                }
+            })
+        },
+        withdrawRequest (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, sent it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.form.post(route('charity.program.withdraw-request', {
+                        'id' : id
+                    }), {
+                        onSuccess: () => {
+                            this.modal.hide();
+
+                            Swal.fire(
+                                'Sent!',
+                                'Your withdraw request has been sent.',
+                                'success'
+                            )
+                        },
+                    });
+                }
+            })
+        }, 
+        cancelRequest (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, cancel it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.post(route('charity.program.withdraw-request.cancel', {
+                        'id' : id
+                    }), {} ,{
+                        onSuccess: () => {
+                            Swal.fire(
+                                'Sent!',
+                                'Your withdraw request has been cancelled.',
                                 'success'
                             );
                         },

@@ -338,8 +338,6 @@ class CharityProgramController
     {
         $program = CharityProgram::findOrFail($id);
 
-       
-
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
             ->where('charity_program_id', $id)
@@ -353,7 +351,8 @@ class CharityProgramController
 
         $validator = Validator::make($request->all(), 
             [
-                'amount' => ['required', 'numeric','min:1', 'max:'.$totalBalance]
+                'amount' => ['required', 'numeric','min:1', 'max:'.$totalBalance],
+                'message' => ['required', 'string', 'max:280'],
             ] , 
             $messages
         );
@@ -366,6 +365,7 @@ class CharityProgramController
             'has_withdraw_request' => true,
             'withdraw_request_amount' => $request->amount,
             'withdraw_requested_at' => now(),
+            'withdraw_message' => $request->message,
         ]);
     }
 
@@ -377,6 +377,7 @@ class CharityProgramController
                 'has_withdraw_request' => false,
                 'withdraw_request_amount' => 0,
                 'withdraw_requested_at' => null,
+                'withdraw_message' => null,
             ]);
     }
 }
