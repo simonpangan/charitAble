@@ -26,6 +26,7 @@ return new class extends Migration
             $table->bigInteger('withdraw_request_amount')->default(0);
             $table->timestamp('withdraw_requested_at')->nullable();
             $table->string('withdraw_message', 280)->nullable();
+            $table->char('gcash', 11)->nullable();
             $table->json('expenses');
             $table->string('header');
             $table->json('updates')->nullable();

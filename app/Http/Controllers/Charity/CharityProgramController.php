@@ -401,12 +401,14 @@ class CharityProgramController
 
         $messages = [
             'amount.max' => 'Your total balance left is ' . $totalBalance ,
+            'gcash.regex' => 'Must be a valid number',
         ];
 
         $validator = Validator::make($request->all(), 
             [
                 'amount' => ['required', 'numeric','min:1', 'max:'.$totalBalance],
                 'message' => ['required', 'string', 'max:280'],
+                'gcash' => ['required', 'regex:/^(09)\d{9}$/'],
             ] , 
             $messages
         );
@@ -420,6 +422,7 @@ class CharityProgramController
             'withdraw_request_amount' => $request->amount,
             'withdraw_requested_at' => now(),
             'withdraw_message' => $request->message,
+            'gcash' => $request->gcash,
         ]);
 
         return back();

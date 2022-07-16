@@ -43,6 +43,9 @@
                       <th width="15%" class="text-center">
                         Request Date
                       </th>
+                      <th width="15%" class="text-center">
+                        G-CASH
+                      </th>
                       <th width="20%" class="text-center">
                           Action
                       </th>
@@ -59,6 +62,9 @@
                         <div v-else class="badge bg-warning rounded-pill">Pending</div>
                       </td>
                       <td class="text-center">{{ program.withdraw_requested_at }}</td>
+                        <td>
+                          {{ program.gcash }}
+                        </td>
                        <td >
                         <div class="d-flex justify-content-evenly">
                           <div class="input-group">
