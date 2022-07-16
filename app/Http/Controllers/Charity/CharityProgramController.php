@@ -367,6 +367,8 @@ class CharityProgramController
             'withdraw_requested_at' => now(),
             'withdraw_message' => $request->message,
         ]);
+
+        return back();
     }
 
     public function cancelWithdrawRequest(int $id)
@@ -379,5 +381,7 @@ class CharityProgramController
                 'withdraw_requested_at' => null,
                 'withdraw_message' => null,
             ]);
+
+        return back();
     }
 }
