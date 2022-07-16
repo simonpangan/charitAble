@@ -13,7 +13,7 @@ class CharityProgramStatusController extends Controller
         $program = CharityProgram::findOrFail($id);
 
         $program->update([
-            'is_active' => ($request->status == 'Active') ? true : false
+            'is_active' => ($request->status == 'true') ? true : false
         ]);
     }
 }

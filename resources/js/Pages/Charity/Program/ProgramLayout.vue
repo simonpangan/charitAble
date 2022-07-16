@@ -22,9 +22,9 @@
 							</p>
                         </div>
                        <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
-                            <select  @change="setStatus"  style="width: 100px" class="form-select my-2 ms-auto" aria-label="Default select example">
-                                <option value="Active" :selected="status">Active</option>
-                                <option value="Inactive" :selected="! status">Inactive</option>
+                            <select  @change="setStatus"  v-model="status" style="width: 100px" class="form-select my-2 ms-auto" aria-label="Default select example">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
                             </select>
                             <Link class="btn btn-success btn-lg"
                                 :href="$route('charity.program.edit',
@@ -269,8 +269,12 @@ export default {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-                if (result.isConfirmed) {
-                    Inertia.put(route('charity.program.status', {
+                if (! result.isConfirmed) {
+                    this.status = this.program.is_active;
+                    return;
+                }  
+
+                Inertia.put(route('charity.program.status', {
                         'id' : this.program.id  
                     }), {
                         'status' : e.target.value
@@ -281,7 +285,6 @@ export default {
                             )
                         },
                     });
-                }
             })
 
         },
