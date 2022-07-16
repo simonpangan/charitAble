@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use App\Models\ProgramDonation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CharityProgram extends Model
@@ -21,6 +22,7 @@ class CharityProgram extends Model
     protected $casts = [
         'goals' => 'array',
         'expenses' => 'array',
+        'updates' => 'array',
         'has_withdraw_request' => 'boolean',
         'is_active' => 'boolean',
         'withdraw_requested_at' => 'datetime',
@@ -32,6 +34,28 @@ class CharityProgram extends Model
     {
         return $date->toDayDateTimeString();
     }
+
+    protected function updates(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $updates = collect(json_decode($value, true));
+                
+                return $updates->map(function ($update) {
+                    if (array_key_exists("updated_at", $update)) {
+                        return array_merge($update, [
+                            'updated_at_formatted' => (new Carbon($update['updated_at']))->toDayDateTimeString()
+                        ]);
+                    } else {
+                        return array_merge($update, [
+                            'created_at_formatted' => (new Carbon($update['created_at']))->toDayDateTimeString()
+                        ]);
+                    }
+                });
+            },
+        );
+    }
+
 
     public function getGoalsAttribute($value)
     {

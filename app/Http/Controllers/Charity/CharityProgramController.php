@@ -128,7 +128,12 @@ class CharityProgramController
             [
                 'header' => $link,
                 'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum(),
-                'is_active' => true
+                'is_active' => true,
+                'updates' => [
+                    array_merge($request->validated(), [
+                        'created_at' => now()
+                    ])
+                ]
             ]
            )
         );
@@ -180,8 +185,10 @@ class CharityProgramController
     {
         $program = CharityProgram::findOrFail($id);
 
-        abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
 
+        abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+        
+        
         $program->update(
             array_merge(
                 $request->validated(),
@@ -192,6 +199,14 @@ class CharityProgramController
                 ]
             )
         );
+
+        $updates = collect($program->updates);
+
+        $updates->push($program->getChanges());
+        
+        $program->update([
+            'updates' => $updates 
+        ]);
 
         return to_route('charity.program.index', Auth::id());
     }

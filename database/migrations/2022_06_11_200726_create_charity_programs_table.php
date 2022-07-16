@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamp('withdraw_requested_at')->nullable();
             $table->json('expenses');
             $table->string('header');
+            $table->json('updates')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
