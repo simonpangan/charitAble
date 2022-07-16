@@ -45,7 +45,7 @@ class CharityProgramController
                 ->exists();
         }
 
-      
+
 
         $newProgramStats = CharityProgram::query()
         ->find($id)
@@ -58,7 +58,6 @@ class CharityProgramController
         ->where('charity_program_id', $id)
         ->get();
 
-        dd($newProgramStats);
 
         $stats['total_donation'] = $programStats->sum('amount');
 
@@ -170,7 +169,9 @@ class CharityProgramController
 
         return Inertia::render(
             'Charity/Program/Edit',
-            ['program' => $program]
+            ['program' => $program,
+            'csrfToken' => csrf_token(),
+            ]
         );
     }
 
@@ -179,6 +180,24 @@ class CharityProgramController
         $program = CharityProgram::findOrFail($id);
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
+
+        $program->update(
+            array_merge(
+                $request->validated(),
+                [
+                    'total_needed_amount' => collect($request->expenses)
+                        ->pluck('amount')
+                        ->sum()
+                ],
+            )
+        );
+
+        return to_route('charity.program.index', Auth::id());
+    }
+
+    public function updateHeader(Request $request){
+        $id = $request['program_id'];
+        $program = CharityProgram::findOrFail($id);
         $link = '';
 
         if($request->hasFile('header'))
@@ -207,20 +226,9 @@ class CharityProgramController
 
 
             $link = "/storage/charity/{$id}/program/".Carbon::now()->timestamp. ".{$file[0]->getClientOriginalExtension()}";
-        
-        }
-        $program->update(
-            array_merge(
-                $request->validated(),
-                [
-                    'total_needed_amount' => collect($request->expenses)
-                        ->pluck('amount')
-                        ->sum()
-                ],
-            )
-        );
+            $program->update(['header' => $link]);
 
-        return to_route('charity.program.index', Auth::id());
+        }
     }
 
     public function destroy(int $id): RedirectResponse
@@ -246,7 +254,7 @@ class CharityProgramController
             ->with(['charity:id,name,eth_address,charity_verified_at',
                 'supporters',
             ])
-            ->findOrFail($id);  
+            ->findOrFail($id);
 
         if (is_null($program->charity->charity_verified_at)) {
             return back();
@@ -347,7 +355,7 @@ class CharityProgramController
     {
         $program = CharityProgram::findOrFail($id);
 
-       
+
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
@@ -360,10 +368,10 @@ class CharityProgramController
             'amount.max' => 'Your total balance left is ' . $totalBalance ,
         ];
 
-        $validator = Validator::make($request->all(), 
+        $validator = Validator::make($request->all(),
             [
                 'amount' => ['required', 'numeric','min:1', 'max:'.$totalBalance]
-            ] , 
+            ] ,
             $messages
         );
 

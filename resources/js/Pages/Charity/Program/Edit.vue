@@ -21,41 +21,51 @@
                     class="invalid-feedback d-block" role="alert">
                   </span>
               </div>
+            <img :src="this.program.header" class="img-fluid p-3">
               <div class="box-body">
                 <div class="p-3 border-bottom">
                   <div class="form-group mb-4">
-                    <file-pond
-                      name="file"
-                      class="h-50 mb-5"
-                      v-model="file"
-                      ref="file"
-                      credits="false"
-                      v-bind:files="file"
-                      v-bind:server="{
-                        timeout: 7000,
-                        url: '/charity/uploadProgramPhoto',
-                        process: {
-                          headers: {
-                            url: '/charity/uploadProgramPhoto',
-                            method: 'POST',
-                            'X-CSRF-TOKEN': this.$page.props.csrfToken,
-                          },
-                          withCredentials: false,
-                        },
-                      }"
-                      allow-multiple="false"
-                      accepted-file-types="image/jpeg, image/png"
-                      max-files="1"
-                      allowDrop="true"
-                      dropOnPage="true"
-                      v-on:init="handleFilePondInit"
-                      v-on:updatefiles="handleFilePondUpdateFiles"
-                    ></file-pond>
+                <file-pond
+                name="header"
+                class="h-25 mt-4 mb-2"
+                v-model="header"
+                credits="false"
+                ref="header"
+                v-bind:files="header"
+                v-bind:server="{
+                  timeout: 7000,
+                  url: '/charity/uploadProgramPhoto',
+                  process: {
+                    headers: {
+                      url: '/charity/uploadProgramPhoto',
+                      method: 'POST',
+                      'X-CSRF-TOKEN': this.$page.props.csrfToken,
+                    },
+                  },
+                }"
+                allow-multiple="false"
+                accepted-file-types="image/jpeg, image/png"
+                max-files="1"
+                allowDrop="true"
+                dropOnPage="true"
+                maxFileSize= "5MB"
+                labelIdle="Click Here To Upload File"
+                v-on:init="handleFilePondInit"
+                v-on:updatefiles="handleFilePondUpdateFiles"
+                v-on:removefile="handleRevertFilePond"
+                v-on:addfilestart="OnhandleOnAddFileStart"
+                v-on:processfile="onHandleaddfile"
+              ></file-pond>
+
                   </div>
                   <div class="form-group mb-0"></div>
                 </div>
               </div>
+              <div class="overflow-hidden text-center p-3">
+                    <button class="btn btn-light rounded p-3 d-block" v-on:click="uploadHeader()"> SAVE </button>
+                </div>
             </div>
+
           </aside>
           <main class="col-md-8">
             <div class="border rounded bg-white mb-3">
@@ -237,7 +247,6 @@ import { useForm } from "@inertiajs/inertia-vue3";
 import { computed, toRaw } from 'vue';
 import axios from "axios";
 
-
 import vueFilePond from "vue-filepond";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
@@ -260,7 +269,6 @@ let form = useForm({
   goals: props.program.goals,
   total_needed_amount: props.program.total_needed_amount,
   expenses: props.program.expenses,
-  header: [],
 });
 
 let handleRevertFilePond = () => {
@@ -274,6 +282,9 @@ let handleRevertFilePond = () => {
        alert
       });
 };
+
+
+
 let OnhandleOnAddFileStart = ()=>{
         this.LoadingState = 'false';
     };
@@ -287,7 +298,7 @@ let goBack = () =>  {
 };
 
 let handleFilePondUpdateFiles = (file) => {
-  form.header = file[0].file;
+    header = file[0].file;
 };
 
 let addGoal = () => {
@@ -308,6 +319,19 @@ let removeGoal = (item) => {
 
   form.goals = temp;
 };
+
+let uploadHeader = () => {
+    return axios({
+        method: "POST",
+        url: route('charity.program.edit.header'),
+        data: {
+          header : header,
+          program_id : props.program.id
+        },
+      }).then((response) => {
+
+      });
+}
 
 let addExpense = () => {
   let temp = Object.values(toRaw(form.expenses));

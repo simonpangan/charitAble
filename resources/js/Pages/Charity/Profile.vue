@@ -80,18 +80,18 @@
                                 <td>{{officer.officer_since_formatted}}</td>
                                 <td v-if="can.access">
                                     <Link  :href="$route('charity.officer.show', {
-                                                 id: officer.id 
-                                             })" 
-                                        class="btn btn-success btn-sm"> 
-                                            <i class="fas fa-edit"></i> 
-                                        </Link>  
-                                        <Link @click="officerDelete(officer.id)" 
+                                                 id: officer.id
+                                             })"
+                                        class="btn btn-success btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </Link>
+                                        <Link @click="officerDelete(officer.id)"
                                         as="button"
                                         class="btn btn-danger btn-sm ms-2">
                                         <i class="fad fa-trash"></i>
-                                    </Link> 
-                                </td>                 
-                            </tr>       
+                                    </Link>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -126,7 +126,7 @@ export default {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(route('charity.officer.destroy', {
-                    id: id 
+                    id: id
                 }), {
                     onSuccess: () => {
                          this.$swal.fire(
@@ -143,10 +143,10 @@ export default {
   computed : {
     completeAddress() {
         const addess = this.charity.user.address;
-        const city =  (this.charity.user.location.name == 'Quezon City') ? 
-            'Quezon City' : 
+        const city =  (this.charity.user.location.name == 'Quezon City') ?
+            'Quezon City' :
             ''  + this.charity.user.location.name + ' City';
-         return  addess.concat(', ' + city);  
+         return  addess.concat(', ' + city);
     }
   }
 };

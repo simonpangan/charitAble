@@ -17,14 +17,8 @@
                           <p class="card-text text-dark">
                             <i class="fas fa-clock"></i>
                             {{program.created_at_formatted}}
-                            
-                             <h3 class="mx-auto nmb-1">
-                                    {{ stats.total_donation}}
-                                </h3>
-                                <p class="">funded out of
-                                    <span class="fa-1x text-gray-300">₱</span>
-                                    {{ program.total_needed_amount}}
-                                </p>
+
+
                           </p>
                       </div>
                   </div>
@@ -48,10 +42,10 @@
                     link.url ? 'pager' : '',
                 ]"
               >
-                <Component 
+                <Component
                   :is="link.url ? 'Link' : 'span'"
-                  v-if="link.url" 
-                  :href="link.url" 
+                  v-if="link.url"
+                  :href="link.url"
                   v-html="link.label"
                   class="page-link"
                 >

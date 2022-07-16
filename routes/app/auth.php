@@ -93,6 +93,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::delete('program/{id}', 'destroy')->where('id', '[0-9]+')->name('program.destroy');
             Route::post('uploadProgramPhoto','uploadProgramPhoto')->name('program.store.image');
             Route::post('uploadProgramPhoto/revert','uploadProgramPhotoRevert')->name('program.revert.image');
+            Route::post('editProgramHeader','updateHeader')->name('program.edit.header');
 
             Route::post('/program/{id}/withdraw-request', 'withdrawRequest')
                 ->where('id', '[0-9]+')->name('program.withdraw-request');
