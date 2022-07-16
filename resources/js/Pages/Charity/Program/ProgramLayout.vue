@@ -65,10 +65,24 @@
                             </li>
                             <li class="nav-item">
                                 <Link class="nav-link"
+                                :class="{ 'active': $page.component === 'Charity/Program/Updates' }"
+                                :href="$route('charity.program.updates', {
+                                    'id': program.id
+                                })">Updates</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link"
                                 :class="{ 'active': $page.component === 'Charity/Program/Gallery' }"
                                 :href="$route('charity.program.gallery', {
                                     'id': program.id
                                 })">Gallery</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link"
+                                :class="{ 'active': $page.component === 'Charity/Program/History' }"
+                                :href="$route('charity.program.history', {
+                                    'id': program.id
+                                })">Program Changes</Link>
                             </li>
                         </ul>
                     </div>

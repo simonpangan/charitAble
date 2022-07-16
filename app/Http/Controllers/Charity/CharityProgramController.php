@@ -298,6 +298,60 @@ class CharityProgramController
         );
     }
 
+    public function updateSection(int $id){
+        $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
+        $posts = CharityPosts::where('charity_programs_id',$id)->get()->toArray();
+        $charity = Charity::where('id', Auth::id())->get()->toArray();
+
+        $programStats = ProgramDonation::query()
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+
+        $stats['total_donation'] = $programStats->sum('amount');
+        $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
+
+        return Inertia::render(
+            'Charity/Program/Updates',
+            [
+                'program' => $program,
+                'posts' => $posts,
+                'charity' => $charity,
+                'stats' => $stats,
+                'can' => [
+                    'modify' =>  $program->charity_id == Auth::id()
+                ]
+            ]
+        );
+    }
+
+    public function historySection(int $id){
+        $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
+        $posts = CharityPosts::where('charity_programs_id',$id)->get()->toArray();
+        $charity = Charity::where('id', Auth::id())->get()->toArray();
+
+        $programStats = ProgramDonation::query()
+            ->select(['amount','benefactor_id'])
+            ->where('charity_program_id', $id)
+            ->get();
+
+        $stats['total_donation'] = $programStats->sum('amount');
+        $stats['total_donors'] = $programStats->unique('benefactor_id')->count();
+
+        return Inertia::render(
+            'Charity/Program/History',
+            [
+                'program' => $program,
+                'posts' => $posts,
+                'charity' => $charity,
+                'stats' => $stats,
+                'can' => [
+                    'modify' =>  $program->charity_id == Auth::id()
+                ]
+            ]
+        );
+    }
+
     public function uploadProgramPhoto(Request $request){
 
         if($request->hasFile('header'))

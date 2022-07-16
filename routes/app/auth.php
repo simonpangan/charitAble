@@ -226,6 +226,10 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             ->name('charity.program.gallery');
         Route::get('charity/program/{id}/charitysuporters','charitysettings')
             ->where('id', '[0-9]+')->name('charity.program.setting');
+        Route::get('charity/program/{id}/updates','updateSection')
+            ->where('id', '[0-9]+')->name('charity.program.updates');
+        Route::get('charity/program/{id}/history','historySection')
+            ->where('id', '[0-9]+')->name('charity.program.history');
     });
 
     Route::get('charity/{id?}/post', [CharityPostsController::class, 'index'])
