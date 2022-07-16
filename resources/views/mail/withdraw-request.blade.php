@@ -6,6 +6,10 @@
     to their program {{ $program->name }}
 </p> 
 <p>
+    <b>Message by {{ $program->charity->name }}: </b>
+    {{ $program->withdraw_message }}
+</p>
+<p>
     <b>Transaction Hash: </b>
     <a target="_blank" href="https://rinkeby.etherscan.io/tx/{{ $transaction_hash }}">
         {{ $transaction_hash }}
