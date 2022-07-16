@@ -166,26 +166,27 @@
                         </div>
                         <div class="box-body">
                             <ol class="list-group">
-                                <li v-if="latestFiveActivePrograms.length != 0" 
-                                    v-for="program in latestFiveActivePrograms" :key="program.id" 
-                                    class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        <Link :href="$route('charity.program.show', {
-                                          'id': program.id
-                                        })" class="text-dark">
-                                            <div class="fw-bold d-inline-block text-truncate" 
-                                                style="max-width: 150px;"
-                                                >
-                                                {{ program.name }}
-                                            </div>
+                                <template v-if="latestFiveActivePrograms.length != 0 && (charity.charity_verified_at != null)" >
+                                    <li v-for="program in latestFiveActivePrograms" :key="program.id" 
+                                        class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <Link :href="$route('charity.program.show', {
+                                            'id': program.id
+                                            })" class="text-dark">
+                                                <div class="fw-bold d-inline-block text-truncate" 
+                                                    style="max-width: 150px;"
+                                                    >
+                                                    {{ program.name }}
+                                                </div>
 
-                                            <span class="d-block text-truncate" style="max-width: 150px;">
-                                                {{ program.description }}
-                                            </span>
-                                        </Link>
-                                    </div>
-                                    <span class="badge bg-primary rounded-pill">{{program.created_at_formatted}}</span>
-                                </li>
+                                                <span class="d-block text-truncate" style="max-width: 150px;">
+                                                    {{ program.description }}
+                                                </span>
+                                            </Link>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">{{program.created_at_formatted}}</span>
+                                    </li>
+                                </template>
                                 <li v-else class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <span class="text-center">No current active program</span>
