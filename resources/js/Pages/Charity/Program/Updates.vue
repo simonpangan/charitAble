@@ -7,7 +7,8 @@
       role="tabpanel"
       aria-labelledby="home-tab"
     >
-      <div v-for="post in posts" :key="post.id">
+      <template v-if="posts.length > 0">
+ <div v-for="post in posts" :key="post.id">
         <div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
           <div
             class="
@@ -50,6 +51,16 @@
           </div>
         </div>
       </div>
+      </template>
+      <div v-else>
+        <div class="card p-3">
+        <figure class="p-3 mb-0 text-center">
+          <blockquote class="blockquote">
+          <p>Program has no updates yet.</p>
+          </blockquote>
+        </figure>
+        </div>
+      </div>     
     </div>
   </program-layout>
 </template>
