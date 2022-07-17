@@ -33,6 +33,10 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
+
+        Schema::table('charity_posts', function (Blueprint $table) {
+            $table->foreign('charity_program_id')->references('id')->on('charity_programs');
+        });
     }
 
     /**

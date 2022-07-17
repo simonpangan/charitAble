@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::create('charity_posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity_id')->constrained();
-            $table->bigInteger('charity_programs_id')->nullable()->constrained('charity_programs');
+            $table->unsignedBigInteger('charity_program_id')->nullable();
             $table->text('main_content_body');
             $table->string('main_content_body_image', 200)->nullable();
             $table->timestamps();
-
             // $table->index(['charity_id', 'created_at']);
         });
 
