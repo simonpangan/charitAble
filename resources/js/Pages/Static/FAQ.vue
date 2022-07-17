@@ -1,4 +1,5 @@
 <template>
+    <Head title="FAQ" />
 	<div class="bg-primary pt-5 pb-5">
         <div class="container">
             <div class="row">
