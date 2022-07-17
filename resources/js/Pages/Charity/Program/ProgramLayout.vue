@@ -22,7 +22,7 @@
 							</p>
                         </div>
                        <div class="profile-right ms-auto" v-if="this.$page.props.can.modify">
-                            <select  @change="setStatus"  v-model="status" style="width: 100px" class="form-select my-2 ms-auto" aria-label="Default select example">
+                            <select  @change="setStatus"  v-model="status" style="width: 110px" class="form-select my-2 ms-auto" aria-label="Default select example">
                                 <option value="true">Active</option>
                                 <option value="false">Inactive</option>
                             </select>
