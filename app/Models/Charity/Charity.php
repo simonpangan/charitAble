@@ -5,6 +5,7 @@ namespace App\Models\Charity;
 use App\Models\User;
 use DateTimeInterface;
 use App\Models\Categories;
+use Illuminate\Support\Str;
 use App\Models\Charity\CharityPosts;
 use App\Models\Charity\CharityOfficers;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,10 @@ class Charity extends Model
         'created_at' => 'datetime',
     ];
 
+
+    public function getNameAttribute($value) {
+        return Str::title($value);
+    }
     
     protected function serializeDate(DateTimeInterface $date)
     {

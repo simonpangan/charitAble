@@ -44,7 +44,9 @@
                                 </th>
                                 <td class="p-3">
                                     <a :href="'https://maps.google.com/?q=' + completeAddress"
-                                        target="_blank">
+                                        target="_blank"
+                                        class="text-capitalize"
+                                    >
                                         {{ completeAddress }}
                                     </a>
                                 </td>

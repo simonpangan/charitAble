@@ -6,6 +6,7 @@ use DateTimeInterface;
 use App\Traits\CharityID;
 use App\Models\Benefactor;
 use App\Models\Categories;
+use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Models\Charity\Charity;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,10 @@ class CharityVolunteerPost extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->toDayDateTimeString();
+    }
+
+    public function getNameAttribute($value) {
+        return Str::title($value);
     }
     
     public function getCreatedAtFormattedAttribute()

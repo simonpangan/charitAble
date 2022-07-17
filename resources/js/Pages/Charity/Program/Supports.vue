@@ -15,9 +15,9 @@
 											<span class="fa-1x text-gray-300">₱</span>
 											{{ parseFloat(supporter.amount).toFixed(2) }}
 										</h6>
-										<div class="small text-gray-500">
+										<div class="small text-gray-500 text-capitalize">
 											{{ (supporter.is_anonymous)  
-											? 'Anonymous User'  
+											? 'anonymous user'  
 											: supporter.benefactor.first_name + ' ' + supporter.benefactor.last_name 
 											}}
 										</div>
