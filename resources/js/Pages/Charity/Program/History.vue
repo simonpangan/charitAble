@@ -21,7 +21,12 @@
                     aria-expanded="false"
                     aria-controls="flush-collapseOne"
                   >
-                Changes on {{ program.name}} at {{update.updated_at_formatted}}
+                    <template v-if="update.updated_at">
+                      Changes on {{ program.name}} at {{moment(update.updated_at).format('MMMM Do YYYY, h:mm a')}}
+                    </template>
+                    <template v-if="update.created_at">
+                      Original
+                    </template>
                   </button>
                 </h2>
                 <div
