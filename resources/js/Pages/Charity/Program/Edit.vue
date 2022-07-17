@@ -175,67 +175,48 @@
                 <h6 class="m-0">Program Donation Details</h6>
               </div>
               <div class="box-body p-3">
-                <form class="js-validate" novalidate="novalidate">
-                  <div class="row">
-                    <div class="col-sm-12 mb-2">
-                      <div class="js-form-message">
-                        <label id="nameLabel" class="form-label"> 
-                          Total Needed Amount
-                          <span class="text-danger">*</span>
-                        </label>
-                        <div class="form-group">
-                          <input type="number" class="form-control" v-model="form.total_needed_amount" />
-                          <span v-if="form.errors.total_needed_amount" 
-                            v-text="form.errors.total_needed_amount"
-                            class="invalid-feedback d-block" role="alert">
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <label class="mb-1">Program Expenses</label>
-                  <div class="row" v-for="(expense, index) in form.expenses" :key="index">
-                    <div class="col-sm-6 mb-4">
-                      <label id="FROM" class="form-label">Expense name</label>
-                        <div class="input-group">
-                          <input type="text" class="form-control mb-2" v-model="expense.name" />
-                        </div>
-                      <span v-if="form.errors['expenses.'+ (index) +'.name']" 
-                        v-text="form.errors['expenses.'+ (index) +'.name']"
-                        class="invalid-feedback d-block" role="alert">
-                      </span>
-                    </div>
-                    <div class="col-sm-6 mb-4">
-                      <label class="form-label">Amount</label>
+                <label class="mb-1">Program Expenses</label>
+                <div class="row" v-for="(expense, index) in form.expenses" :key="index">
+                  <div class="col-sm-6 mb-4">
+                    <label id="FROM" class="form-label">Expense name</label>
                       <div class="input-group">
-                        <input type="number" class="form-control mb-2" v-model="expense.amount" />
-                        <button @click.stop.prevent="removeExpense(index)"
-                          class="ms-2 py-0 btn btn-sm btn-danger" style="height: 35px">
-                          <i class="fad fa-trash"></i>
-                        </button>
+                        <input type="text" class="form-control mb-2" v-model="expense.name" />
                       </div>
-                      <span v-if="form.errors['expenses.'+ (index) +'.amount']" 
-                        v-text="form.errors['expenses.'+ (index) +'.amount']"
-                        class="invalid-feedback d-block" role="alert">
-                      </span>
-                    </div>
+                    <span v-if="form.errors['expenses.'+ (index) +'.name']" 
+                      v-text="form.errors['expenses.'+ (index) +'.name']"
+                      class="invalid-feedback d-block" role="alert">
+                    </span>
                   </div>
-                     <div class="d-flex justify-content-between">
-                      <button class="btn btn-light d-inline-block u-text-muted" 
-                        @click.stop.prevent="addExpense">
-                        <i class="fad fa-plus"></i>
-                        Add Program Expenses
+                  <div class="col-sm-6 mb-4">
+                    <label class="form-label">Amount</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control mb-2" v-model="expense.amount" />
+                      <button @click.stop.prevent="removeExpense(index)"
+                        class="ms-2 py-0 btn btn-sm btn-danger" style="height: 35px">
+                        <i class="fad fa-trash"></i>
                       </button>
-                      <div class="align-items-center">
-                        <span class="fw-bold">
-                          Total: 
-                        </span>
-                        <span class="fa-1x text-gray-300">₱</span>
-                        {{ expenseTotal() }}
-                      </div>
-                      <div></div> 
-                  </div>                  
-                </form>
+                    </div>
+                    <span v-if="form.errors['expenses.'+ (index) +'.amount']" 
+                      v-text="form.errors['expenses.'+ (index) +'.amount']"
+                      class="invalid-feedback d-block" role="alert">
+                    </span>
+                  </div>
+                </div>
+                    <div class="d-flex justify-content-between">
+                    <button class="btn btn-light d-inline-block u-text-muted" 
+                      @click.stop.prevent="addExpense">
+                      <i class="fad fa-plus"></i>
+                      Add Program Expenses
+                    </button>
+                    <div class="align-items-center">
+                      <span class="fw-bold">
+                        Total: 
+                      </span>
+                      <span class="fa-1x text-gray-300">₱</span>
+                      {{ expenseTotal() }}
+                    </div>
+                    <div></div> 
+                </div>                  
               </div>
             </div>
             <div class="mb-3 text-right float-end">
