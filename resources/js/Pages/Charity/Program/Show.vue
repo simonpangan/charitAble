@@ -47,7 +47,7 @@
                     <ul class="StepProgress">
                         <li class="StepProgress-item program-is-done" v-for="(goal, index) in program.goals" :key="index">
                             <p class="text-dark"><strong>{{goal.name}}</strong></p>
-                            <p> Expected Date of Completion : <b>{{goal.goal_formatted}}</b></p>
+                            <p> Expected Date of Completion : <b>{{moment(goal.date).format('MMMM Do, YYYY')}}</b></p>
                         </li>
                     </ul>
                 </div>
@@ -58,6 +58,7 @@
 
 <script setup>
 import ProgramLayout from './ProgramLayout';
+import moment from 'moment'
 
 let props = defineProps({
   program: Array,

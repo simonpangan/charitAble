@@ -38,6 +38,7 @@
         "filepond-plugin-file-validate-size": "^2.2.7",
         "filepond-plugin-file-validate-type": "^1.2.8",
         "filepond-plugin-image-preview": "^4.6.11",
+        "moment": "^2.29.4",
         "nprogress": "^0.2.0",
         "vue": "^3.2.33",
         "vue-clipboard3": "^2.0.0",
