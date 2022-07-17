@@ -23,14 +23,15 @@
               </div>
               <div class="box-body">
                 <div class="p-3 border-bottom">
+                <img style="max-height:300px;" :src="program.header" class="img-fluid" >
                   <div class="form-group mb-4">
                     <file-pond
-                      name="file"
-                      class="h-50 mb-5"
-                      v-model="file"
-                      ref="file"
-                      credits="false"
-                      v-bind:files="file"
+                    name="header"
+                    class="h-25"
+                    v-model="header"
+                    credits="false"
+                    ref="header"
+                    v-bind:files="header"
                       v-bind:server="{
                         timeout: 7000,
                         url: '/charity/uploadProgramPhoto',
@@ -43,24 +44,28 @@
                           withCredentials: false,
                         },
                       }"
-                      allow-multiple="false"
-                      accepted-file-types="image/jpeg, image/png"
-                      max-files="1"
-                      allowDrop="true"
-                      dropOnPage="true"
-                      v-on:init="handleFilePondInit"
-                      v-on:updatefiles="handleFilePondUpdateFiles"
+                    allow-multiple="false"
+                    accepted-file-types="image/jpeg, image/png"
+                    max-files="1"
+                    allowDrop="true"
+                    dropOnPage="true"
+                    maxFileSize= "5MB"
+                    labelIdle="Click Here To Upload File"
+                    v-on:init="handleFilePondInit"
+                    v-on:updatefiles="handleFilePondUpdateFiles"
+                    v-on:removefile="handleRevertFilePond"
+                    v-on:addfilestart="OnhandleOnAddFileStart"
+                    v-on:processfile="onHandleaddfile"
                     ></file-pond>
                   </div>
                   <div class="form-group mb-0"></div>
                 </div>
                 <div class="overflow-hidden text-center p-3">
-                  <a
-                    class="font-weight-bold btn btn-light rounded p-3 d-block"
-                    href="#"
-                  >
+                  <button
+                    class="font-weight-bold btn btn-light rounded p-3 btn-block"
+                   v-on:click.prevent="uploadHeader()">
                     SAVE
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -239,6 +244,8 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed, toRaw } from 'vue';
+import axios from "axios";
+import Swal from 'sweetalert2';
 
 
 import vueFilePond from "vue-filepond";
@@ -270,9 +277,36 @@ let goBack = () =>  {
     return window.history.back();
 };
 
-let handleFilePondUpdateFiles = (file) => {
-  form.header = file[0].file;
+let handleFilePondUpdateFiles = (header) => {
+  form.header = header[0].filename;
 };
+
+let uploadHeader = () => {
+    if(form.header.length != 0){
+        return axios({
+        method: "POST",
+        url: route('charity.program.update.image'),
+        data: {
+            header: form.header,
+            charity_program_id: props.program.id
+        },
+      }).then((response) => {
+       Swal.fire({
+                title: 'Program Header Updated!',
+                icon: 'success',
+                confirmButtonText: 'Finish'
+            })
+      });
+    }else{
+        Swal.fire({
+                title: 'Error!',
+                text: 'Please add an charity logo',
+                icon: 'error',
+                confirmButtonText: 'Close'
+        })
+    }
+
+}
 
 let addGoal = () => {
   let temp = Object.values(toRaw(form.goals));

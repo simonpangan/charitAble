@@ -51,9 +51,9 @@ class CharityRegisterController extends Controller
 
         $user->createLog('You have registered to our system');
 
-        if ($request->hasFile('file'))
+        if ($request->hasFile('logo'))
         {
-            $file = $request->file('file');
+            $file = $request->file('logo');
             $filename = $file->getClientOriginalName();
 
             $temporaryFile = TemporaryFile::where('filename',$filename)
@@ -93,7 +93,7 @@ class CharityRegisterController extends Controller
     
                 Storage::move('tmp/documents/'.$temporaryDocumentFile['folder'].'/'.$temporaryDocumentFile['filename'], 'charity/'.$id.'/'.'documents/'.$documentFileName);
                 Storage::deleteDirectory('tmp/documents/'.$temporaryDocumentFile['folder']);
-    
+
                 TemporaryFile::findOrFail($temporaryDocumentFile['id'])->delete();
             }
         }
