@@ -40,6 +40,8 @@
                     <p v-if="update.name"><span class="fw-bold">Program Name</span> : {{update.name}}</p>
                     <p v-if="update.description"><span class="fw-bold">Description</span> : {{update.description}}</p>
                     <p v-if="update.location"><span class="fw-bold">Location</span> : {{update.location}}</p>
+
+                    <template v-if="update.created_at">
                     <p v-if="update.goals">
                       <span class="fw-bold">Goals</span> 
                       <ul style="list-style-type:disc;" v-for="(goal, index) in update.goals" :key="index">
@@ -52,6 +54,23 @@
                         <li>{{ expense.name }} - {{ expense.amount }}</li>
                       </ul>
                     </p>
+                    </template>
+                    
+                    <template v-if="update.updated_at">
+                     <p v-if="update.goals">
+                      <span class="fw-bold">Goals</span> 
+                      <ul style="list-style-type:disc;" v-for="(goal, index) in toArray(update.goals)" :key="index">
+                        <li>{{ goal.name }} - {{moment(goal.date).format('MMMM Do, YYYY')}}</li>
+                      </ul>
+                    </p>
+                    <p v-if="update.expenses">
+                      <span class="fw-bold">Expenses</span> 
+                      <ul style="list-style-type:disc;" v-for="(expense, index) in toArray(update.expenses)" :key="index">
+                        <li>{{ expense.name }} - {{ expense.amount }}</li>
+                      </ul>
+                    </p>
+                    </template>
+                  
                   </div>
                 </div>
               </div>
@@ -73,6 +92,10 @@ let props = defineProps({
   program: Array,
   charity: Array,
 });
+
+let toArray = (object) => {
+  return JSON.parse(object);
+}
 
 const updates = computed(() => {
   return props.program.updates.slice().reverse();
