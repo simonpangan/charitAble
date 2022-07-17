@@ -35,45 +35,6 @@ class CharityProgram extends Model
         return $date->toDayDateTimeString();
     }
 
-    protected function updates(): Attribute
-    {
-        return Attribute::make(
-            get: function ($value) {
-                $updates = collect(json_decode($value, true))->reverse();
-
-                return $updates->map(function ($update) {
-                    if (array_key_exists("updated_at", $update)) {
-                        return array_merge($update, [
-                            'status' => 'updated',
-                            'goals' => json_decode($update['goals'], true),
-                            'expenses' => json_decode($update['expenses'], true),
-                            'updated_at_formatted' => (new Carbon($update['updated_at']))->toDayDateTimeString()
-                        ]);
-                    } else {
-                        return array_merge($update, [
-                            'status' => 'original',
-                            'goals' => json_decode($update['goals'], true),
-                            'expenses' => json_decode($update['expenses'], true),
-                            'created_at_formatted' => (new Carbon($update['created_at']))->toDayDateTimeString(),
-                        ]);
-                    }
-                });
-            },
-        );
-    }
-
-
-    public function getGoalsAttribute($value)
-    {
-        $goals = collect(json_decode($value, true));
-
-        return $goals->map(function ($goal) {
-            return array_merge($goal, [
-                'goal_formatted' => (new Carbon($goal['date']))->toFormattedDateString()
-            ]);
-        });
-    }
-
     public function charity()
     {
         return $this->belongsTo(Charity::class);

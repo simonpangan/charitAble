@@ -131,11 +131,11 @@ class CharityProgramController
                 'is_active' => true,
                 'updates' => [
                     array_merge($request->validated(), [
-                        'created_at' => now()
+                        'created_at' => now(),
                     ])
                 ]
             ]
-           )
+               )
         );
 
         return to_route('charity.program.index', Auth::id());
@@ -185,9 +185,7 @@ class CharityProgramController
     {
         $program = CharityProgram::findOrFail($id);
 
-
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
-        
         
         $program->update(
             array_merge(
@@ -200,15 +198,17 @@ class CharityProgramController
             )
         );
 
-        $updates = collect($program->updates);
+        if (! empty($program->getChanges())) {
+            $updates = collect($program->updates);
 
-        $updates->push($program->getChanges());
-        
-        $program->update([
-            'updates' => $updates 
-        ]);
+            $updates->push($program->getChanges());
+    
+            $program->update([
+                'updates' => $updates 
+            ]);
+        }
 
-        return to_route('charity.program.index', Auth::id());
+        return to_route('charity.program.show', $id);
     }
 
     public function destroy(int $id): RedirectResponse

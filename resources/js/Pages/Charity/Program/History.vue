@@ -7,7 +7,7 @@
       role="tabpanel"
       aria-labelledby="home-tab"
     >
-      <div v-for="(updates,index) in program.updates" :key="index">
+      <div v-for="(update,index) in updates" :key="index">
         <div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
           <div class="p-3 border-bottom osahan-post-body">
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -21,7 +21,7 @@
                     aria-expanded="false"
                     aria-controls="flush-collapseOne"
                   >
-                Changes on {{ program.name}} at {{updates.updated_at_formatted}}
+                Changes on {{ program.name}} at {{update.updated_at_formatted}}
                   </button>
                 </h2>
                 <div
@@ -32,14 +32,19 @@
                 >
                   <div class="accordion-body">
 
-                    <p v-if="updates.name"><span class="fw-bold">Program Name</span> : {{updates.name}}</p>
-                    <p v-if="updates.description"><span class="fw-bold">Description</span> : {{updates.description}}</p>
-                    <p v-if="updates.location"><span class="fw-bold">Location</span> : {{updates.location}}</p>
-                    <p v-if="updates.goals">
+                    <p v-if="update.name"><span class="fw-bold">Program Name</span> : {{update.name}}</p>
+                    <p v-if="update.description"><span class="fw-bold">Description</span> : {{update.description}}</p>
+                    <p v-if="update.location"><span class="fw-bold">Location</span> : {{update.location}}</p>
+                    <p v-if="update.goals">
                       <span class="fw-bold">Goals</span> 
-
-                      <ul style="list-style-type:disc;" v-for="(goal, index) in updates.goals" :key="index">
-                        <li>{{ goal.name }}</li>
+                      <ul style="list-style-type:disc;" v-for="(goal, index) in update.goals" :key="index">
+                        <li>{{ goal.name }} - {{moment(goal.date).format('MMMM Do, YYYY')}}</li>
+                      </ul>
+                    </p>
+                    <p v-if="update.expenses">
+                      <span class="fw-bold">Expenses</span> 
+                      <ul style="list-style-type:disc;" v-for="(expense, index) in update.expenses" :key="index">
+                        <li>{{ expense.name }} - {{ expense.amount }}</li>
                       </ul>
                     </p>
                   </div>
@@ -55,10 +60,17 @@
 
 <script setup>
 import ProgramLayout from "./ProgramLayout";
+import { computed } from 'vue';
+import moment from 'moment'
+
 
 let props = defineProps({
   program: Array,
   charity: Array,
 });
+
+const updates = computed(() => {
+  return props.program.updates.slice().reverse();
+})
 </script>
 
