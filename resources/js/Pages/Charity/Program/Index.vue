@@ -17,7 +17,7 @@
                   'id': program.id
                 })">
                   <div class="card overflow-hidden">
-                      <img v-if="program.header" :src="program.header" class="img-fluid" alt="Responsive image" style="max-height:200px;">
+                      <img v-if="program.header" :src="program.header" class="img-fluid" alt="Responsive image" style="height:200px;">
                       <div class="card-body">
                           <h5 class="card-title nmb-1">{{program.name}}</h5>
                           <p class="card-text text-muted text-truncate">
@@ -48,10 +48,10 @@
                     link.url ? 'pager' : '',
                 ]"
               >
-                <Component 
+                <Component
                   :is="link.url ? 'Link' : 'span'"
-                  v-if="link.url" 
-                  :href="link.url" 
+                  v-if="link.url"
+                  :href="link.url"
                   v-html="link.label"
                   class="page-link"
                 >
