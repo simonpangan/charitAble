@@ -30,7 +30,7 @@
                     <small> Your contribution will help {{charity.name}}</small>
                   </p>
                   <label for="customRange3" class="form-label mt-5">Enter tip</label>
-                  <input type="range" min="0" max="30" step="5" v-model="tip_level" @input="updateSlider" :style="{backgroundSize: backgroundSize}" />
+                  <input type="range" min="0" max="30" step="1" v-model="tip_level" @input="updateSlider" :style="{backgroundSize: backgroundSize}" />
                   <span v-if="errors.tip_level"
                         v-text="errors.tip_level"
                     class="invalid-feedback d-block" role="alert">
