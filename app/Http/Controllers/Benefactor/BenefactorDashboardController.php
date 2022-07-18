@@ -64,7 +64,7 @@ class BenefactorDashboardController extends Controller
             ->with('program')
             ->where('benefactor_id', Auth::id())
             ->latest('donated_at')
-            ->paginate(10);
+            ->paginate(10, '*', $pageName = 'donation');
     }
 
     private function getCharities()
@@ -74,6 +74,6 @@ class BenefactorDashboardController extends Controller
             ->get(['name', 'charity_id','program_donations.amount'])
             ->pluck('charity_id')->unique()->toArray();
 
-        return Charity::whereIn('id', $charityID)->paginate(10);
+        return Charity::whereIn('id', $charityID)->paginate(10, '*', $pageName = 'charity');
     }
 }
