@@ -35,9 +35,11 @@ class CharityProgram extends Model
     {
         return $date->toDayDateTimeString();
     }
-
-    public function getNameAttribute($value) {
-        return Str::title($value);
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => Str::title($value),
+        );
     }
     
     public function charity()

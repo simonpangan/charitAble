@@ -122,21 +122,29 @@ class CharityProgramController
             $link = "/storage/charity/{$id}/program/".Carbon::now()->timestamp. ".{$file[0]->getClientOriginalExtension()}";
         }
 
-        CharityProgram::create(
+        $program = CharityProgram::create(
            array_merge(
             $request->validated(),
             [
                 'header' => $link,
                 'total_needed_amount' => collect($request->expenses)->pluck('amount')->sum(),
                 'is_active' => true,
-                'updates' => [
-                    array_merge($request->validated(), [
-                        'created_at' => now(),
-                    ])
-                ]
             ]
                )
         );
+
+        $program->update([
+            'updates' => [ 
+                [
+                    'name' => $program->name,
+                    'description' => $program->description,
+                    'location' => $program->location,
+                    'goals' => $program->goals,
+                    'expenses' => $program->expenses,
+                    'created_at' => now(),
+                ]
+            ]
+        ]); 
 
         return to_route('charity.program.index', Auth::id());
     }
@@ -202,7 +210,7 @@ class CharityProgramController
             $updates = collect($program->updates);
 
             $updates->push($program->getChanges());
-    
+            
             $program->update([
                 'updates' => $updates 
             ]);
