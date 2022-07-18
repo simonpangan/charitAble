@@ -39,7 +39,7 @@ class CharitySeeder extends Seeder
 
                 // attach 3 categories per fake charity
                 $charity->categories()->attach(
-                    $categories->random(3)
+                    $categories->random(4)
                 );
             });
         }
