@@ -24,6 +24,6 @@ class CharityPosts extends Model
 
     public function program()
     {
-        return $this->belongsTo(CharityProgram::class, 'charity_programs_id');
+        return $this->belongsTo(CharityProgram::class, 'charity_program_id');
     }
 }

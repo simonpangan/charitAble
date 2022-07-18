@@ -275,7 +275,7 @@ class CharityProgramController
 
     public function gallery(int $id){
         $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
-        $posts = CharityPosts::where('charity_programs_id',$id)->get()->toArray();
+        $posts = CharityPosts::where('charity_program_id',$id)->get()->toArray();
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
@@ -300,7 +300,7 @@ class CharityProgramController
 
     public function updateSection(int $id){
         $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
-        $posts = CharityPosts::where('charity_programs_id',$id)->get()->toArray();
+        $posts = CharityPosts::where('charity_program_id',$id)->get()->toArray();
         $charity = Charity::where('id', Auth::id())->get()->toArray();
 
         $programStats = ProgramDonation::query()
@@ -327,7 +327,7 @@ class CharityProgramController
 
     public function historySection(int $id){
         $program = CharityProgram::with('charity:id,name,eth_address')->findOrFail($id);
-        $posts = CharityPosts::where('charity_programs_id',$id)->get()->toArray();
+        $posts = CharityPosts::where('charity_program_id',$id)->get()->toArray();
         $charity = Charity::where('id', Auth::id())->get()->toArray();
 
         $programStats = ProgramDonation::query()
