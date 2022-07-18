@@ -39,9 +39,10 @@ class CharityLogController extends Controller
         $validator = Validator::make(
             $request->all(), $this->rules($request), 
             [
-                'to.after' => 'The to field must start before the "from" field',
+                'to.after_or_equal' => 'The to field must start before the "from" field',
                 'to.before' => 'The to must be a date before the current time.',
-                'from.before' => 'The from field must be before the "to" field' 
+                'from.before' => 'The from must be a date before the current time.',
+                'from.before_or_equal' => 'The from must be a date before "to" field.',
             ]
         );
 
@@ -60,10 +61,11 @@ class CharityLogController extends Controller
         */ 
         // $emailVerifiedAt = Auth::user()->toArray();
         $userCreatedAt = Auth::user()->created_at->format('F jS Y\\, h:i:s A');
+        
+        $to = $request->input('to') ? "before_or_equal:{$request->input('to')}": 'before:now';
 
         return [
-            'from' => ['required', 'date', "after:{$userCreatedAt}", 
-                "before_or_equal:{$request->input('to')}"],
+            'from' => ['required', 'date', "after:{$userCreatedAt}", $to],
             'to' => ['nullable', 'date', "after_or_equal:{$request->input('from')}", 'before:now'],
         ];
     }
@@ -75,7 +77,7 @@ class CharityLogController extends Controller
             ->when($request->input('from') && $request->input('to') && ($request->input('from') != $request->input('to')), 
                     function ($query, $from) use ($request) {
                 $query->whereBetween('created_at', 
-                    [$request->input('from'), $request->input('to')]
+                    [$request->input('from') . ':00', $request->input('to') . ':59']
                 );
             })
             ->when($request->input('from') && $request->input('to') && ($request->input('from') == $request->input('to')), 
