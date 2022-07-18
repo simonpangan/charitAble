@@ -60,7 +60,7 @@
                   </div>
                   <div class="form-group mb-0"></div>
                 </div>
-                <div class="overflow-hidden text-center p-3">
+                <div class="overflow-hidden text-center d-grid gap-2 p-3">
                   <button
                     class="font-weight-bold btn btn-light rounded p-3 btn-block"
                    v-on:click.prevent="uploadHeader()">
@@ -143,9 +143,9 @@
                     <label id="FROM" class="form-label">Goal</label>
                     <span class="text-danger">*</span>
                     <div class="input-group">
-                        <input type="text" class="form-control mb-2" 
+                        <input type="text" class="form-control mb-2"
                           v-model="form.goals[index].name" />
-                        <span v-text="form.errors['goals.'+ (index) +'.name']" 
+                        <span v-text="form.errors['goals.'+ (index) +'.name']"
                           v-if="form.errors['goals.'+ (index) +'.name']" class="invalid-feedback d-block" role="alert">
                         </span>
                     </div>
@@ -159,16 +159,16 @@
                           <i class="fad fa-trash"></i>
                       </button>
                     </div>
-                    <span  v-text="form.errors['goals.'+ (index) +'.date']" 
+                    <span  v-text="form.errors['goals.'+ (index) +'.date']"
                       v-if="form.errors['goals.'+ (index) +'.date']" class="invalid-feedback d-block" role="alert">
                     </span>
                   </div>
                 </div>
-                <span v-if="form.errors.goals" 
+                <span v-if="form.errors.goals"
                     v-text="form.errors.goals"
                     class="invalid-feedback d-block" role="alert">
                 </span>
-                <button class="btn btn-light d-inline-block u-text-muted mb-2" 
+                <button class="btn btn-light d-inline-block u-text-muted mb-2"
                     @click.stop.prevent="addGoal">
                     <i class="fad fa-plus"></i>
                     Add Goal
@@ -187,7 +187,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control mb-2" v-model="expense.name" />
                       </div>
-                    <span v-if="form.errors['expenses.'+ (index) +'.name']" 
+                    <span v-if="form.errors['expenses.'+ (index) +'.name']"
                       v-text="form.errors['expenses.'+ (index) +'.name']"
                       class="invalid-feedback d-block" role="alert">
                     </span>
@@ -201,27 +201,27 @@
                         <i class="fad fa-trash"></i>
                       </button>
                     </div>
-                    <span v-if="form.errors['expenses.'+ (index) +'.amount']" 
+                    <span v-if="form.errors['expenses.'+ (index) +'.amount']"
                       v-text="form.errors['expenses.'+ (index) +'.amount']"
                       class="invalid-feedback d-block" role="alert">
                     </span>
                   </div>
                 </div>
                     <div class="d-flex justify-content-between">
-                    <button class="btn btn-light d-inline-block u-text-muted" 
+                    <button class="btn btn-light d-inline-block u-text-muted"
                       @click.stop.prevent="addExpense">
                       <i class="fad fa-plus"></i>
                       Add Program Expenses
                     </button>
                     <div class="align-items-center">
                       <span class="fw-bold">
-                        Total: 
+                        Total:
                       </span>
                       <span class="fa-1x text-gray-300">₱</span>
                       {{ expenseTotal() }}
                     </div>
-                    <div></div> 
-                </div>                  
+                    <div></div>
+                </div>
               </div>
             </div>
             <div class="mb-3 text-right float-end">
@@ -295,7 +295,10 @@ let uploadHeader = () => {
                 title: 'Program Header Updated!',
                 icon: 'success',
                 confirmButtonText: 'Finish'
+            }).then(function() {
+                location.reload();
             })
+
       });
     }else{
         Swal.fire({
