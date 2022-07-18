@@ -34,13 +34,11 @@
 						</div>
 					</template>
 					<div v-else>
-						<div class="card p-3">
 						<figure class="p-3 mb-0 text-center">
 							<blockquote class="blockquote">
 							<p>Program has no supporter yet.</p>
 							</blockquote>
 						</figure>
-						</div>
 					</div>
 				</div>
 			</div>
