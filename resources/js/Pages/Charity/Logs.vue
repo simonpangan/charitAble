@@ -21,7 +21,7 @@
       </header>
       <!-- Main page content-->
       <div class="container-xl px-4 mt-n10">
-        <div class="card mb-4">
+        <div class="card mb-4 mx-auto" style="max-width: 1000px">
           <div class="card-body">
             <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
               <div class="dataTable-top">
