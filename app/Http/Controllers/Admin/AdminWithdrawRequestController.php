@@ -10,6 +10,8 @@ use App\Mail\WithdrawRequestMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Charity\CharityProgram;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AdminWithdrawRequestController extends Controller
 {
@@ -33,10 +35,23 @@ class AdminWithdrawRequestController extends Controller
 
     public function approve(Request $request)
     {
-        $request->validate([
-            'transaction' => ['required', 'file', 'mimes:jpg,jpeg,png'],
+        $validator = Validator::make($request->all(), 
+        [
+            'receipt' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:5240'],
+        ], 
+        [
+            'max' => 'The :attribute must not be more than 5mb.',
         ]);
 
+        if ($validator->fails()) {
+            throw ValidationException::withMessages(
+                $validator->messages()->toArray()
+            );
+        }
+        
+        if (is_null($request->blockchain_transaction)) {
+            return to_route('admin.withdraw.index');
+        }
 
         $program = CharityProgram::query()
             ->with('charity')
@@ -54,7 +69,7 @@ class AdminWithdrawRequestController extends Controller
             ->bcc($emails)
             ->send(new WithdrawRequestMail(
                 $program, $request->blockchain_transaction,
-                $request->file('transaction')
+                $request->file('receipt')
             ));
 
         $program->update([

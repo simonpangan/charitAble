@@ -43,7 +43,7 @@
                       <th width="15%" class="text-center">
                         Request Date
                       </th>
-                      <th width="15%" class="text-center">
+                      <th width="10%" class="text-center">
                         G-CASH
                       </th>
                       <th width="20%" class="text-center">
@@ -62,9 +62,7 @@
                         <div v-else class="badge bg-warning rounded-pill">Pending</div>
                       </td>
                       <td class="text-center">{{ program.withdraw_requested_at }}</td>
-                        <td>
-                          {{ program.gcash }}
-                        </td>
+                      <td class="text-center">{{ program.gcash }}</td>
                        <td >
                         <div class="d-flex justify-content-evenly">
                           <div class="input-group">
@@ -95,15 +93,10 @@
                               <i class="far fa-search"></i>
                           </Link>
                         </div>
-                        <div v-if="props.errors.transaction" class="d-block">
-                          <span v-text="props.errors.transaction"
-                            class="invalid-feedback d-block" role="alert">
-                          </span>
-                        </div>
                       </td>
                     </tr>
                     <tr v-if="programs.data.length == 0">
-                      <td class="dataTables-empty" colspan="7" width="1300">
+                      <td class="dataTables-empty" colspan="5" width="1300">
                         No results match your search query
                       </td>
                     </tr>
@@ -156,15 +149,35 @@ let props = defineProps({
   import charitableContract from "~blockchain/charitable.js";
   import contractAddress from '~blockchain/contract-address.js';
 
+
   export default {
     data() {
       return {
-        avatar: [],
+        avatar: []
       }
     },
     methods: {
       approveWithdraw(programID, amount, ethAddress, index) {
-          Swal.fire({
+         Inertia.post(
+          route('admin.withdraw.approve'), { 
+            id: programID,
+            'receipt': this.avatar[index],
+          }, {
+            onSuccess: page => {
+              this.sendTransaction(programID, amount, ethAddress, index);
+            },
+            onError: page => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: page['receipt'],
+              })
+            }
+          }
+        );
+      },
+      sendTransaction(programID, amount, ethAddress, index) {
+           Swal.fire({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",
               icon: 'warning',
@@ -192,7 +205,7 @@ let props = defineProps({
                       route('admin.withdraw.approve'), { 
                         id: programID,
                         'blockchain_transaction': response.transactionHash,
-                        'transaction': this.avatar[index],
+                        'receipt': this.avatar[index],
                       }, {
                         onSuccess: page => {
                           Swal.fire(
