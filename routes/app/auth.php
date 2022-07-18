@@ -93,6 +93,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
             Route::put('program/{id}', 'update')->where('id', '[0-9]+')->name('program.update');
             Route::delete('program/{id}', 'destroy')->where('id', '[0-9]+')->name('program.destroy');
             Route::post('uploadProgramPhoto','uploadProgramPhoto')->name('program.store.image');
+            Route::post('uploadProgramUpdate','updateHeader')->name('program.update.image');
             Route::post('uploadProgramPhoto/revert','uploadProgramPhotoRevert')->name('program.revert.image');
 
             Route::post('/program/{id}/withdraw-request', 'withdrawRequest')
@@ -214,7 +215,7 @@ Route::middleware('verified:auth.verification.notice')->group(function () {
     Route::controller(CharityProgramController::class)->group(function () {
         Route::get('charity/{id?}/program', 'index')
             ->name('charity.program.index')->where('id', '[0-9]+');
-            
+
         Route::get('charity/program/{id}', 'show')
             ->where('id', '[0-9]+')
             ->name('charity.program.show');

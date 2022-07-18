@@ -55,7 +55,7 @@ class CharityProgramController
 
         $list = CharityProgram::where('charity_id', $id)
             ->when($request->status, function ($query, $status) {
-                if ($status == 'Inactive') 
+                if ($status == 'Inactive')
                 {
                     $query->where('is_active', false);
                 } else if ($status == 'Active') {
@@ -66,7 +66,7 @@ class CharityProgramController
             ->paginate(16);
 
         return Inertia::render('Charity/Program/Index',[
-            'programs' => $list,    
+            'programs' => $list,
             'charity' => $charity,
             'filter' => ($request->status) ? $request->status : 'All',
             'latestFiveActivePrograms' => $latestFiveActivePrograms,
@@ -134,7 +134,7 @@ class CharityProgramController
         );
 
         $program->update([
-            'updates' => [ 
+            'updates' => [
                 [
                     'name' => $program->name,
                     'description' => $program->description,
@@ -144,7 +144,7 @@ class CharityProgramController
                     'created_at' => now(),
                 ]
             ]
-        ]); 
+        ]);
 
         return to_route('charity.program.index', Auth::id());
     }
@@ -185,7 +185,8 @@ class CharityProgramController
 
         return Inertia::render(
             'Charity/Program/Edit',
-            ['program' => $program]
+            ['program' => $program,
+            'csrfToken' => csrf_token()]
         );
     }
 
@@ -194,7 +195,7 @@ class CharityProgramController
         $program = CharityProgram::findOrFail($id);
 
         abort_if($program->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
-        
+
         $program->update(
             array_merge(
                 $request->validated(),
@@ -210,9 +211,9 @@ class CharityProgramController
             $updates = collect($program->updates);
 
             $updates->push($program->getChanges());
-            
+
             $program->update([
-                'updates' => $updates 
+                'updates' => $updates
             ]);
         }
 
@@ -245,7 +246,7 @@ class CharityProgramController
             ->with(['charity:id,name,eth_address,charity_verified_at',
                 'supporters',
             ])
-            ->findOrFail($id);  
+            ->findOrFail($id);
 
         if (is_null($program->charity->charity_verified_at)) {
             return back();
@@ -381,6 +382,45 @@ class CharityProgramController
         return '500';
     }
 
+    public function updateHeader(Request $request){
+        $id =  $request['charity_program_id'];
+        $program = CharityProgram::findOrFail($id);
+        $link = '';
+        if($request['header'])
+        {
+            $filename = $request['header'];
+
+            $temporaryFile = TemporaryFile::where('filename',$filename)
+                ->where('file_type','program-header')
+                ->latest()
+                ->first()
+                ->getRawOriginal();
+
+            Storage::move(
+                'tmp/program/'.$temporaryFile['folder'].'/'.$temporaryFile['filename'],
+                "public/charity/{$id}/program/".Carbon::now()->timestamp.".{$filename}"
+            );
+
+            Storage::deleteDirectory('tmp/program/'.$temporaryFile['folder']);
+
+            TemporaryFile::where('filename',$filename)
+                ->where('file_type','program-header')
+                ->latest()
+                ->first()
+                ->delete();
+
+
+            $link = "/storage/charity/{$id}/program/". Carbon::now()->timestamp.".{$filename}";
+            $program->update([
+                'header' => $link
+            ]);
+        }
+
+        return $link;
+
+
+    }
+
     public function uploadProgramPhotoRevert(Request $request)
     {
         try{
@@ -412,12 +452,12 @@ class CharityProgramController
             'gcash.regex' => 'Must be a valid number',
         ];
 
-        $validator = Validator::make($request->all(), 
+        $validator = Validator::make($request->all(),
             [
                 'amount' => ['required', 'numeric','min:1', 'max:'.$totalBalance],
                 'message' => ['required', 'string', 'max:280'],
                 'gcash' => ['required', 'regex:/^(09)\d{9}$/'],
-            ] , 
+            ] ,
             $messages
         );
 
