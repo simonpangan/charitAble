@@ -103,7 +103,7 @@
                       </td>
                     </tr>
                     <tr v-if="programs.data.length == 0">
-                      <td class="dataTables-empty" colspan="5" width="1300">
+                      <td class="dataTables-empty" colspan="7" width="1300">
                         No results match your search query
                       </td>
                     </tr>
