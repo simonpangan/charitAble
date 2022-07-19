@@ -16,11 +16,10 @@ class CharityProgramFactory extends Factory
 */
     public function definition()
     {
-        return [
+         $program = [
             'name' => $this->faker->word,
             'description' => $this->faker->paragraph,
             'location' => '1012 Sta. Maria St., Malinta, Valenzuela City',   
-            'header' => 'https://andscape.com/wp-content/uploads/2019/02/GettyImages-1125042094-e1550278649308.jpg?w=700',  
             'goals' => [
                 '1' => [
                     'name' => $this->faker->sentence,
@@ -31,11 +30,6 @@ class CharityProgramFactory extends Factory
                     'date' =>  $this->faker->date()
                 ], 
             ],
-            'total_withdrawn_amount' => 1000,  
-            'total_needed_amount' => 20000,  
-            'has_withdraw_request' => $this->faker->numberBetween(0,1),  
-            'withdraw_request_amount' => 1000,  
-            'withdraw_requested_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
             'expenses' => [
                 '1' => [
                     'name' => $this->faker->word,
@@ -46,9 +40,19 @@ class CharityProgramFactory extends Factory
                     'amount' =>  10000
                 ], 
             ],
-            'is_active' => $this->faker->numberBetween(0,1),
-            'gcash' => '09274128230',  
-            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
+            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
         ];
+
+        return array_merge($program , [
+            'total_withdrawn_amount' => 1000,  
+            'total_needed_amount' => 20000,  
+            'has_withdraw_request' => $this->faker->numberBetween(0,1),  
+            'withdraw_request_amount' => 1000,  
+            'withdraw_requested_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
+            'is_active' => $this->faker->numberBetween(0,1),
+            'header' => 'https://andscape.com/wp-content/uploads/2019/02/GettyImages-1125042094-e1550278649308.jpg?w=700',  
+            'gcash' => '09274128230',  
+            'updates' => [$program] 
+        ]);
     }
 }
