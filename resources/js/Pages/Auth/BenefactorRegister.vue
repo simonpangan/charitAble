@@ -42,7 +42,24 @@
           <div class="row mt-2">
             <div class="col">
               <label class="mb-1">Password <span class="text-danger">*</span></label>
-                <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
+                <div class="input-group mb-3 d-flex">
+                    <div class="icon-form-control position-relative flex-fill">
+                          <i class="far fa-lock position-absolute mt-2 ms-3"></i>
+                        <input v-model="form.password" 
+                            :type="(showPassword) ? 'text' : 'password'"
+                            class="form-control" :class="{ 'is-invalid': form.errors.password }"
+                        />
+                    </div>
+                    <button type="button" @click="toggleShow" 
+                        class="btn input-group-icon" id="inputGroup-sizing-default">
+                        <span v-if="showPassword">
+                            <i  class="fas fa-1x fa-eye-slash"></i>
+                        </span>
+                        <span v-else>
+                            <i  class="fas fa-1x fa-eye"></i>
+                        </span>
+                    </button>
+                </div>              
                 <div class="text-danger" v-if="form.errors.password">
                   {{ form.errors.password }}
                 </div>
@@ -216,7 +233,13 @@
       return {
         preferences: [],
         totalSteps: 3,
+        showPassword: false
       };
     },
+    methods: {
+      toggleShow() {
+        this.showPassword = ! this.showPassword;
+      }
+    }
   };
 </script>
