@@ -30,10 +30,23 @@
                         </div>
                         <div class="mb-3">
                             <label class="mb-1">Password</label>
-                            <div class="icon-form-control position-relative">
-                                <i class="far fa-lock position-absolute mt-2 ms-3"></i>
-                                <input v-model="form.password" type="password"
-                                    class="form-control" :class="{ 'is-invalid': form.errors.password }">
+                            <div class="input-group mb-3 d-flex">
+                                <div class="icon-form-control position-relative flex-fill">
+                                     <i class="far fa-lock position-absolute mt-2 ms-3"></i>
+                                    <input v-model="form.password" 
+                                        :type="(showPassword) ? 'text' : 'password'"
+                                        class="form-control" :class="{ 'is-invalid': form.errors.password }"
+                                    />
+                                </div>
+                                <button type="button" @click="toggleShow" 
+                                    class="btn input-group-icon" id="inputGroup-sizing-default">
+                                    <span v-if="showPassword">
+                                        <i  class="fas fa-1x fa-eye-slash"></i>
+                                    </span>
+                                    <span v-else>
+                                        <i  class="fas fa-1x fa-eye"></i>
+                                    </span>
+                                </button>
                             </div>
                             <span v-if="form.errors.password" v-text="form.errors.password"
                                 class="invalid-feedback d-block" role="alert">
@@ -91,6 +104,9 @@
 
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3"
+import { ref } from 'vue';
+
+let showPassword = ref(false);
 
 const props = defineProps(['errors'])
 
@@ -99,6 +115,10 @@ let form = useForm({
     password: '',
     remember: '',
 })
+
+let toggleShow = () => {
+    showPassword.value = ! showPassword.value;
+}
 
 let submit = () => {
     form.post(route('auth.login'));
