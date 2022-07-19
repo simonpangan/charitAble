@@ -60,8 +60,8 @@ export default {
       return 'https://rinkeby.etherscan.io/tx/' + this.transaction;
     },
     message() {
-      return 'I have donated to ' + this.program.name + " . A program by " + this.program.charity.name 
-      + ' . Here\'s my transaction receipt : ' + this.etherscanLink ;
+      return 'I have donated to ' + this.program.name + ". A program by " + this.program.charity.name 
+      + '. Here\'s my transaction receipt : ' + this.etherscanLink  + ". You can also donate by registering to https://20213t02.isproj.org/";
     }
   }
 };
