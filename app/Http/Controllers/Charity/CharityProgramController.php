@@ -198,7 +198,7 @@ class CharityProgramController
 
         $program->update(
             array_merge(
-                $request->validated(),
+                $request->except('header'),
                 [
                     'total_needed_amount' => collect($request->expenses)
                         ->pluck('amount')

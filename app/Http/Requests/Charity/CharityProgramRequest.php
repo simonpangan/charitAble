@@ -23,12 +23,18 @@ class CharityProgramRequest extends FormRequest
      */
     public function rules()
     {
+        if (request()->routeIs('charity.program.store')) {
+            $header = ['required'];
+        } else if (request()->routeIs('charity.program.update')) {
+            $header = ['nullable'];
+        }
+
         return [
             'name' => ['required', 'string', 'max:50'],
             'description' => ['required', 'string', 'max:63000'],
             'location' => ['required', 'string', 'max:70'],
 
-            'header' => ['required'],
+            'header' => $header,
             'header.*' => ['required', 'mimes:jpg,png,jpeg', 'max:5240'],
 
             'goals' => ['required', 'array'],
