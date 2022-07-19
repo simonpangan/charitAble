@@ -354,7 +354,7 @@ const expenseTotal = () => {
   var expenses = Object.values(toRaw(form.expenses));
 
   expenses.forEach((item, index) => {
-    total += item['amount'];
+    total += parseFloat(item['amount']);
   });
 
   return total;
