@@ -12,7 +12,11 @@
                     </p>
                     <div class="border-top mt-2">
                         <p class="text-strong">
-                            <span class="fw-bold">Location</span> : {{ program.location }}
+                            <span class="fw-bold">Location</span> : 
+                            <a :href="'https://maps.google.com/?q=' + program.location"
+                                target="_blank">
+                                {{ program.location }}
+                            </a>
                         </p>
                         <p class="text-strong">
                             <span class="fw-bold">Status</span> : 
