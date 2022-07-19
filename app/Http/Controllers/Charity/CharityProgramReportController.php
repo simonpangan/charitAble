@@ -59,6 +59,6 @@ class CharityProgramReportController extends Controller
         
         $user->createLog('You have generated program report');
 
-        return $pdf->download('report.pdf');
+        return $pdf->download(now()->timestamp.'.pdf');
     }
 }

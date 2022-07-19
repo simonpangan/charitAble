@@ -48,7 +48,7 @@ class BenefactorReportController
 
         $user->createLog('You have generated report');
 
-        return $pdf->download('report.pdf');
+        return $pdf->download(now()->timestamp.'.pdf');
     }
 
     private function getBenefactorStats() {

@@ -40,6 +40,6 @@ class CharityVolunteerPostReportController extends Controller
 
         $user->createLog('You have generated volunteer posting report');
 
-        return $pdf->download('report.pdf');
+        return $pdf->download(now()->timestamp.'.pdf');
     }
 }
