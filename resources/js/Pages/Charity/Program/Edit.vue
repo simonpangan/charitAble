@@ -23,7 +23,7 @@
               </div>
               <div class="box-body">
                 <div class="p-3 border-bottom">
-                <img style="max-height:300px;" :src="program.header" class="img-fluid" >
+                <img style="max-height:300px;" :src="program.header" class="img-fluid mb-2" >
                   <div class="form-group mb-4">
                     <file-pond
                     name="header"
