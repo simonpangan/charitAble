@@ -19,7 +19,7 @@ class CharityProgramFactory extends Factory
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->paragraph,
-            'location' => $this->faker->sentence,  
+            'location' => '1012 Sta. Maria St., Malinta, Valenzuela City',   
             'header' => 'https://andscape.com/wp-content/uploads/2019/02/GettyImages-1125042094-e1550278649308.jpg?w=700',  
             'goals' => [
                 '1' => [

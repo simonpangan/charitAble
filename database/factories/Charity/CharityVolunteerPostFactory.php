@@ -19,7 +19,7 @@ class CharityVolunteerPostFactory extends Factory
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->paragraph(2),
-            'location' => $this->faker->word,  
+            'location' => '1012 Sta. Maria St., Malinta, Valenzuela City',  
             'qualifications' => $this->faker->paragraph,
             'incentives' => $this->faker->sentence,  
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now')
