@@ -115,14 +115,14 @@
               </div>
               <div class="d-flex">
                 <p>Charitable Tip</p>
-                <p class="text-muted ms-auto">{{charitable_tip}}</p>
+                <p class="text-muted ms-auto"> - {{charitable_tip}}</p>
               </div>
               <div class="d-flex" v-if="payment_method != null">
                 <p v-if="payment_method == 'gCash'">GCash Fee</p>
                 <p v-else-if="payment_method == 'grabPay'">Grab Pay Fee</p>
                 <p v-else-if="payment_method == 'paypal'">Paypal Fees</p>
 
-                <p class="text-muted ms-auto">{{transaction_fee}}</p>
+                <p class="text-muted ms-auto"> - {{transaction_fee}}</p>
               </div>
               <hr />
               <div class="d-flex">
