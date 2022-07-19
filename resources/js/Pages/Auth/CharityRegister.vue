@@ -75,7 +75,24 @@
                 <div class="row mt-2">
                   <div class="col-12">
                     <label class="mb-1">Password <span class="text-danger">*</span></label>
-                      <input v-model.trim="form.password" type="password" id="password" name="password" class="form-control" />
+                      <div class="input-group mb-3 d-flex">
+                          <div class="icon-form-control position-relative flex-fill">
+                                <i class="far fa-lock position-absolute mt-2 ms-3"></i>
+                              <input v-model="form.password" 
+                                  :type="(showPassword) ? 'text' : 'password'"
+                                  class="form-control" :class="{ 'is-invalid': form.errors.password }"
+                              />
+                          </div>
+                          <button type="button" @click="toggleShow" 
+                              class="btn input-group-icon" id="inputGroup-sizing-default">
+                              <span v-if="showPassword">
+                                  <i  class="fas fa-1x fa-eye-slash"></i>
+                              </span>
+                              <span v-else>
+                                  <i  class="fas fa-1x fa-eye"></i>
+                              </span>
+                          </button>
+                      </div>  
                       <div class="alert alert-info mt-2" role="alert">
                         <small>
                           <p class="text-danger nmb-1" v-if="v$.password.containsSpecial.$invalid"> &#10006; Passwords requires an special character. </p>
@@ -506,10 +523,14 @@
         lastFileName : '',
         uploadedDocumentLists: '',
         LoadingState : 'true',
-        documentsFileName : []
+        documentsFileName : [],
+        showPassword: false
       };
     },
     methods: {
+      toggleShow() {
+        this.showPassword = ! this.showPassword;
+      },
       deleteLogoState:function(){
         this.image_file = '';
          this.image_file_size= '';
