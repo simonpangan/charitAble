@@ -427,10 +427,10 @@
         else if (this.payment_method == 'paypal'){
             return this.price * 0.044 + 25;
         }
-        else return '0';
+        else return 0;
       },
       total_price() {
-        if(!this.v$.$error){
+        if(! this.v$.$error){
             return this.price - (this.charitable_tip + this.transaction_fee);
         }
         else return 'N/A';
