@@ -18,8 +18,7 @@
                   Volunteer Work Name
                   <span class="text-danger">*</span>
                 </label>
-                <input type="text" class="form-control" v-model="form.name" />
-                <small class="form-text text-muted">Displayed on your public profile, notifications andother places.</small>
+                <input type="text" class="form-control" v-model="form.name" placeholder="Tree Planting Event Marshal"/>
                 <span v-if="form.errors.name" v-text="form.errors.name"
                   class="invalid-feedback d-block" role="alert">
                 </span>
@@ -28,18 +27,20 @@
                 <label class="mb-1">Volunteer Post Description</label>
                 <span class="text-danger">*</span>
                 <div class="position-relative">
-                    <textarea class="form-control" rows="4" name="text" v-model="form.description">
+                    <textarea class="form-control" rows="4" name="text" v-model="form.description" placeholder="As event marshal, you will be handling both the event security and orderliness. Manage to handle and control event participants. Keep track of event flow.">
                     </textarea>
                      <span v-if="form.errors.description" v-text="form.errors.description"
                       class="invalid-feedback d-block" role="alert">
                     </span>
+                    <small class="form-text text-muted">Tell us more what the volunteer work would be? What would be the responsibilities and activities required for this volunteer work?</small>
+
                 </div>
               </div>
                <div class="mb-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" v-model="form.is_face_to_face">
                     <label class="form-check-label" for="flexCheckDefault">
-                      Is it face to face?
+                      This particular volunteer work requires in-person participation (On-Site volunteering)
                     </label>
                     <span v-if="form.errors.is_face_to_face" v-text="form.errors.is_face_to_face"
                       class="invalid-feedback d-block" role="alert">
@@ -73,7 +74,7 @@
                   <label class="mb-1">Volunteer Qualifications</label>
                   <span class="text-danger">*</span>
                   <div class="position-relative">
-                    <textarea class="form-control" rows="4" name="text" placeholder="" v-model="form.qualifications"></textarea>
+                    <textarea class="form-control" rows="4" name="text" v-model="form.qualifications" placeholder="We are looking for responsible people, who can easily talk and connect with other fellow marshals. Attentive to small details. Displine and punctual."></textarea>
                     <small class="form-text text-muted">
                       Information could include volunteer skills, traits and experience needed for the volunteer work.
                     </small>
@@ -95,9 +96,9 @@
             <div class="box-body p-3">
               <div class="row">
                 <div class="col-sm-12 mb-2">
-                  <label class="mb-1">Potential Incentives or Reward</label>
+                  <label class="mb-1">Potential Incentives or Reward ( Optional )</label>
                   <div class="position-relative">
-                    <textarea class="form-control" rows="4" name="text" v-model="form.incentives"></textarea>
+                    <textarea class="form-control" rows="4" name="text" v-model="form.incentives" placeholder="We offer meal incentives for all marshals."></textarea>
                     <small class="form-text text-muted">
                       From allowance incentives upto recognition or medal awards, the potential incentives are endless.
                     </small>

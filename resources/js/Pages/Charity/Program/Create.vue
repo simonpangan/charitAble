@@ -300,7 +300,6 @@ export default {
   },
   methods: {
     goBack() {
-      this.handleRevertFilePond();
       return window.history.back();
     },
     addExpense(){
