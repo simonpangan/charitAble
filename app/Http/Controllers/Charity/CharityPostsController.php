@@ -117,7 +117,7 @@ class CharityPostsController
         CharityPosts::create([
             'main_content_body' => $request->main_content_body,
             'main_content_body_image' => $link,
-            'charity_program_id' => $request->charity_program_id
+            'charity_programs_id' => $request->charity_program_id
         ]);
 
         Auth::user()->createLog("You have created a post");

@@ -78,12 +78,12 @@
                       <div class="input-group mb-3 d-flex">
                           <div class="icon-form-control position-relative flex-fill">
                                 <i class="far fa-lock position-absolute mt-2 ms-3"></i>
-                              <input v-model="form.password" 
+                              <input v-model="form.password"
                                   :type="(showPassword) ? 'text' : 'password'"
                                   class="form-control" :class="{ 'is-invalid': form.errors.password }"
                               />
                           </div>
-                          <button type="button" @click="toggleShow" 
+                          <button type="button" @click="toggleShow"
                               class="btn input-group-icon" id="inputGroup-sizing-default">
                               <span v-if="showPassword">
                                   <i  class="fas fa-1x fa-eye-slash"></i>
@@ -92,7 +92,7 @@
                                   <i  class="fas fa-1x fa-eye"></i>
                               </span>
                           </button>
-                      </div>  
+                      </div>
                       <div class="alert alert-info mt-2" role="alert">
                         <small>
                           <p class="text-danger nmb-1" v-if="v$.password.containsSpecial.$invalid"> &#10006; Passwords requires an special character. </p>
@@ -277,7 +277,7 @@
                       <div class="d-flex me-auto">
                         {{this.image_file}}
                     </div>
-                    <button v-if="this.return_from_step3 === 1" type="button" class="btn btn-danger btn-sm mb-1"  @click.prevent="deleteLogoState">Delete currently uploaded file</button>
+                    <button v-if="this.return_from_step1 === 1" type="button" class="btn btn-danger btn-sm mb-1"  @click.prevent="deleteLogoState">Delete currently uploaded file</button>
                 </div>
                 <file-pond name="file"
                   class="h-25 mb-5"
@@ -517,7 +517,8 @@
         categories: [],
         step: 1,
         totalSteps: 3,
-        return_from_step3: 0,
+        showFilePondDelete: 0,
+        is_from_step2:0,
         image_file: '',
         image_file_size: '',
         lastFileName : '',
@@ -536,7 +537,8 @@
          this.image_file_size= '';
         this.form.logo = [];
         this.$refs.file.value = null;
-
+        this.return_from_step1 = 0;
+        this.is_from_step2 = 1;
       },
       handleFilePondUpdateDocumentFiles:function(documentFile){
         this.form.documentFile = documentFile.map(documentFile => documentFile.file);
@@ -568,8 +570,12 @@
     },
       prevStep: function() {
         this.step--;
+        if(this.is_from_step2 === 1){
+            this.return_from_step1 = 1;
+        }
       },
       nextStep: function(e) {
+        this.is_from_step2 = 1;
         this.form.post(route("register.charity.store", {
           step: 1,
         }), {
@@ -577,6 +583,10 @@
         })
       },
       secondNextStep: function(e) {
+        if(this.step == 2){
+        this.return_from_step1  = 1;
+        }
+
         if(this.image_file === ''){
             Swal.fire({
                 title: 'Error!',
@@ -585,7 +595,6 @@
                 confirmButtonText: 'Close'
                 })
         }else{
-        this.return_from_step3  = 1;
         this.form.post(route("register.charity.store", {
           step: 2,
         }), {
