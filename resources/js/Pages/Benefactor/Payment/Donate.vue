@@ -8,7 +8,6 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="box shadow-sm border rounded bg-white mb-3">
                 <div class="box-body p-3">
-                  <div class="alert alert-info" role="alert"> Every cent of your donation is protected, learn more about our transparency program. </div>
                   <div class="row">
                     <div class="col-sm-12 mb-2">
                       <label class="sr-only mb-2" for="">Enter your donation: </label>
@@ -37,7 +36,7 @@
                   </span>
                   <div class="data">Tip Level: {{this.tip_level }} %</div>
                   <div class="alert alert-light" role="alert">
-                    <br /> Charitable provides 0% platform fee for benefactors, but providing a percentage tip on your contributions will be a long way on continuing our services.
+                    <br /> Charitable provides 0% platform fee for our charities, but providing a percentage tip on your contributions will be a long way on continuing our services.
                   </div>
                   <div v-if="$page.props.errors.paymongo" role="alert"
                     class="alert alert-danger w-80 mx-auto text-center">
@@ -96,8 +95,8 @@
 
                     <div class="form-check" v-if="isPaymongoTransaction || this.payment_method == 'paypal'">
                       <label class="form-check-label fst-italic mt-2" for="flexCheckDefault"><small> By clicking this button, you agree to Charitable
-                        <Link href="/terms" target="_blank">Terms and Agreement</Link>,
-                        & Benefactor-Charity Transparency Agreement</small></label>
+                        <a href="/terms" target="_blank" >Terms and Agreement,
+                        & Benefactor-Charity Transparency Agreement</a ></small></label>
                     </div>
                   </section>
                 </div>
@@ -138,7 +137,7 @@
               <h6 class="mb-0">Benefactor Protections</h6>
             </div>
             <div class="card-body">
-                <p>In CharitAble, every benefactor deserves best experience. Learn more about our <a href="#" class="text-decoration-underline">transparency and accountability program</a></p>
+                <p>In CharitAble, every benefactor deserves best experience. Learn more about our <a href="/blockchain-transparency-program" target="_blank" class="text-decoration-underline">blockchain transparency program works.</a></p>
             </div>
           </div>
         </aside>

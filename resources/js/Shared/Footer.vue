@@ -18,6 +18,9 @@
         <li class="nav-item">
           <Link href="/faq" class="nav-link px-2 text-muted">Faq</Link>
         </li>
+        <li class="nav-item">
+            <Link href="/blockchain-transparency-program" class="nav-link px-2 text-muted">Transparency Program</Link>
+        </li>
       </ul>
     </footer>
   </div>

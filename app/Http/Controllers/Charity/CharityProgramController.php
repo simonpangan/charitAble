@@ -288,7 +288,7 @@ class CharityProgramController
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
-            ->where('charity_programs_id', $id)
+            ->where('charity_program_id', $id)
             ->get();
 
         $stats['total_donation'] = $programStats->sum('amount');
@@ -314,7 +314,7 @@ class CharityProgramController
 
         $programStats = ProgramDonation::query()
             ->select(['amount','benefactor_id'])
-            ->where('charity_programs_id', $id)
+            ->where('charity_program_id', $id)
             ->get();
 
         $stats['total_donation'] = $programStats->sum('amount');

@@ -90,7 +90,7 @@
 
 
             <!-- Title -->
-            <div id="information" class="mb-3 active">
+            <div id="information1" class="mb-3 active">
               <h4 class="h6 text-primary">C. CharitAble</h4>
             </div>
             <!-- End Title -->
@@ -107,21 +107,22 @@
           <div id="privacy" class="mb-4">
             <!-- Title -->
             <div class="mb-3">
-              <h3 class="h5">2. Privacy and copyright protection</h3>
+              <h3 class="h5">2. CharitAble Privacy Policy</h3>
             </div>
             <!-- End Title -->
-            <p>Osahanin's privacy policies explain how we treat your personal data and protect your privacy when you use our Services. By using our Services, you agree that Osahanin can use such data in accordance with our privacy policies.</p>
-            <p>We respond to notices of alleged copyright infringement and terminate accounts of repeat infringers according to the process set out in the U.S. Digital Millennium Copyright Act.</p>
-            <p>We provide information to help copyright holders manage their intellectual property online. If you think somebody is violating your copyrights and want to notify us, you can find information about submitting notices and Osahanin's policy about responding to notices in <a href="help.html">our Help Center</a>. </p>
-          </div>
-          <div id="yourContent" class="active">
-            <!-- Title -->
-            <div class="mb-3">
-              <h3 class="h5">3. Your content in our services</h3>
-            </div>
-            <!-- End Title -->
-            <p>Some of our Services allow you to upload, submit, store, send or receive content. You retain ownership of any intellectual property rights that you hold in that content. In short, what belongs to you stays yours.</p>
-            <p>When you upload, submit, store, send or receive content to or through our Services, you give Osahanin (and those we work with) a worldwide license to use, host, store, reproduce, modify, create derivative works (such as those resulting from translations, adaptations or other changes we make so that your content works better with our Services), communicate, publish, publicly perform, publicly display and distribute such content. The rights you grant in this license are for the limited purpose of operating, promoting, and improving our Services, and to develop new ones. This license continues even if you stop using our Services (for example, for a business listing you have added to Osahanin Maps). Some Services may offer you ways to access and remove content that has been provided to that Service. Also, in some of our Services, there are terms or settings that narrow the scope of our use of the content submitted in those Services. Make sure you have the necessary rights to grant us this license for any content that you submit to our Services.</p>
+            <p>CharitAble respects and honors all users data and privacy, thus we take your privacy seriously. Charitable will only utilize your said data on the following scenarios.</p>
+            <ul class="text-secondary">
+              <li class="pb-2">Utilizing your data for the improvement of the system.</li>
+              <li class="pb-2">Ensuring system function.</li>
+              <li class="pb-2">Documentation evaluation for charities.</li>
+              <li class="pb-2">Generating system reports of the user or program.</li>
+              <li class="pb-2">Interaction and connection of the benefactor and charity.</li>
+              <li class="pb-2">Withdrawal of program funds.</li>
+
+            </ul>
+            <p>Publicly identifiable information such as name are all encrypted, and stored safely in our database. CharitAble does not save any payment credentials on the database, especially credit card number and other sensitive information.</p>
+
+
           </div>
         </div>
         <div class="col-md-3">
@@ -131,22 +132,23 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="active">
-                <a class="list-group-item p-3 list-group-item-action fw-medium text-primary" href="#services">1. Using our services</a>
+                <a class="list-group-item p-3 list-group-item-action fw-medium text-primary" href="#services">1. Access and Use of the Platform</a>
                 <ul class="list-group list-group-flush py-3 ps-5">
                   <li>
-                    <a class="list-group-item-action" href="#personal-data">A. Personal Data that we collect about you</a>
+                    <a class="list-group-item-action" href="#personal-data">A. Benefactor</a>
                   </li>
                   <li class="mt-3">
-                    <a class="list-group-item-action" href="#information">B. Information that we collect automatically on our Sites</a>
+                    <a class="list-group-item-action" href="#information">B. Charity</a>
+                  </li>
+                  <li class="mt-3">
+                    <a class="list-group-item-action" href="#information1">C. CharitAble</a>
                   </li>
                 </ul>
               </li>
               <li class="list-group-item list-group-item-action p-3">
-                <a class="list-group-item-action" href="#privacy">2. Privacy and copyright protection</a>
+                <a class="list-group-item-action" href="#privacy">2. CharitAble Privacy Policy</a>
               </li>
-              <li class="list-group-item list-group-item-action p-3">
-                <a class="list-group-item-action" href="#yourContent">3. Your content in our services</a>
-              </li>
+
             </ul>
           </div>
         </div>
