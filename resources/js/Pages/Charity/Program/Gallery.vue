@@ -20,15 +20,19 @@
                     class="img-fluid img-thumbnail"
                     v-bind:src="this.program.header"
                     alt=""
+                    style="height:300px;"
+
                   />
               </div>
 
-              <div class="col-lg-6 col-md-6 col-6" v-for="(posts) in posts" :key="posts.id">
+              <div class="col-lg-6 col-md-6 col-6" v-for="(posts) in posts" :key="posts.id" >
                   <img
                     class="img-fluid img-thumbnail"
                     v-bind:src="posts.main_content_body_image"
                     alt=""
+                    style="height:300px;"
                   />
+
               </div>
             </div>
           </div>
@@ -45,5 +49,6 @@ let props = defineProps({
   program: Array,
   posts: Array,
 });
+
 </script>
 

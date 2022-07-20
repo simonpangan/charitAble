@@ -137,7 +137,7 @@
               <h6 class="mb-0">Benefactor Protections</h6>
             </div>
             <div class="card-body">
-                <p>In CharitAble, every benefactor deserves best experience. Learn more about our <a href="/blockchain-transparency-program" target="_blank" class="text-decoration-underline">blockchain transparency program works.</a></p>
+                <p>In CharitAble, every benefactor deserves best experience. Learn more about how <a href="/blockchain-transparency-program" target="_blank" class="text-decoration-underline"> our blockchain transparency program works.</a></p>
             </div>
           </div>
         </aside>

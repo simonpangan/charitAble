@@ -30,7 +30,7 @@ class CharityProgramRequest extends FormRequest
         }
 
         return [
-            'name' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:50', "regex:/^([^\"\*\\\\^<>{}_=+~|?]*)$/"],
             'description' => ['required', 'string', 'max:63000'],
             'location' => ['required', 'string', 'max:70'],
 
@@ -41,11 +41,11 @@ class CharityProgramRequest extends FormRequest
             'goals.*' => [
                 'required',
             ],
-            'goals.*.name' => [ 
+            'goals.*.name' => [
                 'required', 'string', 'max:100'
             ],
             'goals.*.date' => [
-                'required', 'date', 'after_or_equal:today', 
+                'required', 'date', 'after_or_equal:today',
             ],
 
             'expenses' => ['nullable', 'array'],
@@ -58,7 +58,7 @@ class CharityProgramRequest extends FormRequest
             'expenses.*.amount' => [
                 'required', 'int', 'min:1'
             ],
-        ];  
+        ];
     }
 
     public function attributes()
@@ -75,6 +75,8 @@ class CharityProgramRequest extends FormRequest
     {
         return [
             'goals.*.date.after_or_equal' => 'The goal date must be a date after or equal today',
-        ];  
+            'name.regex' => 'Program name has an illegal special characters ( @ , # , ^ , % , * , < , > , \ , / , { , } , ? , | , ~)',
+
+        ];
     }
 }

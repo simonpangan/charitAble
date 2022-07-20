@@ -81,11 +81,13 @@
                             type="text"
                             class="form-control"
                             v-model="form.name"
+                            placeholder="300 Tree Planting Fundraising For La Mesa Dam."
                           />
                           <span v-if="form.errors.name" v-text="form.errors.name"
                             class="invalid-feedback d-block" role="alert">
                           </span>
                         </div>
+                        <div id="program_name_help" class="form-text">Give it a pleasant and exciting name to attract benefactors.Benefactors prefer more specific and focused fundraising name.</div>
                       </div>
                     </div>
                   </div>
@@ -94,7 +96,10 @@
                       <label class="mb-1">Program Description</label>
                       <span class="text-danger">*</span>
                       <div class="position-relative">
-                        <textarea class="form-control" rows="4" v-model="form.description" />
+                        <textarea class="form-control" rows="4" v-model="form.description"
+                        placeholder="We the charity intends to plant 300 trees in La Mesa Dam to protect the decreasing green areas in Metro Manila."/>
+                        <div id="program_description_help" class="form-text">Tell benefactors more about the program.</div>
+
                         <span v-if="form.errors.description" v-text="form.errors.description"
                             class="invalid-feedback d-block" role="alert">
                         </span>
@@ -113,7 +118,9 @@
                             type="text"
                             class="form-control"
                             v-model="form.location"
-                          />
+                           placeholder="La Mesa Dam"/>
+
+
                           <span v-if="form.errors.location" v-text="form.errors.description"
                             class="invalid-feedback d-block" role="alert">
                           </span>
@@ -129,6 +136,10 @@
                 <h6 class="m-0">Goal</h6>
               </div>
               <div class="box-body px-3 pt-3 pb-0">
+                <div class="alert alert-warning" role="alert">
+                <p class="text-dark ">Goals are the desired outcomes and result that you are willing to achieve for this particular program.</p>
+                <p class="text-dark nmb-1">For every goal, there would also be a corresponding date of completion. When do you think this particular goal would be completed?</p>
+                </div>
                 <div class="row" v-for="(goal, index) in form.goals" :key="index">
                   <div class="col-sm-6">
                     <label id="FROM" class="form-label">Goal</label>
@@ -171,6 +182,13 @@
               </div>
               <div class="box-body p-3">
                 <form class="js-validate" novalidate="novalidate">
+                <div class="alert alert-warning" role="alert">
+                <p class="text-dark ">To achieve your stated goals above, what are the expenses required to achieve those?</p>
+                <p class="text-dark">Expenses amount could conservatively or aggresively estimated, depending on your preference, however it lies within your responsibility
+                    to justify the program expenses and update it to the program benefactors.
+                </p>
+                <p class="text-dark nmb-1">Benefactor could still donate to the program even though it exceeds the total program expenses.</p>
+                </div>
                   <label class="mb-1">Program Expenses <span class="text-danger">*</span></label>
                   <div class="row" v-for="(expense, index) in form.expenses" :key="index">
                     <div class="col-sm-6 mb-4">

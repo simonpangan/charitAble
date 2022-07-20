@@ -98,9 +98,9 @@
                             Download Report
                             <i class="fad fa-download ms-2"></i>
                         </a>
-                         <button type="button" class="btn btn-block btn-lg btn-warning w-100 mb-3" 
+                         <button type="button" class="btn btn-block btn-lg btn-warning w-100 mb-3"
                             data-bs-toggle="modal" data-bs-target="#withdrawModal">
-                            Withdraw Request 
+                            Withdraw Request
                         </button>
                     </div>
                     <div class="box shadow-sm border rounded bg-white mb-3">
@@ -143,7 +143,7 @@
                                     <i class="fad fa-info-circle mt-1 ms-2 text-primary"
                                     title="This is a special account for charities to conduct blockchain transaction"></i>
                                 </div>
-                                <p class="fw-light"><small>What is a blockchain, and other questions. Learn more about our <a href="#" class="text-decoration-underline">transparency blockchain program</a></small></p>
+                                <p class="fw-light"><small>What is a blockchain, and other questions. Learn more about our <a href="/blockchain-transparency-program" target="_blank" class="text-decoration-underline">transparency blockchain program</a></small></p>
                             </div>
                             <Link class="btn btn-block btn-lg btn-primary w-100 mt-5"
                                 v-if="$page.props.auth.user.roleID == 4 && program.is_active"
@@ -157,7 +157,7 @@
                     </div>
                 </aside>
                 <div class="modal fade"
-                    id="withdrawModal" tabindex="-1" 
+                    id="withdrawModal" tabindex="-1"
                     aria-labelledby="withdrawModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -220,7 +220,7 @@
                                     Send Withdraw Request
                             </Button>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
@@ -284,11 +284,11 @@ export default {
             }).then((result) => {
                 if (! result.isConfirmed) {
                     this.status = this.program.is_active;
-                    return; 
-                }  
+                    return;
+                }
 
                 Inertia.put(route('charity.program.status', {
-                        'id' : this.program.id  
+                        'id' : this.program.id
                     }), {
                         'status' : e.target.value
                     } ,{
@@ -351,7 +351,7 @@ export default {
                     });
                 }
             })
-        }, 
+        },
         cancelRequest (id) {
             Swal.fire({
                 title: 'Are you sure?',
