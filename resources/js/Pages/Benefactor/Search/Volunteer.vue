@@ -31,7 +31,7 @@
                                                 <div class="overflow-hidden mr-2">
                                                 <h6 class="font-weight-bold text-dark mb-0 text-truncate">{{ volunteerPost.name }}</h6>
                                                 <div class="text-truncate text-primary">{{ volunteerPost.charity_name }}</div>
-                                                <div class="small text-gray-500">
+                                                <div class="small text-gray-500 text-truncate">
                                                     <i class="feather-map-pin"></i> 
                                                     {{ volunteerPost.location }}
                                                 </div>
