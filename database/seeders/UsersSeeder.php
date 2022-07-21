@@ -33,10 +33,10 @@ class UsersSeeder extends Seeder
 
         $benefactor = User::firstOrCreate(
             [
-                'email' => 'simonjoseph.pangan@gmail.com',
+                'email' => 'benefactor@gmail.com',
                 'role_id' => Role::USERS['BENEFACTOR'],
                 'email_verified_at' => Carbon::now(config('app.timezone')),
-                'password' => Hash::make('simonpangan'),
+                'password' => Hash::make('benefactor'),
                 'created_at' => '2021-06-18 01:15:48',
             ]
         );
