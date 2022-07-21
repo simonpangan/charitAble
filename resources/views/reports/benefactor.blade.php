@@ -66,10 +66,6 @@
 
     <h1 class="text-center">{{ $title }}</h1>
     <p>Date: {{ $date }}</p>
-    <p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    	tempor incididunt ut labore et dolore magna aliqua.
-	</p>
 	<br />
     <h4>Your Account Information</h4>
 	<br />
