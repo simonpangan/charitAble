@@ -5,12 +5,12 @@
                 <div class="col-md-12">
                     <div class="d-flex align-items-center py-3">
                         <div class="profile-left">
-                            <h2 class="fw-bold text-dark mb-1 mt-0">
+                            <h3 class="fw-bold text-dark mb-1 mt-0">
                                 {{charity.name}} 
                                 <span class="text-info">
                                     <i data-toggle="tooltip" data-placement="top" title="Verified" class="feather-check-circle"></i>
                                 </span>
-                            </h2>
+                            </h3>
                         </div>
                         <div v-if="this.$page.props.can.seeFollowOrUnfollow" class="profile-right ms-auto">
                             <button v-if="this.$page.props.can.follow"  @click="unFollowCharity(charity.id)"
@@ -222,7 +222,7 @@ export default {
             });
         },
         unFollowCharity($id) {
-            this.$inertia.post(route('benefactor.connections.charities.destroy', {
+            this.$inertia.delete(route('benefactor.connections.charities.destroy', {
                 id: $id
             }), {}, {
                 onSuccess: () => {
