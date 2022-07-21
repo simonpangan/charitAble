@@ -35,9 +35,14 @@ class CharitySeeder extends Seeder
                     ->logo("http://i.cdn.turner.com/nba/nba/.element/img/1.0/teamsites/logos/teamlogos_500x500/" 
                         . $this->nbaTeamsLogos()[$key] . ".png")
                     ->ethAddress($this->ethAddress()[$key])
-                    ->create(['id' => $user->id]);
+                    ->create(
+                        [
+                            'id' => $user->id,
+                            'name' => $this->charities()[$key],
+                        ]
+                    );
 
-                // attach 3 categories per fake charity
+        // attach 3 categories per fake charity
                 $charity->categories()->attach(
                     $categories->random(4)
                 );
@@ -52,6 +57,43 @@ class CharitySeeder extends Seeder
             "det", "gsw", "hou", "ind", "lac", "lal", "mem", "mia", 
             "mil", "min", "nop", "nyk", "okc", "orl", "phi", "phx", 
             "por", "sac", "sas", "tor", "uta", "was",
+        ];
+    }
+
+    private function charities() 
+    {
+        return [
+            'ABS-CBN FOUNDATION INCORPORATED', 
+            'A HOME FOR THE ANGELS CHILD CARING FOUNDATION, INC.', 
+            'ASILO DE SAN VICENTE DE PAUL', 
+            'ASOCIACION DE DAMAS DE FILIPINAS INC', 
+            'ATING FAMILIA FOUNDATION, INC.', 
+            'BAHAY TULUYAN, INC.', 
+            'CASA MIANI SOMASCON FATHERS FDN, INC.', 
+            'CASA MIANI SAN JOSE', 
+            'CHILDREN\'S JOY FOUNDATION, INC.', 
+            'CHOSEN CHILDREN, INCORPORATED', 
+            'CHRISTIAN GROWTH MINISTRIES', 
+            'FRIENDSHIP HOME OF FATHER LUIS AMIGO, INCORPORATED', 
+            'GUANELLA CENTER, INC.', 
+            'LAURA VICUÑA FOUNDATION INC.', 
+            'LETO CHRISTIAN CENTER INCORPORATED', 
+            'MERITXELL CHILDREN\'S WORLD FOUNDATION, INC. ', 
+            'SUN AND MOON FOUNDATION, INC.', 
+            'TAHANAN MAPAGKALINGA NI MADRE RITA, INC.', 
+            'INTERNATIONAL NEEDS, INC.', 
+            'BAHAY SILUNGAN SA DAUNGAN', 
+            'KATIPUNAN NG MAY KAPANSANAN SA PILIPINAS, INC. ', 
+            'VINCENTIAN MISSIONARIES SOCIAL DEVELOPMENT FOUNDATION, INC', 
+            'PHILIPPINE CHILDREN\'S FUND OF AMERICA', 
+            'NATIONAL COUNCIL OF CHURCHES IN THE PHILIPPINES, INC.', 
+            'NATIONAL COUNCIL OF SOCIAL DEVELOPMENT FOUNDATION OF THE PHILIPPINES, INC.', 
+            'LOUISE DE MARILLAC FOUNDATION, INC. ', 
+            'HEALTH ALL DEVELOPMENT INTERNATIONAL (HADI) FOUNDATION, INC.', 
+            'FOUNDATION OF OUR LADY OF PEACE MISSION ', 
+            'CITIZENS\' DISASTER RESPONSE CENTER', 
+            'CHARITY FIRST FOUNDATION, INC.', 
+            'BAHAY SILUNGAN SA PALIPARAN', 
         ];
     }
 
