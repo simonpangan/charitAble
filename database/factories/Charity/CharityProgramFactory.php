@@ -19,7 +19,7 @@ class CharityProgramFactory extends Factory
          $program = [
             'name' => $this->faker->word,
             'description' => $this->faker->paragraph,
-            'location' => '1012 Sta. Maria St., Malinta, Valenzuela City',   
+            'location' => $this->faker->address,   
             'goals' => [
                 '1' => [
                     'name' => $this->faker->sentence,
