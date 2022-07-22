@@ -18,7 +18,7 @@ class CharityPostsSeeder extends Seeder
      */
     public function run()
     {
-        $benefactorID = User::where('email', 'simonjoseph.pangan@gmail.com')->first(['id'])->id;
+        $benefactorID = User::where('email', 'benefactor@gmail.com')->first(['id'])->id;
 
         // $benefactorFollowingList = CharityFollowers::query()
         //     ->where('benefactor_id', $benefactorID)->get()

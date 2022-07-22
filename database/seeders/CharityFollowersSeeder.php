@@ -18,8 +18,8 @@ class CharityFollowersSeeder extends Seeder
     public function run()
     {
         $userFollowing = array();
-        $benefactorID = User::where('email', 'simonjoseph.pangan@gmail.com')->first(['id'])->id;
-
+        $benefactorID = User::where('email', 'benefactor@gmail.com')->first(['id'])->id;
+        
   
         $charities = Charity::all('id')->pluck('id');
 
