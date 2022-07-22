@@ -133,6 +133,8 @@ class CharityProgramController
                )
         );
 
+        Auth::user()->createLog('You have created program "'.$program->name.'"');
+
         $program->update([
             'updates' => [
                 [
@@ -207,7 +209,12 @@ class CharityProgramController
             )
         );
 
+      
+
         if (! empty($program->getChanges())) {
+            
+            Auth::user()->createLog('You have updated program "'.$program->name.'"');
+
             $updates = collect($program->updates);
 
             $updates->push($program->getChanges());
@@ -235,6 +242,8 @@ class CharityProgramController
 
         ProgramDonation::where('charity_program_id', $id)->delete();
 
+        Auth::user()->createLog('You have deleted program "'.$program->name.'"');
+        
         $program->delete();
 
         return to_route('charity.program.index', Auth::id());
