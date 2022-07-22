@@ -302,7 +302,7 @@
                 max-files="1"
                 label="Click here to Upload Charity Logo"
                 allowDrop="true"
-                maxFileSize= "3MB"
+                maxFileSize= "5MB"
                 v-on:init="handleFilePondInit"
                 v-on:updatefiles="handleFilePondUpdateFiles"
                 v-on:removefile="handleRevertFilePond"
