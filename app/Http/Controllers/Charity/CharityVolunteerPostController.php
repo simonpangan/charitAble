@@ -64,6 +64,8 @@ class CharityVolunteerPostController
             ['location' => ($request->is_face_to_face == true) ? $request->location : 'Virtual'] 
         );
 
+        Auth::user()->createLog('You have created volunteer posting "'.$values['name'].'"');
+
         CharityVolunteerPost::create($values);
 
         return to_route('charity.volunteer.index', Auth::id());
@@ -110,6 +112,8 @@ class CharityVolunteerPostController
             ['location' => ($request->is_face_to_face == true) ? $request->location : 'Virtual'] 
         );
 
+        Auth::user()->createLog('You have updated volunteer posting "'.$values['name'].'"');
+
         $program->update($values);
 
         return to_route('charity.volunteer.edit', $id)
@@ -123,6 +127,8 @@ class CharityVolunteerPostController
         abort_if($volunteerPost->charity_id != Auth::id(), ResponseCode::HTTP_FORBIDDEN);
         
         VolunteerPostInterest::where('charity_volunteer_post_id', $id)->delete();
+        
+        Auth::user()->createLog('You have deleted volunteer posting "'.$volunteerPost->name.'"');
         
         $volunteerPost->delete();
 
