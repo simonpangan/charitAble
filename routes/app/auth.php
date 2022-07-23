@@ -261,13 +261,11 @@ Route::name('auth.')->group(function () {
     Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 
     Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
-        ->name('verification.send')
-        ->middleware('throttle:6,1');
+        ->name('verification.send');
 
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
         ->name('verification.verify')
-        ->where('id', '[0-9]+')
-        ->middleware(['signed','throttle:6,1']);
+        ->where('id', '[0-9]+');
 });
 
 

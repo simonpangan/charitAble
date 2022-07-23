@@ -35,6 +35,21 @@ class VerificationController extends Controller
     use RedirectTo;
 
 
+    public function __construct()
+    {
+        $app_url = config("app.url");
+        if (!empty($app_url)) {
+            $schema = explode(':', $app_url)[0];
+            if ($schema == 'https') {
+                $this->middleware('signedhttps')->only('verify');
+            } else {
+                $this->middleware('signed')->only('verify');
+            }
+        }
+
+        $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
     public function show(Request $request)
     {
         return $request->user()->hasVerifiedEmail()
